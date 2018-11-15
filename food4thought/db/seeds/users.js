@@ -1,13 +1,20 @@
-
-exports.seed = function(knex, Promise) {
+exports.seed = function (knex, Promise) {
   // Deletes ALL existing entries
-  return knex('table_name').del()
-    .then(function () {
-      // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
-      ]);
-    });
+
+  return Promise.all([
+    knex.raw("ALTER SEQUENCE users_id_seq RESTART WITH 1"),
+    knex("users").del()
+      .then(function () {
+        return Promise.all([
+          knex("users").insert({
+            username: "Remy the chef",
+            email_name: "dingus@email.com",
+            password: "I love matt damon",
+            photo_URL: "blank",
+           location: "Montreal"
+          }),
+
+        ]);
+      })
+  ]);
 };

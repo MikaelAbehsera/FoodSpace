@@ -1,13 +1,20 @@
-
-exports.seed = function(knex, Promise) {
+exports.seed = function (knex, Promise) {
   // Deletes ALL existing entries
-  return knex('table_name').del()
-    .then(function () {
-      // Inserts seed entries
-      return knex('table_name').insert([
-        {id: 1, colName: 'rowValue1'},
-        {id: 2, colName: 'rowValue2'},
-        {id: 3, colName: 'rowValue3'}
-      ]);
-    });
+
+  return Promise.all([
+    knex.raw("ALTER SEQUENCE recipes_id_seq RESTART WITH 1"),
+    knex("recipes").del()
+      .then(function () {
+        return Promise.all([
+          knex("recipes").insert({
+            name: "The Hot Bagel",
+            description: "A bagel with penut butter and hot sauce",
+            overall_ratting: 5,
+            time: 5,
+            difficulty: 1
+          }),
+
+        ]);
+      })
+  ]);
 };
