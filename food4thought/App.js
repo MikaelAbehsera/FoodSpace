@@ -1,132 +1,31 @@
-import React from 'react';
-import { Button, Image, Platform, View, Text } from 'react-native';
-import { createStackNavigator } from 'react-navigation';
+import React from "react";
+import { Button, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { createStackNavigator, createBottomTabNavigator } from "react-navigation";
 
-class LogoTitle extends React.Component {
-  render() {
-    return (
-      <Image
-        source={require('./media/cc.png')}
-        style={{ width: 30, height: 30 }}
-      />
-    );
-  }
-}
+import Home from "./screens/HomeStack/Home.js";
+import Login from "./screens/HomeStack/Login.js";
+import Register from "./screens/HomeStack/Register.js";
 
-class HomeScreen extends React.Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      headerTitle: <LogoTitle />,
-      headerRight: (
-        <Button
-          onPress={navigation.getParam('increaseCount')}
-          title="+1"
-          color={Platform.OS === 'ios' ? '#fff' : null}
-        />
-      ),
-    };
-  };
+import Search from "./screens/SearchStack/Search.js";
+import Profile from "./screens/ProfileStack/Profile.js";
 
-  componentWillMount() {
-    this.props.navigation.setParams({ increaseCount: this._increaseCount });
-  }
+const HomeStack = createStackNavigator({
+  Login: { screen: Login },
+  Register: { screen: Register },
+  Home: { screen: Home },
+});
 
-  state = {
-    count: 0,
-  };
+const SearchStack = createStackNavigator({
+  Settings: { screen: Search },
+});
 
-  _increaseCount = () => {
-    this.setState({ count: this.state.count + 1 });
-  };
+const ProfileStack = createStackNavigator({
+  Profile: { screen: Profile },
+});
 
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Home Screen</Text>
-        <Text>Count: {this.state.count}</Text>
-        <Button
-          title="Go to Details"
-          onPress={() => {
-            /* 1. Navigate to the Details route with params */
-            this.props.navigation.navigate('Details', {
-              itemId: 86,
-              otherParam: 'First Details',
-            });
-          }}
-        />
-      </View>
-    );
-  }
-}
-
-class DetailsScreen extends React.Component {
-  static navigationOptions = ({ navigation, navigationOptions }) => {
-    const { params } = navigation.state;
-
-    return {
-      title: params ? params.otherParam : 'A Nested Details Screen',
-      /* These values are used instead of the shared configuration! */
-      headerStyle: {
-        backgroundColor: navigationOptions.headerTintColor,
-      },
-      headerTintColor: navigationOptions.headerStyle.backgroundColor,
-    };
-  };
-
-  render() {
-    /* 2. Read the params from the navigation state */
-    const { params } = this.props.navigation.state;
-    const itemId = params ? params.itemId : null;
-    const otherParam = params ? params.otherParam : null;
-
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Details Screen</Text>
-        <Text>itemId: {JSON.stringify(itemId)}</Text>
-        <Text>otherParam: {JSON.stringify(otherParam)}</Text>
-        <Button
-          title="Update the title"
-          onPress={() =>
-            this.props.navigation.setParams({ otherParam: 'Updated!' })}
-        />
-        <Button
-          title="Go to Details... again"
-          onPress={() => this.props.navigation.navigate('Details')}
-        />
-        <Button
-          title="Go back"
-          onPress={() => this.props.navigation.goBack()}
-        />
-      </View>
-    );
-  }
-}
-
-const RootStack = createStackNavigator(
-  {
-    Home: {
-      screen: HomeScreen,
-    },
-    Details: {
-      screen: DetailsScreen,
-    },
-  },
-  {
-    initialRouteName: 'Home',
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: '#f4511e',
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
-    },
-  }
-);
-
-export default class App extends React.Component {
-  render() {
-    return <RootStack />;
-  }
-}
+export default createBottomTabNavigator({
+  Home: HomeStack,
+  Search: SearchStack,
+  Profile: ProfileStack,
+});
