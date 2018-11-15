@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTable("measurements", function(table) {
       table.increments()
-      table.string("measurement")
+      table.string("measure")
     })
   ])
   
