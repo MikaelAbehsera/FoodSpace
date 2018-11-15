@@ -12,7 +12,7 @@ exports.up = function(knex, Promise) {
       .on("recipes")
       .onDelete("cascade");
     })
-  ]);
+  ])
 };
 
 exports.down = function(knex, Promise) {

@@ -9,11 +9,11 @@ exports.up = function(knex, Promise) {
       table.string("profileIMG");
       table.string("location");
     })
-  ]);
+  ])
 };
 
 exports.down = function(knex, Promise) {
   return Promise.all([
     knex.schema.dropTable("users"),
-  ]);
+  ])
 };
