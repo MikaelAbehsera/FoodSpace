@@ -9,6 +9,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "dotenv": "^6.1.0",
     "expo": "^31.0.2",
     "express": "^4.16.4",
     "knex": "^0.15.2",
