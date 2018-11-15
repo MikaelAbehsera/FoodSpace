@@ -18,7 +18,7 @@ exports.up = function(knex, Promise) {
       .on("users")
       .onDelete("cascade");
     })
-  ]);
+  ])
 };
 
 exports.down = function(knex, Promise) {

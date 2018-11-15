@@ -4,13 +4,13 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable("tags", function(table) {
      
      table.integer("id")
-     table.integer("recipie_id")
+     table.integer("recipes_id")
      table.integer("category_id")
     
      table
-     .foreign("recipe_id")
+     .foreign("recipes_id")
      .references("id")
-     .on("categories")
+     .on("recipes")
      .onDelete("cascade");
 
    table

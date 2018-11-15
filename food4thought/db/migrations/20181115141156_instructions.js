@@ -9,8 +9,8 @@ exports.up = function(knex, Promise) {
 
       table
       .foreign("recipe_id")
-      .references("recipes")
-      .on("instructions")
+      .references("id")
+      .on("recipes")
       .onDelete("cascade");
  
 

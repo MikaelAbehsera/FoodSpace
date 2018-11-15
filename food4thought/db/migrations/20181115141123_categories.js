@@ -6,10 +6,8 @@ exports.up = function(knex, Promise) {
       table.string("category_name")
       table.string("description")
 
-
-
-    });
-  ]);
+    })
+  ])
   
 };
 
