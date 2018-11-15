@@ -8,10 +8,10 @@ exports.seed = function (knex, Promise) {
         return Promise.all([
           knex("users").insert({
             username: "Remy the chef",
-            email_name: "dingus@email.com",
+            email: "dingus@email.com",
             password: "I love matt damon",
-            photo_URL: "blank",
-           location: "Montreal"
+            profileIMG: "blank",
+            location: "Montreal"
           }),
 
         ]);

@@ -9,10 +9,11 @@ exports.seed = function (knex, Promise) {
           knex("recipes").insert({
             name: "The Hot Bagel",
             description: "A bagel with penut butter and hot sauce",
-            overall_ratting: 5,
+            overall_rating: 5,
             time: 5,
-            difficulty: 1
-          }),
+            difficulty: 1,
+            creator_id: 1
+          })
 
         ]);
       })
