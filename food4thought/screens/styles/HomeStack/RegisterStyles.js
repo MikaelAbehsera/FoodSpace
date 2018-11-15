@@ -1,4 +1,7 @@
-import { StyleSheet } from "react-native";
+import {
+  StyleSheet,
+  PixelRatio
+} from "react-native";
 
 
 const RegisterStyles = StyleSheet.create({
