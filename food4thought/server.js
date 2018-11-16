@@ -13,15 +13,50 @@ app.listen(PORT, () => {
 });
 
 
-    // do the things  
-    const value = this._form.getValue(); // use that ref to get the form value
+// knex("users")
+// where({email: email})
+// .then((data) => { 
+// bcrypt.compare(data.password, hash, function(err, res) {
+//  if (res === true) {
+//  setTimeout(() => { this.redirect("Home") }, 200);
+//  } else {
+//  console.log("Error")
+//   }
+//  })
+// });
 
-    // knex => users table where email matches
-    //          get password
-    //          check password matches  -> if yes redirect to home
-    //                                  -> if no ERROR PAGE
 
-    console.log('value: ', value);
-    if (value) { // if validation fails, value will be null
-    setTimeout(() => { this.redirect("Home") }, 200);
-    }
+// const bcrypt = require('bcryptjs');
+// const saltRounds = 10;
+    // // do the things  
+    // const data = this._form.getValue(); // use that ref to get the form value
+    // // console.log('date: ', data);
+
+    // // confirm password && passwordConfirmation
+    // if (data.password !== data.passwordConfirmation){
+    //   console.log('ERROR');
+    // } else {
+    //   // encrypt password and store it
+    //   var salt = bcrypt.genSaltSync(saltRounds)
+    //   const bcryptPass = bcrypt.hashSync(data.password, salt);
+    //   const newUser = [{
+    //     username: data.username,
+    //     email: data.email,
+    //     password: bcryptPass,
+    //     profileIMG: data.profilePictureURL,
+    //     location: data.location
+    //   }];
+      
+    //   console.log(newUser)
+
+    //   knex('users')
+    //     .insert(newUser)
+    //     .catch((err) => {
+    //       console.log(err);
+    //       throw err;
+    //     })
+    //     .finally(() => {
+    //       setTimeout(() => { this.redirect("Home") }, 200);
+    //     });
+
+    // }

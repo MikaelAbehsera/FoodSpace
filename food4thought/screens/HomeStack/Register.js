@@ -7,8 +7,7 @@ import RegisterStyles from "../styles/HomeStack/RegisterStyles.js";
 import t from "tcomb-form-native";
 const Form = t.form.Form;
 
-const bcrypt = require('bcryptjs');
-const saltRounds = 10;
+
 
 const Register = t.struct({
   username: t.String,
@@ -35,36 +34,7 @@ export default class RegisterScreen extends React.Component {
   handleSubmit = () => {
     // do the things  
     const data = this._form.getValue(); // use that ref to get the form value
-    // console.log('date: ', data);
-
-    // confirm password && passwordConfirmation
-    if (data.password !== data.passwordConfirmation){
-      console.log('ERROR');
-    } else {
-      // encrypt password and store it
-      var salt = bcrypt.genSaltSync(saltRounds)
-      const bcryptPass = bcrypt.hashSync(data.password, salt);
-      const newUser = [{
-        username: data.username,
-        email: data.email,
-        password: bcryptPass,
-        profileIMG: data.profilePictureURL,
-        location: data.location
-      }];
-      
-      console.log(newUser)
-
-      knex('users')
-        .insert(newUser)
-        .catch((err) => {
-          console.log(err);
-          throw err;
-        })
-        .finally(() => {
-          setTimeout(() => { this.redirect("Home") }, 200);
-        });
-
-    }
+    console.log('date: ', data);
 
   }
 

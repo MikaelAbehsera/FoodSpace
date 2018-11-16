@@ -18,7 +18,7 @@
     "moment": "^2.22.2",
     "native-base": "^2.8.1",
     "pg": "^7.6.1",
-    "react": "16.5.0",
+    "react": "^16.0.0-alpha.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-native-bcrypt": "^2.4.0",
     "react-native-image-crop-picker": "^0.21.3",
