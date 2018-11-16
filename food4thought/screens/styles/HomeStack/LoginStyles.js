@@ -2,6 +2,12 @@ import {
   StyleSheet,
   PixelRatio
 } from "react-native";
+// Import font scaler 
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from 'react-native-responsive-dimensions';
 
 const LoginStyles = StyleSheet.create({
   container: {
@@ -11,51 +17,53 @@ const LoginStyles = StyleSheet.create({
   },
   headerContainer: {
     width: "100%",
-    backgroundColor: "yellow",
-    flex: 1,
+    flex: 2,
     justifyContent: "center",
     alignItems: "center"
 
   },
   headerText: {
-    fontSize: 70,
+    fontSize: 60,
     fontWeight: "bold",
   },
   middleContainer: {
     width: "100%",
-    flex: 4,
-    backgroundColor: "red",
+    flex: 6,
     justifyContent: "center",
     alignItems: "center",
   },
   formView: {
-    flex: 1,
     width: "80%",
   },
   loginButtonView: {
-    flex: 2,
+    marginTop: 20,
+    flex: 1,
     width: "50%",
   },
+  loginButton: {
+    marginTop: 20,
+    flex: 1,
+  },
   footerContainer: {
-    backgroundColor: "lightgreen",
-    height: 60,
+    marginTop: 20,
+    marginBottom: 30,
     width: "100%",
     flexDirection: "column",
     justifyContent: "space-around",
-    marginBottom: 10,
   },
   registerTextView: {
     // set R L margins since justify content does not work
-    marginRight: "15%",
-    marginLeft: "15%",
+    marginRight: "5%",
+    marginLeft: "5%",
   },
   registerText: {
-    fontSize: 13,
+    fontSize: responsiveFontSize(2),
     fontWeight: "bold",
     // align text in center
-    alignSelf : "center"
+    alignSelf: "center"
   },
   buttonView: {
+    marginTop: 10,
     // set R L margins since justify content does not work
     marginRight: "25%",
     marginLeft: "25%",
