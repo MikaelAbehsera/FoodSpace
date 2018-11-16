@@ -11,3 +11,16 @@ app.get('/tasks', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });
+
+
+// knex("users")
+// where({email: email})
+// .then((data) => { 
+// bcrypt.compare(data.password, hash, function(err, res) {
+//  if (res === true) {
+//  setTimeout(() => { this.redirect("Home") }, 200);
+//  } else {
+//  console.log("Error")
+//   }
+//  })
+// });

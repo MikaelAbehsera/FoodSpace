@@ -4,7 +4,7 @@ import { Button, Text, View, ScrollView, KeyboardAvoidingView } from "react-nati
 import LoginStyles from "../styles/HomeStack/LoginStyles.js";
 // Import font scaler 
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
-
+const bcrypt = require('bcypt')
 import t from "tcomb-form-native";
 
 const Form = t.form.Form;
@@ -20,14 +20,14 @@ export default class LoginScreen extends React.Component {
     this.props.navigation.navigate(page)
   }
 
-  handleSubmit = () => {
-    // do the things  
+handleSubmit = () => {
     const value = this._form.getValue(); // use that ref to get the form value
     console.log('value: ', value);
     if (value) { // if validation fails, value will be null
     setTimeout(() => { this.redirect("Home") }, 200);
     }
   }
+
   
 
   render() {
