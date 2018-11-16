@@ -1,17 +1,22 @@
 const express = require('express');
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 const knex = require('knex');
 const app = express();
+const bodyParser = require("body-parser");
 require('dotenv').config()
 
+console.log("Made it to login!")
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(require("method-override")());
+
+
 app.get("/login" , (req, res) => {
-  res.send("hi mike");
-
+  console.log("login WORKS!");
+  res.send("ming");
 });
 
-app.get('/tasks', (req, res) => {
-  // use the knex variable above to create dynamic queries
-});
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);

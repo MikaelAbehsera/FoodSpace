@@ -1,0 +1,29 @@
+{
+  "name": "empty-project-template",
+  "main": "node_modules/expo/AppEntry.js",
+  "private": true,
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "eject": "expo eject"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "expo": "^31.0.2",
+    "moment": "^2.22.2",
+    "native-base": "^2.8.1",
+    "react": "^16.0.0-alpha.6",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "react-native-image-crop-picker": "^0.21.3",
+    "react-native-responsive-dimensions": "^2.0.1",
+    "react-native-router-flux": "^4.0.6",
+    "tcomb-form-native": "^0.6.20"
+  },
+  "devDependencies": {
+    "babel-preset-expo": "^5.0.0"
+  },
+  "version": "1.0.0",
+  "license": "MIT"
+}
