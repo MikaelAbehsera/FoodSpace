@@ -22,6 +22,12 @@ export default class LoginScreen extends React.Component {
 
 handleSubmit = () => {
     const value = this._form.getValue(); // use that ref to get the form value
+
+    // knex => users table where email matches
+    //          get password
+    //          check password matches  -> if yes redirect to home
+    //                                  -> if no ERROR PAGE
+
     console.log('value: ', value);
     if (value) { // if validation fails, value will be null
     setTimeout(() => { this.redirect("Home") }, 200);
@@ -51,7 +57,6 @@ handleSubmit = () => {
         </View>
 
         <View style={LoginStyles.middleContainer}>
-          <View style={{height: 200,}}></View>
           <View style={LoginStyles.formView}>
             <Form 
             ref={c => this._form = c}
@@ -71,6 +76,8 @@ handleSubmit = () => {
 
 
         <View style={LoginStyles.footerContainer}>
+          <View style={LoginStyles.deadspaceView} />
+
           <View style={LoginStyles.registerTextView}>
             <Text 
               adjustsFontSizeToFit={true}
@@ -87,6 +94,7 @@ handleSubmit = () => {
               />
             </View>
           </View>
+          
         </View>
         
         </ScrollView>

@@ -12,16 +12,17 @@ import {
 const LoginStyles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    flexDirection: "column",
+    // justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "lightblue",
+    // backgroundColor: "lightblue",
   },
   headerContainer: {
     width: "100%",
     flex: 2,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "yellow",
+    // backgroundColor: "yellow",
   },
   headerText: {
     fontSize: 60,
@@ -32,17 +33,18 @@ const LoginStyles = StyleSheet.create({
     flex: 6,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "lightgreen",
+    // backgroundColor: "lightgreen",
   },
   avoidView: {
-    flex: 1,
+    // flex: 1,
     width: "100%",
   },
   formView: {
-    width: "80%",
+    width: "90%",
   },
   loginButtonView: {
     marginTop: 20,
+    marginBottom: 20,
     flex: 1,
     width: "50%",
   },
@@ -51,11 +53,13 @@ const LoginStyles = StyleSheet.create({
     flex: 1,
   },
   footerContainer: {
-    marginTop: 20,
+    marginTop: "auto",
     marginBottom: 30,
     width: "100%",
     flexDirection: "column",
     justifyContent: "space-around",
+    // backgroundColor: "red",
+
   },
   registerTextView: {
     // set R L margins since justify content does not work
@@ -74,8 +78,13 @@ const LoginStyles = StyleSheet.create({
     marginRight: "25%",
     marginLeft: "25%",
   },
+  deadspaceView: {
+    // height: "40%",
+    // height: 300,
+    height: responsiveHeight(10),
+  },
   registerButton: {
-
+    marginBottom: 15,
   }
 });
 
