@@ -13,7 +13,7 @@ app.use(require("method-override")());
 
 
 app.post("/login" , (req, res) => {
-  console.log("this is our reqqqqq", req)
+  console.log("this is our reqqqqq", req.body);
 });
 
 
