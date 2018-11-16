@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Button, Text, View, ScrollView } from "react-native";
+import { Button, Text, View, ScrollView, KeyboardAvoidingView } from "react-native";
 // Import login styles module
 import LoginStyles from "../styles/HomeStack/LoginStyles.js";
 // Import font scaler 
@@ -44,13 +44,14 @@ export default class LoginScreen extends React.Component {
     };
     return (
       <View style={LoginStyles.container} >
+        <ScrollView style={LoginScreen.avoidView} >
 
         <View style={LoginStyles.headerContainer}>
           <Text style={LoginStyles.headerText} >Login</Text>
         </View>
 
         <View style={LoginStyles.middleContainer}>
-
+          <View style={{height: 200,}}></View>
           <View style={LoginStyles.formView}>
             <Form 
             ref={c => this._form = c}
@@ -87,7 +88,8 @@ export default class LoginScreen extends React.Component {
             </View>
           </View>
         </View>
-
+        
+        </ScrollView>
       </View>
     );
   }

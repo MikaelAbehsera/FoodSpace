@@ -13,14 +13,15 @@ const RegisterStyles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: "lightblue",
   },
   headerContainer: {
     width: "100%",
     flex: 2,
     justifyContent: "center",
-    alignItems: "center"
-
+    alignItems: "center",
+    backgroundColor: "yellow",
   },
   headerText: {
     fontSize: 60,
@@ -31,6 +32,7 @@ const RegisterStyles = StyleSheet.create({
     flex: 6,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "lightgreen",
   },
   formView: {
     width: "80%",

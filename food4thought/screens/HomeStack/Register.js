@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Text, View } from "react-native";
+import { Button, Text, View, ScrollView } from "react-native";
 import RegisterStyles from "../styles/HomeStack/RegisterStyles.js";
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 import moment from "moment";
@@ -7,21 +7,14 @@ import moment from "moment";
 import t from "tcomb-form-native";
 const Form = t.form.Form;
 
-const Login = t.struct({
+const Register = t.struct({
   name: t.String,
   email: t.String,
   password: t.String,
-  birthDate: t.Date,
-
-  // birthDate: t.Date, // is not working not sure why 
-  // rememberMe: t.maybe(t.Boolean),
 });
 
 var options = {
   fields: {
-    birthDate: {
-      mode: 'date' // display the Date field as a DatePickerAndroid
-    }
   }
 };
 
@@ -29,12 +22,14 @@ export default class RegisterScreen extends React.Component {
   handleSubmit = () => {
     // do the things  
     const value = this._form.getValue(); // use that ref to get the form value
-    console.log('value: ', value);
+    console.log('date: ', value);
   }
 
   render() {
     return (
       <View style={RegisterStyles.container} >
+      {/* <ScrollView> */}
+
 
         <View style={RegisterStyles.headerContainer}>
           <Text style={RegisterStyles.headerText} >Register</Text>
@@ -45,13 +40,14 @@ export default class RegisterScreen extends React.Component {
           <View style={RegisterStyles.formView}>
             <Form 
             ref={c => this._form = c}
-            type={Login}
+            type={Register}
             options={options} 
             /> 
           </View>
 
         </View>
 
+    {/* </ScrollView> */}
 
         <View style={RegisterStyles.footerContainer}>
           <View style={RegisterStyles.registerTextView}>
