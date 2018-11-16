@@ -12,9 +12,8 @@ app.use(bodyParser.json());
 app.use(require("method-override")());
 
 
-app.get("/login" , (req, res) => {
-  console.log("login WORKS!");
-  res.send("ming");
+app.post("/login" , (req, res) => {
+  console.log("this is our reqqqqq", req)
 });
 
 
