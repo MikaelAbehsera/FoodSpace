@@ -13,11 +13,22 @@ app.use(require("method-override")());
 
 
 app.post("/login" , (req, res) => {
-  console.log("this is our reqqqqq", req)
-});
+  const email =  req.body.email
+  const password = req.password.password
+  // knex("users")
+  // where({email: email})
+  if (true) {
+  // bcrypt.compare(data.password, hash, function(err, res) {
+    //  if (res === true) {
+     setTimeout(() => { this.redirect("Home") }, 200);
+      } else {
+    console.log("Error")
+     }
+     })
 
 
 app.listen(PORT, () => {
+
   console.log(`Listening on port: ${PORT}`);
 });
 
