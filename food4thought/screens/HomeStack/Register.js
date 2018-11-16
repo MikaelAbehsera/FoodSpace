@@ -7,7 +7,7 @@ import RegisterStyles from "../styles/HomeStack/RegisterStyles.js";
 import t from "tcomb-form-native";
 const Form = t.form.Form;
 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 const Register = t.struct({
@@ -42,7 +42,8 @@ export default class RegisterScreen extends React.Component {
       console.log('ERROR');
     } else {
       // encrypt password and store it
-      const bcryptPass = bcrypt.hashSync(data.password, saltRounds);
+      var salt = bcrypt.genSaltSync(saltRounds)
+      const bcryptPass = bcrypt.hashSync(data.password, salt);
       const newUser = [{
         username: data.username,
         email: data.email,
@@ -51,6 +52,8 @@ export default class RegisterScreen extends React.Component {
         location: data.location
       }];
       
+      console.log(newUser)
+
       knex('users')
         .insert(newUser)
         .catch((err) => {
