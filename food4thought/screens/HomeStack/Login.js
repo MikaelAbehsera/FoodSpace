@@ -23,6 +23,12 @@ export default class LoginScreen extends React.Component {
   handleSubmit = () => {
     // do the things  
     const value = this._form.getValue(); // use that ref to get the form value
+
+    // knex => users table where email matches
+    //          get password
+    //          check password matches  -> if yes redirect to home
+    //                                  -> if no ERROR PAGE
+
     console.log('value: ', value);
     if (value) { // if validation fails, value will be null
     setTimeout(() => { this.redirect("Home") }, 200);
