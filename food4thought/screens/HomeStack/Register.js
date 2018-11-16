@@ -7,6 +7,9 @@ import moment from "moment";
 import t from "tcomb-form-native";
 const Form = t.form.Form;
 
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 const Register = t.struct({
   name: t.String,
   email: t.String,
@@ -21,8 +24,35 @@ var options = {
 export default class RegisterScreen extends React.Component {
   handleSubmit = () => {
     // do the things  
-    const value = this._form.getValue(); // use that ref to get the form value
-    console.log('date: ', value);
+    const data = this._form.getValue(); // use that ref to get the form value
+    // console.log('date: ', data);
+
+    // confirm password && passwordConfirmation
+    if (data.password !== data.passwordConfirmation){
+      console.log('ERROR');
+    } else {
+      // encrypt password and store it
+      const bcryptPass = bcrypt.hashSync(data.password, saltRounds);
+      const newUser = [{
+        username: data.username,
+        email: data.email,
+        password: bcryptPass,
+        profileIMG: data.profilePictureURL,
+        location: data.location
+      }];
+      
+      knex('users')
+        .insert(newUser)
+        .catch((err) => {
+          console.log(err);
+          throw err;
+        })
+        .finally(() => {
+          setTimeout(() => { this.redirect("Home") }, 200);
+        });
+
+    }
+
   }
 
   render() {
