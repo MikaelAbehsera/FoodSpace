@@ -8,7 +8,7 @@ import t from "tcomb-form-native";
 import axios from "axios";
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://e9d70d90.ngrok.io/login";
+const currentHostedLink = "http://1a051edb.ngrok.io/login";
 ///////////////////////////////////////////////////////////////
 
 
@@ -16,7 +16,6 @@ const Form = t.form.Form;
 const Login = t.struct({
   email: t.String,
   password: t.String,
-  // rememberMe: t.maybe(t.Boolean),
 });
 
 export default class LoginScreen extends React.Component {
@@ -32,8 +31,8 @@ export default class LoginScreen extends React.Component {
     if (value) { // if validation fails, value will be null
       // setTimeout(() => { this.redirect("Home") }, 200);
     }
-
-    axios.get(currentHostedLink)
+    // post user information to backend /login route
+    axios.post(currentHostedLink, value)
     .then(function (response) {
       console.log(response);
     })
