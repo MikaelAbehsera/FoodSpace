@@ -34,7 +34,7 @@ export default class LoginScreen extends React.Component {
     // post user information to backend /login route
     axios.post(currentHostedLink, value)
     .then(function (response) {
-      console.log(response);
+      console.log("THIS IS MY RESPONSE - MATT DAMON", JSON.parse(response.data.id));
     })
     .catch(function (error) {
       console.log(error);

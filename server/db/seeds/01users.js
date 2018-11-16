@@ -13,6 +13,13 @@ exports.seed = function (knex, Promise) {
             profileIMG: "blank",
             location: "Montreal"
           }),
+          knex("users").insert({
+            username: "Remy the chef",
+            email: "u@gmail.com",
+            password: "p",
+            profileIMG: "blank",
+            location: "Montreal"
+          }),
 
         ]);
       })

@@ -1,9 +1,12 @@
 const express = require('express');
+const environment = 'development';
+const config = require('./knexfile.js')[environment];
 const PORT = process.env.PORT || 3000;
-const knex = require('knex');
+const knex = require('knex')(config);
 const app = express();
 const bodyParser = require("body-parser");
 require('dotenv').config()
+
 
 console.log("Made it to login!")
 
@@ -13,18 +16,17 @@ app.use(require("method-override")());
 
 
 app.post("/login" , (req, res) => {
-  const email =  req.body.email
-  const password = req.password.password
-  // knex("users")
-  // where({email: email})
-  if (true) {
-  // bcrypt.compare(data.password, hash, function(err, res) {
-    //  if (res === true) {
-     setTimeout(() => { this.redirect("Home") }, 200);
-      } else {
-    console.log("Error")
-     }
-     })
+  const email =  req.body.email;
+  const password = req.body.password;
+
+  knex("users")
+    .where({email: email})
+    .then((data) => { 
+      if(data[0].password === password) {
+        res.json({id: data[0].id});
+      }
+    });
+});
 
 
 app.listen(PORT, () => {
