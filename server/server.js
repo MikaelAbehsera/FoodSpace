@@ -5,6 +5,7 @@ const app = express();
 require('dotenv').config()
 
 app.get("/login" , (req, res) => {
+  res.send("hi mike");
 
 });
 
