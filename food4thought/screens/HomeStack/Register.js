@@ -1,20 +1,30 @@
 import React, { Component } from "react";
 import { Button, Text, View, ScrollView } from "react-native";
 import RegisterStyles from "../styles/HomeStack/RegisterStyles.js";
-import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
-import moment from "moment";
+// import { ImageFactory } from "react-native-image-picker-form";
+
 // Import tcomb form schema
 import t from "tcomb-form-native";
 const Form = t.form.Form;
 
 const Register = t.struct({
-  name: t.String,
+  username: t.String,
   email: t.String,
+  profilePictureUrl: t.maybe(t.String),
+  location: t.String,
   password: t.String,
 });
 
 var options = {
   fields: {
+    password: {
+      password: true,
+      secureTextEntry: true,
+      },
+    passwordConfirmation: {
+      password: true,
+      secureTextEntry: true,
+      },
   }
 };
 
@@ -28,8 +38,8 @@ export default class RegisterScreen extends React.Component {
   render() {
     return (
       <View style={RegisterStyles.container} >
-      {/* <ScrollView> */}
 
+      <ScrollView style={RegisterStyles.scrollContainer} >
 
         <View style={RegisterStyles.headerContainer}>
           <Text style={RegisterStyles.headerText} >Register</Text>
@@ -47,7 +57,7 @@ export default class RegisterScreen extends React.Component {
 
         </View>
 
-    {/* </ScrollView> */}
+    </ScrollView>
 
         <View style={RegisterStyles.footerContainer}>
           <View style={RegisterStyles.registerTextView}>

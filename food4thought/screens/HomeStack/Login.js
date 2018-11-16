@@ -51,7 +51,6 @@ export default class LoginScreen extends React.Component {
         </View>
 
         <View style={LoginStyles.middleContainer}>
-          <View style={{height: 200,}}></View>
           <View style={LoginStyles.formView}>
             <Form 
             ref={c => this._form = c}
@@ -71,6 +70,8 @@ export default class LoginScreen extends React.Component {
 
 
         <View style={LoginStyles.footerContainer}>
+          <View style={LoginStyles.deadspaceView} />
+
           <View style={LoginStyles.registerTextView}>
             <Text 
               adjustsFontSizeToFit={true}
@@ -87,6 +88,7 @@ export default class LoginScreen extends React.Component {
               />
             </View>
           </View>
+          
         </View>
         
         </ScrollView>
