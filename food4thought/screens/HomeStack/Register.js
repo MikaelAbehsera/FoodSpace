@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Button, Text, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 
-import RegisterStyles from "../styles/HomeStack/RegisterStyle.js";
+import RegisterStyles from "../styles/HomeStack/RegisterStyles.js";
 
 export default class RegisterScreen extends React.Component {
   render() {
