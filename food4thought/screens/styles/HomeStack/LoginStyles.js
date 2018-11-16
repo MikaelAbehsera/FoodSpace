@@ -9,21 +9,40 @@ const LoginStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center"
   },
-  titleView: {
-    backgroundColor: "lightblue",
+  headerContainer: {
+    width: "100%",
+    backgroundColor: "yellow",
     flex: 1,
     justifyContent: "center",
     alignItems: "center"
 
   },
-  registerView: {
+  headerText: {
+    fontSize: 70,
+    fontWeight: "bold",
+  },
+  middleContainer: {
+    width: "100%",
+    flex: 4,
     backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  formView: {
+    flex: 1,
+    width: "80%",
+  },
+  loginButtonView: {
+    flex: 2,
+    width: "50%",
+  },
+  footerContainer: {
+    backgroundColor: "lightgreen",
     height: 60,
     width: "100%",
     flexDirection: "column",
     justifyContent: "space-around",
-    marginTop: 30,
-    marginBottom: 30,
+    marginBottom: 10,
   },
   registerTextView: {
     // set R L margins since justify content does not work
