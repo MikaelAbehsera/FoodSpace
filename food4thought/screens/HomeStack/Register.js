@@ -13,9 +13,6 @@ const Register = t.struct({
   profilePictureUrl: t.maybe(t.String),
   location: t.String,
   password: t.String,
-  passwordConfirmation: t.String,
-
-
 });
 
 var options = {
@@ -41,8 +38,8 @@ export default class RegisterScreen extends React.Component {
   render() {
     return (
       <View style={RegisterStyles.container} >
-      {/* <ScrollView> */}
 
+      <ScrollView style={RegisterStyles.scrollContainer} >
 
         <View style={RegisterStyles.headerContainer}>
           <Text style={RegisterStyles.headerText} >Register</Text>
@@ -60,7 +57,7 @@ export default class RegisterScreen extends React.Component {
 
         </View>
 
-    {/* </ScrollView> */}
+    </ScrollView>
 
         <View style={RegisterStyles.footerContainer}>
           <View style={RegisterStyles.registerTextView}>

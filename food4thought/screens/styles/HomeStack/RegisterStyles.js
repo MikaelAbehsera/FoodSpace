@@ -12,16 +12,20 @@ import {
 const RegisterStyles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "lightblue",
+    // backgroundColor: "lightblue",
+  },
+  scrollContainer: {
+    width: "100%",
+    flex: 1,
   },
   headerContainer: {
     width: "100%",
     flex: 2,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "yellow",
+    // backgroundColor: "yellow",
   },
   headerText: {
     fontSize: 60,
@@ -32,7 +36,7 @@ const RegisterStyles = StyleSheet.create({
     flex: 6,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "lightgreen",
+    // backgroundColor: "lightgreen",
   },
   formView: {
     width: "80%",
@@ -50,8 +54,6 @@ const RegisterStyles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 30,
     width: "100%",
-    flexDirection: "column",
-    justifyContent: "space-around",
   },
   registerTextView: {
     // set R L margins since justify content does not work
