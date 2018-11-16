@@ -5,6 +5,8 @@ exports.up = function(knex, Promise) {
       table.increments();
       table.integer("recipes_id");
       table.string("suggest_text");
+      table.integer("plus")
+      table.integer("minus")
 
       table
       .foreign("recipes_id")
