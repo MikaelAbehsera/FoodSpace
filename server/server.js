@@ -82,6 +82,13 @@ app.post("/login" , (req, res) => {
 
 app.post("/create" , (req, res) => {
   // creates new recipe
+  knex("recipies")
+  .insert({})
+  .returning()
+  .then((id) => {
+    
+
+  })
 
 });
 
@@ -131,7 +138,28 @@ app.get("/profile" , (req, res) => {
 
 
 app.post("/fave" , (req, res) => {
-// add recipe to users faves
+const userId = req.body.user_id
+const recipeid = req.body.recpies_id
+const check = req.body.check
+
+const favRecipesAdd = {
+  user_id: userId,
+  recipes_id: recipeid 
+}
+if (check === true) {
+  knex("faves")
+  .insert(favRecipesAdd)
+  .then(() => {
+    res.json({sucsess: true})
+  })
+} else {
+  knex("faves")
+  .where({user_id: userId, recipes_id: recipeid})
+  .del()
+  .then(() => {
+    res.json({sucsess: true})
+  })
+}
 
 });
 
