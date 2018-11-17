@@ -4,7 +4,6 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable("ingredients", function(table) {
       table.increments()
       table.integer("recipes_id")
-      table.integer("measurement_id")
       table.string("food_type")
       table.string("quantity")
       
@@ -14,11 +13,7 @@ exports.up = function(knex, Promise) {
       .on("recipes")
       .onDelete("cascade");
  
-    table
-      .foreign("measurement_id")
-      .references("id")
-      .on("measurements")
-      .onDelete("cascade");
+
     })
   ])
   
