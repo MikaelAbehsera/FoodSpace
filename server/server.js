@@ -14,6 +14,40 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(require("method-override")());
 
+app.listen(PORT, () => {
+  console.log(`Listening on port: ${PORT}`);
+});
+
+
+
+app.post("/register" , (req, res) => {
+
+  if (req.body.password !== req.body.passwordConfirmation){
+    // confirm password && passwordConfirmation
+    console.log('ERROR');
+  } else {
+    // encrypt password and store it
+    const newUser = [{
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+      profileIMG: req.body.profilePictureURL,
+      location: req.body.location
+    }];
+    
+    console.log(newUser)
+
+    knex('users')
+      .insert(newUser)
+      .returning("id")
+      .then((id) => {
+        res.json({id: id[0], success: true});
+        res.status(200);
+      })
+
+  }
+});
+
 
 app.post("/login" , (req, res) => {
   const email =  req.body.email;
@@ -33,17 +67,53 @@ app.post("/login" , (req, res) => {
       } else {
         console.log("USER LOGIN BAD BAD");
         res.json({id: "-1", success: false});
-        res.status(200);
+        res.status(403);
       }
     });
 });
 
 
-app.listen(PORT, () => {
-  console.log(`Listening on port: ${PORT}`);
+app.post("/create" , (req, res) => {
+  // creates new recipe
+
 });
 
 
+app.get("/recipe_list" , (req, res) => {
+  // knex
+  //   .select("*")
+  //   .from()
+  //   .innerJoin()
+
+
+
+
+});
+
+app.get("/recipe_details" , (req, res) => {
+
+});
+
+app.get("/profile" , (req, res) => {
+// user info
+});
+
+
+
+app.post("/fave" , (req, res) => {
+// add recipe to users faves
+
+});
+
+app.post("/mealmade" , (req, res) => {
+// add recipe to users mealmade
+});
+
+
+
+
+
+  
 // knex("users")
 // where({email: email})
 // .then((data) => { 
@@ -56,38 +126,3 @@ app.listen(PORT, () => {
 //  })
 // });
 
-
-// const bcrypt = require('bcryptjs');
-// const saltRounds = 10;
-    // // do the things  
-    // const data = this._form.getValue(); // use that ref to get the form value
-    // // console.log('date: ', data);
-
-    // // confirm password && passwordConfirmation
-    // if (data.password !== data.passwordConfirmation){
-    //   console.log('ERROR');
-    // } else {
-    //   // encrypt password and store it
-    //   var salt = bcrypt.genSaltSync(saltRounds)
-    //   const bcryptPass = bcrypt.hashSync(data.password, salt);
-    //   const newUser = [{
-    //     username: data.username,
-    //     email: data.email,
-    //     password: bcryptPass,
-    //     profileIMG: data.profilePictureURL,
-    //     location: data.location
-    //   }];
-      
-    //   console.log(newUser)
-
-    //   knex('users')
-    //     .insert(newUser)
-    //     .catch((err) => {
-    //       console.log(err);
-    //       throw err;
-    //     })
-    //     .finally(() => {
-    //       setTimeout(() => { this.redirect("Home") }, 200);
-    //     });
-
-    // }

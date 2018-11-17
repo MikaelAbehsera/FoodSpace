@@ -13,6 +13,15 @@ exports.seed = function (knex, Promise) {
             time: 5,
             difficulty: 1,
             creator_id: 1
+          }),
+
+          knex("recipes").insert({
+            name: "Meatloaf",
+            description: "meat in a loaf with some veggies",
+            overall_rating: 5,
+            time: 45,
+            difficulty: 3,
+            creator_id: 2
           })
 
         ]);

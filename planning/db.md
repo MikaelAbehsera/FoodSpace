@@ -18,12 +18,21 @@
 ## Recipes
 
 recipe1 = {
-  name: "The Hot Bagel",
+  name: "The Hot Bagel"
   description: " A bagel with penut butter and hot sauce",
   overall_ratting: 5,
   time: 5, 
   difficulty: 1,
 }
+
+knex("recipes").insert({
+  name: "Meatloaf",
+  description: "meat in a loaf with some veggies,
+  overall_rating: 5,
+  time: 45,
+  difficulty: 3,
+  creator_id: 2
+})
 
 ## reviews 
 
@@ -74,6 +83,46 @@ ingredients3 = {
   mesurment_id: 10,
 }
 
+
+
+knex("ingredients").insert({
+  recipes_id: 2,
+  measurement_id: 10,
+  food_type: "mince meat", 
+  quantity: 1
+})
+
+knex("ingredients").insert({
+  recipes_id: 2,
+  measurement_id: 10,
+  food_type: "bread", 
+  quantity: 1
+})
+
+knex("ingredients").insert({
+  recipes_id: 2,
+  measurement_id: 10,
+  food_type: "carrots", 
+  quantity: 3
+})
+
+knex("ingredients").insert({
+  recipes_id: 2,
+  measurement_id: 7,
+  food_type: "milk", 
+  quantity: 20
+})
+
+knex("ingredients").insert({
+  recipes_id: 2,
+  measurement_id: 11,
+  food_type: "egg", 
+  quantity: 1
+})
+          
+
+
+
 ## instructions
 
 instructions = {
@@ -104,6 +153,40 @@ instructions = {
   recipe_id: 1, 
   step_number: 5,
   step_description: "Enjoy with a hot cup of coffee :)"
+}
+
+
+
+
+
+instructions = {
+  recipe_id: 2, 
+  step_number: 1,
+  step_description: "boil the carrots til soft and put them aside - keep the water."
+}
+
+instructions = {
+  recipe_id: 2, 
+  step_number: 2,
+  step_description: "break the bread up and mix with milk until mushy, add water from carrot boil if need be."
+}
+
+instructions = {
+  recipe_id: 2, 
+  step_number: 3,
+  step_description: "Mix the meat and the carrots into the bread mush."
+}
+
+instructions = {
+  recipe_id: 2, 
+  step_number: 4,
+  step_description: "Season with salt and pepper - mix until homogeneous."
+}
+
+instructions = {
+  recipe_id: 2, 
+  step_number: 5,
+  step_description: "Cook in bread pan, optional: topped with ketchup/tomatoe paste, for 1hr."
 }
 
 

@@ -13,13 +13,15 @@ exports.seed = function (knex, Promise) {
             profileIMG: "blank",
             location: "Montreal"
           }),
+          
           knex("users").insert({
-            username: "Remy the chef",
-            email: "u@gmail.com",
-            password: "p",
+            username: "Jamie Perron",
+            email: "imagination@gmail.com",
+            password: "something_secret",
             profileIMG: "blank",
             location: "Montreal"
           }),
+
           knex("users").insert({
             username: "Matt Damon",
             email: "U@e.com",

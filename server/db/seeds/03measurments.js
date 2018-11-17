@@ -34,7 +34,10 @@ exports.seed = function (knex, Promise) {
             measure: "pound"
           }),
           knex("measurements").insert({
-            measure: "g",
+            measure: "grams",
+          }),
+          knex("measurements").insert({
+            measure: " ",
           }),
 
         ]);
