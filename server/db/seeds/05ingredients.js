@@ -9,49 +9,49 @@ exports.seed = function(knex, Promise) {
           knex("ingredients").insert({
             recipes_id: 1,
             food_type: "hot sauce", 
-            quantity: 3
+            quantity: "3"
           }),
 
           knex("ingredients").insert({
             recipes_id: 1,
             food_type: "bagel", 
-            quantity: 10
+            quantity: "1"
           }),
 
           knex("ingredients").insert({
             recipes_id: 1,
             food_type: "peanut butter", 
-            quantity: 7
+            quantity: "7"
           }),
 
           knex("ingredients").insert({
             recipes_id: 2,
             food_type: "mince meat", 
-            quantity: 1
+            quantity: "1"
           }),
           
           knex("ingredients").insert({
             recipes_id: 2,
             food_type: "bread", 
-            quantity: 1
+            quantity: "1"
           }),
           
           knex("ingredients").insert({
             recipes_id: 2,
             food_type: "carrots", 
-            quantity: 3
+            quantity: "3"
           }),
           
           knex("ingredients").insert({
             recipes_id: 2,
             food_type: "milk", 
-            quantity: 20
+            quantity: "2"
           }),
           
           knex("ingredients").insert({
             recipes_id: 2,
             food_type: "egg", 
-            quantity: 1
+            quantity: "1"
           })
           
         ]);
