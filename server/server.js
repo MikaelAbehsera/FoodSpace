@@ -124,7 +124,7 @@ app.get("/profile" , (req, res) => {
       console.log(data)
     })
     
-    // to display all of recipes created by the user
+  // to display all of recipes created by the user
 
 });
 
