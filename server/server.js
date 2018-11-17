@@ -119,7 +119,7 @@ app.get("/profile" , (req, res) => {
     .innerJoin("recipes", "users.id", "creator_id") 
     .innerJoin("faves", "users.id", "faves.user_id")
     
-    // to display all of recipes created by the user
+  // to display all of recipes created by the user
 
 });
 

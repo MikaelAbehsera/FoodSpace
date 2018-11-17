@@ -25,7 +25,8 @@ const ProfileStack = createStackNavigator({
 });
 
 export default createBottomTabNavigator({
-  Home: HomeStack,
+  //home should be at top!
   Search: SearchStack,
+  Home: HomeStack,
   Profile: ProfileStack,
 });
