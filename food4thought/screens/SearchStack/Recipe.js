@@ -20,7 +20,7 @@ export default class Recipe extends React.Component {
           <View style={RecipeStyles.imgView} >
             <Image source={{ uri: this.props.recipe.recipeIMG }} style={RecipeStyles.img} />
           </View>
-          
+
         </View>
 
         <View style={RecipeStyles.rightView}>
@@ -36,7 +36,11 @@ export default class Recipe extends React.Component {
             </View>
 
           </View>
+
           <View style={RecipeStyles.footer} >
+            <View style={ RecipeStyles.descriptionView } >
+              <Text style={ RecipeStyles.description } > { this.props.recipe.description } </Text>
+            </View>
           </View>
 
         </View>

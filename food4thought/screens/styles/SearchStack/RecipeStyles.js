@@ -37,6 +37,17 @@ const HomeStyles = StyleSheet.create({
     height: 130,
     borderWidth: 2,
     borderColor: "blue",
+    flexDirection: "row",    
+  },
+  overall_rating: {
+    flex:1,
+    borderWidth: 2,
+    borderColor: "red",
+  },
+  time: {
+    flex:1,
+    borderWidth: 2,
+    borderColor: "blue",
   },
   footer: {
     flex:1,
