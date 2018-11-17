@@ -4,19 +4,37 @@ import { Button, Text, View, ScrollView, KeyboardAvoidingView, AsyncStorage } fr
 import LoginStyles from "../styles/HomeStack/LoginStyles.js";
 // Import font scaler 
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
-import t from "tcomb-form-native";
 import axios from "axios";
 
+import t from "tcomb-form-native";
+const Form = t.form.Form;
+
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://1a051edb.ngrok.io/login";
+const currentHostedLink = "http://2f92c577.ngrok.io";
 ///////////////////////////////////////////////////////////////
 
 
-const Form = t.form.Form;
+
+
 const Login = t.struct({
   email: t.String,
   password: t.String,
 });
+
+const options = {
+  fields: {
+    email: {
+      error: 'Without an email address how are you going to reset your password when you forget it?'
+    },
+    password: {
+      error: 'Choose something you use on a dozen other sites or something you won\'t remember',
+      password: true,
+      secureTextEntry: true,
+    },
+  },
+}
+
+
 
 export default class LoginScreen extends React.Component {
   constructor(props) {
@@ -32,9 +50,11 @@ export default class LoginScreen extends React.Component {
 
   //things to do
   // login.js => line 45 - 55, depending on response change status text
-  // server.js => line 22 - 38, send relevant response for good and bad passwords
-  // server.js => line 36, change status to be relevant aka not 200 for failed auth
   // maybe store the password using the keychain store?
+
+
+  //notes
+  // every time we access a page, check for id or username + password (depending on what works)
 
   handleSubmit = () => {
     const value = this._form.getValue(); // use that ref to get the form value
@@ -67,17 +87,6 @@ export default class LoginScreen extends React.Component {
 
 
   render() {
-
-    const options = {
-      fields: {
-        email: {
-          error: 'Without an email address how are you going to reset your password when you forget it?'
-        },
-        password: {
-          error: 'Choose something you use on a dozen other sites or something you won\'t remember'
-        },
-      },
-    };
     return (
       <View style={LoginStyles.container} >
         <ScrollView style={LoginScreen.avoidView} >
