@@ -162,7 +162,7 @@ exports.seed = function (knex, Promise) {
             time: 45,
             difficulty: 3,
             creator_id: 2
-          }),
+          })
 
 
 
