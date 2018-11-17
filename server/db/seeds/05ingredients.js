@@ -8,56 +8,48 @@ exports.seed = function(knex, Promise) {
         return Promise.all([
           knex("ingredients").insert({
             recipes_id: 1,
-            measurement_id: 3,
             food_type: "hot sauce", 
             quantity: 3
           }),
 
           knex("ingredients").insert({
             recipes_id: 1,
-            measurement_id: 2,
             food_type: "bagel", 
             quantity: 10
           }),
 
           knex("ingredients").insert({
             recipes_id: 1,
-            measurement_id: 3,
             food_type: "peanut butter", 
             quantity: 7
           }),
 
           knex("ingredients").insert({
             recipes_id: 2,
-            measurement_id: 10,
             food_type: "mince meat", 
             quantity: 1
           }),
           
           knex("ingredients").insert({
             recipes_id: 2,
-            measurement_id: 10,
             food_type: "bread", 
             quantity: 1
           }),
           
           knex("ingredients").insert({
             recipes_id: 2,
-            measurement_id: 10,
             food_type: "carrots", 
             quantity: 3
           }),
           
           knex("ingredients").insert({
             recipes_id: 2,
-            measurement_id: 7,
             food_type: "milk", 
             quantity: 20
           }),
           
           knex("ingredients").insert({
             recipes_id: 2,
-            measurement_id: 11,
             food_type: "egg", 
             quantity: 1
           })
