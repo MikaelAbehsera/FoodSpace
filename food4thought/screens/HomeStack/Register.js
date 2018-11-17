@@ -7,6 +7,9 @@ import RegisterStyles from "../styles/HomeStack/RegisterStyles.js";
 import t from "tcomb-form-native";
 const Form = t.form.Form;
 
+///////////////// Ngrok Link ///////////////////////////////////
+const currentHostedLink = "http://2f92c577.ngrok.io";
+///////////////////////////////////////////////////////////////
 
 
 const Register = t.struct({
