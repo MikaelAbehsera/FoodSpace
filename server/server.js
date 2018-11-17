@@ -108,6 +108,16 @@ app.get("/recipe_list" , (req, res) => {
 });
 
 app.get("/recipe_details" , (req, res) => {
+   knex
+   .select("*")
+   .from('Recipes')
+   .innerJoin("instructions", "instructions.recipe_id", "recipes.id")
+   .innerJoin("ingredients", "ingredients.recipes_id",  "recipes.id")
+   .innerJoin("measurements", "measurement.id", "ingredients.measurement_id")
+   .then((recipeDeatails) => {
+
+
+   })
 
 });
 
