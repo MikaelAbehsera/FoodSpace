@@ -33,7 +33,7 @@ export default class LoginScreen extends React.Component {
   //things to do
   // login.js => line 45 - 55, depending on response change status text
   // server.js => line 22 - 38, send relevant response for good and bad passwords
-
+  // server.js => line 36, change status to be relevant aka not 200 for failed auth
 
   handleSubmit = () => {
     const value = this._form.getValue(); // use that ref to get the form value
