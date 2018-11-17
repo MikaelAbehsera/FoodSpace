@@ -82,6 +82,13 @@ app.post("/login" , (req, res) => {
 
 app.post("/create" , (req, res) => {
   // creates new recipe
+  knex("recipies")
+  .insert({})
+  .returning()
+  .then((id) => {
+    
+
+  })
 
 });
 
