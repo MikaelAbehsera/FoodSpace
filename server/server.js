@@ -85,13 +85,13 @@ app.post("/create" , (req, res) => {
 
 });
 
-
 app.get("/recipe_list" , (req, res) => {
   knex
     .select("*")
     .from("recipes")
     .innerJoin("tags", "recipes.id", "tags.recipes_id")
     .innerJoin("categories", "tags.category_id", "categories.id")
+    .innerJoin("instructions", "instructions.recipe_id", "recipes.id")
     .then((allRecipes) => {
       console.log(allRecipes)
       res.json({recipes: allRecipes})
@@ -102,24 +102,9 @@ app.get("/recipe_list" , (req, res) => {
       res.status(404)
       console.log(err); throw err;
     })
-    .finally(() => {
-    });
 
 });
 
-app.get("/recipe_details" , (req, res) => {
-   knex
-   .select("*")
-   .from('Recipes')
-   .innerJoin("instructions", "instructions.recipe_id", "recipes.id")
-   .innerJoin("ingredients", "ingredients.recipes_id",  "recipes.id")
-   .innerJoin("measurements", "measurement.id", "ingredients.measurement_id")
-   .then((recipeDeatails) => {
-
-
-   })
-
-});
 
 app.get("/profile" , (req, res) => {
 // user info
@@ -152,6 +137,20 @@ app.post("/fave" , (req, res) => {
 
 app.post("/mealmade" , (req, res) => {
 // add recipe to users mealmade
+  const recipeID = req.body.recipes_id;
+  const userID = req.body.user_id;
+
+  const mademealsAdd = {
+    recipes_id: recipeID,
+    user_id: userID
+  }
+
+  knex("mademeals")
+    .insert(mademealsAdd)
+    .then(() => {
+      res.json({success: true})
+    })
+
 });
 
 
