@@ -90,8 +90,8 @@ app.get("/recipe_list" , (req, res) => {
   knex
     .select("*")
     .from("recipes")
-    // .innerJoin("tags", "recipes.id", "tags.recipes_id")
-    // .innerJoin("categories", "tags.category_id", "categories.id")
+    .innerJoin("tags", "recipes.id", "tags.recipes_id")
+    .innerJoin("categories", "tags.category_id", "categories.id")
     .then((allRecipes) => {
       console.log(allRecipes)
       // res.json()
@@ -108,23 +108,18 @@ app.get("/recipe_details" , (req, res) => {
 
 app.get("/profile" , (req, res) => {
 // user info
-// user id is given a
-
-  const givenID = req.body.id
   knex
     .select("*")
-    .from("recipes")
-    .innerJoin("users", "users.id", "recipes.creator_id") 
-    .where("users.id", givenID)
-    .innerJoin("mademeals", "users.id", "mademeals.user_id")
-    .where("mademeals.user_id", givenID)
-    .innerJoin("faves", "users.id", "faves.user_id")
-    .where("faves.user_id", givenID)
-    .then((data) => {
-      console.log(data)
+    .from("users")
+    .innerJoin("recipes", "users.id", "creator_id") 
+    .then((dataCreated) => {
+      
     })
+    .innerJoin("mademeals", "users.id", "mademeals.user_id")
+    .innerJoin("recipes", "users.id", "creator_id") 
+    .innerJoin("faves", "users.id", "faves.user_id")
     
-  // to display all of recipes created by the user
+    // to display all of recipes created by the user
 
 });
 

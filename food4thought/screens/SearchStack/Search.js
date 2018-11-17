@@ -15,7 +15,7 @@ export default class SearchScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {recipes: [{}] };
+    this.state = {recipes: [] };
   }
 
   componentDidMount() {
