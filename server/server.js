@@ -108,16 +108,21 @@ app.get("/recipe_details" , (req, res) => {
 
 app.get("/profile" , (req, res) => {
 // user info
+// user id is given a
+
+  const givenID = req.body.id
   knex
     .select("*")
-    .from("users")
-    .innerJoin("recipes", "users.id", "creator_id") 
-    .then((dataCreated) => {
-      
-    })
+    .from("recipes")
+    .innerJoin("users", "users.id", "recipes.creator_id") 
+    .whereIn("users.id", givenID)
     .innerJoin("mademeals", "users.id", "mademeals.user_id")
-    .innerJoin("recipes", "users.id", "creator_id") 
     .innerJoin("faves", "users.id", "faves.user_id")
+    .whereIn("faves.user_id", givenID)
+    .whereIn("mademeals.user_id", givenID)
+    .then((data) => {
+      console.log(data)
+    })
     
     // to display all of recipes created by the user
 
