@@ -42,37 +42,36 @@ export default class LoginScreen extends React.Component {
     this.state = {
       status: { text: "I WILL CHANGE FOR YOU" }
     }
+
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   redirect(page) {
     this.props.navigation.navigate(page)
   }
 
-  //things to do
-  // login.js => line 45 - 55, depending on response change status text
-  // maybe store the password using the keychain store?
-
-
   //notes
   // every time we access a page, check for id or username + password (depending on what works)
 
   handleSubmit = () => {
+    const that = this;
     const value = this._form.getValue(); // use that ref to get the form value
-    console.log("FORM ===> ", value);
+    console.log("LOGIN FORM ===> ", value);
 
     if (value) { // if validation fails, value will be null
-      console.log("value is ===> true");
       let validate = false;
       // post user information to backend /login route
-      axios.post(currentHostedLink, value)
+      axios.post((`${currentHostedLink}/login`), value)
       .then(function (response) {
         console.log(response.data);
         if(response.data) { 
           validate = true;
-          console.log("ID ===> ", response.data.id);
-        } else {
-          console.log("wrong pass");
-          this.setState({status: { text: "I WILL CHANGE FOR YOU" }});
+          console.log("USER ID ===> ", response.data.id);
+          // notifiy user that the password is wrong with a relevant message
+          if(response.data.id < 0) {
+            console.log("wrong pass");
+            that.setState({status: { text: "DA PASSVORD IS WRONG!" }});
+            }
         }
       })
       .catch(function (error) {

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, Text, View, ScrollView } from "react-native";
 import RegisterStyles from "../styles/HomeStack/RegisterStyles.js";
 // import { ImageFactory } from "react-native-image-picker-form";
+import axios from "axios";
 
 // Import tcomb form schema
 import t from "tcomb-form-native";
@@ -34,11 +35,31 @@ var options = {
 };
 
 export default class RegisterScreen extends React.Component {
-  handleSubmit = () => {
-    // do the things  
-    const data = this._form.getValue(); // use that ref to get the form value
-    console.log('date: ', data);
 
+
+  handleSubmit = () => {
+    const value = this._form.getValue(); // use that ref to get the form value
+    console.log("REGISTER FORM ===> ", value);
+
+    if (value) { // if validation fails, value will be null
+      let validate = false;
+      // post user information to backend /login route
+      axios.post((`${currentHostedLink}/register`), value)
+      .then(function (response) {
+        console.log(response.data);
+        if(response.data) { 
+          validate = true;
+          console.log("USER ID ===> ", response.data.id);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      
+      if(validate) {
+        setTimeout(() => { this.redirect("Home") }, 200);
+      }
+    }
   }
 
   render() {
