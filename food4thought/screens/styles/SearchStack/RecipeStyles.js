@@ -14,9 +14,44 @@ import {
 const HomeStyles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    flexDirection: "row",
     alignItems: "center",
-  }
+    borderWidth: 2,
+    borderColor: "black",
+    marginTop: 5,
+    marginBottom: 5,
+  },
+  leftView: {
+    height: 130,
+    borderWidth: 2,
+    borderColor: "red",
+  },
+  rightView: {
+    flex:1,
+    height: 130,
+    borderWidth: 2,
+    borderColor: "yellow",
+  },
+  header: {
+    flex:1,
+    height: 130,
+    borderWidth: 2,
+    borderColor: "blue",
+  },
+  footer: {
+    flex:1,
+    height: 130,
+    borderWidth: 2,
+    borderColor: "purple",
+  },
+  imgView: {
+    borderWidth: 2,
+    borderColor: "blue",
+  },
+  img: {
+    width: 130,
+    height: 130
+  },
 });
 
 export default HomeStyles;
