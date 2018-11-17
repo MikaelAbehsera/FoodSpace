@@ -90,8 +90,8 @@ app.get("/recipe_list" , (req, res) => {
   knex
     .select("*")
     .from("recipes")
-    .innerJoin("tags", "recipes.id", "tags.recipes_id")
-    .innerJoin("categories", "tags.category_id", "categories.id")
+    // .innerJoin("tags", "recipes.id", "tags.recipes_id")
+    // .innerJoin("categories", "tags.category_id", "categories.id")
     .then((allRecipes) => {
       console.log(allRecipes)
       // res.json()
@@ -115,11 +115,11 @@ app.get("/profile" , (req, res) => {
     .select("*")
     .from("recipes")
     .innerJoin("users", "users.id", "recipes.creator_id") 
-    .whereIn("users.id", givenID)
+    .where("users.id", givenID)
     .innerJoin("mademeals", "users.id", "mademeals.user_id")
+    .where("mademeals.user_id", givenID)
     .innerJoin("faves", "users.id", "faves.user_id")
-    .whereIn("faves.user_id", givenID)
-    .whereIn("mademeals.user_id", givenID)
+    .where("faves.user_id", givenID)
     .then((data) => {
       console.log(data)
     })
