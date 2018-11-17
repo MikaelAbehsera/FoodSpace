@@ -27,12 +27,13 @@ app.post("/register" , (req, res) => {
     console.log('ERROR');
   } else {
     // encrypt password and store it
+
     const newUser = [{
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-      profileIMG: req.body.profilePictureURL,
-      location: req.body.location
+      username: req.body.username.trim(),
+      email: req.body.email.trim().toLowerCase(),
+      password: req.body.password.trim(),
+      profileIMG: req.body.profilePictureURL.trim(),
+      location: req.body.location.trim()
     }];
     
     console.log(newUser)
@@ -44,14 +45,20 @@ app.post("/register" , (req, res) => {
         res.json({id: id[0], success: true});
         res.status(200);
       })
-
+      .catch((err) => {
+        res.json({id: -1, success: false})
+        res.status(404)
+        console.log(err); throw err;
+      })
+      .finally(() => {
+      });
   }
 });
 
 
 app.post("/login" , (req, res) => {
-  const email =  req.body.email;
-  const password = req.body.password;
+  const email =  req.body.email.trim().toLowerCase();
+  const password = req.body.password.trim();
 
   knex("users")
     .where({email: email})
@@ -80,13 +87,18 @@ app.post("/create" , (req, res) => {
 
 
 app.get("/recipe_list" , (req, res) => {
-  // knex
-  //   .select("*")
-  //   .from()
-  //   .innerJoin()
+  knex
+    .select("*")
+    .from("recipes")
+    .innerJoin("tags", "recipes.id", "tags.recipes_id")
+    .innerJoin("categories", "tags.category_id", "categories.id")
+    .then((allRecipes) => {
+      console.log(allRecipes)
+      // res.json()
+      // to be sent as an array of objects where each object is a recipe
 
 
-
+    })
 
 });
 
@@ -96,6 +108,19 @@ app.get("/recipe_details" , (req, res) => {
 
 app.get("/profile" , (req, res) => {
 // user info
+  knex
+    .select("*")
+    .from("users")
+    .innerJoin("recipes", "users.id", "creator_id") 
+    .then((dataCreated) => {
+      
+    })
+    .innerJoin("mademeals", "users.id", "mademeals.user_id")
+    .innerJoin("recipes", "users.id", "creator_id") 
+    .innerJoin("faves", "users.id", "faves.user_id")
+    
+    // to display all of recipes created by the user
+
 });
 
 
