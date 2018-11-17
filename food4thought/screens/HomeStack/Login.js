@@ -65,22 +65,24 @@ export default class LoginScreen extends React.Component {
       .then(function (response) {
         console.log(response.data);
         if(response.data) { 
-          validate = true;
           console.log("USER ID ===> ", response.data.id);
           // notifiy user that the password is wrong with a relevant message
           if(response.data.id < 0) {
             console.log("wrong pass");
             that.setState({status: { text: "DA PASSVORD IS WRONG!" }});
-            }
+          } else {
+            validate = true;  
+          }
         }
       })
       .catch(function (error) {
         console.log(error);
+      }).finally(function() {
+        console.log("VAIDATE ==> ", validate)
+        if(validate) {
+          setTimeout(() => { that.redirect("Home") }, 200);
+        }
       });
-      
-      if(validate) {
-        setTimeout(() => { this.redirect("Home") }, 200);
-      }
     }
   }
 

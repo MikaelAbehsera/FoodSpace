@@ -19,6 +19,7 @@ const Register = t.struct({
   profilePictureUrl: t.maybe(t.String),
   location: t.String,
   password: t.String,
+  passwordConfirmation: t.String,
 });
 
 var options = {
@@ -35,9 +36,18 @@ var options = {
 };
 
 export default class RegisterScreen extends React.Component {
+  constructor(props) {
+    super(props);
 
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  redirect(page) {
+    this.props.navigation.navigate(page)
+  }
 
   handleSubmit = () => {
+    const that = this;
     const value = this._form.getValue(); // use that ref to get the form value
     console.log("REGISTER FORM ===> ", value);
 
@@ -46,7 +56,6 @@ export default class RegisterScreen extends React.Component {
       // post user information to backend /login route
       axios.post((`${currentHostedLink}/register`), value)
       .then(function (response) {
-        console.log(response.data);
         if(response.data) { 
           validate = true;
           console.log("USER ID ===> ", response.data.id);
@@ -54,11 +63,12 @@ export default class RegisterScreen extends React.Component {
       })
       .catch(function (error) {
         console.log(error);
+      }).finally(function() {
+        if(validate) {
+          setTimeout(() => { that.redirect("Home") }, 200);
+        }
       });
       
-      if(validate) {
-        setTimeout(() => { this.redirect("Home") }, 200);
-      }
     }
   }
 
