@@ -22,15 +22,24 @@ app.post("/login" , (req, res) => {
   knex("users")
     .where({email: email})
     .then((data) => { 
-      if(data[0].password === password) {
-        res.json({id: data[0].id});
+      //if email can be found
+      if(data[0]) {
+        // does password match
+        if(data[0].password === password) {
+          console.log("USER LOGIN SUCCESSFULL");
+          res.json({id: data[0].id, success: true});
+          res.status(200);
+        }
+      } else {
+        console.log("USER LOGIN BAD BAD");
+        res.json({id: "-1", success: false});
+        res.status(200);
       }
     });
 });
 
 
 app.listen(PORT, () => {
-
   console.log(`Listening on port: ${PORT}`);
 });
 

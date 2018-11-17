@@ -20,6 +20,13 @@ exports.seed = function (knex, Promise) {
             profileIMG: "blank",
             location: "Montreal"
           }),
+          knex("users").insert({
+            username: "Matt Damon",
+            email: "U@e.com",
+            password: "P",
+            profileIMG: "blank",
+            location: "Montreal"
+          }),
 
         ]);
       })

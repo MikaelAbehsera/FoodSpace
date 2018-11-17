@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Button, Text, View, ScrollView, KeyboardAvoidingView } from "react-native";
+import { Button, Text, View, ScrollView, KeyboardAvoidingView, AsyncStorage } from "react-native";
 // Import login styles module
 import LoginStyles from "../styles/HomeStack/LoginStyles.js";
 // Import font scaler 
@@ -19,29 +19,51 @@ const Login = t.struct({
 });
 
 export default class LoginScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      status: { text: "I WILL CHANGE FOR YOU" }
+    }
+  }
 
   redirect(page) {
     this.props.navigation.navigate(page)
   }
 
+  //things to do
+  // login.js => line 45 - 55, depending on response change status text
+  // server.js => line 22 - 38, send relevant response for good and bad passwords
+
 
   handleSubmit = () => {
     const value = this._form.getValue(); // use that ref to get the form value
-    console.log('value: ', value);
+    console.log("FORM ===> ", value);
+
     if (value) { // if validation fails, value will be null
-      // setTimeout(() => { this.redirect("Home") }, 200);
+      console.log("value is ===> true");
+      let validate = false;
+      // post user information to backend /login route
+      axios.post(currentHostedLink, value)
+      .then(function (response) {
+        console.log(response.data);
+        if(response.data) { 
+          validate = true;
+          console.log("ID ===> ", response.data.id);
+        } else {
+          console.log("wrong pass");
+          this.setState({status: { text: "I WILL CHANGE FOR YOU" }});
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+      
+      if(validate) {
+        setTimeout(() => { this.redirect("Home") }, 200);
+      }
     }
-    // post user information to backend /login route
-    axios.post(currentHostedLink, value)
-    .then(function (response) {
-      console.log("THIS IS MY RESPONSE - MATT DAMON", JSON.parse(response.data.id));
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
   }
 
-  
 
   render() {
 
@@ -64,8 +86,8 @@ export default class LoginScreen extends React.Component {
         </View>
 
         <View style={LoginStyles.middleContainer}>
-          <View style={{height: 200,}}></View>
           <View style={LoginStyles.formView}>
+          <Text id="statusText" >{this.state.status.text}</Text>
             <Form 
             ref={c => this._form = c}
             type={Login} 
