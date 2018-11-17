@@ -90,15 +90,20 @@ app.get("/recipe_list" , (req, res) => {
   knex
     .select("*")
     .from("recipes")
-    // .innerJoin("tags", "recipes.id", "tags.recipes_id")
-    // .innerJoin("categories", "tags.category_id", "categories.id")
+    .innerJoin("tags", "recipes.id", "tags.recipes_id")
+    .innerJoin("categories", "tags.category_id", "categories.id")
     .then((allRecipes) => {
       console.log(allRecipes)
-      // res.json()
-      // to be sent as an array of objects where each object is a recipe
-
-
+      res.json({recipes: allRecipes})
+      res.status(200)
     })
+    .catch((err) => {
+      res.json({id: -1, success: false})
+      res.status(404)
+      console.log(err); throw err;
+    })
+    .finally(() => {
+    });
 
 });
 
