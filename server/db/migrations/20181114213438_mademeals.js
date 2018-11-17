@@ -3,11 +3,11 @@ exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTable("mademeals", function (table) {
       table.increments();
-      table.integer("recipe_id");
+      table.integer("recipes_id");
       table.integer("user_id");
 
       table
-      .foreign("recipe_id")
+      .foreign("recipes_id")
       .references("id")
       .on("recipes")
       .onDelete("cascade");
