@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
       table.increments()
       table.string("name")
       table.string("description")
+      table.string("recipeIMG")
       table.integer("overall_rating")
       table.integer("time")
       table.integer("difficulty")

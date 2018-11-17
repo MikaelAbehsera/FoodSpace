@@ -94,15 +94,30 @@ app.get("/recipe_list" , (req, res) => {
     .innerJoin("categories", "tags.category_id", "categories.id")
     .then((allRecipes) => {
       console.log(allRecipes)
-      // res.json()
-      // to be sent as an array of objects where each object is a recipe
-
-
+      res.json({recipes: allRecipes})
+      res.status(200)
     })
+    .catch((err) => {
+      res.json({id: -1, success: false})
+      res.status(404)
+      console.log(err); throw err;
+    })
+    .finally(() => {
+    });
 
 });
 
 app.get("/recipe_details" , (req, res) => {
+   knex
+   .select("*")
+   .from('Recipes')
+   .innerJoin("instructions", "instructions.recipe_id", "recipes.id")
+   .innerJoin("ingredients", "ingredients.recipes_id",  "recipes.id")
+   .innerJoin("measurements", "measurement.id", "ingredients.measurement_id")
+   .then((recipeDeatails) => {
+
+
+   })
 
 });
 
