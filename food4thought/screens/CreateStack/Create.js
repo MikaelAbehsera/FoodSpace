@@ -168,7 +168,7 @@ export default class CreateScreen extends React.Component {
           />
           <View>
             <Button
-              title="Submit Recipe" 
+              title="Update Details" 
               onPress={this.handleDetails}
             />  
           </View>
