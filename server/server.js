@@ -89,7 +89,7 @@ app.post("/create" , (req, res) => {
   // STILL NEED TO TAG CATEGORIES AND PROPER USER_ID
   // currently being simulated
 
-  knex("recipies")
+  knex("recipes")
   .insert({
     name: recipeForm.recipeName,
     description: recipeForm.recipeDescription,
