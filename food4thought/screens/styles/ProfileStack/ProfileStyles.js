@@ -11,10 +11,11 @@ import {
 } from 'react-native-responsive-dimensions';
 
 const ProfileStyles = StyleSheet.create({
-
   scrollView: {
     width: "100%",
   },
+  
+
 });
 
 export default ProfileStyles;

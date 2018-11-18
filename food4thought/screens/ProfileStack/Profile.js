@@ -8,62 +8,7 @@ export default class ProfileScreen extends React.Component {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <ScrollView style={ProfileStyles.scrollView} >
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
-          <Text>I Can scroll</Text>
+          
         </ScrollView>
       </View>
     );
