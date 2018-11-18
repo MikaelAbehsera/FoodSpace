@@ -152,7 +152,7 @@ app.get("/recipe_list" , (req, res) => {
     .from("recipes")
     .innerJoin("tags", "recipes.id", "tags.recipes_id")
     .innerJoin("categories", "tags.category_id", "categories.id")
-    .innerJoin("instructions", "instructions.recipe_id", "recipes.id")
+    .innerJoin("instructions", "instructions.recipes_id", "recipes.id")
     .then((allRecipes) => {
       console.log(allRecipes)
       res.json({recipes: allRecipes})
