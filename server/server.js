@@ -152,21 +152,3 @@ app.post("/mealmade" , (req, res) => {
     })
 
 });
-
-
-
-
-
-  
-// knex("users")
-// where({email: email})
-// .then((data) => { 
-// bcrypt.compare(data.password, hash, function(err, res) {
-//  if (res === true) {
-//  setTimeout(() => { this.redirect("Home") }, 200);
-//  } else {
-//  console.log("Error")
-//   }
-//  })
-// });
-
