@@ -50,8 +50,6 @@ app.post("/register" , (req, res) => {
         res.status(404)
         console.log(err); throw err;
       })
-      .finally(() => {
-      });
   }
 });
 
@@ -122,6 +120,7 @@ app.post("/create" , (req, res) => {
       recipes_id: id[0],
       category_id: 3      
     }
+
     knex("ingredients")
     .insert(ingredientsList)
     .then(()=> {
@@ -140,11 +139,9 @@ app.post("/create" , (req, res) => {
         res.json({recipes_id: id[0], success: true})
       });
     })
-    
-
   })
-
 });
+
 
 app.get("/recipe_list" , (req, res) => {
   knex
@@ -155,11 +152,11 @@ app.get("/recipe_list" , (req, res) => {
     .innerJoin("instructions", "instructions.recipes_id", "recipes.id")
     .then((allRecipes) => {
       console.log(allRecipes)
-      res.json({recipes: allRecipes})
+      res.json({recipes: allRecipes, success: true})
       res.status(200)
     })
     .catch((err) => {
-      res.json({id: -1, success: false})
+      res.json({success: false})
       res.status(404)
       console.log(err); throw err;
     })
@@ -169,19 +166,43 @@ app.get("/recipe_list" , (req, res) => {
 
 app.get("/profile" , (req, res) => {
 // user info
-  knex
-    .select("*")
-    .from("users")
-    .innerJoin("recipes", "users.id", "creator_id") 
-    .then((dataCreated) => {
-      
-    })
-    .innerJoin("mademeals", "users.id", "mademeals.user_id")
-    .innerJoin("recipes", "users.id", "creator_id") 
-    .innerJoin("faves", "users.id", "faves.user_id")
-    
-    // to display all of recipes created by the user
+  const userID = 1;
+  const userProfile = {};
 
+  knex("users")
+    .select("username", "email", "profileIMG", "location")
+    .where({user_id: userID})
+    .then((userInfo) => {
+      userProfile["userinfo"] = userInfo;
+
+      knex("recipes")
+        .where({creator_id: userID})
+        .then((recipesCreated) => {
+          userProfile["recipesCreated"] = recipesCreated;
+          
+          knex("faves")
+          .where({user_id: userID})
+          .innerJoin("recipes", "faves.recipes_id", "recipes.id")
+          .then((faves) => {
+            userProfile["faves"] = faves;
+
+            knex("mademeals")
+            .where({user_id: userID})
+            .innerJoin("recipes", "mademeals.recipes_id", "recipes.id")
+            .then((Usermademeals) => {
+              userProfile["Usermademeals"] = Usermademeals;
+            })
+            .catch((err) => {
+              res.json({success: false})
+              res.status(404)
+              console.log(err); throw err;
+            })
+            .finally(() => {
+              res.json({userProfile: userProfile, sucsess: true})
+            });
+          })
+        })
+    })
 });
 
 
