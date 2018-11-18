@@ -61,6 +61,7 @@ export default class CreateScreen extends React.Component {
       form: { content: null},
       ingredients: [],
       instructions: [],
+      category: "Greasy",
    };
 
    this.number = 1;
@@ -71,6 +72,15 @@ export default class CreateScreen extends React.Component {
 
   redirect(page) {
     this.props.navigation.navigate(page)
+  }
+
+  updateUser = (category) => {
+    this.setState({ 
+      category: category,
+      instructions: this.state.instructions,
+      ingredients: this.state.ingredients, 
+      form: this.state.form
+     })
   }
 
   handleSubmit = () => {
@@ -131,14 +141,18 @@ export default class CreateScreen extends React.Component {
   }
 
   handleFinalForm = () => {
+    const that = this;
     //get full form from state, manipulate to one object, and post to backend
     const fullForm = this.state;
-
+    console.log(fullForm)
+    console.log("===========================================================")
+    console.log("===========================================================")
+    console.log("===========================================================")
     let validate = false;
     // post user information to backend /login route
     axios.post((`${currentHostedLink}/create`), fullForm)
     .then(function (response) {
-      console.log("success ===> ", response.data.success);
+      console.log("full form submit success ===> ", response.data.success);
       if(response.data.success) { 
         validate = true;
       }
@@ -161,6 +175,16 @@ export default class CreateScreen extends React.Component {
         <View style={{width: "100%", height: 50}} />
 
         <View style={CreateStyles.scrollContainer}> 
+            <View style={CreateStyles.catSelectorTextView}>
+              <Text style={CreateStyles.catSelectorText} >Category Type</Text>
+            </View>
+            <View style={CreateStyles.catSelectorView}>
+              <Picker selectedValue={this.state.category} onValueChange={this.updateUser} style={CreateStyles.catSelector}>
+                <Picker.Item label="Greasy" value="Greasy" />
+                <Picker.Item label="Health Nut" value="Health Nut" />
+                <Picker.Item label="Munchies" value="Munchies" />
+              </Picker>
+            </View>
           <Form 
             ref={c => this._form = c}
             type={Create}
@@ -168,16 +192,6 @@ export default class CreateScreen extends React.Component {
           />
           <View>
             <View>
-              <View style={CreateStyles.catSelectorTextView}>
-                <Text style={CreateStyles.catSelectorText} >Category Type</Text>
-              </View>
-              <View style={CreateStyles.catSelectorView}>
-                <Picker selectedValue={this.state.category} onValueChange={this.updateUser}>
-                  <Picker.Item label="Greasy" value="Greasy" />
-                  <Picker.Item label="Health Nut" value="Health Nut" />
-                  <Picker.Item label="Munchies" value="Munchies" />
-                </Picker>
-              </View>
             </View>
             <View style={CreateStyles.detailSubmitButton} >
               <Button
@@ -228,6 +242,7 @@ export default class CreateScreen extends React.Component {
           <Button
             title="Submit Recipe" 
             onPress={this.handleFinalForm}
+            color="#8EA604"
           />
         </View>
 
