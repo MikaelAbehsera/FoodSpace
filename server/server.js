@@ -209,7 +209,7 @@ app.get("/profile", (req, res) => {
   knex("users")
     .select("username", "email", "profileIMG", "location")
     .where({
-      user_id: userID
+      id: userID
     })
     .then((userInfo) => {
       userProfile["userinfo"] = userInfo;

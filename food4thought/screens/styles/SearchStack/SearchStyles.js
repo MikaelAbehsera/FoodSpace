@@ -11,7 +11,7 @@ import {
 } from 'react-native-responsive-dimensions';
 
 
-const HomeStyles = StyleSheet.create({
+const SearchStyles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
@@ -22,6 +22,32 @@ const HomeStyles = StyleSheet.create({
     backgroundColor: "lightblue",
 
   },
+  header: {
+    width: "100%",
+    // height: 50,
+    backgroundColor: "red",
+  },
+  buttonContainer: {
+    borderWidth: 1,
+    borderColor: "blue",
+    width: "100%",
+    flexDirection: "row",
+  },
+  categoryButtonGreasy: {
+    borderWidth: 1,
+    borderColor: "black",
+    flex: 1,
+  },
+  categoryButtonHealth: {
+    borderWidth: 1,
+    borderColor: "black",
+    flex: 1,
+  },
+  categoryButtonMunchies: {
+    borderWidth: 1,
+    borderColor: "black",
+    flex: 1,
+  }
 });
 
-export default HomeStyles;
+export default SearchStyles;
