@@ -3,9 +3,7 @@ import { Button, Text, View, ScrollView } from "react-native";
 import axios from "axios";
 import CreateStyles from "../styles/CreateStack/CreateStyles.js";
 
-// IMPORT InstructionsForm COMPONENT AND IngredientsForm COMPONENT
-import InstructionsForm from "./CreateInstructions.js";
-import IngredientsForm from "./CreateIngredient.js";
+
 
 // Import tcomb form schema
 import t from "tcomb-form-native";
@@ -15,6 +13,7 @@ const Form = t.form.Form;
 const currentHostedLink = "http://2f92c577.ngrok.io";
 ///////////////////////////////////////////////////////////////
 
+// full page form
 const Create = t.struct({
   recipeName: t.String,
   recipeDescription: t.String,
@@ -24,12 +23,52 @@ const Create = t.struct({
   // instructions will be added from another feature
 });
 
+// just the ingredientsForm structure
+const ingredientsForm = t.struct({
+  foodType: t.String,
+  quantity: t.Integer,
+});
+
+const optionsIngredients = {
+  fields: {
+    foodType: {
+      error: "Please enter a valid food type"
+    },
+    quantity: {
+      error: "Please enter a valid quantity",
+    },
+  },
+}
+
+// just the instructionsForm structure
+const instructionsForm = t.struct({
+  newStep: t.String,
+});
+
+const optionsInstructions = {
+  fields: {
+    newStep: {
+      error: "Please enter valid instructions"
+    },
+  },
+}
+
+
 export default class CreateScreen extends React.Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {form: { content: null} };
+    this.state = {
+      form: { content: null},
+      ingredients: [],
+      instructions: [],
+   };
+
+   this.number = 1;
+   this.handleSubmitIngredients = this.handleSubmitIngredients.bind(this);
+   this.handleSubmitInstructions = this.handleSubmitInstructions.bind(this);
+   this.handleDetails = this.handleDetails.bind(this);
   }
 
   redirect(page) {
@@ -38,20 +77,61 @@ export default class CreateScreen extends React.Component {
 
   handleSubmit = () => {
     const that = this;
-    const value = this._form.getValue(); // use that ref to get the form value
-    // take value and add it to other forms to create on recipe form
-    if(value) {
-      this.setState({ form: value });
-      console.log("state ==> ", this.state)
+    const details = this._form.getValue(); 
+    const instructions = this._form1.getValue(); 
+    const ingredients = this._form2.getValue(); 
+
+    const finalForm = {
+      //this will be the structure sent to the backend 
+    };
+
+    if(details && instructions && ingredients) {
+      //send backend full form
     }
   }
 
-  _InstructionForm(form) {
-    
+  handleDetails = () => {
+    const details = this._form.getValue(); 
+  
+    if(details) {
+      this.setState({ 
+        form: details,
+        instructions: this.state.instructions,
+        ingredients: this.state.ingredients, 
+       });
+    }
   }
 
-  _IngredientForm(form) {
+  handleSubmitIngredients = () => {
+    const value = this._form2.getValue();
+
+    if(value) {
+    const foodType = value.foodType;
+    const quantity = value.quantity;
+    this.setState({
+      form: this.state.form, 
+      instructions: this.state.instructions,
+      ingredients: this.state.ingredients.concat([{ "foodType": foodType, "quantity": quantity}]) })
+    }
+  }
+
+  handleSubmitInstructions = () => {
+    const value = this._form1.getValue();
     
+    if(value) {
+      const step = value.newStep;      
+      const num = this.number;
+      this.setState({ 
+        form: this.state.form, 
+        ingredients: this.state.ingredients, 
+        instructions: this.state.instructions.concat([{ "step": step, "stepNumber": num}]) })
+      this.number++;
+      }
+  }
+
+  handleFinalForm = () => {
+    //get full form from state, manipulate to one object, and post to backend
+    console.log(this.state);
   }
 
   // createRecipe = () => {
@@ -85,15 +165,55 @@ export default class CreateScreen extends React.Component {
             ref={c => this._form = c}
             type={Create}
             // options={options} 
-          /> 
+          />
+          <View>
+            <Button
+              title="Submit Recipe" 
+              onPress={this.handleDetails}
+            />  
+          </View>
         </View>
-          <IngredientsForm giveForm={this._IngredientForm}/>
-          <InstructionsForm giveForm={this._InstructionForm}/>
+
+        <View style={CreateStyles.ingredientsView}>
+          <View style={CreateStyles.ingredientsForm}>
+            <Form 
+              ref={c => this._form2 = c}
+              type={ingredientsForm}
+              options={optionsIngredients}
+            /> 
+            <Button 
+              title="Add Ingredient" 
+              onPress={this.handleSubmitIngredients}
+            />
+          </View>
+          <View style={CreateStyles.ingredientsList}>
+            <ScrollView >
+              {this.state.ingredients.map((ingredient, index) => <Text style={{ overflow: "hidden", }} key={index} >{ingredient.foodType} === {ingredient.quantity}</Text>)}
+            </ScrollView>
+          </View>
+        </View>
+
+        <View style={CreateStyles.instructionsView}>
+          <View style={CreateStyles.instructionsForm}>
+            <Form 
+              ref={c => this._form1 = c}
+              type={instructionsForm}
+              options={optionsInstructions} 
+            />
+            <Button 
+              title="Add Step" 
+              onPress={this.handleSubmitInstructions}
+            />
+          </View>
+          <View style={CreateStyles.instructionsList}>
+            {this.state.instructions.map((step, index) => <Text key={index}> {step.stepNumber}. {step.step}</Text>)}
+          </View>
+        </View>
         
         <View>
           <Button
             title="Submit Recipe" 
-            onPress={this.handleSubmit}
+            onPress={this.handleFinalForm}
           />
         </View>
 
