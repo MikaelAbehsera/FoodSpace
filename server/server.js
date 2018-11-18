@@ -82,9 +82,15 @@ app.post("/login" , (req, res) => {
 
 app.post("/create" , (req, res) => {
   // creates new recipe
+  knex("recipies")
+  .insert({})
+  .returning()
+  .then((id) => {
+    
+
+  })
 
 });
-
 
 app.get("/recipe_list" , (req, res) => {
   knex
@@ -92,6 +98,7 @@ app.get("/recipe_list" , (req, res) => {
     .from("recipes")
     .innerJoin("tags", "recipes.id", "tags.recipes_id")
     .innerJoin("categories", "tags.category_id", "categories.id")
+    .innerJoin("instructions", "instructions.recipe_id", "recipes.id")
     .then((allRecipes) => {
       console.log(allRecipes)
       res.json({recipes: allRecipes})
@@ -102,24 +109,9 @@ app.get("/recipe_list" , (req, res) => {
       res.status(404)
       console.log(err); throw err;
     })
-    .finally(() => {
-    });
 
 });
 
-app.get("/recipe_details" , (req, res) => {
-   knex
-   .select("*")
-   .from('Recipes')
-   .innerJoin("instructions", "instructions.recipe_id", "recipes.id")
-   .innerJoin("ingredients", "ingredients.recipes_id",  "recipes.id")
-   .innerJoin("measurements", "measurement.id", "ingredients.measurement_id")
-   .then((recipeDeatails) => {
-
-
-   })
-
-});
 
 app.get("/profile" , (req, res) => {
 // user info
@@ -141,12 +133,47 @@ app.get("/profile" , (req, res) => {
 
 
 app.post("/fave" , (req, res) => {
-// add recipe to users faves
+const userId = req.body.user_id
+const recipeid = req.body.recpies_id
+const check = req.body.check
+
+const favRecipesAdd = {
+  user_id: userId,
+  recipes_id: recipeid 
+}
+if (check === true) {
+  knex("faves")
+  .insert(favRecipesAdd)
+  .then(() => {
+    res.json({sucsess: true})
+  })
+} else {
+  knex("faves")
+  .where({user_id: userId, recipes_id: recipeid})
+  .del()
+  .then(() => {
+    res.json({sucsess: true})
+  })
+}
 
 });
 
 app.post("/mealmade" , (req, res) => {
 // add recipe to users mealmade
+  const recipeID = req.body.recipes_id;
+  const userID = req.body.user_id;
+
+  const mademealsAdd = {
+    recipes_id: recipeID,
+    user_id: userID
+  }
+
+  knex("mademeals")
+    .insert(mademealsAdd)
+    .then(() => {
+      res.json({success: true})
+    })
+
 });
 
 
