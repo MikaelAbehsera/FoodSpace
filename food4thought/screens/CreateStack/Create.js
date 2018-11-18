@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button, Text, View, ScrollView } from "react-native";
+import { Button, Text, View, ScrollView, Picker } from "react-native";
 import axios from "axios";
 import CreateStyles from "../styles/CreateStack/CreateStyles.js";
 
@@ -18,9 +18,7 @@ const Create = t.struct({
   recipeName: t.String,
   recipeDescription: t.String,
   timeToMake: t.Integer,
-  diffcultyOfRecipe: t.Integer
-  // ingredients will be added from another feature
-  // instructions will be added from another feature
+  diffcultyOfRecipe: t.Integer,
 });
 
 // just the ingredientsForm structure
@@ -96,6 +94,7 @@ export default class CreateScreen extends React.Component {
     if(details) {
       this.setState({ 
         form: details,
+        category: this.state.category,
         instructions: this.state.instructions,
         ingredients: this.state.ingredients, 
        });
@@ -111,6 +110,7 @@ export default class CreateScreen extends React.Component {
     this.setState({
       form: this.state.form, 
       instructions: this.state.instructions,
+      category: this.state.category,
       ingredients: this.state.ingredients.concat([{ "foodType": foodType, "quantity": quantity}]) })
     }
   }
@@ -124,6 +124,7 @@ export default class CreateScreen extends React.Component {
       this.setState({ 
         form: this.state.form, 
         ingredients: this.state.ingredients, 
+        category: this.state.category,
         instructions: this.state.instructions.concat([{ "step": step, "stepNumber": num}]) })
       this.number++;
       }
@@ -131,27 +132,25 @@ export default class CreateScreen extends React.Component {
 
   handleFinalForm = () => {
     //get full form from state, manipulate to one object, and post to backend
-    console.log(this.state);
-  }
+    const fullForm = this.state;
 
-  // createRecipe = () => {
-  //   let validate = false;
-  //   // post user information to backend /login route
-  //   axios.post((`${currentHostedLink}/create`), this.state)
-  //   .then(function (response) {
-  //     console.log("success ===> ", response.data.success);
-  //     if(response.data.success) { 
-  //       validate = true;
-  //     }
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   }).finally(function() {
-  //     if(validate) {
-  //       setTimeout(() => { that.redirect("List") }, 200);
-  //     }
-  //   });
-  // }
+    let validate = false;
+    // post user information to backend /login route
+    axios.post((`${currentHostedLink}/create`), fullForm)
+    .then(function (response) {
+      console.log("success ===> ", response.data.success);
+      if(response.data.success) { 
+        validate = true;
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    }).finally(function() {
+      if(validate) {
+        setTimeout(() => { that.redirect("List") }, 200);
+      }
+    });
+  }
 
   render() {
     
@@ -159,6 +158,7 @@ export default class CreateScreen extends React.Component {
     return (
       <View style={CreateStyles.container}>
         <ScrollView style={CreateStyles.scrollContainer} >
+        <View style={{width: "100%", height: 50}} />
 
         <View style={CreateStyles.scrollContainer}> 
           <Form 
@@ -167,10 +167,24 @@ export default class CreateScreen extends React.Component {
             // options={options} 
           />
           <View>
-            <Button
-              title="Update Details" 
-              onPress={this.handleDetails}
-            />  
+            <View>
+              <View style={CreateStyles.catSelectorTextView}>
+                <Text style={CreateStyles.catSelectorText} >Category Type</Text>
+              </View>
+              <View style={CreateStyles.catSelectorView}>
+                <Picker selectedValue={this.state.category} onValueChange={this.updateUser}>
+                  <Picker.Item label="Greasy" value="Greasy" />
+                  <Picker.Item label="Health Nut" value="Health Nut" />
+                  <Picker.Item label="Munchies" value="Munchies" />
+                </Picker>
+              </View>
+            </View>
+            <View style={CreateStyles.detailSubmitButton} >
+              <Button
+                title="Update Details" 
+                onPress={this.handleDetails}
+              />  
+            </View>
           </View>
         </View>
 

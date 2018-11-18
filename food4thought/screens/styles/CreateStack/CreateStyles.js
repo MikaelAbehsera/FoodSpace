@@ -14,11 +14,28 @@ import {
 const CreateStyles = StyleSheet.create({
   container: {
     alignItems: "center",
-    backgroundColor: "lightgreen",
+    // backgroundColor: "lightgreen",
   },
   scrollContainer: {
     width: "95%",
-    backgroundColor: "lightblue",
+    // backgroundColor: "lightblue",
+  },
+  catSelectorText: {
+    fontWeight: "bold",
+    fontSize: 17,
+    marginBottom: 6,
+  },  
+  catSelectorView: {
+    borderWidth: 1,
+    borderRadius: 7,
+    borderColor: "lightgrey",
+    height: 45,
+  },  
+  detailSubmitButton: {
+    marginTop: 10,
+    marginBottom: 30,
+    alignSelf: "center",
+    width: "80%",
   },
   ingredientsView: {
     minHeight: 230,
