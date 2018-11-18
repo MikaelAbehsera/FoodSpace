@@ -8,6 +8,21 @@ import axios from "axios";
 const currentHostedLink = "http://2f92c577.ngrok.io";
 ///////////////////////////////////////////////////////////////
 
+class Bubble extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render () {
+    return (
+      <View style={ProfileStyles.bubbleView} >
+        <Text>"{this.props.name}" {this.props.created ? <Text>by {this.props.created}.</Text> : null}</Text>
+      </View>
+    );
+  }
+}
+
+
 export default class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -63,7 +78,22 @@ export default class ProfileScreen extends React.Component {
   
           </View>
           <ScrollView style={ProfileStyles.scrollView} >
-            <Text>A text</Text>
+
+            <View style={ProfileStyles.createdContainer}>
+              <View><Text>Recipes you created</Text></View>
+              <View style={ProfileStyles.createdView}> 
+                {this.state.userProfile.recipesCreated.map((recipe, i) => <Bubble key={i} name={recipe.name} ></Bubble>)}
+              </View>
+            </View>
+
+
+            <View style={ProfileStyles.favesContainer}>
+              <View><Text>Recipes you favortited</Text></View>
+              <View style={ProfileStyles.favesView}> 
+                {this.state.userProfile.faves.map((fave, i) => <Bubble key={i} name={fave.name} created={fave.creator_id} ></Bubble>)}
+              </View>
+            </View>
+            
           </ScrollView>
         </View>
       );
