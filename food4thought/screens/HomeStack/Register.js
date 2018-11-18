@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Button, Text, View, ScrollView } from "react-native";
-import RegisterStyles from "../styles/HomeStack/RegisterStyles.js";
-// import { ImageFactory } from "react-native-image-picker-form";
 import axios from "axios";
+import RegisterStyles from "../styles/HomeStack/RegisterStyles.js";
 
 // Import tcomb form schema
 import t from "tcomb-form-native";

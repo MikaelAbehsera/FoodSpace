@@ -82,6 +82,13 @@ app.post("/login" , (req, res) => {
 
 app.post("/create" , (req, res) => {
   // creates new recipe
+  knex("recipies")
+  .insert({})
+  .returning()
+  .then((id) => {
+    
+
+  })
 
 });
 
@@ -108,30 +115,46 @@ app.get("/recipe_list" , (req, res) => {
 
 app.get("/profile" , (req, res) => {
 // user info
-// user id is given a
-
-  const givenID = req.body.id
   knex
     .select("*")
-    .from("recipes")
-    .innerJoin("users", "users.id", "recipes.creator_id") 
-    .where("users.id", givenID)
-    .innerJoin("mademeals", "users.id", "mademeals.user_id")
-    .where("mademeals.user_id", givenID)
-    .innerJoin("faves", "users.id", "faves.user_id")
-    .where("faves.user_id", givenID)
-    .then((data) => {
-      console.log(data)
+    .from("users")
+    .innerJoin("recipes", "users.id", "creator_id") 
+    .then((dataCreated) => {
+      
     })
+    .innerJoin("mademeals", "users.id", "mademeals.user_id")
+    .innerJoin("recipes", "users.id", "creator_id") 
+    .innerJoin("faves", "users.id", "faves.user_id")
     
-  // to display all of recipes created by the user
+    // to display all of recipes created by the user
 
 });
 
 
 
 app.post("/fave" , (req, res) => {
-// add recipe to users faves
+const userId = req.body.user_id
+const recipeid = req.body.recpies_id
+const check = req.body.check
+
+const favRecipesAdd = {
+  user_id: userId,
+  recipes_id: recipeid 
+}
+if (check === true) {
+  knex("faves")
+  .insert(favRecipesAdd)
+  .then(() => {
+    res.json({sucsess: true})
+  })
+} else {
+  knex("faves")
+  .where({user_id: userId, recipes_id: recipeid})
+  .del()
+  .then(() => {
+    res.json({sucsess: true})
+  })
+}
 
 });
 

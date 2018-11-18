@@ -4,10 +4,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { createStackNavigator, createBottomTabNavigator } from "react-navigation";
 
 import Home from "./screens/HomeStack/Home.js";
-import Login from "./screens/HomeStack/Login.js";
-import Register from "./screens/HomeStack/Register.js";
+  import Login from "./screens/HomeStack/Login.js";
+  import Register from "./screens/HomeStack/Register.js";
 
 import Search from "./screens/SearchStack/Search.js";
+
+import Create from "./screens/CreateStack/Create.js";
+
 import Profile from "./screens/ProfileStack/Profile.js";
 
 const HomeStack = createStackNavigator({
@@ -17,7 +20,11 @@ const HomeStack = createStackNavigator({
 });
 
 const SearchStack = createStackNavigator({
-  Settings: { screen: Search },
+  List: { screen: Search },
+});
+
+const CreateStack = createStackNavigator({
+  Create: { screen: Create },
 });
 
 const ProfileStack = createStackNavigator({
@@ -26,7 +33,8 @@ const ProfileStack = createStackNavigator({
 
 export default createBottomTabNavigator({
   //home should be at top!
-  Search: SearchStack,
+  Create: CreateStack,
   Home: HomeStack,
+  Search: SearchStack,
   Profile: ProfileStack,
 });

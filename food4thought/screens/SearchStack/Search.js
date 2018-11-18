@@ -15,13 +15,16 @@ export default class SearchScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {recipes: [{}] };
+    this.state = {recipes: []};
+
   }
 
   componentDidMount() {
+    const that = this;
     axios.get(`${currentHostedLink}/recipe_list`)
       .then(function (response) {
-        console.log(response);
+        console.log(response.data.recipes);
+        that.setState({recipes: response.data.recipes});
       })
       .catch(function (error) {
         console.log(error);
@@ -30,12 +33,12 @@ export default class SearchScreen extends React.Component {
 
   render() {
 
-    // const recipe = {};
-  
+    const list = this.state.recipes.map((recipe, index) => <Recipe recipe={recipe} key={index}/>);
+    
     return (
       <View style={SearchStyles.container}>
         <ScrollView style={SearchStyles.scrollRecipesView}>
-          {/* <Recipe recipe={this.recipe}/> */}
+          {list}
         </ScrollView>
       </View>
     );
