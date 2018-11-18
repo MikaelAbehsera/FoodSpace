@@ -212,8 +212,8 @@ app.get("/profile", (req, res) => {
       id: userID
     })
     .then((userInfo) => {
-      userProfile["userinfo"] = userInfo;
-
+      userProfile["userInfo"] = userInfo[0];
+      
       knex("recipes")
         .where({
           creator_id: userID

@@ -17,13 +17,26 @@ const ProfileStyles = StyleSheet.create({
   header: {
     width: "100%",
     height: 100,
-    backgroundColor: "red",
+    backgroundColor: "lightblue",
+    flexDirection: "row",
+    alignItems: "center"
+  },
+  headerLeft: {
+    marginLeft: 20,
+  },
+  headerRight: {
+    
   },
   profilePictureView: {
-
+    borderColor: "black",
+    borderRadius: 100,
+    borderWidth: 2,
+    height: 90,
+    width: 90,
   },
   profilePicture: {
-
+    borderRadius: 100,
+    flex: 1,
   },
 
 });
