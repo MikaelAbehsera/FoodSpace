@@ -8,16 +8,17 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 
 
+
 app.use(bodyParser.urlencoded({
   extended: false
 }));
+
 app.use(bodyParser.json());
 app.use(require("method-override")());
 
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });
-
 
 
 app.post("/register", (req, res) => {
@@ -173,8 +174,6 @@ app.post("/create", (req, res) => {
     });
 });
 
-app.get("/searchCat", (req, res) => {
-})
 
 
 app.get("/recipe_list", (req, res) => {
@@ -228,8 +227,8 @@ app.get("/recipe_list", (req, res) => {
           });
       })
     })
-       
-
+    })
+      
 });
 
 
@@ -413,5 +412,53 @@ app.post("/suggestion", (req, res) => {
     });
 });
 
-// can just have a function get called whenever a new review is made, uses knex to look over all previous reviews for that recipe, calculates the average and updates the recipe "overall_rating"
-// USE KNEX avg function
+
+
+// ==========================================
+
+
+var multer = require('multer');
+var AWS = require('aws-sdk');
+var upload = multer({ dest: 'uploads/' })
+const fs = require('file-system')
+
+AWS.config.update({
+    accessKeyId: process.env.DO_KEY,
+    secretAccessKey: process.env.DO_SECRETKEY
+});
+
+var s3 = new AWS.S3({
+  endpoint: new AWS.Endpoint('nyc3.digitaloceanspaces.com')
+});
+
+  
+  
+  app.post('/upload', upload.single('image'), function (req, res, next) {
+    // req.file is the `avatar` file
+    // req.body will contain the text fields, if there were any
+    console.log(req.file)
+
+    var bodystream = fs.createReadStream(req.file.path);
+    
+    var params = {
+      Body: bodystream,
+      Bucket: process.env.DO_BUCKET,
+      Key: 'uploads/'+req.file.filename,
+      ACL: 'public-read',
+      Metadata: {
+        'Content-Type': 'image/jpeg'
+      }
+    }
+    
+    s3.putObject(params, function(err, data) {
+      if (err) console.log(err, err.stack);
+      else {
+        console.log(data)
+        const storedImage = `https://${process.env.DO_BUCKET}.nyc3.digitaloceanspaces.com/${params.Key}`;
+
+        console.log(storedImage)
+      } 
+    })
+})
+
+
