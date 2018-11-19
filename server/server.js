@@ -126,11 +126,11 @@ app.post("/create", (req, res) => {
         });
       });
       instructionsArray.forEach((single) => {
-        instructionsList.push({
+        instructionsList.push([{
           recipes_id: id[0],
           step_number: single.stepNumber,
           step_description: single.step
-        });
+        }]);
       });
 
       knex("ingredients")
@@ -180,6 +180,7 @@ app.get("/recipe_list", (req, res) => {
     .innerJoin("tags", "recipes.id", "tags.recipes_id")
     .innerJoin("categories", "tags.category_id", "categories.id")
     .innerJoin("instructions", "instructions.recipes_id", "recipes.id")
+    .innerJoin("ingredients", "ingredients.recipes_id", "recipes.id")
     .then((allRecipes) => {
       res.json({
         recipes: allRecipes,
@@ -289,6 +290,7 @@ app.post("/fave", (req, res) => {
 
 });
 
+
 app.post("/mealmade", (req, res) => {
   // add recipe to users mealmade
   const recipeID = req.body.recipes_id;
@@ -308,7 +310,6 @@ app.post("/mealmade", (req, res) => {
     });
 
 });
-
 
 
 app.post("/review", (req, res) => {
