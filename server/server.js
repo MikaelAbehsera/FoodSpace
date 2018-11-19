@@ -79,39 +79,143 @@ app.post("/login" , (req, res) => {
 });
 
 
-app.post("/create" , (req, res) => {
+app.post("/create", (req, res) => {
   // creates new recipe
-  knex("recipies")
-  .insert({})
-  .returning()
-  .then((id) => {
-    
 
-  })
+  const categoryName = req.body.category;
+  const recipeForm = req.body.form;
+  const ingredientsArray = req.body.ingredients;
+  const instructionsArray = req.body.instructions;
 
+  // STILL NEED TO TAG CATEGORIES AND PROPER USER_ID
+  // currently being simulated
+
+  knex("recipes")
+    .insert({
+      name: recipeForm.recipeName,
+      description: recipeForm.recipeDescription,
+      overall_rating: null,
+      time: recipeForm.timeToMake,
+      difficulty: recipeForm.difficultyOfRecipe,
+      creator_id: 1
+    })
+    .returning("id")
+    .then((id) => {
+      const ingredientsList = [];
+      const instructionsList = [];
+
+      ingredientsArray.forEach((single) => {
+        ingredientsList.push({
+          recipes_id: id[0],
+          food_type: single.foodType,
+          quantity: single.quantity
+        });
+      });
+      instructionsArray.forEach((single) => {
+        instructionsList.push({
+          recipes_id: id[0],
+          step_number: single.stepNumber,
+          step_description: single.step
+        });
+      });
+
+      knex("ingredients")
+        .insert(ingredientsList)
+        .then(() => {
+          knex("instructions")
+            .insert(instructionsList)
+            .then(() => {
+              knex("categories")
+                .where({
+                  category_name: categoryName
+                })
+                .returning("id")
+                .then((tagID) => {
+                  console.log("tag ==> ", tagID[0].id)
+                  knex("tags")
+                    .insert({
+                      recipes_id: id[0],
+                      category_id: tagID[0].id
+                    })
+                })
+                .catch((err) => {
+                  res.json({
+                    id: -1,
+                    success: false
+                  });
+                  res.status(404);
+                  console.log(err);
+                  throw err;
+                })
+                .finally(() => {
+                  res.json({
+                    recipes_id: id[0],
+                    success: true
+                  });
+                });
+            })
+        })
+
+    });
 });
 
 
-app.get("/recipe_list" , (req, res) => {
+app.get("/recipe_list", (req, res) => {
+
   knex
     .select("*")
     .from("recipes")
     .innerJoin("tags", "recipes.id", "tags.recipes_id")
     .innerJoin("categories", "tags.category_id", "categories.id")
+    // .whereIn()
     .then((allRecipes) => {
-      console.log(allRecipes)
-      res.json({recipes: allRecipes})
-      res.status(200)
+      allRecipes.forEach((single) => {
+        single['instructions'] = [];
+        single['ingredients'] = [];
+      })
+      knex("recipes")
+      .innerJoin("instructions", "instructions.recipes_id", "recipes.id")
+      .then((resultIngredients) => {
+        knex("recipes")
+        .innerJoin("instructions", "instructions.recipes_id", "recipes.id")
+        .then((resultInstructions) => {
+
+          resultIngredients.forEach((single)=> {
+            allRecipes.forEach((singleRecipe) => {
+              if (single.id === singleRecipe.id) {
+                singleRecipe['ingredients'].push(single)
+              }
+            })
+          })
+
+          resultInstructions.forEach((single)=> {
+            allRecipes.forEach((singleRecipe) => {
+              if (single.id === singleRecipe.id) {
+                singleRecipe['instructions'].push(single)
+              }
+            })
+          })
+        })
+        .catch((err) => {
+          res.json({
+            success: false
+          });
+          res.status(404);
+          console.log(err);
+          throw err;
+        })
+        .finally(() => {
+          res.json({
+            allRecipes: allRecipes,
+            success: true
+          });
+      })
     })
-    .catch((err) => {
-      res.json({id: -1, success: false})
-      res.status(404)
-      console.log(err); throw err;
-    })
-    .finally(() => {
-    });
+       
 
 });
+})
+
 
 app.get("/recipe_details" , (req, res) => {
    knex
@@ -127,51 +231,95 @@ app.get("/recipe_details" , (req, res) => {
 
 });
 
-app.get("/profile" , (req, res) => {
-// user info
-// user id is given a
 
-  const givenID = req.body.id
-  knex
-    .select("*")
-    .from("recipes")
-    .innerJoin("users", "users.id", "recipes.creator_id") 
-    .where("users.id", givenID)
-    .innerJoin("mademeals", "users.id", "mademeals.user_id")
-    .where("mademeals.user_id", givenID)
-    .innerJoin("faves", "users.id", "faves.user_id")
-    .where("faves.user_id", givenID)
-    .then((data) => {
-      console.log(data)
+app.get("/profile", (req, res) => {
+  const userID = 1;
+  const userProfile = {};
+
+  knex("users")
+    .select("username", "email", "profileIMG", "location")
+    .where({
+      id: userID
     })
+    .then((userInfo) => {
+      userProfile["userInfo"] = userInfo[0];
+      
+      knex("recipes")
+        .where({
+          creator_id: userID
+        })
+        .then((recipesCreated) => {
+          userProfile["recipesCreated"] = recipesCreated;
+
+          knex("faves")
+            .where({
+              user_id: userID
+            })
+            .innerJoin("recipes", "faves.recipes_id", "recipes.id")
+            .then((faves) => {
+              userProfile["faves"] = faves;
+
+              knex("mademeals")
+                .where({
+                  user_id: userID
+                })
+                .innerJoin("recipes", "mademeals.recipes_id", "recipes.id")
+                .then((Usermademeals) => {
+                  userProfile["Usermademeals"] = Usermademeals;
+                })
+                .catch((err) => {
+                  res.json({
+                    success: false
+                  });
+                  res.status(404);
+                  console.log(err);
+                  throw err;
+                })
+                .finally(() => {
+                  res.json({
+                    userProfile: userProfile,
+                    success: true
+                  });
+                });
+            });
+        });
+    });
+});
     
-  // to display all of recipes created by the user
 
-app.post("/fave" , (req, res) => {
-const userId = req.body.user_id
-const recipeid = req.body.recpies_id
-const check = req.body.check
+app.post("/fave", (req, res) => {
+  const userId = req.body.user_id;
+  const recipeid = req.body.recpies_id;
+  const check = req.body.check;
 
-const favRecipesAdd = {
-  user_id: userId,
-  recipes_id: recipeid 
-}
-if (check === true) {
-  knex("faves")
-  .insert(favRecipesAdd)
-  .then(() => {
-    res.json({sucsess: true})
-  })
-} else {
-  knex("faves")
-  .where({user_id: userId, recipes_id: recipeid})
-  .del()
-  .then(() => {
-    res.json({sucsess: true})
-  })
-}
+  const favRecipesAdd = {
+    user_id: userId,
+    recipes_id: recipeid
+  };
+  if (check === true) {
+    knex("faves")
+      .insert(favRecipesAdd)
+      .then(() => {
+        res.json({
+          success: true
+        });
+      });
+  } else {
+    knex("faves")
+      .where({
+        user_id: userId,
+        recipes_id: recipeid
+      })
+      .del()
+      .then(() => {
+        res.json({
+          success: true
+        });
+      });
+  }
 
 });
+
 
 app.post("/mealmade" , (req, res) => {
 // add recipe to users mealmade
@@ -240,11 +388,14 @@ app.post("/minus", (req, res) => {
     })
     
   }
-  app.post("/review", (req, res) => {
-    // add review to a recipe
-    const recipeID = 1;
-    const newRating = req.body.rating;
-    const newReviewtext = req.body.reviewText;
+})
+
+
+app.post("/review", (req, res) => {
+  // add review to a recipe
+  const recipeID = 1;
+  const newRating = req.body.rating;
+  const newReviewtext = req.body.reviewText;
 
   knex("reviews")
     .insert({
@@ -308,6 +459,7 @@ app.post("/suggestion", (req, res) => {
       });
     });
 });
+
 
 
 
