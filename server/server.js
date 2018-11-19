@@ -151,12 +151,70 @@ app.post("/create", (req, res) => {
                       recipes_id: id[0],
                       category_id: tagID[0].id
                     })
+                })
+                .catch((err) => {
+                  res.json({
+                    id: -1,
+                    success: false
+                  });
+                  res.status(404);
+                  console.log(err);
+                  throw err;
+                })
+                .finally(() => {
+                  res.json({
+                    recipes_id: id[0],
+                    success: true
+                  });
                 });
-            });
+            })
+        })
+
+    });
+});
+
+app.get("/searchCat", (req, res) => {
+})
+
+
+app.get("/recipe_list", (req, res) => {
+
+  knex
+    .select("*")
+    .from("recipes")
+    .innerJoin("tags", "recipes.id", "tags.recipes_id")
+    .innerJoin("categories", "tags.category_id", "categories.id")
+    // .whereIn()
+    .then((allRecipes) => {
+      allRecipes.forEach((single) => {
+        single['instructions'] = [];
+        single['ingredients'] = [];
+      })
+      knex("recipes")
+      .innerJoin("instructions", "instructions.recipes_id", "recipes.id")
+      .then((resultIngredients) => {
+        knex("recipes")
+        .innerJoin("instructions", "instructions.recipes_id", "recipes.id")
+        .then((resultInstructions) => {
+
+          resultIngredients.forEach((single)=> {
+            allRecipes.forEach((singleRecipe) => {
+              if (single.id === singleRecipe.id) {
+                singleRecipe['ingredients'].push(single)
+              }
+            })
+          })
+
+          resultInstructions.forEach((single)=> {
+            allRecipes.forEach((singleRecipe) => {
+              if (single.id === singleRecipe.id) {
+                singleRecipe['instructions'].push(single)
+              }
+            })
+          })
         })
         .catch((err) => {
           res.json({
-            id: -1,
             success: false
           });
           res.status(404);
@@ -165,43 +223,17 @@ app.post("/create", (req, res) => {
         })
         .finally(() => {
           res.json({
-            recipes_id: id[0],
+            allRecipes: allRecipes,
             success: true
           });
-        });
-    });
-});
-
-
-app.get("/recipe_list", (req, res) => {
-  knex
-    .select("*")
-    .from("recipes")
-    .innerJoin("tags", "recipes.id", "tags.recipes_id")
-    .innerJoin("categories", "tags.category_id", "categories.id")
-    .innerJoin("instructions", "instructions.recipes_id", "recipes.id")
-    .innerJoin("ingredients", "ingredients.recipes_id", "recipes.id")
-    .then((allRecipes) => {
-      res.json({
-        recipes: allRecipes,
-        success: true
-      });
-      res.status(200);
+      })
     })
-    .catch((err) => {
-      res.json({
-        success: false
-      });
-      res.status(404);
-      console.log(err);
-      throw err;
-    });
+       
 
 });
 
 
 app.get("/profile", (req, res) => {
-  // user info
   const userID = 1;
   const userProfile = {};
 
@@ -351,7 +383,34 @@ app.post("/review", (req, res) => {
 
         });
     });
+});
 
+
+app.post("/suggestion", (req, res) => {
+  // add review to a recipe
+  const recipeID = 1;
+  const newsuggestText = req.body.text;
+
+  knex("suggestions")
+    .insert({
+      recipes_id: recipeID,
+      suggest_text: newsuggestText,
+      plus: 0,
+      minus: 0
+    })
+    .catch((err) => {
+      res.json({
+        success: false
+      });
+      res.status(404);
+      console.log(err);
+      throw err;
+    })
+    .finally(() => {
+      res.json({
+        success: true
+      });
+    });
 });
 
 // can just have a function get called whenever a new review is made, uses knex to look over all previous reviews for that recipe, calculates the average and updates the recipe "overall_rating"
