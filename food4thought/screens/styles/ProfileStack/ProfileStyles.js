@@ -96,6 +96,13 @@ const ProfileStyles = StyleSheet.create({
     borderRadius: 20,
   },
 
+  signoutButton: {
+    width: 110,
+    position: "absolute",
+    right: 20,
+    bottom: 20,
+  },
+
 });
 
 export default ProfileStyles;

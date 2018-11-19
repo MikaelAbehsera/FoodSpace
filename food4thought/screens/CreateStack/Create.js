@@ -70,6 +70,9 @@ export default class CreateScreen extends React.Component {
    this.handleDetails = this.handleDetails.bind(this);
   }
 
+  static navigationOptions = {
+    title: 'Create Recipe',
+  };
   redirect(page) {
     this.props.navigation.navigate(page)
   }

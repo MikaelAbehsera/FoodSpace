@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button, Text, View, ScrollView, Image } from "react-native";
+import { Button, Text, View, ScrollView, Image, AsyncStorage } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ProfileStyles from "../styles/ProfileStack/ProfileStyles.js";
 import axios from "axios";
@@ -29,23 +29,39 @@ export default class ProfileScreen extends React.Component {
 
     this.state = { compLoaded: false, userProfile: {}};
   }
-
+  
+  static navigationOptions = {
+    title: "Profile",
+  };
+  
+  
   componentDidMount() {
     const that = this;
     axios.get(`${currentHostedLink}/profile`)
-      .then(function (response) {
-        // reset page load
-        that.setState({ compLoaded: false, userProfile: that.state.userProfile });
-        // set state to new object
-        that.setState({ compLoaded: false, userProfile: response.data.userProfile });
-        // state load finsished set new state
-        that.setState({ compLoaded: true, userProfile: that.state.userProfile });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    .then(function (response) {
+      // reset page load
+      that.setState({ compLoaded: false, userProfile: that.state.userProfile });
+      // set state to new object
+      that.setState({ compLoaded: false, userProfile: response.data.userProfile });
+      // state load finsished set new state
+      that.setState({ compLoaded: true, userProfile: that.state.userProfile });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
- 
+  
+  signout = () => {
+    const that = this;
+    AsyncStorage.setItem("sessionToken", "").then(
+      () => {
+        console.log("hello");
+        that.props.screenProps.OnSessionChange()
+      })
+    
+      that.props.screenProps.changePage("Home")
+  }
+
   render() {
 
     
@@ -129,6 +145,13 @@ export default class ProfileScreen extends React.Component {
             <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
             <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
           </ScrollView>
+          <View style={ProfileStyles.signoutButton} >
+            <Button 
+              title="Signout"
+              onPress={this.signout}
+              color="red"
+            />
+          </View>
         </View>
       );
     } else {

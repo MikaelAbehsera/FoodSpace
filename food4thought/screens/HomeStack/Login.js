@@ -1,11 +1,9 @@
 import React, {Component} from "react";
 import { Button, Text, View, ScrollView, KeyboardAvoidingView, AsyncStorage } from "react-native";
-// Import login styles module
+import PropTypes from "prop-types";
 import LoginStyles from "../styles/HomeStack/LoginStyles.js";
-// Import font scaler 
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
 import axios from "axios";
-
 import t from "tcomb-form-native";
 const Form = t.form.Form;
 
@@ -48,6 +46,10 @@ export default class LoginScreen extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  static navigationOptions = {
+    title: 'Welcome Back',
+  };
+
   redirect(page) {
     this.props.navigation.navigate(page);
   }
@@ -60,13 +62,12 @@ export default class LoginScreen extends React.Component {
     const that = this;
     const value = this._form.getValue(); // use that ref to get the form value
     console.log("LOGIN FORM ===> ", value);
-
+    that.redirect("Login") 
     if (value) { // if validation fails, value will be null
       let validate = false;
       // post user information to backend /login route
       axios.post((`${currentHostedLink}/login`), value)
       .then(function (response) {
-        console.log(response.data);
         if(response.data) { 
           console.log("USER ID ===> ", response.data.id);
           // notifiy user that the password is wrong with a relevant message
@@ -74,16 +75,21 @@ export default class LoginScreen extends React.Component {
             console.log("wrong pass");
             that.setState({status: { text: "DA PASSVORD IS WRONG!" }});
           } else {
+            AsyncStorage.setItem("sessionToken", "Todo").then(
+            () => {
+              console.log("hello");
+              that.props.screenProps.OnSessionChange()
+            })
             validate = true;  
           }
         }
       })
       .catch(function (error) {
         console.log(error);
-      }).finally(function() {
+      }).finally(function() { 
         console.log("VAIDATE ==> ", validate)
         if(validate) {
-          setTimeout(() => { that.redirect("List") }, 200);
+          that.props.screenProps.changePage("Profile");
         }
       });
     }
@@ -144,3 +150,6 @@ export default class LoginScreen extends React.Component {
   }
 }
 
+LoginScreen.propTypes = {
+  changePage: PropTypes.func,
+};
