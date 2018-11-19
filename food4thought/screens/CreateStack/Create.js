@@ -123,8 +123,6 @@ export default class CreateScreen extends React.Component {
         instructions: this.state.instructions.concat([{ "step": step, "stepNumber": num}]) })
       this.number++;
       }
-    
-      setTimeout(() => { this.redirect("Home") }, 200);
   }
 
   handleFinalForm = () => {
@@ -167,7 +165,7 @@ export default class CreateScreen extends React.Component {
             <View style={CreateStyles.catSelectorView}>
               <Picker selectedValue={this.state.category} onValueChange={this.updateUser} style={CreateStyles.catSelector}>
                 <Picker.Item label="Greasy" value="Greasy" />
-                <Picker.Item label="Health Nut" value="Health Nut" />
+                <Picker.Item label="Health Nut" value="Health nut" />
                 <Picker.Item label="Munchies" value="Munchies" />
               </Picker>
             </View>

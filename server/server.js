@@ -8,8 +8,6 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 
 
-console.log("Made it to login!");
-
 app.use(bodyParser.urlencoded({
   extended: false
 }));
@@ -147,10 +145,11 @@ app.post("/create", (req, res) => {
                 })
                 .returning("id")
                 .then((tagID) => {
+                  console.log("tag ==> ", tagID[0].id);
                   knex("tags")
                     .insert({
                       recipes_id: id[0],
-                      category_id: tagID[0]
+                      category_id: tagID[0].id
                     });
                 });
             });
@@ -182,7 +181,6 @@ app.get("/recipe_list", (req, res) => {
     .innerJoin("categories", "tags.category_id", "categories.id")
     .innerJoin("instructions", "instructions.recipes_id", "recipes.id")
     .then((allRecipes) => {
-      console.log(allRecipes);
       res.json({
         recipes: allRecipes,
         success: true
