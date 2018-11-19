@@ -195,48 +195,55 @@ app.post("/plus", (req, res) => {
   const recipeid = req.body.recpies_id
   const check = req.body.check
   
-  const userPlus = {
-    user_id: userId,
-    recipes_id: recipeid 
-  }
-  
   if (check === true) {
     knex('suggestions')
-    insert(userPlus)
-    res.json({sucsess:true})
+    .where({recipie_id: recipieid})
+    .then((data) => {
+      knex('suggestions')
+      .where({recipe_id: recipeid})
+      .update({plus: data[0].plus++})
+      .catch((err) => {
+        res.json({success: false})
+        res.status(404)
+        console.log(err); throw err;
+      })
+      .finally(() => {
+        res.json({success: true})
+      });
+    })
+    
   }
 
 })
 
 app.post("/minus", (req, res) => {
-  
-
-});
-
-  
-
-app.post("/fave" , (req, res) => {
   const userId = req.body.user_id
   const recipeid = req.body.recpies_id
   const check = req.body.check
   
-  const favRecipesAdd = {
-    user_id: userId,
-    recipes_id: recipeid 
-  }
   if (check === true) {
-    knex("faves")
-    .insert(favRecipesAdd)
-    .then(() => {
-      res.json({sucsess: true})
-    })
-  } else {
-    knex("faves")
-    .where({user_id: userId, recipes_id: recipeid})
-    .del()
-    .then(() => {
-      res.json({sucsess: true})
-    })
-  }
+    knex('suggestions')
+    .where({recipe_id: recipeid})
+    .then((data) => {
+    knex('suggestions')
+    .where({recipe_id: recipeid})
+      .update({minus: data[0].minus--})
+      .catch((err) => {
+        res.json({success: false})
+        res.status(404)
+        console.log(err); throw err;
+      })
+      .finally(() => {
+        res.json({success: true})
+      });
   
-  });
+
+    })
+    
+  }
+
+
+
+});
+
+  
