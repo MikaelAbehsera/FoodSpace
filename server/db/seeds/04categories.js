@@ -8,17 +8,17 @@ exports.seed = function(knex, Promise) {
         return Promise.all([
           knex("categories").insert({
             category_name: "Greasy",
-            description: "This chategory is reserved for those who look to gorge on the greasiet meals without shame."
+            category_description: "This chategory is reserved for those who look to gorge on the greasiet meals without shame."
           }),
 
           knex("categories").insert({
             category_name: "Health nut",
-            description: "This chategory is low in calories and high in vegitables. It is reserved for those who desire that banging beach bod."
+            category_description: "This chategory is low in calories and high in vegitables. It is reserved for those who desire that banging beach bod."
           }),
 
           knex("categories").insert({
             category_name: "Munchies",
-            description: "This category  is reserved for those who get home at ungodly hour looking find sustenance in a pinch"
+            category_description: "This category  is reserved for those who get home at ungodly hour looking find sustenance in a pinch"
           })
 
 
