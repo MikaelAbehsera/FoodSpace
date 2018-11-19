@@ -6,6 +6,7 @@ exports.seed = function(knex, Promise) {
       .del()
       .then(function () {
         return Promise.all([
+          //ming
           knex("ingredients").insert({
             recipes_id: 1,
             food_type: "hot sauce", 
@@ -51,6 +52,59 @@ exports.seed = function(knex, Promise) {
           knex("ingredients").insert({
             recipes_id: 2,
             food_type: "egg", 
+            quantity: "1"
+          }), 
+           //ming
+           knex("ingredients").insert({
+            recipes_id: 5,
+            food_type: "steak", 
+            quantity: "2"
+          }),
+
+          knex("ingredients").insert({
+            recipes_id: 5,
+            food_type: "salt and peper", 
+            quantity: "1"
+          }),
+
+          knex("ingredients").insert({
+            recipes_id: 5,
+            food_type: "potatoes", 
+            quantity: "7"
+          }),
+
+          knex("ingredients").insert({
+            recipes_id: 6,
+            food_type: "pasta", 
+            quantity: "1"
+          }),
+          
+          knex("ingredients").insert({
+            recipes_id: 6,
+            food_type: "tomato sauce", 
+            quantity: "1"
+          }),
+          
+          knex("ingredients").insert({
+            recipes_id: 6,
+            food_type: "Mince meat", 
+            quantity: "3"
+          }),
+          
+          knex("ingredients").insert({
+            recipes_id: 7,
+            food_type: "butter", 
+            quantity: "2"
+          }),
+          
+          knex("ingredients").insert({
+            recipes_id: 7,
+            food_type: "egg", 
+            quantity: "1"
+          }), 
+          knex("ingredients").insert({
+            recipes_id: 7,
+            food_type: "bread", 
             quantity: "1"
           })
           

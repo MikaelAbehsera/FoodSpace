@@ -45,6 +45,37 @@ exports.seed = function (knex, Promise) {
             difficulty: 3,
             creator_id: 2
           }),
+          knex("recipes").insert({
+            name: "Steak and potatoes",
+            description: "A 14 0z Tbone steak with baked potatoes",
+            recipeIMG:"http://jikoniyetu.com/wp-content/uploads/2018/02/steak-1.jpg",
+            overall_rating: 4, 
+            time: 45,
+            difficulty: 5,
+            creator_id: 1, 
+
+          }),
+          knex("recipes").insert({
+            name: "Moms Spaggeti",
+            description: "The spaggeti that b-rabbit ate before battling poppa doc at the",
+            recipeIMG:"https://data.junkee.com/wp-content/uploads/2016/05/em.jpg",
+            overall_rating: 2, 
+            time: 27,
+            difficulty: 2,
+            creator_id: 2, 
+          }),
+          knex("recipes").insert({
+            name: "scrambled eggs",
+            description: "Scrambled chicken fetuses",
+            recipeIMG:"http://aucdn.ar-cdn.com/recipes/port500/17a47fa0-b5c9-426e-b239-575c2e687fce.jpg",
+            overall_rating: 4, 
+            time: 4,
+            difficulty: 3,
+            creator_id: 3, 
+          }),
+          
+
+
         ]);
       })
   ]);
