@@ -6,6 +6,7 @@ const knex = require('knex')(config);
 const app = express();
 const bodyParser = require("body-parser");
 require('dotenv').config()
+const bcrypt = require('bcrypt')
 
 
 console.log("Made it to login!")
@@ -21,6 +22,10 @@ app.listen(PORT, () => {
 
 
 app.post("/register" , (req, res) => {
+
+  bcrypt.hash(req.body.password, hash, function(err, res) {
+    // res == true
+});
 
   if (req.body.password !== req.body.passwordConfirmation){
     // confirm password && passwordConfirmation
@@ -59,6 +64,10 @@ app.post("/register" , (req, res) => {
 app.post("/login" , (req, res) => {
   const email =  req.body.email.trim().toLowerCase();
   const password = req.body.password.trim();
+
+  bcrypt.hash(password, hash, function(err, res) {
+    // res == true
+});
 
   knex("users")
     .where({email: email})
@@ -241,7 +250,11 @@ app.post("/minus", (req, res) => {
     })
     
   }
-
+  app.post("/review", (req, res) => {
+    // add review to a recipe
+    const recipeID = 1;
+    const newRating = req.body.rating;
+    const newReviewtext = req.body.reviewText;
 
   knex("reviews")
     .insert({
