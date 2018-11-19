@@ -22,21 +22,15 @@ app.listen(PORT, () => {
 
 
 app.post("/register" , (req, res) => {
-
-  bcrypt.hash(req.body.password, hash, function(err, res) {
-    // res == true
-});
-
   if (req.body.password !== req.body.passwordConfirmation){
     // confirm password && passwordConfirmation
     console.log('ERROR');
   } else {
-    // encrypt password and store it
-
+    let hash = bcrypt.hashSync(req.body.password.trim(), 10);
     const newUser = [{
       username: req.body.username.trim(),
       email: req.body.email.trim().toLowerCase(),
-      password: req.body.password.trim(),
+      password: hash,
       profileIMG: req.body.profilePictureURL.trim(),
       location: req.body.location.trim()
     }];
@@ -64,10 +58,8 @@ app.post("/register" , (req, res) => {
 app.post("/login" , (req, res) => {
   const email =  req.body.email.trim().toLowerCase();
   const password = req.body.password.trim();
-
-  bcrypt.hash(password, hash, function(err, res) {
-    // res == true
-});
+  
+  bcrypt.compareSync(password, hash)
 
   knex("users")
     .where({email: email})
