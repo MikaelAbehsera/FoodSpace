@@ -126,11 +126,11 @@ app.post("/create", (req, res) => {
         });
       });
       instructionsArray.forEach((single) => {
-        instructionsList.push([{
+        instructionsList.push({
           recipes_id: id[0],
           step_number: single.stepNumber,
           step_description: single.step
-        }]);
+        });
       });
 
       knex("ingredients")
@@ -145,12 +145,12 @@ app.post("/create", (req, res) => {
                 })
                 .returning("id")
                 .then((tagID) => {
-                  console.log("tag ==> ", tagID[0].id);
+                  console.log("tag ==> ", tagID[0].id)
                   knex("tags")
                     .insert({
                       recipes_id: id[0],
                       category_id: tagID[0].id
-                    });
+                    })
                 });
             });
         })

@@ -3,7 +3,7 @@ exports.up = function(knex, Promise) {
   return Promise.all([
     knex.schema.createTable("tags", function(table) {
      
-     table.integer("id")
+     table.increments()
      table.integer("recipes_id")
      table.integer("category_id")
     

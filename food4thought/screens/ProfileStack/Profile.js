@@ -132,7 +132,12 @@ export default class ProfileScreen extends React.Component {
         </View>
       );
     } else {
-      return (<Text>Loading</Text>);
+      return (
+        <View style={{ flex: 1, backgroundColor: "#CED3DC", flexDirection: "column", justifyContent: "center"}}>
+          <View style={{ flexDirection: "row", justifyContent: "center"}}>
+            <Text style={{color: "#4392F1", fontWeight: "900", fontSize: 85, }} >Loading . . .</Text>
+          </View>
+        </View>);
     }
   }
 }
