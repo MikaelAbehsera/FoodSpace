@@ -46,6 +46,10 @@ export default class RegisterScreen extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  static navigationOptions = {
+    title: "Please register!",
+  };
+
   redirect(page) {
     this.props.navigation.navigate(page)
   }
@@ -54,7 +58,7 @@ export default class RegisterScreen extends React.Component {
     const that = this;
     const value = this._form.getValue(); // use that ref to get the form value
     console.log("REGISTER FORM ===> ", value);
-
+    that.redirect("Register") 
     if (value) { // if validation fails, value will be null
       let validate = false;
       // post user information to backend /login route
