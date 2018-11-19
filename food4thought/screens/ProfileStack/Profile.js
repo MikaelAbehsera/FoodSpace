@@ -37,7 +37,7 @@ export default class ProfileScreen extends React.Component {
         // reset page load
         that.setState({ compLoaded: false, userProfile: that.state.userProfile });
         // set state to new object
-        that.setState({ userProfile: response.data.userProfile });
+        that.setState({ compLoaded: false, userProfile: response.data.userProfile });
         // state load finsished set new state
         that.setState({ compLoaded: true, userProfile: that.state.userProfile });
       })

@@ -11,58 +11,71 @@ import {
 } from 'react-native-responsive-dimensions';
 
 
-const HomeStyles = StyleSheet.create({
+const RecipeStyles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 2,
     borderColor: "black",
+    borderTopLeftRadius: 40,
+    borderTopEndRadius: 10,
+    borderBottomStartRadius: 40,
+    borderBottomEndRadius: 10,
     marginTop: 5,
     marginBottom: 5,
   },
   leftView: {
-    height: 130,
-    borderWidth: 2,
-    borderColor: "red",
+    height: 126.5,
+    borderTopLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
-  rightView: {
-    flex:1,
-    height: 130,
-    borderWidth: 2,
-    borderColor: "yellow",
-  },
+  //right view
+  // rightView: {
+  //   flex:1,
+  //   height: 126.5,
+  //   borderLeftWidth: 2,
+  //   borderBottomEndRadius: 8,
+  //   borderTopEndRadius: 8,
+  //   borderLeftColor: "black",
+  //   backgroundColor: "green",
+  // },
   header: {
     flex:1,
-    height: 130,
-    borderWidth: 2,
-    borderColor: "blue",
+    borderBottomWidth: 2,
+    borderBottomColor: "black",
+  },
+  name: {
+    flex:1,
+  },
+  middle: {
+    flex:1,
     flexDirection: "row",    
   },
   overall_rating: {
     flex:1,
-    borderWidth: 2,
-    borderColor: "red",
+    borderRightWidth: 2,
+    borderRightColor: "black",
   },
   time: {
     flex:1,
-    borderWidth: 2,
-    borderColor: "blue",
   },
   footer: {
-    flex:1,
+    flex:2,
     height: 130,
-    borderWidth: 2,
-    borderColor: "purple",
+    borderTopWidth: 2,
+    borderTopColor: "black",
   },
   imgView: {
-    borderWidth: 2,
-    borderColor: "blue",
+    borderTopLeftRadius: 10,
+    borderBottomStartRadius: 40,
   },
   img: {
     width: 130,
-    height: 130
+    height: 126,
+    borderTopLeftRadius: 38,
+    borderBottomLeftRadius: 38,
   },
 });
 
-export default HomeStyles;
+export default RecipeStyles;

@@ -15,11 +15,11 @@ const SearchStyles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "lightgreen",
+    // backgroundColor: "lightgreen",
   },
   scrollRecipesView: {
     width: "95%",
-    backgroundColor: "lightblue",
+    // backgroundColor: "lightblue",
 
   },
   header: {

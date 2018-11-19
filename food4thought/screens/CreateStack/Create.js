@@ -146,8 +146,7 @@ export default class CreateScreen extends React.Component {
     const fullForm = this.state;
     console.log(fullForm)
     console.log("===========================================================")
-    console.log("===========================================================")
-    console.log("===========================================================")
+    
     let validate = false;
     // post user information to backend /login route
     axios.post((`${currentHostedLink}/create`), fullForm)
