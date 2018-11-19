@@ -59,15 +59,13 @@ app.post("/login" , (req, res) => {
   const email =  req.body.email.trim().toLowerCase();
   const password = req.body.password.trim();
   
-  bcrypt.compareSync(password, hash)
-
   knex("users")
     .where({email: email})
     .then((data) => { 
       //if email can be found
       if(data[0]) {
         // does password match
-        if(data[0].password === password) {
+        if(bcrypt.compareSync(password, data[0].password)) {
           console.log("USER LOGIN SUCCESSFULL");
           res.json({id: data[0].id, success: true});
           res.status(200);
