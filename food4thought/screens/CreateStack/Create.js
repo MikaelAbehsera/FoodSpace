@@ -83,21 +83,6 @@ export default class CreateScreen extends React.Component {
      })
   }
 
-  handleSubmit = () => {
-    const that = this;
-    const details = this._form.getValue(); 
-    const instructions = this._form1.getValue(); 
-    const ingredients = this._form2.getValue(); 
-
-    const finalForm = {
-      //this will be the structure sent to the backend 
-    };
-
-    if(details && instructions && ingredients) {
-      //send backend full form
-    }
-  }
-
   handleDetails = () => {
     const details = this._form.getValue(); 
   
@@ -138,6 +123,8 @@ export default class CreateScreen extends React.Component {
         instructions: this.state.instructions.concat([{ "step": step, "stepNumber": num}]) })
       this.number++;
       }
+    
+      setTimeout(() => { this.redirect("Home") }, 200);
   }
 
   handleFinalForm = () => {

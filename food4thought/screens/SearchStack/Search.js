@@ -38,7 +38,7 @@ export default class SearchScreen extends React.Component {
         console.log(error);
       });
   }
-  
+
   categoryButtonGreasy = () => {
     const category = "Greasy";
     console.log(category);

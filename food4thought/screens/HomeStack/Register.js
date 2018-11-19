@@ -60,7 +60,7 @@ export default class RegisterScreen extends React.Component {
       // post user information to backend /login route
       axios.post((`${currentHostedLink}/register`), value)
       .then(function (response) {
-        if(response.data) { 
+        if(response.data.success) { 
           validate = true;
           console.log("USER ID ===> ", response.data.id);
         }
@@ -69,7 +69,7 @@ export default class RegisterScreen extends React.Component {
         console.log(error);
       }).finally(function() {
         if(validate) {
-          setTimeout(() => { that.redirect("Home") }, 200);
+          setTimeout(() => { that.redirect("List") }, 200);
         }
       });
       

@@ -49,8 +49,9 @@ export default class LoginScreen extends React.Component {
   }
 
   redirect(page) {
-    this.props.navigation.navigate(page)
+    this.props.navigation.navigate(page);
   }
+
 
   //notes
   // every time we access a page, check for id or username + password (depending on what works)
@@ -82,7 +83,7 @@ export default class LoginScreen extends React.Component {
       }).finally(function() {
         console.log("VAIDATE ==> ", validate)
         if(validate) {
-          setTimeout(() => { that.redirect("Home") }, 200);
+          setTimeout(() => { that.redirect("List") }, 200);
         }
       });
     }

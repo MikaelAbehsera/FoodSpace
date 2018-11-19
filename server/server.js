@@ -34,7 +34,7 @@ app.post("/register", (req, res) => {
       username: req.body.username.trim(),
       email: req.body.email.trim().toLowerCase(),
       password: req.body.password.trim(),
-      profileIMG: req.body.profilePictureURL.trim(),
+      profileIMG: req.body.profilePictureURL,
       location: req.body.location.trim()
     }];
 
