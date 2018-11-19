@@ -151,24 +151,25 @@ app.post("/create", (req, res) => {
                       recipes_id: id[0],
                       category_id: tagID[0].id
                     })
+                })
+                .catch((err) => {
+                  res.json({
+                    id: -1,
+                    success: false
+                  });
+                  res.status(404);
+                  console.log(err);
+                  throw err;
+                })
+                .finally(() => {
+                  res.json({
+                    recipes_id: id[0],
+                    success: true
+                  });
                 });
-            });
+            })
         })
-        .catch((err) => {
-          res.json({
-            id: -1,
-            success: false
-          });
-          res.status(404);
-          console.log(err);
-          throw err;
-        })
-        .finally(() => {
-          res.json({
-            recipes_id: id[0],
-            success: true
-          });
-        });
+
     });
 });
 
@@ -233,7 +234,6 @@ app.get("/recipe_list", (req, res) => {
 
 
 app.get("/profile", (req, res) => {
-  // user info
   const userID = 1;
   const userProfile = {};
 
