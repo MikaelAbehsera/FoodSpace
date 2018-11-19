@@ -243,7 +243,67 @@ app.post("/minus", (req, res) => {
   }
 
 
+  knex("reviews")
+    .insert({
+      recipes_id: recipeID,
+      rating: newRating,
+      review_text: newReviewtext
+    })
+    .then(() => {
+      knex("reviews")
+        .avg("rating")
+        .then((avgRating) => {
+          knex("recipes")
+            .where({
+              id: recipeID
+            })
+            .update({
+              overall_rating: avgRating
+            })
+            .catch((err) => {
+              res.json({
+                success: false
+              });
+              res.status(404);
+              console.log(err);
+              throw err;
+            })
+            .finally(() => {
+              res.json({
+                success: true
+              });
+            });
 
+        });
+    });
+});
+
+
+app.post("/suggestion", (req, res) => {
+  // add review to a recipe
+  const recipeID = 1;
+  const newsuggestText = req.body.text;
+
+  knex("suggestions")
+    .insert({
+      recipes_id: recipeID,
+      suggest_text: newsuggestText,
+      plus: 0,
+      minus: 0
+    })
+    .catch((err) => {
+      res.json({
+        success: false
+      });
+      res.status(404);
+      console.log(err);
+      throw err;
+    })
+    .finally(() => {
+      res.json({
+        success: true
+      });
+    });
 });
 
   
