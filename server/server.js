@@ -164,75 +164,76 @@ app.post("/create", (req, res) => {
   // currently being simulated
 
   knex("recipes")
-  .insert({
-    name: recipeForm.recipeName,
-    description: recipeForm.recipeDescription,
-    overall_rating: null,
-    time: recipeForm.timeToMake,
-    difficulty: recipeForm.difficultyOfRecipe,
-    creator_id: 1
-  })
-  .returning("id")
-  .then((id) => {
-    const ingredientsList = [];
-    const instructionsList = [];
-    
-    ingredientsArray.forEach((single) => {
-      ingredientsList.push({
-        recipes_id: id[0],
-        food_type: single.foodType,
-        quantity: single.quantity
-      });
-      instructionsArray.forEach((single) => {
-        instructionsList.push({
+    .insert({
+      name: recipeForm.recipeName,
+      description: recipeForm.recipeDescription,
+      overall_rating: null,
+      time: recipeForm.timeToMake,
+      difficulty: recipeForm.difficultyOfRecipe,
+      creator_id: 1
+    })
+    .returning("id")
+    .then((id) => {
+      const ingredientsList = [];
+      const instructionsList = [];
+
+      ingredientsArray.forEach((single) => {
+        ingredientsList.push({
           recipes_id: id[0],
-          step_number: single.stepNumber,
-          step_description: single.step
+          food_type: single.foodType,
+          quantity: single.quantity
         });
+        instructionsArray.forEach((single) => {
+          instructionsList.push({
+            recipes_id: id[0],
+            step_number: single.stepNumber,
+            step_description: single.step
+          });
+        });
+
+
+        knex("ingredients")
+          .insert(ingredientsList)
+          .then(() => {
+            knex("instructions")
+              .insert(instructionsList)
+              .then(() => {
+                knex("categories")
+                  .where({
+                    category_name: categoryName
+                  })
+                  .returning("id")
+                  .then((tagID) => {
+                    console.log("tag ==> ", tagID[0].id);
+                    const tagging = {
+                      recipes_id: id[0],
+                      category_id: tagID[0].id
+                    };
+                    knex("tags")
+                      .insert(tagging)
+                      .then(() => {});
+                  })
+                  .catch((err) => {
+                    res.json({
+                      id: -1,
+                      success: false
+                    });
+                    res.status(404);
+                    console.log(err);
+                    throw err;
+                  })
+                  .finally(() => {
+                    res.json({
+                      recipes_id: id[0],
+                      success: true
+                    });
+                  });
+              });
+          });
+
       });
-
-      knex("ingredients")
-        .insert(ingredientsList)
-        .then(() => {
-          knex("instructions")
-            .insert(instructionsList)
-            .then(() => {
-              knex("categories")
-                .where({
-                  category_name: categoryName
-                })
-                .returning("id")
-                .then((tagID) => {
-                  console.log("tag ==> ", tagID[0].id);
-                  const tagging = {
-                    recipes_id: id[0],
-                    category_id: tagID[0].id
-                  };
-                  knex("tags")
-                    .insert(tagging)
-                    .then(() => {});
-                })
-                .catch((err) => {
-                  res.json({
-                    id: -1,
-                    success: false
-                  });
-                  res.status(404);
-                  console.log(err);
-                  throw err;
-                })
-                .finally(() => {
-                  res.json({
-                    recipes_id: id[0],
-                    success: true
-                  });
-                });
-            });
-        });
-
     });
 });
-
 
 // another commit
 app.get("/recipe_list", (req, res) => {
@@ -575,4 +576,4 @@ app.post("/review", (req, res) => {
 //     })
 
 //     // return storedImage to be stored in knex, if failed - returns nulls = returned should check if null/valid
-// })
+// });
