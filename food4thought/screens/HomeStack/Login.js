@@ -77,7 +77,7 @@ export default class LoginScreen extends React.Component {
           } else {
             AsyncStorage.setItem("sessionToken", "Todo").then(
             () => {
-              console.log("hello");
+              console.log("SESSION HELLO");
               that.props.screenProps.OnSessionChange()
             })
             validate = true;  

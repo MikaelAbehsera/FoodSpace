@@ -71,9 +71,10 @@ export default class RegisterScreen extends React.Component {
       })
       .catch(function (error) {
         console.log(error);
-      }).finally(function() {
+      }).finally(function() { 
+        console.log("VAIDATE ==> ", validate)
         if(validate) {
-          setTimeout(() => { that.redirect("List") }, 200);
+          that.props.screenProps.changePage("Profile");
         }
       });
       
