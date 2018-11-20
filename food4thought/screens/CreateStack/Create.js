@@ -235,7 +235,7 @@ export default class CreateScreen extends React.Component {
 
           <View style={{width: "100%", height: 300}} />
         </ScrollView>
-
+        {this.props.screenProps.Nav}          
       </View>
     );
   }
