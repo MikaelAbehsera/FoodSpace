@@ -18,7 +18,7 @@ const Create = t.struct({
   recipeName: t.String,
   recipeDescription: t.String,
   timeToMake: t.Integer,
-  diffcultyOfRecipe: t.Integer,
+  difficultyOfRecipe: t.Integer,
 });
 
 // just the ingredientsForm structure
@@ -236,7 +236,7 @@ export default class CreateScreen extends React.Component {
 
           <View style={{width: "100%", height: 300}} />
         </ScrollView>
-        {this.props.screenProps.Nav}          
+        {this.props.screenProps.Nav}
       </View>
     );
   }

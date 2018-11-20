@@ -169,7 +169,7 @@ app.post("/create", (req, res) => {
     description: recipeForm.recipeDescription,
     overall_rating: null,
     time: recipeForm.timeToMake,
-    difficulty: recipeForm.diffcultyOfRecipe,
+    difficulty: recipeForm.difficultyOfRecipe,
     creator_id: 1
   })
   .returning("id")
