@@ -33,6 +33,7 @@ app.post("/register" , (req, res) => {
       profileIMG: req.body.profilePictureURL,
       location: req.body.location.trim()
     }];
+    // I trimmed
     
     console.log(newUser)
 
