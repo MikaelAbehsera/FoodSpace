@@ -235,16 +235,14 @@ app.get("/recipe_list", (req, res) => {
         single['instructions'] = [];
         single['ingredients'] = [];
       })
-      
-      knex
+
+      knex("ingredients")
       .select("food_type", "quantity")
-      .from("ingredients")
       .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
       .then((resultIngredients) => {
 
-        knex
+        knex("instructions")
         .select("step_description", "step_number")
-        .from("instructions")
         .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
         .then((resultInstructions) => {
 
