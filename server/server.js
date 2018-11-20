@@ -195,10 +195,10 @@ app.post("/create", (req, res) => {
                 }
                 knex("tags")
                   .insert(tagging)
-                  .then((poop) => {
-                    console.log(poop)
-                    console.log(tagging)
-                  })
+                  // .then((poop) =>  {
+                  //   console.log(poop)
+                  //   console.log(tagging)
+                  // })
                 })
               .catch((err) => {
                 res.json({
