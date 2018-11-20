@@ -58,7 +58,6 @@ export default class SearchScreen extends React.Component {
 
   render() {
     
-
     function diffstyle(diff) {
       let style;
       console.log("DIFFICUTLYY ======> ", diff)
@@ -72,9 +71,11 @@ export default class SearchScreen extends React.Component {
 
     return style;
     }
-  
+    
+    const {navigate} = this.props.navigation;
+
     if(this.state.compLoaded) {
-    const list = this.state.recipes.map((recipe, index) => <Recipe recipe={recipe} color={diffstyle(recipe.difficulty)} key={index}/>);
+    const list = this.state.recipes.map((recipe, index) => <Recipe navigate={navigate} recipe={recipe} color={diffstyle(recipe.difficulty)} key={index}/>);
 
     return (
       <View style={SearchStyles.container}>

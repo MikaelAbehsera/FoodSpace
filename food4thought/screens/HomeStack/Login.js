@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import { Button, Text, View, ScrollView, KeyboardAvoidingView, AsyncStorage } from "react-native";
+import { Button, Text, View, ScrollView, Dimensions, KeyboardAvoidingView, AsyncStorage } from "react-native";
+import Image from 'react-native-scalable-image';
 import PropTypes from "prop-types";
 import LoginStyles from "../styles/HomeStack/LoginStyles.js";
 import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions';
@@ -45,10 +46,6 @@ export default class LoginScreen extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  static navigationOptions = {
-    title: 'Welcome Back',
-  };
 
   redirect(page) {
     this.props.navigation.navigate(page);
@@ -100,6 +97,7 @@ export default class LoginScreen extends React.Component {
     return (
       <View style={LoginStyles.container} >
         <ScrollView style={LoginScreen.avoidView} >
+        <View style={{width: "100%", height: 100}} />
 
         <View style={LoginStyles.headerContainer}>
           <Text style={LoginStyles.headerText} >Login</Text>
@@ -107,7 +105,6 @@ export default class LoginScreen extends React.Component {
 
         <View style={LoginStyles.middleContainer}>
           <View style={LoginStyles.formView}>
-          <Text id="statusText" >{this.state.status.text}</Text>
             <Form 
             ref={c => this._form = c}
             type={Login} 
@@ -143,8 +140,12 @@ export default class LoginScreen extends React.Component {
             </View>
           </View>
         </View>
-        
+
+        <View style={{width: "100%", height: 500}} />
+      
         </ScrollView>
+
+        <Image source={require("./food.gif")} height={Dimensions.get('window').height + 50} style={{ position: 'absolute', flex: 1, zIndex: -10,}} />
       </View>
     );
   }

@@ -18,6 +18,7 @@ import Home from "./screens/HomeStack/Home.js";
 import Login from "./screens/HomeStack/Login.js";
 import Register from "./screens/HomeStack/Register.js";
 import Search from "./screens/SearchStack/Search.js";
+import Details from "./screens/SearchStack/Details.js";
 import Create from "./screens/CreateStack/Create.js";
 import Profile from "./screens/ProfileStack/Profile.js";
 
@@ -31,12 +32,20 @@ const HomeStack = createStackNavigator({
   },
   Home: {
     screen: Home
-  },
+  }
+}, {
+  headerMode: 'none',
+  navigationOptions: {
+    headerVisible: false,
+  }
 });
 
 const SearchStack = createStackNavigator({
   List: {
     screen: Search
+  },
+  Details: {
+    screen: Details
   },
 });
 
