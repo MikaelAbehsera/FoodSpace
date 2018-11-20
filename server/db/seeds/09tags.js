@@ -27,7 +27,7 @@ exports.seed = function (knex, Promise) {
             category_id: 2
           }),
 
-           //ming
+          
            knex("tags").insert({
             recipes_id: 5,
             category_id: 1
@@ -43,6 +43,11 @@ exports.seed = function (knex, Promise) {
             recipes_id: 7,
             category_id: 3
           }),
+
+          knex('tags').insert({ 
+            recipes_id: 8,
+            category_id: 3
+          })
 
 
         ]);
