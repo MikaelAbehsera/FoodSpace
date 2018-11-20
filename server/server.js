@@ -55,119 +55,119 @@ app.post("/register" , (req, res) => {
 
 
 app.post("/login" , (req, res) => {
-  const email =  req.body.email.trim().toLowerCase();
-  const password = req.body.password.trim();
-  
-  knex("users")
-    .where({email: email})
-    .then((data) => { 
-      //if email can be found
-      if(data[0]) {
-        // does password match
-        if(bcrypt.compareSync(password, data[0].password)) {
-          console.log("USER LOGIN SUCCESSFULL");
-          res.json({id: data[0].id, success: true});
-          res.status(200);
-        }
-      } else {
-        console.log("USER LOGIN BAD BAD");
-        res.json({id: "-1", success: false});
-        res.status(403);
-      }
-    });
-  });
-  
-  
-  app.post("/create", (req, res) => {
-    // creates new recipe
-    
-    const categoryName = req.body.category;
-    const recipeForm = req.body.form;
-    const ingredientsArray = req.body.ingredients;
-    const instructionsArray = req.body.instructions;
-    
-    // STILL NEED TO TAG CATEGORIES AND PROPER USER_ID
-    // currently being simulated
-    
-    knex("recipes")
-    .insert({
-      name: recipeForm.recipeName,
-      description: recipeForm.recipeDescription,
-      overall_rating: null,
-      time: recipeForm.timeToMake,
-      difficulty: recipeForm.difficultyOfRecipe,
-      creator_id: 1
-    })
-    .returning("id")
-    .then((id) => {
-      const ingredientsList = [];
-      const instructionsList = [];
-      
-      ingredientsArray.forEach((single) => {
-        ingredientsList.push({
-          recipes_id: id[0],
-          food_type: single.foodType,
-          quantity: single.quantity
-        });
-      });
-      instructionsArray.forEach((single) => {
-        instructionsList.push({
-          recipes_id: id[0],
-          step_number: single.stepNumber,
-          step_description: single.step
-        });
-      });
-      
-      knex("ingredients")
-        .insert(ingredientsList)
-        .then(() => {
-          knex("instructions")
-          .insert(instructionsList)
-          .then(() => {
-            knex("categories")
-            .where({
-                  category_name: categoryName
-                })
-                .returning("id")
-                .then((tagID) => {
-                  console.log("tag ==> ", tagID[0].id)
-                  knex("tags")
-                    .insert({
-                      recipes_id: id[0],
-                      category_id: tagID[0].id
-                    })
-                  })
-                  .catch((err) => {
-                    res.json({
-                      id: -1,
-                      success: false
-                    });
-                    res.status(404);
-                    console.log(err);
-                  throw err;
-                })
-                .finally(() => {
-                  res.json({
-                    recipes_id: id[0],
-                    success: true
-                  });
-                });
-              })
-            })
+const email =  req.body.email.trim().toLowerCase();
+const password = req.body.password.trim();
 
-          });
-        });
-        
-        
-        app.get("/recipe_list", (req, res) => {
-          
-          knex
-          .select("*")
-          .from("recipes")
-          .innerJoin("tags", "recipes.id", "tags.recipes_id")
-          .innerJoin("categories", "tags.category_id", "categories.id")
-          // .whereIn()
-          .then((allRecipes) => {
+knex("users")
+  .where({email: email})
+  .then((data) => { 
+    //if email can be found
+    if(data[0]) {
+      // does password match
+      if(bcrypt.compareSync(password, data[0].password)) {
+        console.log("USER LOGIN SUCCESSFULL");
+        res.json({id: data[0].id, success: true});
+        res.status(200);
+      }
+    } else {
+      console.log("USER LOGIN BAD BAD");
+      res.json({id: "-1", success: false});
+      res.status(403);
+    }
+  });
+});
+
+
+app.post("/create", (req, res) => {
+  // creates new recipe
+  
+  const categoryName = req.body.category;
+  const recipeForm = req.body.form;
+  const ingredientsArray = req.body.ingredients;
+  const instructionsArray = req.body.instructions;
+  
+  // STILL NEED TO TAG CATEGORIES AND PROPER USER_ID
+  // currently being simulated
+  
+  knex("recipes")
+  .insert({
+    name: recipeForm.recipeName,
+    description: recipeForm.recipeDescription,
+    overall_rating: null,
+    time: recipeForm.timeToMake,
+    difficulty: recipeForm.difficultyOfRecipe,
+    creator_id: 1
+  })
+  .returning("id")
+  .then((id) => {
+    const ingredientsList = [];
+    const instructionsList = [];
+    
+    ingredientsArray.forEach((single) => {
+      ingredientsList.push({
+        recipes_id: id[0],
+        food_type: single.foodType,
+        quantity: single.quantity
+      });
+    });
+    instructionsArray.forEach((single) => {
+      instructionsList.push({
+        recipes_id: id[0],
+        step_number: single.stepNumber,
+        step_description: single.step
+      });
+    });
+    
+    knex("ingredients")
+      .insert(ingredientsList)
+      .then(() => {
+        knex("instructions")
+        .insert(instructionsList)
+        .then(() => {
+          knex("categories")
+          .where({
+                category_name: categoryName
+              })
+              .returning("id")
+              .then((tagID) => {
+                console.log("tag ==> ", tagID[0].id)
+                knex("tags")
+                  .insert({
+                    recipes_id: id[0],
+                    category_id: tagID[0].id
+                  })
+                })
+                .catch((err) => {
+                  res.json({
+                    id: -1,
+                    success: false
+                  });
+                  res.status(404);
+                  console.log(err);
+                throw err;
+              })
+              .finally(() => {
+                res.json({
+                  recipes_id: id[0],
+                  success: true
+                });
+              });
+            })
+          })
+
+  });
+});
+
+
+app.get("/recipe_list", (req, res) => {
+
+  knex
+    .select("*")
+    .from("recipes")
+    .innerJoin("tags", "recipes.id", "tags.recipes_id")
+    .innerJoin("categories", "tags.category_id", "categories.id")
+    // .whereIn()
+    .then((allRecipes) => {
       allRecipes.forEach((single) => {
         single['instructions'] = [];
         single['ingredients'] = [];
@@ -178,7 +178,7 @@ app.post("/login" , (req, res) => {
         knex("recipes")
         .innerJoin("instructions", "instructions.recipes_id", "recipes.id")
         .then((resultInstructions) => {
-          
+
           resultIngredients.forEach((single)=> {
             allRecipes.forEach((singleRecipe) => {
               if (single.id === singleRecipe.id) {
@@ -186,7 +186,7 @@ app.post("/login" , (req, res) => {
               }
             })
           })
-          
+
           resultInstructions.forEach((single)=> {
             allRecipes.forEach((singleRecipe) => {
               if (single.id === singleRecipe.id) {
@@ -204,12 +204,11 @@ app.post("/login" , (req, res) => {
           throw err;
         })
         .finally(() => {
-          res.status(200);
           res.json({
             allRecipes: allRecipes,
             success: true
           });
-        })
+      })
     })
        
 
@@ -371,6 +370,7 @@ app.post("/plus", (req, res) => {
 
 })
 
+
 app.post("/minus", (req, res) => {
   const userId = req.body.user_id
   const recipeid = req.body.recpies_id
@@ -473,47 +473,47 @@ app.post("/suggestion", (req, res) => {
 
 // ==========================================
 
-var multer = require('multer');
-var AWS = require('aws-sdk');
-var upload = multer({ dest: 'uploads/' })
-const fs = require('file-system')
+// var multer = require('multer');
+// var AWS = require('aws-sdk');
+// var upload = multer({ dest: 'uploads/' })
+// const fs = require('file-system')
 
-AWS.config.update({
-    accessKeyId: process.env.DO_KEY,
-    secretAccessKey: process.env.DO_SECRETKEY
-});
+// AWS.config.update({
+//     accessKeyId: process.env.DO_KEY,
+//     secretAccessKey: process.env.DO_SECRETKEY
+// });
 
-var s3 = new AWS.S3({
-  endpoint: new AWS.Endpoint('nyc3.digitaloceanspaces.com')
-});
+// var s3 = new AWS.S3({
+//   endpoint: new AWS.Endpoint('nyc3.digitaloceanspaces.com')
+// });
 
   
   
-  app.post('/upload', upload.single('image'), function (req, res, next) {
-    // req.file is the `avatar` file
-    // req.body will contain the text fields, if there were any
-    console.log(req.file)
+//   app.post('/upload', upload.single('image'), function (req, res, next) {
+//     // req.file is the `avatar` file
+//     // req.body will contain the text fields, if there were any
+//     console.log(req.file)
 
-    var bodystream = fs.createReadStream(req.file.path);
+//     var bodystream = fs.createReadStream(req.file.path);
     
-    var params = {
-      Body: bodystream,
-      Bucket: process.env.DO_BUCKET,
-      Key: 'uploads/'+req.file.filename,
-      ACL: 'public-read',
-      Metadata: {
-        'Content-Type': 'image/jpeg'
-      }
-    }
+//     var params = {
+//       Body: bodystream,
+//       Bucket: process.env.DO_BUCKET,
+//       Key: 'uploads/'+req.file.filename,
+//       ACL: 'public-read',
+//       Metadata: {
+//         'Content-Type': 'image/jpeg'
+//       }
+//     }
     
-    s3.putObject(params, function(err, data) {
-      if (err) console.log(err, err.stack);
-      else {
-        console.log(data)
-        const storedImage = `https://${process.env.DO_BUCKET}.nyc3.digitaloceanspaces.com/${params.Key}`;
-        console.log(storedImage)
-      } 
-    })
+//     s3.putObject(params, function(err, data) {
+//       if (err) console.log(err, err.stack);
+//       else {
+//         console.log(data)
+//         const storedImage = `https://${process.env.DO_BUCKET}.nyc3.digitaloceanspaces.com/${params.Key}`;
+//         console.log(storedImage)
+//       } 
+//     })
 
-    // return storedImage to be stored in knex, if failed - returns nulls = returned should check if null/valid
-})
+//     // return storedImage to be stored in knex, if failed - returns nulls = returned should check if null/valid
+// })
