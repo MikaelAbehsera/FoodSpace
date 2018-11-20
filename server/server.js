@@ -20,7 +20,6 @@ app.listen(PORT, () => {
 });
 
 
-
 app.post("/register" , (req, res) => {
   if (req.body.password !== req.body.passwordConfirmation){
     // confirm password && passwordConfirmation
@@ -76,21 +75,21 @@ app.post("/login" , (req, res) => {
         res.status(403);
       }
     });
-});
-
-
-app.post("/create", (req, res) => {
-  // creates new recipe
-
-  const categoryName = req.body.category;
-  const recipeForm = req.body.form;
-  const ingredientsArray = req.body.ingredients;
-  const instructionsArray = req.body.instructions;
-
-  // STILL NEED TO TAG CATEGORIES AND PROPER USER_ID
-  // currently being simulated
-
-  knex("recipes")
+  });
+  
+  
+  app.post("/create", (req, res) => {
+    // creates new recipe
+    
+    const categoryName = req.body.category;
+    const recipeForm = req.body.form;
+    const ingredientsArray = req.body.ingredients;
+    const instructionsArray = req.body.instructions;
+    
+    // STILL NEED TO TAG CATEGORIES AND PROPER USER_ID
+    // currently being simulated
+    
+    knex("recipes")
     .insert({
       name: recipeForm.recipeName,
       description: recipeForm.recipeDescription,
@@ -103,7 +102,7 @@ app.post("/create", (req, res) => {
     .then((id) => {
       const ingredientsList = [];
       const instructionsList = [];
-
+      
       ingredientsArray.forEach((single) => {
         ingredientsList.push({
           recipes_id: id[0],
@@ -118,15 +117,15 @@ app.post("/create", (req, res) => {
           step_description: single.step
         });
       });
-
+      
       knex("ingredients")
         .insert(ingredientsList)
         .then(() => {
           knex("instructions")
-            .insert(instructionsList)
-            .then(() => {
-              knex("categories")
-                .where({
+          .insert(instructionsList)
+          .then(() => {
+            knex("categories")
+            .where({
                   category_name: categoryName
                 })
                 .returning("id")
@@ -137,14 +136,14 @@ app.post("/create", (req, res) => {
                       recipes_id: id[0],
                       category_id: tagID[0].id
                     })
-                })
-                .catch((err) => {
-                  res.json({
-                    id: -1,
-                    success: false
-                  });
-                  res.status(404);
-                  console.log(err);
+                  })
+                  .catch((err) => {
+                    res.json({
+                      id: -1,
+                      success: false
+                    });
+                    res.status(404);
+                    console.log(err);
                   throw err;
                 })
                 .finally(() => {
@@ -153,22 +152,22 @@ app.post("/create", (req, res) => {
                     success: true
                   });
                 });
+              })
             })
-        })
 
-    });
-});
-
-
-app.get("/recipe_list", (req, res) => {
-
-  knex
-    .select("*")
-    .from("recipes")
-    .innerJoin("tags", "recipes.id", "tags.recipes_id")
-    .innerJoin("categories", "tags.category_id", "categories.id")
-    // .whereIn()
-    .then((allRecipes) => {
+          });
+        });
+        
+        
+        app.get("/recipe_list", (req, res) => {
+          
+          knex
+          .select("*")
+          .from("recipes")
+          .innerJoin("tags", "recipes.id", "tags.recipes_id")
+          .innerJoin("categories", "tags.category_id", "categories.id")
+          // .whereIn()
+          .then((allRecipes) => {
       allRecipes.forEach((single) => {
         single['instructions'] = [];
         single['ingredients'] = [];
@@ -179,7 +178,7 @@ app.get("/recipe_list", (req, res) => {
         knex("recipes")
         .innerJoin("instructions", "instructions.recipes_id", "recipes.id")
         .then((resultInstructions) => {
-
+          
           resultIngredients.forEach((single)=> {
             allRecipes.forEach((singleRecipe) => {
               if (single.id === singleRecipe.id) {
@@ -187,7 +186,7 @@ app.get("/recipe_list", (req, res) => {
               }
             })
           })
-
+          
           resultInstructions.forEach((single)=> {
             allRecipes.forEach((singleRecipe) => {
               if (single.id === singleRecipe.id) {
@@ -205,11 +204,12 @@ app.get("/recipe_list", (req, res) => {
           throw err;
         })
         .finally(() => {
+          res.status(200);
           res.json({
             allRecipes: allRecipes,
             success: true
           });
-      })
+        })
     })
        
 
@@ -224,10 +224,18 @@ app.get("/recipe_details" , (req, res) => {
    .innerJoin("instructions", "instructions.recipe_id", "recipes.id")
    .innerJoin("ingredients", "ingredients.recipes_id",  "recipes.id")
    .innerJoin("measurements", "measurement.id", "ingredients.measurement_id")
-   .then((recipeDeatails) => {
+   .then((recipeDetails) => {
 
 
-   })
+   })      
+   .catch((err) => {
+    res.json({success: false})
+    res.status(404)
+    console.log(err); throw err;
+  })
+  .finally(() => {
+    res.json({recipeDetails: recipeDetails, success: true})
+  });
 
 });
 
@@ -465,46 +473,47 @@ app.post("/suggestion", (req, res) => {
 
 // ==========================================
 
-// var multer = require('multer');
-// var AWS = require('aws-sdk');
-// var upload = multer({ dest: 'uploads/' })
-// const fs = require('file-system')
+var multer = require('multer');
+var AWS = require('aws-sdk');
+var upload = multer({ dest: 'uploads/' })
+const fs = require('file-system')
 
-// AWS.config.update({
-//     accessKeyId: process.env.DO_KEY,
-//     secretAccessKey: process.env.DO_SECRETKEY
-// });
+AWS.config.update({
+    accessKeyId: process.env.DO_KEY,
+    secretAccessKey: process.env.DO_SECRETKEY
+});
 
-// var s3 = new AWS.S3({
-//   endpoint: new AWS.Endpoint('nyc3.digitaloceanspaces.com')
-// });
+var s3 = new AWS.S3({
+  endpoint: new AWS.Endpoint('nyc3.digitaloceanspaces.com')
+});
 
   
   
-//   app.post('/upload', upload.single('image'), function (req, res, next) {
-//     // req.file is the `avatar` file
-//     // req.body will contain the text fields, if there were any
-//     console.log(req.file)
+  app.post('/upload', upload.single('image'), function (req, res, next) {
+    // req.file is the `avatar` file
+    // req.body will contain the text fields, if there were any
+    console.log(req.file)
 
-//     var bodystream = fs.createReadStream(req.file.path);
+    var bodystream = fs.createReadStream(req.file.path);
     
-//     var params = {
-//       Body: bodystream,
-//       Bucket: process.env.DO_BUCKET,
-//       Key: 'uploads/'+req.file.filename,
-//       ACL: 'public-read',
-//       Metadata: {
-//         'Content-Type': 'image/jpeg'
-//       }
-//     }
+    var params = {
+      Body: bodystream,
+      Bucket: process.env.DO_BUCKET,
+      Key: 'uploads/'+req.file.filename,
+      ACL: 'public-read',
+      Metadata: {
+        'Content-Type': 'image/jpeg'
+      }
+    }
     
-//     s3.putObject(params, function(err, data) {
-//       if (err) console.log(err, err.stack);
-//       else {
-//         console.log(data)
-//         const storedImage = `https://${process.env.DO_BUCKET}.nyc3.digitaloceanspaces.com/${params.Key}`;
+    s3.putObject(params, function(err, data) {
+      if (err) console.log(err, err.stack);
+      else {
+        console.log(data)
+        const storedImage = `https://${process.env.DO_BUCKET}.nyc3.digitaloceanspaces.com/${params.Key}`;
+        console.log(storedImage)
+      } 
+    })
 
-//         console.log(storedImage)
-//       } 
-//     })
-// })
+    // return storedImage to be stored in knex, if failed - returns nulls = returned should check if null/valid
+})
