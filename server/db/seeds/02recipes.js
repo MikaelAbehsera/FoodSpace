@@ -57,7 +57,7 @@ exports.seed = function (knex, Promise) {
           }),
           knex("recipes").insert({
             name: "Moms Spaggeti",
-            description: "The spaggeti that b-rabbit ate before battling poppa doc at the",
+            description: "The spaggeti that b-rabbit ate before battling poppa doc at the shelter.",
             recipeIMG:"https://data.junkee.com/wp-content/uploads/2016/05/em.jpg",
             overall_rating: 2, 
             time: 27,
