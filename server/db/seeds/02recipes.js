@@ -51,7 +51,7 @@ exports.seed = function (knex, Promise) {
             recipeIMG:"http://jikoniyetu.com/wp-content/uploads/2018/02/steak-1.jpg",
             overall_rating: 4, 
             time: 45,
-            difficulty: 5,
+            difficulty: 2,
             creator_id: 1, 
 
           }),

@@ -94,7 +94,6 @@ class NavBar extends React.Component {
 
 
   updateSearch() {
-    // this.props.update("Search");
     this.props.screenProps.changePage("Search");
   }
 
