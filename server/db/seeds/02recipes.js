@@ -73,10 +73,16 @@ exports.seed = function (knex, Promise) {
             difficulty: 3,
             creator_id: 3, 
           }),
-          
-
-
-        ]);
+          knex("recipes").insert({
+            name: "Rice and olives",
+            description: "A meal reserved for those who are down and out and solid meal",
+            recipeIMG:"http://starfinefoods.com/wp-content/uploads/RICE-WITH-BLACK-BEANS-AND-OLIVES.jpg",
+            overall_rating: 5, 
+            time: 20,
+            difficulty: 1,
+            creator_id: 3, 
+          }),
+         ]);
       })
   ]);
 };

@@ -54,7 +54,7 @@ exports.seed = function(knex, Promise) {
             food_type: "egg", 
             quantity: "1"
           }), 
-           //ming
+          
            knex("ingredients").insert({
             recipes_id: 5,
             food_type: "steak", 
@@ -106,8 +106,30 @@ exports.seed = function(knex, Promise) {
             recipes_id: 7,
             food_type: "bread", 
             quantity: "1"
-          })
+          }),
+          //
+          knex("ingredients").insert({
+            recipes_id: 8,
+            food_type: "white or brown rice", 
+            quantity: "3"
+          }),
           
+          knex("ingredients").insert({
+            recipes_id: 8,
+            food_type: "butter", 
+            quantity: "2"
+          }),
+          
+          knex("ingredients").insert({
+            recipes_id: 8,
+            food_type: "Green olives", 
+            quantity: "1"
+          }), 
+          knex("ingredients").insert({
+            recipes_id: 8,
+            food_type: "Hot sauce", 
+            quantity: "4"
+          }),
         ]);
       })
   ]);

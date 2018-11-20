@@ -69,7 +69,7 @@ exports.seed = function(knex, Promise) {
             step_description: "Cook in bread pan, optional: topped with ketchup/tomatoe paste, for 1hr."
           }), 
 
-          //dont fuck with me 
+          
           knex("instructions").insert({
             recipes_id: 5,
             step_number: 1,
@@ -99,7 +99,7 @@ exports.seed = function(knex, Promise) {
             step_number: 5,
             step_description: "Let it rest for 2 minutes."
           }),
-          //dont fuck with me 
+          
           knex("instructions").insert({
             recipes_id: 6,
             step_number: 1,
@@ -130,7 +130,6 @@ exports.seed = function(knex, Promise) {
             step_description: "Apply chesse to meal."
           }),
           
-           //dont fuck with me 
            knex("instructions").insert({
             recipes_id: 7,
             step_number: 1,
@@ -159,7 +158,37 @@ exports.seed = function(knex, Promise) {
             recipes_id: 7,
             step_number: 5,
             step_description: "Plate eggs and apply salt and peper."
-          }),  
+          }),
+        
+        knex("instructions").insert({
+          recipes_id: 8,
+          step_number: 1,
+          step_description: "Make rice in a rice cooker or pot."
+        }),
+
+        knex("instructions").insert({
+          recipes_id: 8,
+          step_number: 2,
+          step_description: "Apply  butter to mixture."
+        }),
+
+        knex("instructions").insert({
+          recipes_id: 8,
+          step_number: 3,
+          step_description: "Poor rice into a bowl and apply olives and choice of beans."
+        }),
+        
+        knex("instructions").insert({
+          recipes_id: 8,
+          step_number: 4,
+          step_description: "Bonus:add eggs for a little boost in protien."
+        }),
+
+        knex("instructions").insert({
+          recipes_id: 8,
+          step_number: 5,
+          step_description: "Add seasoning by way of soy sauce/ hot sauce/ bbq sauce."
+        })   
 
         ]);
       })
