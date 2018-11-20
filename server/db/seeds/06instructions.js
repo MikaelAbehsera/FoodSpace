@@ -67,7 +67,100 @@ exports.seed = function(knex, Promise) {
             step_number: 5,
             step_number: 5,
             step_description: "Cook in bread pan, optional: topped with ketchup/tomatoe paste, for 1hr."
-          })
+          }), 
+
+          //dont fuck with me 
+          knex("instructions").insert({
+            recipes_id: 5,
+            step_number: 1,
+            step_description: "Let stake sit out for 20 minutes at room temperature."
+          }),
+
+          knex("instructions").insert({
+            recipes_id: 5,
+            step_number: 2,
+            step_description: "heavly season steak with sea salt and pepper."
+          }),
+
+          knex("instructions").insert({
+            recipes_id: 5,
+            step_number: 3,
+            step_description: "Place in olived oiled pan at high heat."
+          }),
+          
+          knex("instructions").insert({
+            recipes_id: 5,
+            step_number: 4,
+            step_description: "Turn once at chefs own discretion."
+          }),
+
+          knex("instructions").insert({
+            recipes_id: 5,
+            step_number: 5,
+            step_description: "Let it rest for 2 minutes."
+          }),
+          //dont fuck with me 
+          knex("instructions").insert({
+            recipes_id: 6,
+            step_number: 1,
+            step_description: "Boil pasta."
+          }),
+
+          knex("instructions").insert({
+            recipes_id: 6,
+            step_number: 2,
+            step_description: "fry some beef."
+          }),
+
+          knex("instructions").insert({
+            recipes_id: 6,
+            step_number: 3,
+            step_description: "add tomato sauce."
+          }),
+          
+          knex("instructions").insert({
+            recipes_id: 6,
+            step_number: 4,
+            step_description: "put sauce on pasta."
+          }),
+
+          knex("instructions").insert({
+            recipes_id: 6,
+            step_number: 5,
+            step_description: "Apply chesse to meal."
+          }),
+          
+           //dont fuck with me 
+           knex("instructions").insert({
+            recipes_id: 7,
+            step_number: 1,
+            step_description: "Crack x amount of eggs and wisk in a bowl."
+          }),
+
+          knex("instructions").insert({
+            recipes_id: 7,
+            step_number: 2,
+            step_description: "Apply  butter to mixture."
+          }),
+
+          knex("instructions").insert({
+            recipes_id: 7,
+            step_number: 3,
+            step_description: "poor micture into pan on low heat."
+          }),
+          
+          knex("instructions").insert({
+            recipes_id: 7,
+            step_number: 4,
+            step_description: "stir eggs untill they begin to form."
+          }),
+
+          knex("instructions").insert({
+            recipes_id: 7,
+            step_number: 5,
+            step_description: "Plate eggs and apply salt and peper."
+          }),  
+
         ]);
       })
   ]);

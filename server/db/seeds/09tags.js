@@ -5,6 +5,7 @@ exports.seed = function (knex, Promise) {
     knex("tags").del()
       .then(function () {
         return Promise.all([
+          //ming
           knex("tags").insert({
             recipes_id: 1,
             category_id: 1
@@ -25,6 +26,24 @@ exports.seed = function (knex, Promise) {
             recipes_id: 4,
             category_id: 2
           }),
+
+           //ming
+           knex("tags").insert({
+            recipes_id: 5,
+            category_id: 1
+          }),
+
+          knex("tags").insert({
+            recipes_id: 6,
+            category_id: 2
+          }),
+
+
+          knex("tags").insert({
+            recipes_id: 7,
+            category_id: 3
+          }),
+
 
         ]);
       })
