@@ -15,7 +15,7 @@ module.exports = (knex) => {
         username: req.body.username.trim(),
         email: req.body.email.trim().toLowerCase(),
         password: hash,
-        profileIMG: req.body.profilePictureURL.trim(),
+        profileIMG: req.body.profilePictureURL,
         location: req.body.location.trim()
       }];
       

@@ -13,11 +13,11 @@ const recipes = require('./routes/recipes.js')
 const suggestions = require('./routes/suggestions.js')
 const reviews = require('./routes/reviews.js')
 
-app.use('/', login)
-app.use('/', user)
-app.use('/', recipes)
-app.use('/', suggestions)
-app.use('/', reviews)
+app.use('/', login(knex))
+app.use('/', user(knex))
+app.use('/', recipes(knex))
+app.use('/', suggestions(knex))
+app.use('/', reviews(knex))
 
 console.log("Made it to login!")
 
@@ -28,7 +28,3 @@ app.use(require("method-override")());
 app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });
-
-
-
-
