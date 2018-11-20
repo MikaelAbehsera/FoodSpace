@@ -33,7 +33,6 @@ app.post("/register" , (req, res) => {
       profileIMG: req.body.profilePictureURL,
       location: req.body.location.trim()
     }];
-    // I trimmed
     
     console.log(newUser)
 
@@ -77,6 +76,64 @@ knex("users")
     }
   });
 });
+
+
+app.get("/profile", (req, res) => {
+  const userID = 1;
+  const userProfile = {};
+
+  knex("users")
+    .select("username", "email", "profileIMG", "location")
+    .where({
+      id: userID
+    })
+    .then((userInfo) => {
+      userProfile["userInfo"] = userInfo[0];
+      
+      knex("recipes")
+        .where({
+          creator_id: userID
+        })
+        .then((recipesCreated) => {
+          userProfile["recipesCreated"] = recipesCreated;
+
+          knex("faves")
+            .where({
+              user_id: userID
+            })
+            .innerJoin("recipes", "faves.recipes_id", "recipes.id")
+            .then((faves) => {
+              userProfile["faves"] = faves;
+
+              knex("mademeals")
+                .where({
+                  user_id: userID
+                })
+                .innerJoin("recipes", "mademeals.recipes_id", "recipes.id")
+                .then((Usermademeals) => {
+                  userProfile["Usermademeals"] = Usermademeals;
+                })
+                .catch((err) => {
+                  res.json({
+                    success: false
+                  });
+                  res.status(404);
+                  console.log(err);
+                  throw err;
+                })
+                .finally(() => {
+                  res.json({
+                    userProfile: userProfile,
+                    success: true
+                  });
+                });
+            });
+        });
+    });
+});
+
+// =======================================================
+
 
 
 app.post("/create", (req, res) => {
@@ -132,20 +189,25 @@ app.post("/create", (req, res) => {
               .returning("id")
               .then((tagID) => {
                 console.log("tag ==> ", tagID[0].id)
+                const tagging = {
+                  recipes_id: id[0],
+                  category_id: tagID[0].id
+                }
                 knex("tags")
-                  .insert({
-                    recipes_id: id[0],
-                    category_id: tagID[0].id
+                  .insert(tagging)
+                  .then((poop) => {
+                    console.log(poop)
+                    console.log(tagging)
                   })
                 })
-                .catch((err) => {
-                  res.json({
-                    id: -1,
-                    success: false
-                  });
-                  res.status(404);
-                  console.log(err);
-                throw err;
+              .catch((err) => {
+                res.json({
+                  id: -1,
+                  success: false
+                });
+                res.status(404);
+                console.log(err);
+              throw err;
               })
               .finally(() => {
                 res.json({
@@ -158,6 +220,8 @@ app.post("/create", (req, res) => {
 
   });
 });
+
+
 
 
 app.get("/recipe_list", (req, res) => {
@@ -240,59 +304,8 @@ app.get("/recipe_details" , (req, res) => {
 });
 
 
-app.get("/profile", (req, res) => {
-  const userID = 1;
-  const userProfile = {};
 
-  knex("users")
-    .select("username", "email", "profileIMG", "location")
-    .where({
-      id: userID
-    })
-    .then((userInfo) => {
-      userProfile["userInfo"] = userInfo[0];
-      
-      knex("recipes")
-        .where({
-          creator_id: userID
-        })
-        .then((recipesCreated) => {
-          userProfile["recipesCreated"] = recipesCreated;
-
-          knex("faves")
-            .where({
-              user_id: userID
-            })
-            .innerJoin("recipes", "faves.recipes_id", "recipes.id")
-            .then((faves) => {
-              userProfile["faves"] = faves;
-
-              knex("mademeals")
-                .where({
-                  user_id: userID
-                })
-                .innerJoin("recipes", "mademeals.recipes_id", "recipes.id")
-                .then((Usermademeals) => {
-                  userProfile["Usermademeals"] = Usermademeals;
-                })
-                .catch((err) => {
-                  res.json({
-                    success: false
-                  });
-                  res.status(404);
-                  console.log(err);
-                  throw err;
-                })
-                .finally(() => {
-                  res.json({
-                    userProfile: userProfile,
-                    success: true
-                  });
-                });
-            });
-        });
-    });
-});
+// =======================================================
     
 
 app.post("/fave", (req, res) => {
@@ -344,6 +357,32 @@ app.get("/suggestions", (req, res) => {
 });
 
 
+app.post("/suggestion", (req, res) => {
+  // add review to a recipe
+  const recipeID = 1;
+  const newsuggestText = req.body.text;
+
+  knex("suggestions")
+    .insert({
+      recipes_id: recipeID,
+      suggest_text: newsuggestText,
+      plus: 0,
+      minus: 0
+    })
+    .catch((err) => {
+      res.json({
+        success: false
+      });
+      res.status(404);
+      console.log(err);
+      throw err;
+    })
+    .finally(() => {
+      res.json({
+        success: true
+      });
+    });
+});
 
 app.post("/plus", (req, res) => {
   const userId = req.body.user_id
@@ -442,32 +481,6 @@ app.post("/review", (req, res) => {
 });
 
 
-app.post("/suggestion", (req, res) => {
-  // add review to a recipe
-  const recipeID = 1;
-  const newsuggestText = req.body.text;
-
-  knex("suggestions")
-    .insert({
-      recipes_id: recipeID,
-      suggest_text: newsuggestText,
-      plus: 0,
-      minus: 0
-    })
-    .catch((err) => {
-      res.json({
-        success: false
-      });
-      res.status(404);
-      console.log(err);
-      throw err;
-    })
-    .finally(() => {
-      res.json({
-        success: true
-      });
-    });
-});
 
 
 
