@@ -5,7 +5,7 @@ import ProfileStyles from "../styles/ProfileStack/ProfileStyles.js";
 import axios from "axios";
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://2f92c577.ngrok.io";
+const currentHostedLink = "http://424fb32d.ngrok.io";
 ///////////////////////////////////////////////////////////////
 
 class Bubble extends React.Component {
@@ -39,6 +39,7 @@ export default class ProfileScreen extends React.Component {
     const that = this;
     axios.get(`${currentHostedLink}/profile`)
     .then(function (response) {
+      console.log("PROFILE INSIDE GET")
       // reset page load
       that.setState({ compLoaded: false, userProfile: that.state.userProfile });
       // set state to new object

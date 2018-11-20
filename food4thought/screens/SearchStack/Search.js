@@ -10,7 +10,7 @@ import Recipe from "./Recipe.js";
 import axios from "axios";
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://2f92c577.ngrok.io";
+const currentHostedLink = "http://424fb32d.ngrok.io";
 ///////////////////////////////////////////////////////////////
 
 

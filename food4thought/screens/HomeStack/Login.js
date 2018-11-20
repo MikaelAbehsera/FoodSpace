@@ -8,7 +8,7 @@ import t from "tcomb-form-native";
 const Form = t.form.Form;
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://2f92c577.ngrok.io";
+const currentHostedLink = "http://424fb32d.ngrok.io";
 ///////////////////////////////////////////////////////////////
 
 const Email = t.refinement(t.String, email => {
