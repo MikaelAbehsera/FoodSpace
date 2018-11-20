@@ -196,8 +196,6 @@ app.post("/create", (req, res) => {
                 knex("tags")
                   .insert(tagging)
                   .then(() =>  {
-                  //   console.log(poop)
-                  //   console.log(tagging)
                   })
                 })
               .catch((err) => {
@@ -237,11 +235,17 @@ app.get("/recipe_list", (req, res) => {
         single['instructions'] = [];
         single['ingredients'] = [];
       })
-      knex("recipes")
-      .innerJoin("instructions", "instructions.recipes_id", "recipes.id")
+      
+      knex
+      .select("food_type", "quantity")
+      .from("ingredients")
+      .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
       .then((resultIngredients) => {
-        knex("recipes")
-        .innerJoin("instructions", "instructions.recipes_id", "recipes.id")
+
+        knex
+        .select("step_description", "step_number")
+        .from("instructions")
+        .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
         .then((resultInstructions) => {
 
           resultIngredients.forEach((single)=> {
