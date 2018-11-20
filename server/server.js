@@ -164,25 +164,24 @@ app.post("/create", (req, res) => {
   // currently being simulated
 
   knex("recipes")
-    .insert({
-      name: recipeForm.recipeName,
-      description: recipeForm.recipeDescription,
-      overall_rating: null,
-      time: recipeForm.timeToMake,
-      difficulty: recipeForm.difficultyOfRecipe,
-      creator_id: 1
-    })
-    .returning("id")
-    .then((id) => {
-      const ingredientsList = [];
-      const instructionsList = [];
-
-      ingredientsArray.forEach((single) => {
-        ingredientsList.push({
-          recipes_id: id[0],
-          food_type: single.foodType,
-          quantity: single.quantity
-        });
+  .insert({
+    name: recipeForm.recipeName,
+    description: recipeForm.recipeDescription,
+    overall_rating: null,
+    time: recipeForm.timeToMake,
+    difficulty: recipeForm.diffcultyOfRecipe,
+    creator_id: 1
+  })
+  .returning("id")
+  .then((id) => {
+    const ingredientsList = [];
+    const instructionsList = [];
+    
+    ingredientsArray.forEach((single) => {
+      ingredientsList.push({
+        recipes_id: id[0],
+        food_type: single.foodType,
+        quantity: single.quantity
       });
       instructionsArray.forEach((single) => {
         instructionsList.push({
