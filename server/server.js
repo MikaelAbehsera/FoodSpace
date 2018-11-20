@@ -248,7 +248,7 @@ app.get("/recipe_list", (req, res) => {
 
           resultIngredients.forEach((single)=> {
             allRecipes.forEach((singleRecipe) => {
-              if (single.id === singleRecipe.id) {
+              if (single.recipes_id === singleRecipe.id) {
                 singleRecipe['ingredients'].push(single)
               }
             })
@@ -256,7 +256,7 @@ app.get("/recipe_list", (req, res) => {
 
           resultInstructions.forEach((single)=> {
             allRecipes.forEach((singleRecipe) => {
-              if (single.id === singleRecipe.id) {
+              if (single.recipes_id === singleRecipe.id) {
                 singleRecipe['instructions'].push(single)
               }
             })
