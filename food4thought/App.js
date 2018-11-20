@@ -81,10 +81,29 @@ import NavStyles from "./screens/styles/NavbarStyles.js";
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      searchButton: "green",
+      CreateButton: "green",
+      ProfileButton: "green"
+    };
+    this.updateSearch = this.updateSearch.bind(this);
+    this.updateCreate = this.updateCreate.bind(this);
+    this.updateProfile = this.updateProfile.bind(this);
   }
 
-  something() {
 
+  updateSearch() {
+    // this.props.update("Search");
+    this.props.screenProps.changePage("Search");
+  }
+
+  updateCreate() {
+    this.props.screenProps.changePage("Create");
+  }
+
+  updateProfile() {
+    this.props.screenProps.changePage("Profile");
   }
 
   render() {
@@ -94,21 +113,21 @@ class NavBar extends React.Component {
         <View style={NavStyles.buttonView} >
           <Button 
             title="Search"
-            onPress={this.something}
+            onPress={this.updateSearch}
             color="green"
           />
         </View>
         <View style={NavStyles.buttonView} >
           <Button 
             title="Create"
-            onPress={this.something}
+            onPress={this.updateCreate}
             color="green"
           />
         </View>
         <View style={NavStyles.buttonView} >
           <Button 
             title="Profile"
-            onPress={this.something}
+            onPress={this.updateProfile}
             color="green"
           />
         </View>
@@ -152,7 +171,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const Nav = (<NavBar />);
+    const Nav = (<NavBar screenProps={{changePage: this.changePage}}/>);
 
     const props = {Nav: Nav, changePage: this.changePage, OnSessionChange: this.OnSessionChange};
 

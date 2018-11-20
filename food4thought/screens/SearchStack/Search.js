@@ -26,11 +26,12 @@ export default class SearchScreen extends React.Component {
     const that = this;
     axios.get(`${currentHostedLink}/recipe_list`)
       .then(function (response) {
-        console.log(response.data.recipes);
+        console.log("GETTING RECIPES")
+        console.log(response.data);
         // reset page load
         that.setState({compLoaded: false, recipes: that.state.recipes});
         // set state to new object
-        that.setState({compLoaded: false, recipes: response.data.recipes});
+        that.setState({compLoaded: true, recipes:  response.data.allRecipes});
         // state load finsished set new state
         that.setState({compLoaded: true, recipes: that.state.recipes});
       })
@@ -72,6 +73,7 @@ export default class SearchScreen extends React.Component {
     return style;
     }
 
+    console.log(this.state)
     
   
     if(this.state.compLoaded) {
@@ -105,6 +107,7 @@ export default class SearchScreen extends React.Component {
         <ScrollView style={SearchStyles.scrollRecipesView}>
           {list}
         </ScrollView>
+        {this.props.screenProps.Nav}
       </View>
     );
   } else {
