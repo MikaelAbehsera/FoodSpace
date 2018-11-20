@@ -93,6 +93,7 @@ export default class ProfileScreen extends React.Component {
             </View>
   
           </View>
+
           <ScrollView style={ProfileStyles.scrollView} >
 
             <View style={ProfileStyles.createdContainer}>
@@ -143,7 +144,7 @@ export default class ProfileScreen extends React.Component {
             <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
             <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
             <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
+            <Text>I am bottom</Text>
           </ScrollView>
           <View style={ProfileStyles.signoutButton} >
             <Button 
@@ -152,6 +153,8 @@ export default class ProfileScreen extends React.Component {
               color="red"
             />
           </View>
+
+          {this.props.screenProps.Nav}
         </View>
       );
     } else {

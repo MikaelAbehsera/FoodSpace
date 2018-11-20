@@ -100,7 +100,7 @@ const ProfileStyles = StyleSheet.create({
     width: 110,
     position: "absolute",
     right: 20,
-    bottom: 20,
+    bottom: 100,
   },
 
 });

@@ -76,6 +76,47 @@ const tab = createBottomTabNavigator({
 
 );
 
+import NavStyles from "./screens/styles/NavbarStyles.js";
+
+class NavBar extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  something() {
+
+  }
+
+  render() {
+
+    return (
+      <View style={NavStyles.container}>  
+        <View style={NavStyles.buttonView} >
+          <Button 
+            title="Search"
+            onPress={this.something}
+            color="green"
+          />
+        </View>
+        <View style={NavStyles.buttonView} >
+          <Button 
+            title="Create"
+            onPress={this.something}
+            color="green"
+          />
+        </View>
+        <View style={NavStyles.buttonView} >
+          <Button 
+            title="Profile"
+            onPress={this.something}
+            color="green"
+          />
+        </View>
+      </View>
+    );
+  }
+}
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -111,7 +152,9 @@ export default class App extends React.Component {
   }
 
   render() {
-    const props = {changePage: this.changePage, OnSessionChange: this.OnSessionChange};
+    const Nav = (<NavBar />);
+
+    const props = {Nav: Nav, changePage: this.changePage, OnSessionChange: this.OnSessionChange};
 
     if (this.state.currentStack === "Home") {
       return ( <HomeStack  screenProps={props} />);
@@ -125,4 +168,5 @@ export default class App extends React.Component {
       return (<View><Text>HIHIHIHIHIH</Text><Text>HIHIHIHIHIH</Text><Text>HIHIHIHIHIH</Text><Text>HIHIHIHIHIH</Text><Text>HIHIHIHIHIH</Text><Text>HIHIHIHIHIH</Text></View>);
     }
   }
+
 }
