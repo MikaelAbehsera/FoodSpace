@@ -237,14 +237,13 @@ app.get("/recipe_list", (req, res) => {
       })
 
       knex("ingredients")
-      .select("food_type", "quantity")
+      .select("food_type", "quantity", "recipes_id")
       .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
       .then((resultIngredients) => {
-
-        knex("instructions")
-        .select("step_description", "step_number")
-        .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
-        .then((resultInstructions) => {
+          knex("instructions")
+          .select("step_description", "step_number", "recipes_id")
+          .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
+          .then((resultInstructions) => {
 
           resultIngredients.forEach((single)=> {
             allRecipes.forEach((singleRecipe) => {
@@ -253,7 +252,7 @@ app.get("/recipe_list", (req, res) => {
               }
             })
           })
-
+          
           resultInstructions.forEach((single)=> {
             allRecipes.forEach((singleRecipe) => {
               if (single.recipes_id === singleRecipe.id) {
@@ -261,6 +260,7 @@ app.get("/recipe_list", (req, res) => {
               }
             })
           })
+
         })
         .catch((err) => {
           res.json({
