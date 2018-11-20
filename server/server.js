@@ -240,12 +240,12 @@ app.get("/recipe_list", (req, res) => {
       .select("food_type", "quantity")
       .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
       .then((resultIngredients) => {
-
+        console.log("resultIngredients ===> ", resultIngredients);
         knex("instructions")
         .select("step_description", "step_number")
         .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
         .then((resultInstructions) => {
-
+          console.log("resultInstructions ===> ", resultInstructions);
           resultIngredients.forEach((single)=> {
             allRecipes.forEach((singleRecipe) => {
               if (single.id === singleRecipe.id) {

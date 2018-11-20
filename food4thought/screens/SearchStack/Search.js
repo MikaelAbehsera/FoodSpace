@@ -27,7 +27,7 @@ export default class SearchScreen extends React.Component {
     axios.get(`${currentHostedLink}/recipe_list`)
       .then(function (response) {
         console.log("GETTING RECIPES")
-        // console.log(response.data);
+        console.log(response.data.allRecipes);
         // reset page load
         that.setState({compLoaded: false, recipes: that.state.recipes});
         // set state to new object
@@ -61,7 +61,7 @@ export default class SearchScreen extends React.Component {
 
     function diffstyle(diff) {
       let style;
-
+      console.log("DIFFICUTLYY ======> ", diff)
       if(diff === 3) {
         style = "red"
       } else if(diff === 2) {

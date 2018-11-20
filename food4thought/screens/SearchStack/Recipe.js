@@ -41,7 +41,7 @@ export default class Recipe extends React.Component {
         <View style={RecipeStyles.leftView}>
 
           <View style={RecipeStyles.imgView} >
-            <Image source={{ uri: this.props.recipe.recipeIMG }} style={RecipeStyles.img} />
+            <Image source={{ uri: this.props.recipe.recipeIMG ? this.props.recipe.recipeIMG : "https://media.giphy.com/media/3o6Zt1s75ToFZ0a9va/source.gif" }} style={RecipeStyles.img} />
           </View>
 
         </View>
@@ -59,7 +59,7 @@ export default class Recipe extends React.Component {
           <View style={RecipeStyles.middle} >
 
             <View style={RecipeStyles.overall_rating} >
-              <Text> {this.props.recipe.overall_rating} / 5</Text>
+              <Text> {this.props.recipe.overall_rating ? `Overall Rating ${this.props.recipe.overall_rating} / 5` : "N/A"}</Text>
             </View>
 
             <View style={RecipeStyles.time} >
