@@ -67,7 +67,64 @@ exports.seed = function(knex, Promise) {
             step_number: 5,
             step_number: 5,
             step_description: "Cook in bread pan, optional: topped with ketchup/tomatoe paste, for 1hr."
-          }), 
+          }),
+          
+          
+          
+          knex("instructions").insert({
+            recipes_id: 3,
+            step_number: 1,
+            step_description: "Spread the peanut butter ona single slice of bread."
+          }),
+
+          knex("instructions").insert({
+            recipes_id: 3,
+            step_number: 2,
+            step_description: "Spread the jam on another slice of bread."
+          }),
+
+          knex("instructions").insert({
+            recipes_id: 3,
+            step_number: 3,
+            step_description: "Put them slices together mixing the yumminess inside"
+          }),
+
+          knex("instructions").insert({
+            recipes_id: 3,
+            step_number: 4,
+            step_description: "butter the outside."
+          }),
+
+          knex("instructions").insert({
+            recipes_id: 3,
+            step_number: 5,
+            step_description:"lightly grill the sandwhich. nom nom nom"
+          }),
+
+
+          knex("instructions").insert({
+            recipes_id: 4,
+            step_number: 1,
+            step_description: "Throw the leftover rice into a frying pan."
+          }),
+
+          knex("instructions").insert({
+            recipes_id: 4,
+            step_number: 2,
+            step_description: "Add some frozen peas and carrots and cook til all is consistently heated"
+          }),
+
+          knex("instructions").insert({
+            recipes_id: 4,
+            step_number: 3,
+            step_description: "Crack an egg and mix her in"
+          }),
+          
+          knex("instructions").insert({
+            recipes_id: 4,
+            step_number: 4,
+            step_description: "Season with salt and pepper."
+          }),
 
           
           knex("instructions").insert({
@@ -188,8 +245,38 @@ exports.seed = function(knex, Promise) {
           recipes_id: 8,
           step_number: 5,
           step_description: "Add seasoning by way of soy sauce/ hot sauce/ bbq sauce."
-        })   
+        }),
+////////////////
+        
+        knex("instructions").insert({
+          recipes_id: 9,
+          step_number: 1,
+          step_description: "Mix eggs, cinnamon, and milk in bowl."
+        }),
 
+        knex("instructions").insert({
+          recipes_id: 9,
+          step_number: 2,
+          step_description: "let bread soak up the eggy mixture. Let it bathe in it."
+        }),
+
+        knex("instructions").insert({
+          recipes_id: 9,
+          step_number: 3,
+          step_description: "Heat up the frying pan with some butter in it.  Medium heat."
+        }),
+        
+        knex("instructions").insert({
+          recipes_id: 9,
+          step_number: 4,
+          step_description: "Add egg-soaked bread to pan.  Cook it lightly and flip."
+        }),
+
+        knex("instructions").insert({
+          recipes_id: 9,
+          step_number: 5,
+          step_description: "Top it off with so much maple syrup your doctor's health senses will be tingling."
+        })   
         ]);
       })
   ]);
