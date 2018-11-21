@@ -8,6 +8,8 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 
+const uniqid = require('uniqid');
+
 
 console.log("Made it to login!");
 
@@ -22,6 +24,12 @@ app.listen(PORT, () => {
 });
 
 
+// =======================================================
+
+
+// =======================================================
+
+
 app.post("/register", (req, res) => {
   if (req.body.password !== req.body.passwordConfirmation) {
     // confirm password && passwordConfirmation
@@ -33,7 +41,8 @@ app.post("/register", (req, res) => {
       email: req.body.email.trim().toLowerCase(),
       password: hash,
       profileIMG: req.body.profilePictureURL,
-      location: req.body.location.trim()
+      location: req.body.location.trim(),
+      sessionToken: uniqid()
     }];
 
     console.log(newUser);
@@ -78,6 +87,7 @@ app.post("/login", (req, res) => {
           console.log("USER LOGIN SUCCESSFULL");
           res.json({
             id: data[0].id,
+            sessionToken: data[0].sessionToken,
             success: true
           });
           res.status(200);
@@ -95,14 +105,16 @@ app.post("/login", (req, res) => {
 
 
 app.get("/profile", (req, res) => {
-  const userID = 1;
+
+  const userToken = 1;
+  // req.body.sessionToken;
   const userProfile = {};
 
   knex("users")
     .select("username", "email", "profileIMG", "location")
-    .where({
-      id: userID
-    })
+    // .where({
+    //   sessionToken: userToken
+    // })
     .then((userInfo) => {
       userProfile["userInfo"] = userInfo[0];
 
@@ -148,6 +160,22 @@ app.get("/profile", (req, res) => {
     });
 });
 
+
+// =======================================================
+
+// async function tokenID(hashToken) {
+//   let userID = await knex("users")
+//   .where({
+//     sessionToken: hashToken
+//   })
+//   console.log("+++++++", userID)
+//   return await userID[0].id
+  
+// }
+
+
+// const a = tokenID('123456')
+// console.log("this is my bs", a)
 // =======================================================
 
 
@@ -164,76 +192,76 @@ app.post("/create", (req, res) => {
   // currently being simulated
 
   knex("recipes")
-    .insert({
-      name: recipeForm.recipeName,
-      description: recipeForm.recipeDescription,
-      overall_rating: null,
-      time: recipeForm.timeToMake,
-      difficulty: recipeForm.difficultyOfRecipe,
-      creator_id: 1
-    })
-    .returning("id")
-    .then((id) => {
-      const ingredientsList = [];
-      const instructionsList = [];
-
-      ingredientsArray.forEach((single) => {
-        ingredientsList.push({
-          recipes_id: id[0],
-          food_type: single.foodType,
-          quantity: single.quantity
-        });
-        instructionsArray.forEach((single) => {
-          instructionsList.push({
-            recipes_id: id[0],
-            step_number: single.stepNumber,
-            step_description: single.step
-          });
-        });
-
-
-        knex("ingredients")
-          .insert(ingredientsList)
-          .then(() => {
-            knex("instructions")
-              .insert(instructionsList)
-              .then(() => {
-                knex("categories")
-                  .where({
-                    category_name: categoryName
-                  })
-                  .returning("id")
-                  .then((tagID) => {
-                    console.log("tag ==> ", tagID[0].id);
-                    const tagging = {
-                      recipes_id: id[0],
-                      category_id: tagID[0].id
-                    };
-                    knex("tags")
-                      .insert(tagging)
-                      .then(() => {});
-                  })
-                  .catch((err) => {
-                    res.json({
-                      id: -1,
-                      success: false
-                    });
-                    res.status(404);
-                    console.log(err);
-                    throw err;
-                  })
-                  .finally(() => {
-                    res.json({
-                      recipes_id: id[0],
-                      success: true
-                    });
-                  });
-              });
-          });
-
+  .insert({
+    name: recipeForm.recipeName,
+    description: recipeForm.recipeDescription,
+    overall_rating: null,
+    time: recipeForm.timeToMake,
+    difficulty: recipeForm.diffcultyOfRecipe,
+    creator_id: 1
+  })
+  .returning("id")
+  .then((id) => {
+    const ingredientsList = [];
+    const instructionsList = [];
+    
+    ingredientsArray.forEach((single) => {
+      ingredientsList.push({
+        recipes_id: id[0],
+        food_type: single.foodType,
+        quantity: single.quantity
       });
+      instructionsArray.forEach((single) => {
+        instructionsList.push({
+          recipes_id: id[0],
+          step_number: single.stepNumber,
+          step_description: single.step
+        });
+      });
+
+      knex("ingredients")
+        .insert(ingredientsList)
+        .then(() => {
+          knex("instructions")
+            .insert(instructionsList)
+            .then(() => {
+              knex("categories")
+                .where({
+                  category_name: categoryName
+                })
+                .returning("id")
+                .then((tagID) => {
+                  console.log("tag ==> ", tagID[0].id);
+                  const tagging = {
+                    recipes_id: id[0],
+                    category_id: tagID[0].id
+                  };
+                  knex("tags")
+                    .insert(tagging)
+                    .then(() => {});
+                })
+                .catch((err) => {
+                  res.json({
+                    id: -1,
+                    success: false
+                  });
+                  res.status(404);
+                  console.log(err);
+                  throw err;
+                })
+                .finally(() => {
+                  res.json({
+                    recipes_id: id[0],
+                    success: true
+                  });
+                });
+            });
+        });
+
     });
 });
+});
+
 
 // another commit
 app.get("/recipe_list", (req, res) => {
@@ -291,16 +319,24 @@ app.get("/recipe_list", (req, res) => {
               });
             });
         });
-
-
     });
+
+
 });
 
 
+
+
 app.get("/recipe_details", (req, res) => {
+
+  const recipeID = req.body.recipeID
+
   knex
     .select("*")
     .from("Recipes")
+    .where({
+      id: recipeID
+    })
     .innerJoin("instructions", "instructions.recipe_id", "recipes.id")
     .innerJoin("ingredients", "ingredients.recipes_id", "recipes.id")
     .innerJoin("measurements", "measurement.id", "ingredients.measurement_id")
@@ -328,6 +364,7 @@ app.get("/recipe_details", (req, res) => {
 
 
 // =======================================================
+
 
 
 app.post("/fave", (req, res) => {
@@ -487,7 +524,7 @@ app.post("/minus", (req, res) => {
 
 app.post("/review", (req, res) => {
   // add review to a recipe
-  const recipeID = 1;
+  const recipeID = req.body.recipes_id;
   const newRating = req.body.rating;
   const newReviewtext = req.body.reviewText;
 
@@ -576,4 +613,4 @@ app.post("/review", (req, res) => {
 //     })
 
 //     // return storedImage to be stored in knex, if failed - returns nulls = returned should check if null/valid
-// });
+// })
