@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import { Button, Text, View, ScrollView } from "react-native";
+import { Button, Text, View, ScrollView, Image } from "react-native";
+import { Dimensions } from 'react-native'; 
+
 import {
   StyleSheet,
   PixelRatio
@@ -76,6 +78,7 @@ export default class SearchScreen extends React.Component {
     if(this.state.compLoaded) {
     const list = this.state.recipes.map((recipe, index) => <Recipe navigate={navigate} recipe={recipe} color={diffstyle(recipe.difficulty)} key={index}/>);
 
+    const h = (Dimensions.get('window').height + 300);
     return (
       <View style={SearchStyles.container}>
         <View style={SearchStyles.header}>
@@ -106,7 +109,8 @@ export default class SearchScreen extends React.Component {
           {/* <View style={{width: "100%", height: 200}} /> */}
         </ScrollView>
 
-          {this.props.screenProps.Nav}
+        <Image source={require("../materials/food.gif")} height={h} style={{ position: "absolute", zIndex: -10,}} />
+        {this.props.screenProps.Nav}
       </View>
     );
   } else {
