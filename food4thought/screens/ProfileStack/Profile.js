@@ -30,11 +30,6 @@ export default class ProfileScreen extends React.Component {
     this.state = { compLoaded: false, userProfile: {}};
   }
   
-  static navigationOptions = {
-    title: "Profile",
-  };
-  
-  
   componentDidMount() {
     const that = this;
     axios.get(`${currentHostedLink}/profile`)

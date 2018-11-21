@@ -18,6 +18,7 @@ import Home from "./screens/HomeStack/Home.js";
 import Login from "./screens/HomeStack/Login.js";
 import Register from "./screens/HomeStack/Register.js";
 import Search from "./screens/SearchStack/Search.js";
+import Details from "./screens/SearchStack/Details.js";
 import Create from "./screens/CreateStack/Create.js";
 import Profile from "./screens/ProfileStack/Profile.js";
 
@@ -31,12 +32,20 @@ const HomeStack = createStackNavigator({
   },
   Home: {
     screen: Home
-  },
+  }
+}, {
+  headerMode: "none",
+  navigationOptions: {
+    headerVisible: false,
+  }
 });
 
 const SearchStack = createStackNavigator({
   List: {
     screen: Search
+  },
+  Details: {
+    screen: Details
   },
 });
 
@@ -157,7 +166,7 @@ export default class App extends React.Component {
         if(value) {
           // forcing clients to profile
           // if(this.state.currentStack !== "Profile") {
-          this.setState({currentStack: "Profile"});
+          this.setState({currentStack: "Search"});
           // }
         }
         console.log("session token ===> ", value);
@@ -183,7 +192,7 @@ export default class App extends React.Component {
     } else if (this.state.currentStack === "Profile") {
       return ( <ProfileStack screenProps={props} />);
     } else {
-      return (<View><Text>HIHIHIHIHIH</Text><Text>HIHIHIHIHIH</Text><Text>HIHIHIHIHIH</Text><Text>HIHIHIHIHIH</Text><Text>HIHIHIHIHIH</Text><Text>HIHIHIHIHIH</Text></View>);
+      return (<View><Text>WORST CASE SENARIO HAS HAPPENED, APP IS BROKEN PLS FIX </Text></View>);
     }
   }
 
