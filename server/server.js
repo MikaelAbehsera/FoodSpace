@@ -278,21 +278,6 @@ app.post("/create", (req, res) => {
 });
 
 
-<<<<<<< HEAD
-
-app.get("/recipe_list", (req, res) => {
-
-  knex
-    .select("*")
-    .from("recipes")
-    .innerJoin("tags", "recipes.id", "tags.recipes_id")
-    .innerJoin("categories", "tags.category_id", "categories.id")
-    // .whereIn()
-    .then((allRecipes) => {
-      allRecipes.forEach((single) => {
-        single["instructions"] = [];
-        single["ingredients"] = [];
-=======
 // another commit
 app.get("/recipe_list/:sessionToken", (req, res) => {
   console.log("params from frontend (recipe page post)===> ", req.params);
@@ -302,7 +287,6 @@ app.get("/recipe_list/:sessionToken", (req, res) => {
     if (!res) {
       res.json({
         success: false
->>>>>>> 9f9b91fea340174d1d91f882b0c7980a4a0b63ef
       });
       return;
     }
@@ -372,25 +356,8 @@ app.get("/recipe_details", (req, res) => {
   console.log("params from frontend (details get)===> ", req.params);
   const sessionToken = req.params.sessionToken;
   const recipeID = req.body.recipeID
-<<<<<<< HEAD
-
-  knex
-    .select("*")
-    .from("Recipes")
-    .where({
-      id: recipeID
-    })
-    .innerJoin("instructions", "instructions.recipe_id", "recipes.id")
-    .innerJoin("ingredients", "ingredients.recipes_id", "recipes.id")
-    .innerJoin("measurements", "measurement.id", "ingredients.measurement_id")
-    .then((recipeDetails) => {
-
-    })
-    .catch((err) => {
-=======
   authenticateToken(sessionToken, function (result) {
     if (!res) {
->>>>>>> 9f9b91fea340174d1d91f882b0c7980a4a0b63ef
       res.json({
         success: false
       });
