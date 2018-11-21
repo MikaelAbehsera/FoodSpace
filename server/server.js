@@ -605,11 +605,10 @@ app.post("/minus", (req, res) => {
 });
 
 
-app.post("/review", (req, res) => {
+app.post("/ratings", (req, res) => {
   // add review to a recipe
   const recipeID = req.body.recipes_id;
   const newRating = req.body.rating;
-  const newReviewtext = req.body.reviewText;
 
   console.log("params from frontend (suggestions get)===> ", req.params);
   const sessionToken = req.params.sessionToken;
@@ -625,10 +624,9 @@ app.post("/review", (req, res) => {
       .insert({
         recipes_id: recipeID,
         rating: newRating,
-        review_text: newReviewtext
       })
       .then(() => {
-        knex("reviews")
+        knex("ratings")
           .avg("rating")
           .then((avgRating) => {
             knex("recipes")
