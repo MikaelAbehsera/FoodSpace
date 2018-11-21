@@ -107,8 +107,7 @@ app.post("/login", (req, res) => {
 
 app.get("/profile", (req, res) => {
 
-  const userID = 1;
-  // req.body.sessionToken;
+  const userID = req.body.sessionToken
   const userProfile = {};
 
   knex("users")
@@ -161,35 +160,17 @@ app.get("/profile", (req, res) => {
     });
 });
 
-
+//user authentication function.
 function authenticateToken(token, cb) {
   knex("users")
   .where({
     sessionToken: token
   })
   .then((result) => {
-   cb(result[0])
+   cb(result[0].id)
   })
 
 }
-// =======================================================
-
-// async function tokenID(hashToken) {
-//   let userID = await knex("users")
-//   .where({
-//     sessionToken: hashToken
-//   })
-//   console.log("+++++++", userID)
-//   return await userID[0].id
-  
-// }
-
-
-// const a = tokenID('123456')
-// console.log("this is my bs", a)
-// =======================================================
-
-
 
 app.post("/create", (req, res) => {
   // creates new recipe
@@ -201,12 +182,13 @@ app.post("/create", (req, res) => {
 
   // STILL NEED TO TAG CATEGORIES AND PROPER USER_ID
   // currently being simulated
+  
   authenticateToken(req.token, function(result) {
     if (!res) {
       res.json({
         success: false
       });
-      return 
+      return
     }
     knex("recipes")
     .insert({
@@ -215,7 +197,7 @@ app.post("/create", (req, res) => {
       overall_rating: null,
       time: recipeForm.timeToMake,
       difficulty: recipeForm.diffcultyOfRecipe,
-      creator_id: 1
+      creator_id: result
     })
     .returning("id")
     .then((id) => {
