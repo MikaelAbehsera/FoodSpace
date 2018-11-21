@@ -22,9 +22,21 @@ app.listen(PORT, () => {
   console.log(`Listening on port: ${PORT}`);
 });
 
-
 // =======================================================
 
+//user authentication function.
+function authenticateToken(token, cb) {
+  console.log("token token token ===> ", token);
+
+  knex("users")
+    .where({
+      sessionToken: token
+    })
+    .then((result) => {
+      console.log("RESULT RESULT RESULT ===> ", result);
+      cb(result[0].id);
+    });
+}
 
 // =======================================================
 
@@ -171,19 +183,6 @@ app.get("/profile/:sessionToken", (req, res) => {
   });
 });
 
-//user authentication function.
-function authenticateToken(token, cb) {
-  console.log("token token token ===> ", token);
-
-  knex("users")
-    .where({
-      sessionToken: token
-    })
-    .then((result) => {
-      console.log("RESULT RESULT RESULT ===> ", result);
-      cb(result[0].id);
-    });
-}
 
 app.post("/create", (req, res) => {
   // creates new recipe
@@ -278,7 +277,9 @@ app.post("/create", (req, res) => {
 });
 
 
-// another commit
+// =======================================================
+
+
 app.get("/recipe_list/:sessionToken", (req, res) => {
   console.log("params from frontend (recipe page post)===> ", req.params);
   const sessionToken = req.params.sessionToken;
@@ -348,6 +349,65 @@ app.get("/recipe_list/:sessionToken", (req, res) => {
 
 });
 
+
+app.get("/list/:categoryName", (req, res) => {
+  const categoryName = req.params.categoryName;
+
+  knex
+    .select("*")
+    .from("recipes")
+    .innerJoin("tags", "recipes.id", "tags.recipes_id")
+    .innerJoin("categories", "tags.category_id", "categories.id")
+    .where({category_name: categoryName})
+    .then((allRecipes) => {
+      allRecipes.forEach((single) => {
+        single["instructions"] = [];
+        single["ingredients"] = [];
+      });
+
+      knex("ingredients")
+        .select("food_type", "quantity", "recipes_id")
+        .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
+        .then((resultIngredients) => {
+          knex("instructions")
+            .select("step_description", "step_number", "recipes_id")
+            .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
+            .then((resultInstructions) => {
+
+              resultIngredients.forEach((single) => {
+                allRecipes.forEach((singleRecipe) => {
+                  if (single.recipes_id === singleRecipe.id) {
+                    singleRecipe["ingredients"].push(single);
+                  }
+                });
+              });
+
+              resultInstructions.forEach((single) => {
+                allRecipes.forEach((singleRecipe) => {
+                  if (single.recipes_id === singleRecipe.id) {
+                    singleRecipe["instructions"].push(single);
+                  }
+                });
+              });
+
+            })
+            .catch((err) => {
+              res.json({
+                success: false
+              });
+              res.status(404);
+              console.log(err);
+              throw err;
+            })
+            .finally(() => {
+              res.json({
+                allRecipes: allRecipes,
+                success: true
+              });
+            });
+        });
+    });
+});
 
 
 
@@ -448,6 +508,9 @@ app.get("/mealmade", (req, res) => {
 });
 
 
+// =======================================================
+
+
 app.get("/suggestions", (req, res) => {
   console.log("params from frontend (suggestions get)===> ", req.params);
   const sessionToken = req.params.sessionToken;
@@ -471,7 +534,7 @@ app.get("/suggestions", (req, res) => {
 
 
 app.post("/suggestion", (req, res) => {
-  // add review to a recipe
+  // add suggestions to a recipe
   const recipeID = 1;
   const newsuggestText = req.body.text;
 
@@ -506,6 +569,7 @@ app.post("/suggestion", (req, res) => {
       });
   })
 });
+
 
 app.post("/plus", (req, res) => {
   const recipeid = req.body.recpies_id;
@@ -605,8 +669,9 @@ app.post("/minus", (req, res) => {
 });
 
 
+
 app.post("/ratings", (req, res) => {
-  // add review to a recipe
+  // add rating to a recipe
   const recipeID = req.body.recipes_id;
   const newRating = req.body.rating;
 
@@ -620,7 +685,7 @@ app.post("/ratings", (req, res) => {
       });
       return
     }
-    knex("reviews")
+    knex("ratings")
       .insert({
         recipes_id: recipeID,
         rating: newRating,
@@ -654,8 +719,6 @@ app.post("/ratings", (req, res) => {
       });
   })
 });
-
-
 
 
 
@@ -707,65 +770,3 @@ app.post("/ratings", (req, res) => {
 //     // return storedImage to be stored in knex, if failed - returns nulls = returned should check if null/valid
 // })
 
-
-
-
-
-app.get("/list/:categoryName", (req, res) => {
-  const categoryName = req.params.categoryName;
-
-  knex
-    .select("*")
-    .from("recipes")
-    .innerJoin("tags", "recipes.id", "tags.recipes_id")
-    .innerJoin("categories", "tags.category_id", "categories.id")
-    .where({category_name: categoryName})
-    .then((allRecipes) => {
-      allRecipes.forEach((single) => {
-        single["instructions"] = [];
-        single["ingredients"] = [];
-      });
-
-      knex("ingredients")
-        .select("food_type", "quantity", "recipes_id")
-        .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
-        .then((resultIngredients) => {
-          knex("instructions")
-            .select("step_description", "step_number", "recipes_id")
-            .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
-            .then((resultInstructions) => {
-
-              resultIngredients.forEach((single) => {
-                allRecipes.forEach((singleRecipe) => {
-                  if (single.recipes_id === singleRecipe.id) {
-                    singleRecipe["ingredients"].push(single);
-                  }
-                });
-              });
-
-              resultInstructions.forEach((single) => {
-                allRecipes.forEach((singleRecipe) => {
-                  if (single.recipes_id === singleRecipe.id) {
-                    singleRecipe["instructions"].push(single);
-                  }
-                });
-              });
-
-            })
-            .catch((err) => {
-              res.json({
-                success: false
-              });
-              res.status(404);
-              console.log(err);
-              throw err;
-            })
-            .finally(() => {
-              res.json({
-                allRecipes: allRecipes,
-                success: true
-              });
-            });
-        });
-    });
-});
