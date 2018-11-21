@@ -444,7 +444,6 @@ app.post("/fave", (req, res) => {
 
 app.get("/mealmade", (req, res) => {
   // add recipe to users mealmade
-  console.log('jimmy')
 
 });
 
@@ -509,7 +508,6 @@ app.post("/suggestion", (req, res) => {
 });
 
 app.post("/plus", (req, res) => {
-  const userId = req.body.user_id;
   const recipeid = req.body.recpies_id;
   const check = req.body.check;
 
@@ -557,7 +555,6 @@ app.post("/plus", (req, res) => {
 
 
 app.post("/minus", (req, res) => {
-  const userId = req.body.user_id;
   const recipeid = req.body.recpies_id;
   const check = req.body.check;
 

@@ -3,14 +3,13 @@ exports.seed = function (knex, Promise) {
   // Deletes ALL existing entries
 
   return Promise.all([
-    knex.raw("ALTER SEQUENCE reviews_id_seq RESTART WITH 1"),
-    knex("reviews").del()
+    knex.raw("ALTER SEQUENCE ratings_id_seq RESTART WITH 1"),
+    knex("ratings").del()
       .then(function () {
         return Promise.all([
-          knex("reviews").insert({
+          knex("ratings").insert({
             recipes_id: 1,
-            rating: 5,
-            review_text: "My name is matt damon and this bagel spiced up my day"
+            rating: 5
           })
 
         ]);
