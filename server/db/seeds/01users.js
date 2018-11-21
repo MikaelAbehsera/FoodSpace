@@ -1,3 +1,5 @@
+const uniqid = require('uniqid');
+
 exports.seed = function (knex, Promise) {
   // Deletes ALL existing entries
 
@@ -11,7 +13,8 @@ exports.seed = function (knex, Promise) {
             email: "dingus@email.com",
             password: "I love matt damon",
             profileIMG: "blank",
-            location: "Montreal"
+            location: "Montreal",
+            sessionToken: "123456"
           }),
           
           knex("users").insert({
@@ -19,15 +22,17 @@ exports.seed = function (knex, Promise) {
             email: "imagination@gmail.com",
             password: "something_secret",
             profileIMG: "blank",
-            location: "Montreal"
+            location: "Montreal",
+            sessionToken: uniqid()
           }),
-
+          
           knex("users").insert({
             username: "Matt Damon",
             email: "Uu@e.com",
             password: "P",
             profileIMG: "blank",
-            location: "Montreal"
+            location: "Montreal",
+            sessionToken: uniqid()
           }),
 
         ]);

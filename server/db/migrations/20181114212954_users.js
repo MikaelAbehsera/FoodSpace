@@ -8,6 +8,7 @@ exports.up = function(knex, Promise) {
       table.string("password");
       table.string("profileIMG");
       table.string("location");
+      table.string("sessionToken");
     })
   ])
 };
