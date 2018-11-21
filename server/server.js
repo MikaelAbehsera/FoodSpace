@@ -263,7 +263,7 @@ app.post("/create", (req, res) => {
 });
 
 
-// another commit
+
 app.get("/recipe_list", (req, res) => {
 
   knex
@@ -341,7 +341,6 @@ app.get("/recipe_details", (req, res) => {
     .innerJoin("ingredients", "ingredients.recipes_id", "recipes.id")
     .innerJoin("measurements", "measurement.id", "ingredients.measurement_id")
     .then((recipeDetails) => {
-
 
     })
     .catch((err) => {
