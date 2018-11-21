@@ -25,10 +25,9 @@ const DetailsStyles = StyleSheet.create({
     // backgroundColor: "blue",
     top: (Dimensions.get("window").width/1.5 - 50),
     right: 10,
-    height: 41,
-    width: 41,
+    height: 38,
+    width: 38,
     zIndex: 99,
-
   },
   imageView: {
     borderColor: "black",

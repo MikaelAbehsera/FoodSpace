@@ -35,9 +35,8 @@ export default class Recipe extends Component {
       rightView: right
     });
     
-    // <TouchableHighlight onPress={() => console.log("PRESS")} >
     return (
-      <TouchableHighlight onPress={() => this.props.navigate("Details", {recipe: this.props.recipe})} >
+      <TouchableHighlight underlayColor="#ffffff00" onPress={() => this.props.navigate("Details", {recipe: this.props.recipe})} >
 
         <View style={RecipeStyles.container}>
           <View style={RecipeStyles.leftView}>

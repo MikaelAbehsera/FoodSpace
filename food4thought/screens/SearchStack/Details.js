@@ -5,7 +5,7 @@ import {
   StyleSheet,
   PixelRatio
 } from "react-native";
-import { Dimensions } from 'react-native';
+import { Dimensions } from 'react-native'; 
 import DetailsStyles from "../styles/SearchStack/DetailsStyles.js";
 export default class Details extends React.Component {
   constructor(props) {
@@ -24,11 +24,11 @@ export default class Details extends React.Component {
   }
 
   render() {
-    
+    console.log("height ===> ", Dimensions.get('window').height);
     const starStyle = StyleSheet.create({
       star: {
-        width: 41,
-        height: 41,
+        width: 37,
+        height: 37,
         position: "absolute",
         // top: -40,
         // right: 20,
@@ -46,7 +46,7 @@ export default class Details extends React.Component {
             source={{ uri: recipeData.recipeIMG ? recipeData.recipeIMG : "https://media.giphy.com/media/3o6Zt1s75ToFZ0a9va/source.gif" }} 
           />
         </View>
-        <TouchableHighlight style={DetailsStyles.funcs} onPress={this.starChange}>
+        <TouchableHighlight underlayColor="#ffffff00" style={DetailsStyles.funcs} onPress={this.starChange}>
           <Image style={starStyle.star} source={this.state.star} />
         </TouchableHighlight> 
         <ScrollView style={DetailsStyles.scrollView}>
@@ -57,7 +57,8 @@ export default class Details extends React.Component {
           </View>
 
         </ScrollView>
-        <Image source={require("../materials/food.gif")} height={Dimensions.get('window').height + 50} style={{ position: "absolute", zIndex: -10, top: 180,}} />
+        <Image source={require("../materials/food.gif")} height={Dimensions.get('window').height + 50} style={{ position:'absolute', flex: 1, zIndex: -10,}} />
+        {/* <Image source={require("../materials/food.gif")} height={Dimensions.get('window').height + 50} style={{ position: "absolute", flex: 1, zIndex: -10, top: 180,}} /> */}
       </View>      
     );
   }

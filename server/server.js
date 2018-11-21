@@ -107,7 +107,7 @@ app.post("/login", (req, res) => {
 
 app.get("/profile", (req, res) => {
 
-  const userToken = 1;
+  const userID = 1;
   // req.body.sessionToken;
   const userProfile = {};
 

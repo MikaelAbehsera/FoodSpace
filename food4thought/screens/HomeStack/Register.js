@@ -94,7 +94,7 @@ export default class RegisterScreen extends React.Component {
       <View style={RegisterStyles.container} >
 
       <ScrollView style={RegisterStyles.scrollContainer} >
-
+      <View style={{width: "100%", height: 100}} />
         <View style={RegisterStyles.headerContainer}>
           <Text style={RegisterStyles.headerText} >Register</Text>
         </View>
@@ -110,7 +110,7 @@ export default class RegisterScreen extends React.Component {
           </View>
 
         </View>
-
+        <View style={{width: "100%", height: 300}} />
     </ScrollView>
 
         <View style={RegisterStyles.footerContainer}>
