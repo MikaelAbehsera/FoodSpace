@@ -145,7 +145,7 @@ export default class LoginScreen extends React.Component {
       
         </ScrollView>
 
-        <Image source={require("./food.gif")} height={Dimensions.get('window').height + 50} style={{ position: 'absolute', flex: 1, zIndex: -10,}} />
+        <Image source={require("../materials/food.gif")} height={Dimensions.get('window').height + 50} style={{ position: 'absolute', flex: 1, zIndex: -10,}} />
       </View>
     );
   }
