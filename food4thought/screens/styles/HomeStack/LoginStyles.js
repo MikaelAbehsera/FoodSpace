@@ -13,16 +13,13 @@ const LoginStyles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    // justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "lightblue",
   },
   headerContainer: {
     width: "100%",
     flex: 2,
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "yellow",
   },
   headerText: {
     fontSize: 60,
@@ -33,11 +30,13 @@ const LoginStyles = StyleSheet.create({
     flex: 6,
     justifyContent: "center",
     alignItems: "center",
-    // backgroundColor: "lightgreen",
   },
   avoidView: {
     // flex: 1,
     width: "100%",
+    // backgroundColor: "white",
+    borderColor: "black",
+    borderWidth: 10,
   },
   formView: {
     width: "90%",

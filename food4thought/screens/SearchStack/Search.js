@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import { Button, Text, View, ScrollView } from "react-native";
+import { Button, Text, View, ScrollView, Image } from "react-native";
+import { Dimensions } from 'react-native'; 
+
 import {
   StyleSheet,
   PixelRatio
@@ -27,7 +29,7 @@ export default class SearchScreen extends React.Component {
     axios.get(`${currentHostedLink}/recipe_list`)
       .then(function (response) {
         console.log("GETTING RECIPES")
-        console.log(response.data.allRecipes);
+        // console.log(response.data.allRecipes);
         // reset page load
         that.setState({compLoaded: false, recipes: that.state.recipes});
         // set state to new object
@@ -58,10 +60,8 @@ export default class SearchScreen extends React.Component {
 
   render() {
     
-
     function diffstyle(diff) {
       let style;
-      console.log("DIFFICUTLYY ======> ", diff)
       if(diff === 3) {
         style = "red"
       } else if(diff === 2) {
@@ -72,10 +72,13 @@ export default class SearchScreen extends React.Component {
 
     return style;
     }
-  
-    if(this.state.compLoaded) {
-    const list = this.state.recipes.map((recipe, index) => <Recipe recipe={recipe} color={diffstyle(recipe.difficulty)} key={index}/>);
+    
+    const {navigate} = this.props.navigation;
 
+    if(this.state.compLoaded) {
+    const list = this.state.recipes.map((recipe, index) => <Recipe navigate={navigate} recipe={recipe} color={diffstyle(recipe.difficulty)} key={index}/>);
+
+    const h = (Dimensions.get('window').height + 300);
     return (
       <View style={SearchStyles.container}>
         <View style={SearchStyles.header}>
@@ -103,9 +106,11 @@ export default class SearchScreen extends React.Component {
 
         <ScrollView style={SearchStyles.scrollRecipesView}>
           {list}
+          {/* <View style={{width: "100%", height: 200}} /> */}
         </ScrollView>
 
-          {this.props.screenProps.Nav}
+        <Image source={require("../materials/food.gif")} height={h} style={{ position: "absolute", zIndex: -10,}} />
+        {this.props.screenProps.Nav}
       </View>
     );
   } else {

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Button, Text, View, ScrollView } from "react-native";
+import { Button, Text, View, ScrollView, Dimensions, KeyboardAvoidingView, AsyncStorage } from "react-native";
+import Image from 'react-native-scalable-image';
 import axios from "axios";
 import RegisterStyles from "../styles/HomeStack/RegisterStyles.js";
 
@@ -58,15 +59,20 @@ export default class RegisterScreen extends React.Component {
     const that = this;
     const value = this._form.getValue(); // use that ref to get the form value
     console.log("REGISTER FORM ===> ", value);
-    that.redirect("Register") 
     if (value) { // if validation fails, value will be null
       let validate = false;
       // post user information to backend /login route
       axios.post((`${currentHostedLink}/register`), value)
       .then(function (response) {
-        if(response.data.success) { 
-          validate = true;
-          console.log("USER ID ===> ", response.data.id);
+        if(response.data.id < 0) { 
+          console.log("-1 from server something is wrong");
+        } else {
+          AsyncStorage.setItem("sessionToken", "Todo").then(
+          () => {
+            console.log("SESSION HELLO");
+            that.props.screenProps.OnSessionChange()
+          })
+          validate = true;  
         }
       })
       .catch(function (error) {
@@ -82,11 +88,13 @@ export default class RegisterScreen extends React.Component {
   }
 
   render() {
+    const { goBack } = this.props.navigation;
+
     return (
       <View style={RegisterStyles.container} >
 
       <ScrollView style={RegisterStyles.scrollContainer} >
-
+      <View style={{width: "100%", height: 100}} />
         <View style={RegisterStyles.headerContainer}>
           <Text style={RegisterStyles.headerText} >Register</Text>
         </View>
@@ -102,7 +110,7 @@ export default class RegisterScreen extends React.Component {
           </View>
 
         </View>
-
+        <View style={{width: "100%", height: 300}} />
     </ScrollView>
 
         <View style={RegisterStyles.footerContainer}>
@@ -120,10 +128,15 @@ export default class RegisterScreen extends React.Component {
                 title="Register"
                 onPress={this.handleSubmit}
                 />
+              <Button
+                title="Go Back"
+                onPress={() => goBack()}
+                />
             </View>
           </View>
         </View>
 
+        <Image source={require("../materials/food.gif")} height={Dimensions.get('window').height + 50} style={{ position: 'absolute', flex: 1, zIndex: -10,}} />
       </View>
     );
   }
