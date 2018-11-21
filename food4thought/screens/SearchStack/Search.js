@@ -81,10 +81,13 @@ export default class SearchScreen extends React.Component {
       console.log(`GETTING DIS RECIPE CAT ===> ${categoryName}`)
       // console.log(response.data.allRecipes);
       // reset page load
+
       that.setState({compLoaded: false, recipes: that.state.recipes});
       // set state to new object
+
       that.setState({compLoaded: true, recipes:  response.data.allRecipes});
       // state load finsished set new state
+      
       that.setState({compLoaded: true, recipes: that.state.recipes});
     })
     .catch(function (error) {
