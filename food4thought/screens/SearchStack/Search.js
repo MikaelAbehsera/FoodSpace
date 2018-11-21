@@ -57,29 +57,28 @@ export default class SearchScreen extends React.Component {
   categoryButtonGreasy = () => {
     const category = "Greasy";
     console.log(category);
-    categoryButtonPress(category)
+    this.categoryButtonPress(category)
     // SEND RELEVANT GET TO BACKEND TO GET NEW LIST
   }
   categoryButtonHealth = () => {
     const category = "Health Nut";
     console.log(category);
-    categoryButtonPress(category)
+    this.categoryButtonPress(category)
     // SEND RELEVANT GET TO BACKEND TO GET NEW LIST
   }
   categoryButtonMunchies = () => {
     const category = "Munchies";
     console.log(category);
-    categoryButtonPress(category)
+    this.categoryButtonPress(category)
     // SEND RELEVANT GET TO BACKEND TO GET NEW LIST
   }
 
 
   categoryButtonPress = (categoryName) => {
-    axios.get(`${currentHostedLink}/recipe_list/:${categoryName}`  params: {
-      categoryName: categoryName
-    })
+    const that = this;
+    axios.get(`${currentHostedLink}/list/${categoryName}`)
     .then(function (response) {
-      console.log("GETTING RECIPES")
+      console.log(`GETTING DIS RECIPE CAT ===> ${categoryName}`)
       // console.log(response.data.allRecipes);
       // reset page load
       that.setState({compLoaded: false, recipes: that.state.recipes});

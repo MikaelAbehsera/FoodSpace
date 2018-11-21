@@ -717,8 +717,8 @@ app.post("/review", (req, res) => {
 
 
 
-app.get("/recipe_list/:categoryName", (req, res) => {
-  const categoryName = req.body.categoryName;
+app.get("/list/:categoryName", (req, res) => {
+  const categoryName = req.params.categoryName;
 
   knex
     .select("*")
