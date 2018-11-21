@@ -613,3 +613,66 @@ app.post("/review", (req, res) => {
 
 //     // return storedImage to be stored in knex, if failed - returns nulls = returned should check if null/valid
 // })
+
+
+
+
+
+app.get("/recipe_list/:categoryName", (req, res) => {
+  const categoryName = req.body.categoryName;
+
+  knex
+    .select("*")
+    .from("recipes")
+    .innerJoin("tags", "recipes.id", "tags.recipes_id")
+    .innerJoin("categories", "tags.category_id", "categories.id")
+    .where({category_name: categoryName})
+    .then((allRecipes) => {
+      allRecipes.forEach((single) => {
+        single["instructions"] = [];
+        single["ingredients"] = [];
+      });
+
+      knex("ingredients")
+        .select("food_type", "quantity", "recipes_id")
+        .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
+        .then((resultIngredients) => {
+          knex("instructions")
+            .select("step_description", "step_number", "recipes_id")
+            .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
+            .then((resultInstructions) => {
+
+              resultIngredients.forEach((single) => {
+                allRecipes.forEach((singleRecipe) => {
+                  if (single.recipes_id === singleRecipe.id) {
+                    singleRecipe["ingredients"].push(single);
+                  }
+                });
+              });
+
+              resultInstructions.forEach((single) => {
+                allRecipes.forEach((singleRecipe) => {
+                  if (single.recipes_id === singleRecipe.id) {
+                    singleRecipe["instructions"].push(single);
+                  }
+                });
+              });
+
+            })
+            .catch((err) => {
+              res.json({
+                success: false
+              });
+              res.status(404);
+              console.log(err);
+              throw err;
+            })
+            .finally(() => {
+              res.json({
+                allRecipes: allRecipes,
+                success: true
+              });
+            });
+        });
+    });
+});
