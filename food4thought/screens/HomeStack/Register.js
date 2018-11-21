@@ -55,6 +55,13 @@ export default class RegisterScreen extends React.Component {
     this.props.navigation.navigate(page)
   }
 
+  componentDidMount() {
+    console.log("token getting removed")
+    AsyncStorage.setItem("sessionToken", "").then(() => {
+      console.log("token removed")
+    })
+  }
+
   handleSubmit = () => {
     const that = this;
     const value = this._form.getValue(); // use that ref to get the form value
@@ -64,12 +71,13 @@ export default class RegisterScreen extends React.Component {
       // post user information to backend /login route
       axios.post((`${currentHostedLink}/register`), value)
       .then(function (response) {
-        if(response.data.id < 0) { 
+        console.log("RESPONSE ===> ", response.data.sessionToken);
+        if(response.data.id < 0) {
           console.log("-1 from server something is wrong");
         } else {
-          AsyncStorage.setItem("sessionToken", "Todo").then(
+          AsyncStorage.setItem("sessionToken", response.data.sessionToken).then(
           () => {
-            console.log("SESSION HELLO");
+            console.log("SESSION TOKEN HAS BEEN STORED");
             that.props.screenProps.OnSessionChange()
           })
           validate = true;  

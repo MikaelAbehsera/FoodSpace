@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button, Text, View, ScrollView, Picker } from "react-native";
+import { Button, Text, View, ScrollView, Picker, AsyncStorage } from "react-native";
 import axios from "axios";
 import CreateStyles from "../styles/CreateStack/CreateStyles.js";
 
@@ -135,6 +135,14 @@ export default class CreateScreen extends React.Component {
     console.log(fullForm)
     console.log("===========================================================")
     
+    AsyncStorage.getItem("sessionToken").then(
+      (value) => {
+        if(value) {
+          fullForm["sessionToken"] = value;
+        }
+        console.log("session token (create page) ===> ", sessionToken);
+      }
+    ).then(() => {
     let validate = false;
     // post user information to backend /login route
     axios.post((`${currentHostedLink}/create`), fullForm)
@@ -152,6 +160,7 @@ export default class CreateScreen extends React.Component {
         that.props.screenProps.changePage("Search");
       }
     });
+  });
   }
 
   render() {
