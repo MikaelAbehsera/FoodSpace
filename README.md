@@ -1,6 +1,6 @@
 # Food4Thought App
 
-A mobile application to foster co
+A mobile application for finding and sharing recipes, searchable via categories.
 
 
 Food is a focal point in all our lives.  Cooking not only sustains life, but bridges cultures and fosters interpersonal relationships like no other creative median can. Food4thought  is an app that will allow users to have acess to recipies from regions  all over the world at thier disposal. With the touch of button a user will have a recipe for butter chicken to cook for thier partner on an aniverserary or the best way to cook a turkey on thanksgiving. We belive human live to eat not eat to live and Food4Thought will allow users to  have  the gastronomic universe in thier pockets .
@@ -37,6 +37,51 @@ Food is a focal point in all our lives.  Cooking not only sustains life, but bri
 
 ## Features
 
+* Registration
+  * local authorization 
+  * user requires to login before using app
+  * registration requires 
+    * email
+    * username
+    * password 
+      * submitted twice to confirm no typos
+  * bcrypt utilized for secury
+* Login
+  * user requires to login before using app
+  * random hash assigned to each user is utilized throughout the application to confirm
+* Search
+  * users can browse through a database of recipes
+    * Each recipe tile has a 
+      * picture
+      * title
+      * difficulty level
+      * time eastimate (for creating the meal)
+  * users can chose a category to browse through
+    * categories are added to the recipe at the time of creation
+    * categories are features on the search page at all time
+* Recipe details
+  * users can click a recipe that interests them and be lead to a recipe details page
+  * users can read details about the recipe (description)
+  * users can check all necessary ingredients and instructions
+  * users can read suggestions 
+    * all logged in users can add a suggestion
+    * users can also thumbs up or thumbs down a suggestion
+  * users can read reviews/ratings 
+    * all logged in users can add a suggestion
+    * a recipes overall rating is determined by averaging all submitted ratings
+* Profile
+  * Each user has their own specified profile page
+  * Profile page has user information - username, picture, location - which was provided by user during registration
+  * Recipes Created
+    * features all recipes created by the specified user
+  * Faves
+    * features all recipes favourited by the specified user
+  * MealsMade
+    * features all recipes made by the specified user (an accomplishment)
+* Create recipe
+  * Form for submitting a new recipe
+  *
+    
 
 
 
