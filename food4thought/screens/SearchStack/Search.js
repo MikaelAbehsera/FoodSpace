@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button, Text, View, ScrollView, Image } from "react-native";
+import { Button, Text, View, ScrollView, Image, AsyncStorage } from "react-native";
 import { Dimensions } from 'react-native'; 
 
 import {
@@ -25,8 +25,19 @@ export default class SearchScreen extends React.Component {
   }
 
   componentDidMount() {
+    let sessionToken;
+
+    AsyncStorage.getItem("sessionToken").then(
+      (value) => {
+        if(value) {
+          sessionToken = value;
+        }
+        console.log("session token ===> ", value);
+      }
+    ).then(() => {
+
     const that = this;
-    axios.get(`${currentHostedLink}/recipe_list`)
+    axios.get(`${currentHostedLink}/recipe_list/${sessionToken}`)
       .then(function (response) {
         console.log("GETTING RECIPES")
         // console.log(response.data.allRecipes);
@@ -40,6 +51,7 @@ export default class SearchScreen extends React.Component {
       .catch(function (error) {
         console.log(error);
       });
+    });
   }
 
   categoryButtonGreasy = () => {

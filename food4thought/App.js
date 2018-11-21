@@ -166,7 +166,7 @@ export default class App extends React.Component {
         if(value) {
           // forcing clients to profile
           // if(this.state.currentStack !== "Profile") {
-          this.setState({currentStack: "Search"});
+          this.setState({currentStack: "Home"});
           // }
         }
         console.log("session token ===> ", value);

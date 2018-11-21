@@ -51,6 +51,12 @@ export default class LoginScreen extends React.Component {
     this.props.navigation.navigate(page);
   }
 
+  componentDidMount() {
+    console.log("token getting removed")
+    AsyncStorage.setItem("sessionToken", "").then(() => {
+      console.log("token removed")
+    })
+  }
 
   //notes
   // every time we access a page, check for id or username + password (depending on what works)
@@ -66,13 +72,13 @@ export default class LoginScreen extends React.Component {
       axios.post((`${currentHostedLink}/login`), value)
       .then(function (response) {
         if(response.data) { 
-          console.log("USER ID ===> ", response.data.id);
+          console.log("USER RESONPSE  ===> ", response.data);
           // notifiy user that the password is wrong with a relevant message
           if(response.data.id < 0) {
             console.log("wrong pass");
             that.setState({status: { text: "DA PASSVORD IS WRONG!" }});
           } else {
-            AsyncStorage.setItem("sessionToken", "Todo").then(
+            AsyncStorage.setItem("sessionToken", response.data.sessionToken).then(
             () => {
               console.log("SESSION HELLO");
               that.props.screenProps.OnSessionChange()

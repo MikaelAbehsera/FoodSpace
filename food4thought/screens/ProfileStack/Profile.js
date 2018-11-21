@@ -32,19 +32,34 @@ export default class ProfileScreen extends React.Component {
   
   componentDidMount() {
     const that = this;
-    axios.get(`${currentHostedLink}/profile`)
-    .then(function (response) {
-      console.log("PROFILE INSIDE GET")
-      // reset page load
-      that.setState({ compLoaded: false, userProfile: that.state.userProfile });
-      // set state to new object
-      that.setState({ compLoaded: false, userProfile: response.data.userProfile });
-      // state load finsished set new state
-      that.setState({ compLoaded: true, userProfile: that.state.userProfile });
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    let sessionToken;
+
+    AsyncStorage.getItem("sessionToken").then(
+      (value) => {
+        if(value) {
+          sessionToken = value;
+        }
+        console.log("session token ===> ", value);
+      }
+    ).then(() => {
+      console.log("SESSION BEFORE ===>  ", sessionToken);
+
+      axios.get(`${currentHostedLink}/profile/${sessionToken}`)
+      .then(function (response) {
+        console.log("SESSION AFTER ===>  ", sessionToken);
+        console.log("PROFILE INSIDE GET")
+        // reset page load
+        that.setState({ compLoaded: false, userProfile: that.state.userProfile });
+        // set state to new object
+        that.setState({ compLoaded: false, userProfile: response.data.userProfile });
+        // state load finsished set new state
+        that.setState({ compLoaded: true, userProfile: that.state.userProfile });
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+    }
+    );
   }
   
   signout = () => {
