@@ -461,14 +461,9 @@ app.get("/recipe_details", (req, res) => {
 
 
 app.post("/fave", (req, res) => {
-  const userId = req.body.user_id;
   const recipeid = req.body.recpies_id;
   const check = req.body.check;
 
-  const favRecipesAdd = {
-    user_id: userId,
-    recipes_id: recipeid
-  };
   console.log("params from frontend (fave post)===> ", req.params);
   const sessionToken = req.params.sessionToken;
   authenticateToken(sessionToken, function (result) {
@@ -478,6 +473,10 @@ app.post("/fave", (req, res) => {
       });
       return
     }
+    const favRecipesAdd = {
+      user_id: result,
+      recipes_id: recipeid
+    };
     if (check === true) {
       knex("faves")
         .insert(favRecipesAdd)
@@ -489,7 +488,7 @@ app.post("/fave", (req, res) => {
     } else {
       knex("faves")
         .where({
-          user_id: userId,
+          user_id: result,
           recipes_id: recipeid
         })
         .del()
