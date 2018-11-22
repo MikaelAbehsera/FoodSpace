@@ -180,6 +180,7 @@ export default class CreateScreen extends React.Component {
     
     return (
       <View style={CreateStyles.container}>
+        <View style={{width: "100%", height: 25, backgroundColor: "black"}} />
         <ScrollView style={CreateStyles.scrollContainer} >
         <View style={{width: "100%", height: 50}} />
 

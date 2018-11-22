@@ -52,10 +52,10 @@ export default class LoginScreen extends React.Component {
   }
 
   componentDidMount() {
-    console.log("token getting removed")
-    AsyncStorage.setItem("sessionToken", "").then(() => {
-      console.log("token removed")
-    })
+    // console.log("token getting removed")
+    // AsyncStorage.setItem("sessionToken", "").then(() => {
+    //   console.log("token removed")
+    // })
   }
 
   //notes
@@ -103,7 +103,8 @@ export default class LoginScreen extends React.Component {
     return (
       <View style={LoginStyles.container} >
         <ScrollView style={LoginScreen.avoidView} >
-        <View style={{width: "100%", height: 100}} />
+        <View style={{width: "100%", height: 25, backgroundColor: "black"}} />
+        <View style={{width: "100%", height: 50}} />
 
         <View style={LoginStyles.headerContainer}>
           <Text style={LoginStyles.headerText} >Login</Text>

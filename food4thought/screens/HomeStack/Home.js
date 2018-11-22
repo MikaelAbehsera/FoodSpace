@@ -7,7 +7,7 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={HomeStyles.container}>
-        <View style={{width: "100%", height: 50, backgroundColor: "black"}} />
+        <View style={{width: "100%", height: 25, backgroundColor: "black"}} />
         <ScrollView>
           <Text>Home!</Text>
           <Text>Home!</Text>
@@ -18,7 +18,7 @@ export default class HomeScreen extends React.Component {
           <Text>Home!</Text>
           <Text>Home!</Text>
         </ScrollView>
-        <Image source={require("../materials/food.gif")} height={Dimensions.get('window').height + 50} style={{ position: "absolute", zIndex: -10,}} />
+        <Image source={require("../materials/food.gif")} height={Dimensions.get('window').height + 50} style={{ position: 'absolute', width: "100%", zIndex: -10,}} />
         {this.props.screenProps.Nav}        
       </View>
     );

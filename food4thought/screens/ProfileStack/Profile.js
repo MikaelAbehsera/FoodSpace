@@ -69,8 +69,7 @@ export default class ProfileScreen extends React.Component {
         console.log("hello");
         that.props.screenProps.OnSessionChange()
       })
-    
-      that.props.screenProps.changePage("Home")
+      that.props.screenProps.changePage("Auth")
   }
 
   render() {
@@ -79,6 +78,7 @@ export default class ProfileScreen extends React.Component {
     if(this.state.compLoaded) {
       return (
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <View style={{width: "100%", height: 25, backgroundColor: "black"}} />
           <View style={ProfileStyles.header}>
             <View style={ProfileStyles.headerLeft}>
               <View style={ProfileStyles.profilePictureView}>

@@ -40,6 +40,7 @@ export default class Details extends React.Component {
     const recipeData = this.props.navigation.state.params.recipe;
     return (
       <View style={DetailsStyles.container}>
+        <View style={{width: "100%", height: 25, backgroundColor: "black"}} />
         <View style={DetailsStyles.imageView} >
           <Image 
             style={DetailsStyles.image} 

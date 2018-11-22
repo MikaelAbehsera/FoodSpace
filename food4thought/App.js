@@ -178,7 +178,7 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      currentStack: "Home",
+      currentStack: "Auth",
     };
 
     this.changePage = this.changePage.bind(this);
@@ -195,7 +195,7 @@ export default class App extends React.Component {
         if(value) {
           this.setState({currentStack: "Home"});
         }
-        console.log("session token ===> ", value);
+        console.log("session token = ===> ", value);
       }
     );
   }
@@ -213,12 +213,12 @@ export default class App extends React.Component {
       return ( <HomeStack  screenProps={props} />);
     } else if (this.state.currentStack === "Search") {
       return ( <SearchStack  screenProps={props} />);
-    } else if (this.state.currentStack === "Auth") {
-      return ( <AuthStack  screenProps={props} />);
     } else if (this.state.currentStack === "Create") {
       return ( <CreateStack  screenProps={props} />);
     } else if (this.state.currentStack === "Profile") {
       return ( <ProfileStack screenProps={props} />);
+    } else if (this.state.currentStack === "Auth") {
+      return ( <AuthStack  screenProps={props} />);
     } else {
       return (<View><Text>WORST CASE SENARIO HAS HAPPENED, APP IS BROKEN PLS FIX </Text></View>);
     }
