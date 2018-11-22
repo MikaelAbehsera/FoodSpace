@@ -18,9 +18,7 @@ const SearchStyles = StyleSheet.create({
     // backgroundColor: "lightgreen",
   },
   scrollRecipesView: {
-    width: "95%",
-    // backgroundColor: "lightblue",
-
+    width: "100%",
   },
   header: {
     width: "100%",
