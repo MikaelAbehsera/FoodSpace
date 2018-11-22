@@ -296,7 +296,7 @@ app.get("/recipe_list/:sessionToken", (req, res) => {
       .from("recipes")
       .innerJoin("tags", "recipes.id", "tags.recipes_id")
       .innerJoin("categories", "tags.category_id", "categories.id")
-      // .whereIn()
+  
       .then((allRecipes) => {
         allRecipes.forEach((single) => {
           single["instructions"] = [];
@@ -524,6 +524,7 @@ app.get("/suggestions", (req, res) => {
     knex("suggestions")
       .select("*")
       .innerJoin("recipes", "recipes.id", "suggestions.recipes_id")
+      .innerJoin("users", "users.id", "suggestions.user_id")
       .then((allSuggestions) => {
         res.json({
           suggestions: allSuggestions
@@ -552,7 +553,8 @@ app.post("/suggestion", (req, res) => {
         recipes_id: recipeID,
         suggest_text: newsuggestText,
         plus: 0,
-        minus: 0
+        minus: 0,
+        user_id: result
       })
       .catch((err) => {
         res.json({
@@ -575,7 +577,6 @@ app.post("/plus", (req, res) => {
   const recipeid = req.body.recpies_id;
   const check = req.body.check;
 
-  console.log("params from frontend (suggestions get)===> ", req.params);
   const sessionToken = req.params.sessionToken;
   authenticateToken(sessionToken, function (result) {
     if (!res) {
@@ -588,6 +589,9 @@ app.post("/plus", (req, res) => {
       knex("suggestions")
         .where({
           recipie_id: recipieid
+        })
+        .where({
+          user_id: result
         })
         .then((data) => {
           knex("suggestions")
@@ -634,10 +638,14 @@ app.post("/minus", (req, res) => {
       return
     }
 
-    if (check === true) {
+    if (check === true) { 
+      // should set up a check === false to remove the  added minus
       knex("suggestions")
         .where({
           recipe_id: recipeid
+        })
+        .where({
+          user_id: result
         })
         .then((data) => {
           knex("suggestions")
@@ -663,7 +671,6 @@ app.post("/minus", (req, res) => {
 
 
         });
-
     }
   })
 });
@@ -674,7 +681,8 @@ app.post("/ratings", (req, res) => {
   // add rating to a recipe
   const recipeID = req.body.recipes_id;
   const newRating = req.body.rating;
-
+  const check = req.body.check;
+////// THERE SHOULD BE A CHECK FOR IF THE USER ALREADY GAVE A RATING
   console.log("params from frontend (suggestions get)===> ", req.params);
   const sessionToken = req.params.sessionToken;
 
@@ -689,6 +697,7 @@ app.post("/ratings", (req, res) => {
       .insert({
         recipes_id: recipeID,
         rating: newRating,
+        user_id: result
       })
       .then(() => {
         knex("ratings")

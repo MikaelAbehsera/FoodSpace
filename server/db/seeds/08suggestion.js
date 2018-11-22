@@ -9,9 +9,10 @@ exports.seed = function (knex, Promise) {
         return Promise.all([
           knex("suggestions").insert({
             recipes_id: 1,
-            suggest_text: "Dont put too much penut butter",
+            suggest_text: "Dont put too much peanut butter",
             plus: 2,
-            minus: 6
+            minus: 6,
+            user_id: 1
           })
 
         ]);

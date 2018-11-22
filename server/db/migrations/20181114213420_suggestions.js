@@ -7,6 +7,13 @@ exports.up = function(knex, Promise) {
       table.string("suggest_text");
       table.integer("plus")
       table.integer("minus")
+      table.integer("user_id");
+
+      table
+      .foreign("user_id")
+      .references("id")
+      .on("users")
+      .onDelete("cascade");
 
       table
       .foreign("recipes_id")

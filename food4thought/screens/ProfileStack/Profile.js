@@ -122,40 +122,7 @@ export default class ProfileScreen extends React.Component {
               </View>
             </View>
             
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am jifreifjerifhefuihrhuferheifhifuherhufeuhfuii</Text>
-            <Text>I am bottom</Text>
+            <Text>MATT DAMON </Text>
           </ScrollView>
           <View style={ProfileStyles.signoutButton} >
             <Button 
