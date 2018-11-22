@@ -5,6 +5,13 @@ exports.up = function(knex, Promise) {
       table.increments();
       table.integer("recipes_id");
       table.integer("rating");
+      table.integer("user_id");
+
+      table
+      .foreign("user_id")
+      .references("id")
+      .on("users")
+      .onDelete("cascade");
 
       table
       .foreign("recipes_id")
