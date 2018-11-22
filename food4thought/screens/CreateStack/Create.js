@@ -69,11 +69,12 @@ export default class CreateScreen extends React.Component {
       recipeIMG: null
    };
 
-   this.number = 1;
-   this.handleSubmitIngredients = this.handleSubmitIngredients.bind(this);
-   this.handleSubmitInstructions = this.handleSubmitInstructions.bind(this);
-   this.handleDetails = this.handleDetails.bind(this);
-   this.pickImageHandler = this.pickImageHandler.bind(this);
+    this.number = 1;
+    this.handleSubmitIngredients = this.handleSubmitIngredients.bind(this);
+    this.handleSubmitInstructions = this.handleSubmitInstructions.bind(this);
+    this.handleDetails = this.handleDetails.bind(this);
+    this.pickImageHandler = this.pickImageHandler.bind(this);
+    this.resetHandler = this.resetHandler.bind(this);
   }
 
   static navigationOptions = {
@@ -178,7 +179,6 @@ export default class CreateScreen extends React.Component {
       });
   }
 
-
   pickImageHandler = () => {
     ImagePicker.showImagePicker({title: "Pick an Image", maxWidth: 800, maxHeight: 600}, res => {
       if (res.didCancel) {
@@ -193,7 +193,6 @@ export default class CreateScreen extends React.Component {
       }
     });
   }
-
 
   resetHandler = () =>{
     this.reset();
