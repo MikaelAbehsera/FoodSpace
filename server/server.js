@@ -465,13 +465,13 @@ app.post("/fave", (req, res) => {
   const check = req.body.check;
 
   console.log("params from frontend (fave post)===> ", req.params);
-  const sessionToken = req.params.sessionToken;
+  const sessionToken = req.body.sessionToken;
   authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
         success: false
       });
-      return
+      return;
     }
     const favRecipesAdd = {
       user_id: result,

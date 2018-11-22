@@ -1,12 +1,19 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { Button, Text, View, Image, ScrollView, TouchableHighlight } from "react-native";
+import { Button, Text, View, Image, ScrollView, TouchableHighlight, AsyncStorage } from "react-native";
 import {
   StyleSheet,
   PixelRatio
 } from "react-native";
 import { Dimensions } from 'react-native'; 
+import axios from "axios";
 import DetailsStyles from "../styles/SearchStack/DetailsStyles.js";
+
+///////////////// Ngrok Link ///////////////////////////////////
+const currentHostedLink = "http://424fb32d.ngrok.io";
+///////////////////////////////////////////////////////////////
+
+
 export default class Details extends React.Component {
   constructor(props) {
     super(props);
@@ -16,15 +23,53 @@ export default class Details extends React.Component {
   }
 
   starChange = () => {
+    let check = false;
     if(this.state.star === this.starFilled) {
-       this.setState({star: this.starEmpty});
+      check = false;
+      this.setState({star: this.starEmpty});
     } else if(this.state.star === this.starEmpty) {
+      check = true;
       this.setState({star: this.starFilled});
     }
+    console.log("check ==> ", check);
+
+    this.checkStatus(check);
   }
 
+  checkStatus(check) {
+    const that = this;
+    const send = { check: check, recipe_id: this.props.navigation.state.params.recipe.recipes_id};
+    let sessionToken;
+    //get full form from state, manipulate to one object, and post to backend
+    AsyncStorage.getItem("sessionToken").then(
+      (value) => {
+        if(value) {
+          sessionToken = value;
+          send["sessionToken"] = value;
+        }
+        console.log("session token (details page) ===> ", sessionToken);
+      }
+    ).then(() => {
+    let validate = false;
+    // post user information to backend /login route
+    axios.post((`${currentHostedLink}/fave`), send)
+    .then(function (response) {
+      console.log("full form submit success ===> ", response.data.success);
+      if(response.data.success) { 
+        validate = true;
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+    }).finally(function() { 
+      console.log("VAIDATE (details)==> ", validate)
+    });
+  });
+  }
+
+
+
   render() {
-    console.log("height ===> ", Dimensions.get('window').height);
     const starStyle = StyleSheet.create({
       star: {
         width: 37,
@@ -36,7 +81,7 @@ export default class Details extends React.Component {
       },  
     });
 
-
+    const { goBack } = this.props.navigation;
     const recipeData = this.props.navigation.state.params.recipe;
     return (
       <View style={DetailsStyles.container}>
@@ -50,6 +95,12 @@ export default class Details extends React.Component {
         <TouchableHighlight underlayColor="#ffffff00" style={DetailsStyles.funcs} onPress={this.starChange}>
           <Image style={starStyle.star} source={this.state.star} />
         </TouchableHighlight> 
+
+        <TouchableHighlight underlayColor="#ffffff00" style={DetailsStyles.backButton} onPress={() => goBack()}>
+        <Image style={DetailsStyles.backArrow} source={require("../materials/arrow.png")} />
+        </TouchableHighlight> 
+
+        
         <ScrollView style={DetailsStyles.scrollView}>
 
 
