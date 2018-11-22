@@ -9,7 +9,8 @@ exports.seed = function (knex, Promise) {
         return Promise.all([
           knex("ratings").insert({
             recipes_id: 1,
-            rating: 5
+            rating: 5,
+            user_id: 1
           })
 
         ]);

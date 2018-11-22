@@ -11,7 +11,8 @@ exports.seed = function (knex, Promise) {
             recipes_id: 1,
             suggest_text: "Dont put too much penut butter",
             plus: 2,
-            minus: 6
+            minus: 6,
+            user_id: 1
           })
 
         ]);
