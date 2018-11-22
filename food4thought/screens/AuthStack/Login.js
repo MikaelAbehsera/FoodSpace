@@ -102,8 +102,8 @@ export default class LoginScreen extends React.Component {
   render() {
     return (
       <View style={LoginStyles.container} >
-        <ScrollView style={LoginScreen.avoidView} >
         <View style={{width: "100%", height: 25, backgroundColor: "black"}} />
+        <ScrollView style={LoginScreen.avoidView} >
         <View style={{width: "100%", height: 50}} />
 
         <View style={LoginStyles.headerContainer}>

@@ -8,6 +8,7 @@ import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize
+
 } from "react-native-responsive-dimensions";
 
 const ProfileStyles = StyleSheet.create({
@@ -15,42 +16,54 @@ const ProfileStyles = StyleSheet.create({
     width: "100%",
   },
   header: {
+    marginTop: 20,
     width: "100%",
-    height: 100,
-    backgroundColor: "lightblue",
-    flexDirection: "row",
-    alignItems: "center"
+    height: 250,
+    flexDirection: "column",
+    alignItems: "center",
+    borderBottomWidth: 0.4, 
+    borderBottomColor: "grey",
   },
-  headerLeft: {
-    flex:1 ,
-    marginLeft: 20,
-    marginRight: 20,
+  headerTop: {
+    width: "100%",
   },
   headerRight: {
     flex:3 ,    
-    marginRight: 20,
   },
   headerDetails: {
-    flex: 1,
-    borderColor: "black",
-    borderWidth: 2,
+    height: 150,
+    width: responsiveWidth(100),
   },
   headerDetailsTop: {
-    flex: 1,
-    borderColor: "red",
-    borderWidth: 2,
+    marginTop: 15,
+    alignSelf: "center",
+  },
+  headerDetailsTopText: {
+    fontWeight: "500",
+    fontSize: 25,
   },
   headerDetailsMiddle: {
-    flex: 1,
-    borderColor: "blue",
-    borderWidth: 2,
+    marginTop: 1,
+    alignSelf: "center",
+  },
+  headerDetailsTopMiddle: {
+    fontWeight: "100",
+    fontSize: 15,
   },
   headerDetailsBottom: {
-    flex: 1,
-    borderColor: "green",
-    borderWidth: 2,
+    marginTop: 30,
+    alignSelf: "center",
+    borderBottomWidth: 0.4, 
+    borderBottomColor: "grey",
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  headerDetailsTopBottom: {
+    fontWeight: "100",
+    fontSize: 15,
   },
   profilePictureView: {
+    alignSelf: "center",
     borderColor: "black",
     borderWidth: 2,
     borderRadius: 100,
@@ -66,18 +79,10 @@ const ProfileStyles = StyleSheet.create({
   createdContainer: {
     flex: 1,
     width: "100%",
-    borderTopWidth: 1,
-    borderTopColor: "black",
-    borderBottomWidth: 1,
-    borderBottomColor: "black",
   },
   favesContainer: {
     flex: 1,
     width: "100%",
-    borderTopWidth: 1,
-    borderTopColor: "black",
-    borderBottomWidth: 1,
-    borderBottomColor: "black",
   },
 
   createdView: {
@@ -90,17 +95,27 @@ const ProfileStyles = StyleSheet.create({
   },
 
   bubbleView: {
+    marginTop: 5,
+    marginBottom: 5,
+    flexDirection: "row",
     alignSelf: "flex-start",
-    backgroundColor: "#4392F1",
-    borderWidth: 1,
-    borderRadius: 20,
+    // textDecoration: "underline overline wavy blue",
+    textAlign: "right",
   },
-
+  bubbleViewText: {
+    fontSize: 16,
+    fontWeight: "400",
+  },
+  titleText: {
+    marginTop: 20,
+    fontSize: 19,
+    fontWeight: "500",
+  },
   signoutButton: {
     width: 110,
     position: "absolute",
-    right: 20,
-    bottom: 100,
+    right: 10,
+    bottom: 40,
   },
 
 });

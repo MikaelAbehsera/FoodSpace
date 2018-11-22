@@ -12,6 +12,35 @@ import RecipeStyles from "../styles/SearchStack/RecipeStyles.js";
 export default class Recipe extends Component {
   constructor(props) {
     super(props);
+
+    this.state = { 
+      clocks: [],
+      stars: [],
+    }
+  }
+
+
+  clockCalculator = () => {
+    const count = 0;
+    // for every 15 min add a clock, but max is 3 clocks
+    
+    // for(let i = 0; i < count; i++) {
+    //   this.setState({ 
+    //     clocks: this.state.clocks,
+    //     stars: [],
+    //   });
+    // }
+  }
+  renderStars() {
+    const starArr = [];
+    for(let i = 0; i < this.props.recipe.overall_rating; i++) {
+      starArr.push(<Image key={i} source={require("../materials/star.png")} style={RecipeStyles.star}/>);
+    }
+    return starArr;
+  }
+
+  componentDidMount() {
+ 
   }
 
 
@@ -20,63 +49,52 @@ export default class Recipe extends Component {
     // SET STYLE SHEET
     let right = {
       flex:1,
-      height: 126.5,
-      borderLeftWidth: 2,
-      borderBottomEndRadius: 8,
-      borderTopEndRadius: 8,
-      borderLeftColor: "black",
+      height: 60,
     };
     
     // ADD DIFF COLOR
-    right["backgroundColor"] = this.props.color;
+    // right["backgroundColor"] = this.props.color; 
+    right["backgroundColor"] = "white";
 
     // MAKE INTO JSON STYLESHEET THEN CALL IN VIEW
-    const rightStyle = StyleSheet.create({
-      rightView: right
+    const infoStyle = StyleSheet.create({
+      infoView: right
     });
-    
+  
     return (
       <TouchableHighlight underlayColor="#ffffff00" onPress={() => this.props.navigate("Details", {recipe: this.props.recipe})} >
 
         <View style={RecipeStyles.container}>
-          <View style={RecipeStyles.leftView}>
-
+          <View style={RecipeStyles.backgroundView}>
             <View style={RecipeStyles.imgView} >
               <Image source={{ uri: this.props.recipe.recipeIMG ? this.props.recipe.recipeIMG : "https://media.giphy.com/media/3o6Zt1s75ToFZ0a9va/source.gif" }} style={RecipeStyles.img} />
             </View>
-
           </View>
 
-          <View style={rightStyle.rightView}>
+
+
+          <View style={infoStyle.infoView}>
 
             <View style={RecipeStyles.header} >
-
               <View style={RecipeStyles.name} >
-                <Text> {this.props.recipe.name}</Text>
+                <Text style={RecipeStyles.nameText} > {this.props.recipe.name}</Text>
               </View>
 
-            </View>
-
-            <View style={RecipeStyles.middle} >
-
               <View style={RecipeStyles.overall_rating} >
-                <Text> {this.props.recipe.overall_rating ? `Overall Rating ${this.props.recipe.overall_rating} / 5` : "N/A"}</Text>
+                {this.state.clocks}
               </View>
 
               <View style={RecipeStyles.time} >
-                <Text> {this.props.recipe.time} Mintues</Text>
+                {this.renderStars()}
               </View>
-
             </View>
-
 
             <View style={RecipeStyles.footer} >
               <View style={ RecipeStyles.descriptionView } >
                 <Text style={ RecipeStyles.description } > { this.props.recipe.description } </Text>
               </View>
             </View>
-
-          </View>
+          </View> 
         
         </View>
       </TouchableHighlight>
