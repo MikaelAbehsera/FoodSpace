@@ -41,15 +41,24 @@ exports.seed = function (knex, Promise) {
 
           knex("tags").insert({
             recipes_id: 7,
-            category_id: 3
+            category_id: 2
           }),
 
           knex('tags').insert({ 
             recipes_id: 8,
-            category_id: 3
+            category_id: 2
           }),
           knex('tags').insert({ 
             recipes_id: 9,
+            category_id: 3
+          }),
+
+          knex('tags').insert({ 
+            recipes_id: 10,
+            category_id: 3
+          }),
+          knex('tags').insert({ 
+            recipes_id: 11,
             category_id: 3
           })
 

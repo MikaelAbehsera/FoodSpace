@@ -275,8 +275,70 @@ exports.seed = function(knex, Promise) {
         knex("instructions").insert({
           recipes_id: 9,
           step_number: 5,
-          step_description: "Top it off with so much maple syrup your doctor's health senses will be tingling."
-        })   
+          step_description: ""
+        }) ,
+
+        knex("instructions").insert({
+          recipes_id: 10,
+          step_number: 1,
+          step_description: "Preheat over to 450F."
+        }),
+
+        knex("instructions").insert({
+          recipes_id: 10,
+          step_number: 2,
+          step_description: "In a large mixing bowl sift together flour, baking powder and salt. Cut in shortening with fork or pastry blender until mixture resembles coarse crumbs."
+        }),
+
+        knex("instructions").insert({
+          recipes_id: 10,
+          step_number: 3,
+          step_description: "Put the milk into flour mixture while stirring with a fork. Mix in milk until dough is soft and moist and pulls away from the side of the bowl."
+        }),
+
+        knex("instructions").insert({
+          recipes_id: 10,
+          step_number: 4,
+          step_description: "Turn dough out onto a lightly floured surface and toss with flour until no longer sticky. Roll dough out into a 1/2 inch thick sheet and cut with a floured biscuit or cookie cutter. Press together unused dough and repeat rolling and cutting procedure."
+        }),
+
+        knex("instructions").insert({
+          recipes_id: 10,
+          step_number: 5,
+          step_description:"Place biscuits on ungreased baking sheets and bake in preheated oven until golden brown, about 10 minutes."
+        }),
+         /////////////
+
+        knex("instructions").insert({
+          recipes_id: 11,
+          step_number: 1,
+          step_description: "Boil water, add pasta, cook and remove."
+        }),
+
+        knex("instructions").insert({
+          recipes_id: 11,
+          step_number: 2,
+          step_description: "Mix ricotta, egg, and cooked spinach."
+        }),
+
+        knex("instructions").insert({
+          recipes_id: 11,
+          step_number: 3,
+          step_description: "Put the milk into flour mixture while stirring with a fork. Mix in milk until dough is soft and moist and pulls away from the side of the bowl."
+        }),
+
+        knex("instructions").insert({
+          recipes_id: 11,
+          step_number: 4,
+          step_description: "Turn dough out onto a lightly floured surface and toss with flour until no longer sticky. Roll dough out into a 1/2 inch thick sheet and cut with a floured biscuit or cookie cutter. Press together unused dough and repeat rolling and cutting procedure."
+        }),
+
+        knex("instructions").insert({
+          recipes_id: 11,
+          step_number: 5,
+          step_description:"Place biscuits on ungreased baking sheets and bake in preheated oven until golden brown, about 10 minutes."
+        })
+
         ]);
       })
   ]);

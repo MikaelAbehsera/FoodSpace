@@ -37,7 +37,7 @@ exports.seed = function (knex, Promise) {
           }),
           
           knex("recipes").insert({
-            name: "Egg fired rice",
+            name: "Egg fried rice",
             description: "meat in a loaf with some veggies",
             recipeIMG: "https://c1.staticflickr.com/4/3371/3177377867_99f2e0147f_b.jpg",
             overall_rating: 3,
@@ -56,8 +56,8 @@ exports.seed = function (knex, Promise) {
 
           }),
           knex("recipes").insert({
-            name: "Moms Spaggeti",
-            description: "The spaggeti that b-rabbit ate before battling poppa doc at the shelter.",
+            name: "Moms Spaghetti",
+            description: "The spaghetti that b-rabbit ate before battling poppa doc at the shelter.",
             recipeIMG:"https://data.junkee.com/wp-content/uploads/2016/05/em.jpg",
             overall_rating: 2, 
             time: 27,
@@ -66,7 +66,7 @@ exports.seed = function (knex, Promise) {
           }),
           knex("recipes").insert({
             name: "scrambled eggs",
-            description: "Scrambled chicken fetuses",
+            description: "Scrambled chicken eggs",
             recipeIMG:"http://aucdn.ar-cdn.com/recipes/port500/17a47fa0-b5c9-426e-b239-575c2e687fce.jpg",
             overall_rating: 4, 
             time: 4,
@@ -89,6 +89,26 @@ exports.seed = function (knex, Promise) {
             recipeIMG:"https://www.publicdomainpictures.net/pictures/20000/nahled/french-toast.jpg",
             overall_rating: 4, 
             time: 20,
+            difficulty: 2,
+            creator_id: 1, 
+          }),
+          
+          knex("recipes").insert({
+            name: "Biscuits",
+            description: "Light and fluffy snack/treat",
+            recipeIMG:"https://upload.wikimedia.org/wikipedia/commons/9/90/Biscuit_which_has_been_broken_open.jpg",
+            overall_rating: 4, 
+            time: 30,
+            difficulty: 2,
+            creator_id: 3, 
+          }),
+          
+          knex("recipes").insert({
+            name: "Lasagna",
+            description: "Lasagna!  Comfort food with layers of love",
+            recipeIMG:"https://upload.wikimedia.org/wikipedia/commons/a/ae/Lasagna.jpg",
+            overall_rating: 4, 
+            time: 40,
             difficulty: 2,
             creator_id: 1, 
           })
