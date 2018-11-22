@@ -8,6 +8,7 @@ import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize
+
 } from "react-native-responsive-dimensions";
 
 const ProfileStyles = StyleSheet.create({
@@ -94,8 +95,13 @@ const ProfileStyles = StyleSheet.create({
     backgroundColor: "#4392F1",
     borderWidth: 1,
     borderRadius: 20,
+    textDecoration: "underline overline wavy blue",
+    textAlign: "right",
+    '&:hover': {
+    backgroundColor: 'yellow'
+ },       
   },
-
+ 
   signoutButton: {
     width: 110,
     position: "absolute",
