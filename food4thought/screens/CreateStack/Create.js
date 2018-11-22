@@ -5,6 +5,7 @@ import CreateStyles from "../styles/CreateStack/CreateStyles.js";
 
 
 
+
 // Import tcomb form schema
 import t from "tcomb-form-native";
 const Form = t.form.Form;
@@ -20,6 +21,16 @@ const Create = t.struct({
   timeToMake: t.Integer,
   difficultyOfRecipe: t.Integer,
 });
+
+
+const createOptions = {
+  title: 'Select Avatar',
+  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
 
 // just the ingredientsForm structure
 const ingredientsForm = t.struct({
@@ -62,6 +73,8 @@ export default class CreateScreen extends React.Component {
       ingredients: [],
       instructions: [],
       category: "Greasy",
+      avatarSource: null,
+
    };
 
    this.number = 1;
@@ -163,9 +176,21 @@ export default class CreateScreen extends React.Component {
   });
   }
 
+  addImage = () => {
+    CameraRoll.getPhotos({
+      first: 20,
+      assetType: 'Photos',
+    })
+    .then(r => {
+      this.setState({ photos: r.edges });
+    })
+    .catch((err) => {
+       //Error Loading Images
+    })
+  };
+
   render() {
     
-
     return (
       <View style={CreateStyles.container}>
         <ScrollView style={CreateStyles.scrollContainer} >
@@ -185,8 +210,12 @@ export default class CreateScreen extends React.Component {
           <Form 
             ref={c => this._form = c}
             type={Create}
-            // options={options} 
+            // options={CreateOptions} 
           />
+          <Button
+                title="add image" 
+                onPress={this.addImage}
+              /> 
           <View>
             <View>
             </View>

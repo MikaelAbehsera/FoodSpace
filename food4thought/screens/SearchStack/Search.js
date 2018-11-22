@@ -16,7 +16,6 @@ const currentHostedLink = "http://424fb32d.ngrok.io";
 ///////////////////////////////////////////////////////////////
 
 
-
 export default class SearchScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -61,7 +60,7 @@ export default class SearchScreen extends React.Component {
     // SEND RELEVANT GET TO BACKEND TO GET NEW LIST
   }
   categoryButtonHealth = () => {
-    const category = "Health Nut";
+    const category = "Health nut";
     console.log(category);
     this.categoryButtonPress(category)
     // SEND RELEVANT GET TO BACKEND TO GET NEW LIST
@@ -121,6 +120,7 @@ export default class SearchScreen extends React.Component {
     const h = (Dimensions.get('window').height + 300);
     return (
       <View style={SearchStyles.container}>
+        <View style={{width: "100%", height: 25, backgroundColor: "black",}} />
         <View style={SearchStyles.header}>
           <View style={SearchStyles.buttonContainer} > 
             <View style={SearchStyles.categoryButtonGreasy} >
@@ -149,7 +149,7 @@ export default class SearchScreen extends React.Component {
           {/* <View style={{width: "100%", height: 200}} /> */}
         </ScrollView>
 
-        <Image source={require("../materials/food.gif")} height={h} style={{ position: "absolute", zIndex: -10,}} />
+        <Image source={require("../materials/food.gif")} height={Dimensions.get('window').height + 50} style={{ position: "absolute", zIndex: -10,}} />
         {this.props.screenProps.Nav}
       </View>
     );

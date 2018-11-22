@@ -16,7 +16,6 @@
     "native-base": "^2.8.1",
     "react": "^16.0.0-alpha.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
-    "react-native-image-crop-picker": "^0.21.3",
     "react-native-responsive-dimensions": "^2.0.1",
     "react-native-router-flux": "^4.0.6",
     "react-native-scalable-image": "^0.4.0",

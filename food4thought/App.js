@@ -15,21 +15,35 @@ import {
 } from "react-navigation";
 
 import Home from "./screens/HomeStack/Home.js";
-import Login from "./screens/HomeStack/Login.js";
-import Register from "./screens/HomeStack/Register.js";
+import Login from "./screens/AuthStack/Login.js";
+import Register from "./screens/AuthStack/Register.js";
 import Search from "./screens/SearchStack/Search.js";
 import Details from "./screens/SearchStack/Details.js";
 import Create from "./screens/CreateStack/Create.js";
 import Profile from "./screens/ProfileStack/Profile.js";
 
+// things to do 
 
-const HomeStack = createStackNavigator({
+// static navigatorStyle = { navBarHidden: true } in all screens
+// create back pages for all relevant screens
+// add a all button to the recipe list page, with a relevant get
+
+
+const AuthStack = createStackNavigator({
   Login: {
     screen: Login
   },
   Register: {
     screen: Register
-  },
+  }
+}, {
+  headerMode: "none",
+  navigationOptions: {
+    headerVisible: false,
+  }
+});
+
+const HomeStack = createStackNavigator({
   Home: {
     screen: Home
   }
@@ -47,18 +61,33 @@ const SearchStack = createStackNavigator({
   Details: {
     screen: Details
   },
+}, {
+  headerMode: "none",
+  navigationOptions: {
+    headerVisible: false,
+  }
 });
 
 const CreateStack = createStackNavigator({
   Create: {
     screen: Create
   },
+}, {
+  headerMode: "none",
+  navigationOptions: {
+    headerVisible: false,
+  }
 });
 
 const ProfileStack = createStackNavigator({
   Profile: {
     screen: Profile
   },
+}, {
+  headerMode: "none",
+  navigationOptions: {
+    headerVisible: false,
+  }
 });
 
 const tab = createBottomTabNavigator({
@@ -164,10 +193,7 @@ export default class App extends React.Component {
     AsyncStorage.getItem("sessionToken").then(
       (value) => {
         if(value) {
-          // forcing clients to profile
-          // if(this.state.currentStack !== "Profile") {
           this.setState({currentStack: "Home"});
-          // }
         }
         console.log("session token ===> ", value);
       }
@@ -187,6 +213,8 @@ export default class App extends React.Component {
       return ( <HomeStack  screenProps={props} />);
     } else if (this.state.currentStack === "Search") {
       return ( <SearchStack  screenProps={props} />);
+    } else if (this.state.currentStack === "Auth") {
+      return ( <AuthStack  screenProps={props} />);
     } else if (this.state.currentStack === "Create") {
       return ( <CreateStack  screenProps={props} />);
     } else if (this.state.currentStack === "Profile") {
