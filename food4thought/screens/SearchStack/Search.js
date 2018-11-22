@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
 import { Button, Text, View, ScrollView, Image, AsyncStorage } from "react-native";
 import { Dimensions } from 'react-native'; 
-
 import {
   StyleSheet,
   PixelRatio
 } from "react-native";
-
 import SearchStyles from "../styles/SearchStack/SearchStyles.js";
 import Recipe from "./Recipe.js";
 import axios from "axios";
@@ -117,7 +115,6 @@ export default class SearchScreen extends React.Component {
     if(this.state.compLoaded) {
     const list = this.state.recipes.map((recipe, index) => <Recipe navigate={navigate} recipe={recipe} color={diffstyle(recipe.difficulty)} key={index}/>);
 
-    const h = (Dimensions.get('window').height + 300);
     return (
       <View style={SearchStyles.container}>
         <View style={{width: "100%", height: 25, backgroundColor: "black",}} />
@@ -151,11 +148,11 @@ export default class SearchScreen extends React.Component {
         </View>
 
         <ScrollView style={SearchStyles.scrollRecipesView}>
+          <View style={{width: "100%", height: 10}} />
           {list}
-          {/* <View style={{width: "100%", height: 200}} /> */}
+          <View style={{width: "100%", height: 200}} />
         </ScrollView>
-
-        <Image source={require("../materials/food.gif")} height={Dimensions.get('window').height + 50} style={{ position: "absolute", zIndex: -10,}} />
+        <Image source={require("../materials/foodBlurred.gif")} height={Dimensions.get('window').height + 1000} style={{ position: "absolute", zIndex: -10,}} />
         {this.props.screenProps.Nav}
       </View>
     );

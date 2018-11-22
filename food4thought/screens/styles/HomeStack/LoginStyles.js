@@ -12,8 +12,11 @@ import {
 const LoginStyles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "100%",
     flexDirection: "column",
     alignItems: "center",
+    // backgroundColor: "rgba(255,255,255, 0.3)",
+    backgroundColor: "white"
   },
   headerContainer: {
     width: "100%",

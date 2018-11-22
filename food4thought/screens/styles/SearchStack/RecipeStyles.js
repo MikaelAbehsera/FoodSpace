@@ -13,68 +13,56 @@ import {
 
 const RecipeStyles = StyleSheet.create({
   container: {
+    width: "90%",
+    alignSelf: "center",
     flex: 1,
     flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 2,
-    borderColor: "black",
-    borderTopLeftRadius: 40,
-    borderTopEndRadius: 10,
-    borderBottomStartRadius: 40,
-    borderBottomEndRadius: 10,
-    marginTop: 5,
-    marginBottom: 5,
+    alignItems: "flex-end",
+    marginTop: 1,
+    marginBottom: 1,
+    height: 175,
   },
-  leftView: {
-    height: 126.5,
-    borderTopLeftRadius: 10,
-    borderBottomRightRadius: 10,
+  backgroundView: {
+    position: "absolute",
+    height: 175,
+    width: "100%",
+    flex: 1,
   },
-  //right view
-  // rightView: {
-  //   flex:1,
-  //   height: 126.5,
-  //   borderLeftWidth: 2,
-  //   borderBottomEndRadius: 8,
-  //   borderTopEndRadius: 8,
-  //   borderLeftColor: "black",
-  //   backgroundColor: "green",
-  // },
+  star: {
+    height: 14,
+    width: 14,
+  },
+  imgView: {
+    flex: 1,
+  },
+  img: {
+    flex: 1,
+  },
   header: {
     flex:1,
-    borderBottomWidth: 2,
-    borderBottomColor: "black",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    borderWidth: 1,
+    borderColor: "black",
   },
   name: {
-    flex:1,
+    flex:2,
   },
-  middle: {
-    flex:1,
-    flexDirection: "row",    
+  nameText: {
+    fontWeight: "bold",
+    fontSize: 17,
   },
   overall_rating: {
     flex:1,
-    borderRightWidth: 2,
-    borderRightColor: "black",
   },
   time: {
     flex:1,
+    flexDirection: "row",
   },
   footer: {
     flex:2,
-    height: 130,
-    borderTopWidth: 2,
-    borderTopColor: "black",
-  },
-  imgView: {
-    borderTopLeftRadius: 10,
-    borderBottomStartRadius: 40,
-  },
-  img: {
-    width: 130,
-    height: 126,
-    borderTopLeftRadius: 38,
-    borderBottomLeftRadius: 38,
+    borderWidth: 1,
+    borderColor: "black",
   },
 });
 
