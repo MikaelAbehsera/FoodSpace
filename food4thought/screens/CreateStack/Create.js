@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
-import { Button, Text, View, ScrollView, Picker, AsyncStorage } from "react-native";
+import { Button, Text,Image, View, ScrollView, Picker, AsyncStorage } from "react-native";
 import axios from "axios";
 import CreateStyles from "../styles/CreateStack/CreateStyles.js";
-
-import CameraRollPicker from 'react-native-camera-roll-picker';
-
+import ImagePicker from "react-native-image-picker";
 
 
 
@@ -24,15 +22,6 @@ const Create = t.struct({
   difficultyOfRecipe: t.Integer,
 });
 
-
-const createOptions = {
-  title: 'Select Avatar',
-  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-  storageOptions: {
-    skipBackup: true,
-    path: 'images',
-  },
-};
 
 // just the ingredientsForm structure
 const ingredientsForm = t.struct({
@@ -76,7 +65,7 @@ export default class CreateScreen extends React.Component {
       instructions: [],
       category: "Greasy",
       avatarSource: null,
-      file: null,
+      pickedImage: null,
       recipeIMG: null
    };
 
@@ -84,11 +73,13 @@ export default class CreateScreen extends React.Component {
    this.handleSubmitIngredients = this.handleSubmitIngredients.bind(this);
    this.handleSubmitInstructions = this.handleSubmitInstructions.bind(this);
    this.handleDetails = this.handleDetails.bind(this);
+   this.pickImageHandler = this.pickImageHandler.bind(this);
   }
 
   static navigationOptions = {
     title: 'Create Recipe',
   };
+
   redirect(page) {
     this.props.navigation.navigate(page)
   }
@@ -105,7 +96,7 @@ export default class CreateScreen extends React.Component {
   handleDetails = () => {
     const details = this._form.getValue(); 
   
-    axios.post((`${currentHostedLink}/upload`), this.state.file)
+    axios.post((`${currentHostedLink}/upload`), this.state.pickedImage)
     .then(response => {
       // handle your response;
         if(details) {
@@ -152,7 +143,6 @@ export default class CreateScreen extends React.Component {
       }
   }
 
-
   handleFinalForm = () => {
     const that = this;
     //get full form from state, manipulate to one object, and post to backend
@@ -186,13 +176,30 @@ export default class CreateScreen extends React.Component {
           }
         });
       });
-    }
-    
-  selectedImage = () => {
-    this.setState({file: images[0]});
   }
 
 
+  pickImageHandler = () => {
+    ImagePicker.showImagePicker({title: "Pick an Image", maxWidth: 800, maxHeight: 600}, res => {
+      if (res.didCancel) {
+        console.log("User cancelled!");
+      } else if (res.error) {
+        console.log("Error", res.error);
+      } else {
+        this.setState({
+          pickedImage: { uri: res.uri }
+        });
+
+      }
+    });
+  }
+
+
+  resetHandler = () =>{
+    this.reset();
+  }
+
+  
   render() {
     
     return (
@@ -219,6 +226,7 @@ export default class CreateScreen extends React.Component {
           />
           <View>
             <View>
+              {/* ///////////////////// */}
               {/* PHOTO STUFF HERE
 
               give user acess to gallery
@@ -231,12 +239,25 @@ export default class CreateScreen extends React.Component {
               
                 NEED PHONE PERMISSION
               */}
-              <CameraRollPicker
-                callback={this.selectedImage.bind(this)} />
+
+
+            <Text >Pick Image From Camera and Gallery </Text>
+            <View >
+              <Image source={this.state.pickedImage} />
+            </View>
+            <View>
+
+              <Button title="Pick Image" onPress={this.pickImageHandler} />
+
+              <Button title="Reset" onPress={this.resetHandler} />
+
+            </View>
 
 
 
 
+
+                {/* ///////////////////// */}
 
             </View>
             <View style={CreateStyles.detailSubmitButton} >
