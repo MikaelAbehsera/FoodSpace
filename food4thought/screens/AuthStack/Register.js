@@ -21,7 +21,7 @@ const Email = t.refinement(t.String, email => {
 const Register = t.struct({
   username: t.String,
   email: Email,
-  profilePictureUrl: t.maybe(t.String),
+  profilePictureURL: t.maybe(t.String),
   location: t.String,
   password: t.String,
   passwordConfirmation: t.String,

@@ -153,7 +153,6 @@ export default class CreateScreen extends React.Component {
         if(value) {
           fullForm["sessionToken"] = value;
         }
-        console.log("session token (create page) ===> ", sessionToken);
       }
     ).then(() => {
     let validate = false;

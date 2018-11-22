@@ -14,9 +14,11 @@ class Bubble extends React.Component {
   }
 
   render () {
+    console.log(this.props);
     return (
       <View style={ProfileStyles.bubbleView} >
-        <Text>"{this.props.name}" {this.props.created ? <Text>by {this.props.created}.</Text> : null}</Text>
+      <Image style={{height: 23, width: 23, marginLeft: 10, marginRight: 10,}} source={this.props.created ? require("../materials/pot.png") : require("../materials/recipe.png")} />
+        <Text style={ProfileStyles.bubbleViewText} >"{this.props.name}" {this.props.created ? <Text style={ProfileStyles.bubbleViewText} >by {this.props.created}.</Text> : null}</Text>
       </View>
     );
   }
@@ -72,57 +74,53 @@ export default class ProfileScreen extends React.Component {
       that.props.screenProps.changePage("Auth")
   }
 
-  render() {
-
-    
+  render() {    
     if(this.state.compLoaded) {
       return (
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <View style={{width: "100%", height: 25, backgroundColor: "black"}} />
-          <View style={ProfileStyles.header}>
-            <View style={ProfileStyles.headerLeft}>
-              <View style={ProfileStyles.profilePictureView}>
-                <Image 
-                  style={ProfileStyles.profilePicture}
-                  // source={{uri: this.state.userProfile.profileIMG}}
-                  source={{uri: "https://yt3.ggpht.com/a-/ACSszfEdgh-wnNd6QHJppYBHMo1wiWAL5h_R6DFDHA=s900-mo-c-c0xffffffff-rj-k-no"}}
-                />
-              </View>
-            </View>
-            <View style={ProfileStyles.headerRight} >
-              <View style={ProfileStyles.headerDetails} >
-                <View style={ProfileStyles.headerDetailsTop}>
-                  <Text>{this.state.userProfile.userInfo.username}</Text>
-                </View>
-                <View style={ProfileStyles.headerDetailsMiddle}>
-                  <Text>{this.state.userProfile.userInfo.location}</Text>
-                </View>
-                <View style={ProfileStyles.headerDetailsBottom}>
-                  <Text>{this.state.userProfile.userInfo.email}</Text>
-                </View>
-              </View>
-            </View>
-  
-          </View>
 
           <ScrollView style={ProfileStyles.scrollView} >
+          <View style={{width: "100%", height: 25, backgroundColor: "black"}} />
+            <View style={ProfileStyles.header}>
+              <View style={ProfileStyles.headerTop}>
+                <View style={ProfileStyles.profilePictureView}>
+                  <Image 
+                    style={ProfileStyles.profilePicture}
+                    source={{uri: this.state.userProfile.userInfo.profileIMG ? this.state.userProfile.userInfo.profileIMG : "https://yt3.ggpht.com/a-/ACSszfEdgh-wnNd6QHJppYBHMo1wiWAL5h_R6DFDHA=s900-mo-c-c0xffffffff-rj-k-no"}}
+                  />
+                </View>
+              </View>
+              <View style={ProfileStyles.headerRight} >
+                <View style={ProfileStyles.headerDetails} >
+                  <View style={ProfileStyles.headerDetailsTop}>
+                    <Text style={ProfileStyles.headerDetailsTopText} >{this.state.userProfile.userInfo.username}</Text>
+                  </View>
+                  <View style={ProfileStyles.headerDetailsMiddle}>
+                    <Text style={ProfileStyles.headerDetailsTopMiddle} >{this.state.userProfile.userInfo.location}</Text>
+                  </View>
+                  <View style={ProfileStyles.headerDetailsBottom}>
+                    <Text style={ProfileStyles.headerDetailsTopBottom} >{this.state.userProfile.userInfo.email}</Text>
+                  </View>
+                </View>
+              </View>
+            </View>
 
             <View style={ProfileStyles.createdContainer}>
-              <View><Text>Recipes you created</Text></View>
+              <View><Text style={ProfileStyles.titleText} >Created Recipes</Text></View>
               <View style={ProfileStyles.createdView}> 
                 {this.state.userProfile.recipesCreated.map((recipe, i) => <Bubble key={i} name={recipe.name} ></Bubble>)}
               </View>
+              <View style={{borderBottomWidth: 0.4, borderBottomColor: "grey",}} />
             </View>
 
 
             <View style={ProfileStyles.favesContainer}>
-              <View><Text>Recipes you favortited</Text></View>
+              <View><Text style={ProfileStyles.titleText} >Favorite Recipes</Text></View>
               <View style={ProfileStyles.favesView}> 
                 {this.state.userProfile.faves.map((fave, i) => <Bubble key={i} name={fave.name} created={fave.creator_id} ></Bubble>)}
               </View>
+              <View style={{borderBottomWidth: 0.4, borderBottomColor: "grey",}} />
             </View>
-            
-            <Text>MATT DAMON </Text>
           </ScrollView>
           <View style={ProfileStyles.signoutButton} >
             <Button 
