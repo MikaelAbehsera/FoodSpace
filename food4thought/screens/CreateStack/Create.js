@@ -3,8 +3,7 @@ import { Button, Text, View, ScrollView, Picker, AsyncStorage } from "react-nati
 import axios from "axios";
 import CreateStyles from "../styles/CreateStack/CreateStyles.js";
 
-
-
+import CameraRollPicker from 'react-native-camera-roll-picker';
 
 
 
