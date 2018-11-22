@@ -176,19 +176,6 @@ export default class CreateScreen extends React.Component {
   });
   }
 
-  addImage = () => {
-    CameraRoll.getPhotos({
-      first: 20,
-      assetType: 'Photos',
-    })
-    .then(r => {
-      this.setState({ photos: r.edges });
-    })
-    .catch((err) => {
-       //Error Loading Images
-    })
-  };
-
   render() {
     
     return (
@@ -212,10 +199,6 @@ export default class CreateScreen extends React.Component {
             type={Create}
             // options={CreateOptions} 
           />
-          <Button
-                title="add image" 
-                onPress={this.addImage}
-              /> 
           <View>
             <View>
             </View>
