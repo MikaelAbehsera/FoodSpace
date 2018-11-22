@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import { Button, Text, View, ScrollView, Picker, AsyncStorage } from "react-native";
+import { Button, Text,Image, View, ScrollView, Picker, AsyncStorage } from "react-native";
 import axios from "axios";
 import CreateStyles from "../styles/CreateStack/CreateStyles.js";
-
+import ImagePicker from "react-native-image-picker";
 
 
 
@@ -22,15 +22,6 @@ const Create = t.struct({
   difficultyOfRecipe: t.Integer,
 });
 
-
-const createOptions = {
-  title: 'Select Avatar',
-  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-  storageOptions: {
-    skipBackup: true,
-    path: 'images',
-  },
-};
 
 // just the ingredientsForm structure
 const ingredientsForm = t.struct({
@@ -74,18 +65,21 @@ export default class CreateScreen extends React.Component {
       instructions: [],
       category: "Greasy",
       avatarSource: null,
-
+      pickedImage: null,
+      recipeIMG: null
    };
 
    this.number = 1;
    this.handleSubmitIngredients = this.handleSubmitIngredients.bind(this);
    this.handleSubmitInstructions = this.handleSubmitInstructions.bind(this);
    this.handleDetails = this.handleDetails.bind(this);
+   this.pickImageHandler = this.pickImageHandler.bind(this);
   }
 
   static navigationOptions = {
     title: 'Create Recipe',
   };
+
   redirect(page) {
     this.props.navigation.navigate(page)
   }
@@ -102,14 +96,22 @@ export default class CreateScreen extends React.Component {
   handleDetails = () => {
     const details = this._form.getValue(); 
   
-    if(details) {
-      this.setState({ 
-        form: details,
-        category: this.state.category,
-        instructions: this.state.instructions,
-        ingredients: this.state.ingredients, 
-       });
-    }
+    axios.post((`${currentHostedLink}/upload`), this.state.pickedImage)
+    .then(response => {
+      // handle your response;
+        if(details) {
+          this.setState({ 
+            form: details,
+            category: this.state.category,
+            instructions: this.state.instructions,
+            ingredients: this.state.ingredients, 
+            recipeIMG: response.recipeIMG
+           });
+        }
+    }).catch(error => {
+      // handle your error
+    });
+
   }
 
   handleSubmitIngredients = () => {
@@ -154,27 +156,49 @@ export default class CreateScreen extends React.Component {
           fullForm["sessionToken"] = value;
         }
       }
-    ).then(() => {
-    let validate = false;
-    // post user information to backend /login route
-    axios.post((`${currentHostedLink}/create`), fullForm)
-    .then(function (response) {
-      console.log("full form submit success ===> ", response.data.success);
-      if(response.data.success) { 
-        validate = true;
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    }).finally(function() { 
-      console.log("VAIDATE ==> ", validate)
-      if(validate) {
-        that.props.screenProps.changePage("Search");
-      }
-    });
-  });
+      ).then(() => {
+        let validate = false;
+        // post user information to backend /login route
+        axios.post((`${currentHostedLink}/create`), fullForm)
+        .then(function (response) {
+          console.log("full form submit success ===> ", response.data.success);
+          if(response.data.success) { 
+            validate = true;
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        }).finally(function() { 
+          console.log("VAIDATE ==> ", validate)
+          if(validate) {
+            that.props.screenProps.changePage("Search");
+          }
+        });
+      });
   }
 
+
+  pickImageHandler = () => {
+    ImagePicker.showImagePicker({title: "Pick an Image", maxWidth: 800, maxHeight: 600}, res => {
+      if (res.didCancel) {
+        console.log("User cancelled!");
+      } else if (res.error) {
+        console.log("Error", res.error);
+      } else {
+        this.setState({
+          pickedImage: { uri: res.uri }
+        });
+
+      }
+    });
+  }
+
+
+  resetHandler = () =>{
+    this.reset();
+  }
+
+  
   render() {
     
     return (
@@ -201,6 +225,39 @@ export default class CreateScreen extends React.Component {
           />
           <View>
             <View>
+              {/* ///////////////////// */}
+              {/* PHOTO STUFF HERE
+
+              give user acess to gallery
+              user picks a picture
+                => handleFileUpload
+              show  picture on page for approval
+                approval/submit button
+                submit leads to post /upload 
+                which returns a url link to be added to all details as "recipeIMG"
+              
+                NEED PHONE PERMISSION
+              */}
+
+
+            <Text >Pick Image From Camera and Gallery </Text>
+            <View >
+              <Image source={this.state.pickedImage} />
+            </View>
+            <View>
+
+              <Button title="Pick Image" onPress={this.pickImageHandler} />
+
+              <Button title="Reset" onPress={this.resetHandler} />
+
+            </View>
+
+
+
+
+
+                {/* ///////////////////// */}
+
             </View>
             <View style={CreateStyles.detailSubmitButton} >
               <Button
