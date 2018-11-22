@@ -461,7 +461,7 @@ app.get("/recipe_details", (req, res) => {
 
 
 app.post("/fave", (req, res) => {
-  const recipeid = req.body.recpies_id;
+  const recipeid = req.body.recipe_id;
   const check = req.body.check;
 
   console.log("params from frontend (fave post)===> ", req.params);
