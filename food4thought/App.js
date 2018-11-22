@@ -24,10 +24,13 @@ import Profile from "./screens/ProfileStack/Profile.js";
 
 // things to do 
 
-// static navigatorStyle = { navBarHidden: true } in all screens
 // create back pages for all relevant screens
 // add a all button to the recipe list page, with a relevant get
-
+// redo cards on search page, use https://www.google.ca/search?q=yelp+phone+app&source=lnms&tbm=isch&sa=X&ved=0ahUKEwj1oua19OXeAhUF4IMKHZjoAmQQ_AUIDygC&biw=1280&bih=721#imgrc=NlWjAkPr8WQm2M:
+// redo profile page
+// finish details page
+// make a back button using react navigate back method
+// break create page up to multiple modules
 
 const AuthStack = createStackNavigator({
   Login: {

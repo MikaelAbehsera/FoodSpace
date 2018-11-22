@@ -24,27 +24,29 @@ const SearchStyles = StyleSheet.create({
   },
   header: {
     width: "100%",
-    // height: 50,
-    backgroundColor: "red",
+    backgroundColor: "black",
   },
   buttonContainer: {
-    borderWidth: 1,
-    borderColor: "blue",
     width: "100%",
     flexDirection: "row",
   },
   categoryButtonGreasy: {
-    borderWidth: 1,
+    borderLeftWidth: 0.5,
     borderColor: "black",
-    flex: 1,
+    flex: 2,
   },
   categoryButtonHealth: {
-    borderWidth: 1,
+    borderLeftWidth: 0.5,
     borderColor: "black",
-    flex: 1,
+    flex: 2,
   },
   categoryButtonMunchies: {
-    borderWidth: 1,
+    borderLeftWidth: 0.5,
+    borderColor: "black",
+    flex: 2,
+  },
+  categoryButtonAll: {
+    borderLeftWidth: 0.5,
     borderColor: "black",
     flex: 1,
   }

@@ -24,6 +24,10 @@ export default class SearchScreen extends React.Component {
   }
 
   componentDidMount() {
+    this.categoryButtonAll();
+  }
+  
+  categoryButtonAll = () => {
     let sessionToken;
 
     AsyncStorage.getItem("sessionToken").then(
@@ -34,7 +38,6 @@ export default class SearchScreen extends React.Component {
         console.log("session token ===> ", value);
       }
     ).then(() => {
-
     const that = this;
     axios.get(`${currentHostedLink}/recipe_list/${sessionToken}`)
       .then(function (response) {
@@ -57,19 +60,16 @@ export default class SearchScreen extends React.Component {
     const category = "Greasy";
     console.log(category);
     this.categoryButtonPress(category)
-    // SEND RELEVANT GET TO BACKEND TO GET NEW LIST
   }
   categoryButtonHealth = () => {
     const category = "Health nut";
     console.log(category);
     this.categoryButtonPress(category)
-    // SEND RELEVANT GET TO BACKEND TO GET NEW LIST
   }
   categoryButtonMunchies = () => {
     const category = "Munchies";
     console.log(category);
     this.categoryButtonPress(category)
-    // SEND RELEVANT GET TO BACKEND TO GET NEW LIST
   }
 
 
@@ -139,6 +139,12 @@ export default class SearchScreen extends React.Component {
               <Button
                 title="Munchies"
                 onPress={this.categoryButtonMunchies}
+              />
+            </View>
+            <View style={SearchStyles.categoryButtonAll} >
+              <Button
+                title="All"
+                onPress={this.categoryButtonAll}
               />
             </View>
           </View>
