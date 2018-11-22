@@ -524,6 +524,7 @@ app.get("/suggestions", (req, res) => {
     knex("suggestions")
       .select("*")
       .innerJoin("recipes", "recipes.id", "suggestions.recipes_id")
+      .innerJoin("users", "users.id", "suggestions.user_id")
       .then((allSuggestions) => {
         res.json({
           suggestions: allSuggestions
@@ -681,7 +682,7 @@ app.post("/ratings", (req, res) => {
   const recipeID = req.body.recipes_id;
   const newRating = req.body.rating;
   const check = req.body.check;
-
+////// THERE SHOULD BE A CHECK FOR IF THE USER ALREADY GAVE A RATING
   console.log("params from frontend (suggestions get)===> ", req.params);
   const sessionToken = req.params.sessionToken;
 
