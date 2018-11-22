@@ -6,6 +6,9 @@ import CreateStyles from "../styles/CreateStack/CreateStyles.js";
 
 
 
+
+
+
 // Import tcomb form schema
 import t from "tcomb-form-native";
 const Form = t.form.Form;
@@ -74,7 +77,8 @@ export default class CreateScreen extends React.Component {
       instructions: [],
       category: "Greasy",
       avatarSource: null,
-
+      file: null,
+      recipeIMG: null
    };
 
    this.number = 1;
@@ -102,14 +106,22 @@ export default class CreateScreen extends React.Component {
   handleDetails = () => {
     const details = this._form.getValue(); 
   
-    if(details) {
-      this.setState({ 
-        form: details,
-        category: this.state.category,
-        instructions: this.state.instructions,
-        ingredients: this.state.ingredients, 
-       });
-    }
+    axios.post((`${currentHostedLink}/upload`), this.state.file)
+    .then(response => {
+      // handle your response;
+        if(details) {
+          this.setState({ 
+            form: details,
+            category: this.state.category,
+            instructions: this.state.instructions,
+            ingredients: this.state.ingredients, 
+            recipeIMG: response.recipeIMG
+           });
+        }
+    }).catch(error => {
+      // handle your error
+    });
+
   }
 
   handleSubmitIngredients = () => {
@@ -141,6 +153,7 @@ export default class CreateScreen extends React.Component {
       }
   }
 
+
   handleFinalForm = () => {
     const that = this;
     //get full form from state, manipulate to one object, and post to backend
@@ -155,26 +168,31 @@ export default class CreateScreen extends React.Component {
         }
         console.log("session token (create page) ===> ", sessionToken);
       }
-    ).then(() => {
-    let validate = false;
-    // post user information to backend /login route
-    axios.post((`${currentHostedLink}/create`), fullForm)
-    .then(function (response) {
-      console.log("full form submit success ===> ", response.data.success);
-      if(response.data.success) { 
-        validate = true;
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    }).finally(function() { 
-      console.log("VAIDATE ==> ", validate)
-      if(validate) {
-        that.props.screenProps.changePage("Search");
-      }
-    });
-  });
+      ).then(() => {
+        let validate = false;
+        // post user information to backend /login route
+        axios.post((`${currentHostedLink}/create`), fullForm)
+        .then(function (response) {
+          console.log("full form submit success ===> ", response.data.success);
+          if(response.data.success) { 
+            validate = true;
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        }).finally(function() { 
+          console.log("VAIDATE ==> ", validate)
+          if(validate) {
+            that.props.screenProps.changePage("Search");
+          }
+        });
+      });
+    }
+    
+  selectedImage = () => {
+    this.setState({file: images[0]});
   }
+
 
   render() {
     
@@ -202,6 +220,25 @@ export default class CreateScreen extends React.Component {
           />
           <View>
             <View>
+              {/* PHOTO STUFF HERE
+
+              give user acess to gallery
+              user picks a picture
+                => handleFileUpload
+              show  picture on page for approval
+                approval/submit button
+                submit leads to post /upload 
+                which returns a url link to be added to all details as "recipeIMG"
+              
+                NEED PHONE PERMISSION
+              */}
+              <CameraRollPicker
+                callback={this.selectedImage.bind(this)} />
+
+
+
+
+
             </View>
             <View style={CreateStyles.detailSubmitButton} >
               <Button
