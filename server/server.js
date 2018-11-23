@@ -194,7 +194,6 @@ app.post("/create", (req, res) => {
   const ingredientsArray = req.body.ingredients;
   const instructionsArray = req.body.instructions;
   const recipeImg = req.body.form.recipeUrl;
-  console.log("DIS IS A FORM ===> ", recipeForm);
   // STILL NEED TO TAG CATEGORIES AND PROPER USER_ID
   // currently being simulated
 
