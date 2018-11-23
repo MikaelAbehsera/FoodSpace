@@ -18,7 +18,7 @@ exports.seed = function(knex, Promise) {
 
           knex("categories").insert({
             category_name: "Munchies",
-            category_description: "This category  is reserved for those who get home at ungodly hour looking find sustenance in a pinch"
+            category_description: "This category is reserved for those who get home at ungodly hour looking find sustenance in a pinch"
           })
 
 
