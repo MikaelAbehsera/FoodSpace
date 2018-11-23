@@ -8,11 +8,67 @@ import {
 import { Dimensions } from 'react-native'; 
 import axios from "axios";
 import DetailsStyles from "../styles/SearchStack/DetailsStyles.js";
+import CollapseStyles from "../styles/SearchStack/CollapseStyles.js";
 import Recipe from "./Recipe.js";
+import CollapseView from "react-native-collapse-view";
+import ScaledImage from 'react-native-scaled-image';
 
 ///////////////// Ngrok Link ///////////////////////////////////
 const currentHostedLink = "http://02fa9f65.ngrok.io";
 ///////////////////////////////////////////////////////////////
+
+class CollapseDetails extends Component {
+
+  _renderTensionViewIngredients = (collapse) => {
+    return(
+      <View style={CollapseStyles.view}>
+      <ScaledImage source={require("../materials/redtab.png")} height={43} style={{position: "absolute", bottom: -2,}}/>
+        <Text style={{position: "absolute", top: 14, left: 32, fontSize: 20, fontWeight: "700",}} >Ingredients</Text>
+      </View>
+    )
+  }
+  _renderCollapseViewIngredients = (collapse) => {
+    return(
+      <View style={CollapseStyles.collapseView}>
+        {this.props.ingredients.map((ing, i) => <Text key={i} style={CollapseStyles.ingredientsText} >{ing.quantity} of {ing.food_type}.</Text>)}
+      </View>
+    )
+  }
+
+  _renderTensionViewInstructions = (collapse) => {
+    return(
+      <View style={CollapseStyles.view}>
+      <ScaledImage source={require("../materials/redtab.png")} height={43} style={{position: "absolute", bottom: -2,}} />
+        <Text style={{position: "absolute", top: 14, left: 32, fontSize: 20, fontWeight: "700",}} >Instructions</Text>
+      </View>
+    )
+  }
+  _renderCollapseViewInstructions = (collapse) => {
+    return(
+      <View style={CollapseStyles.collapseView}>
+        {this.props.instructions.map((ins, i) => <Text key={i} style={CollapseStyles.instructionsText} >{ins.step_number}. {ins.step_description}.</Text>)}
+      </View>
+    )
+  }
+
+  render() {
+
+    return (
+    <View style={CollapseStyles.container}>
+      <CollapseView 
+        tension={100}
+        renderView={this._renderTensionViewIngredients}
+        renderCollapseView={this._renderCollapseViewIngredients}
+      />
+      <CollapseView 
+        tension={100}
+        renderView={this._renderTensionViewInstructions}
+        renderCollapseView={this._renderCollapseViewInstructions}
+      />
+    </View>
+    );
+  }
+}
 
 
 export default class Details extends React.Component {
@@ -78,8 +134,6 @@ export default class Details extends React.Component {
         width: 37,
         height: 37,
         position: "absolute",
-        // top: -40,
-        // right: 20,
         zIndex: 100,
       },  
     });
@@ -113,13 +167,11 @@ export default class Details extends React.Component {
           - slidable 5 star review, if 4th is clicked all 4 get yellow
           - button that when clicked take user to the review page
         */}
-          <View style={DetailsStyles.nameView}>
-            <Text style={DetailsStyles.ameText} >{recipeData.name}</Text>
+          <View style={DetailsStyles.nameView} >
+            <Text style={DetailsStyles.nameText} >{recipeData.name}</Text>
           </View>
 
-          {/* <View style={DetailsStyles.NameView}>
-            <Text style={DetailsStyles.NameText} > </Text>
-          </View> */}
+          <CollapseDetails ingredients={recipeData.ingredients} instructions={recipeData.instructions} />
 
           </View>
         </ScrollView>

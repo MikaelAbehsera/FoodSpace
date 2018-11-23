@@ -17,10 +17,13 @@
     "react": "^16.0.0-alpha.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-native-blur": "^3.2.2",
+    "react-native-collapse-view": "^1.0.0",
     "react-native-responsive-dimensions": "^2.0.1",
     "react-native-router-flux": "^4.0.6",
     "react-native-scalable-image": "^0.4.0",
+    "react-native-scaled-image": "0.0.1",
     "react-native-svg": "^8.0.8",
+    "react-resize-image": "^1.0.4",
     "tcomb-form-native": "^0.6.20"
   },
   "devDependencies": {

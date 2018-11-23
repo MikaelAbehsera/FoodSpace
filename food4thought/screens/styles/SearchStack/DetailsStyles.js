@@ -2,13 +2,15 @@ import {
   StyleSheet,
   PixelRatio
 } from "react-native";
-import { Dimensions } from 'react-native';
+import {
+  Dimensions
+} from "react-native";
 // Import font scaler 
 import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize
-} from 'react-native-responsive-dimensions';
+} from "react-native-responsive-dimensions";
 
 
 const DetailsStyles = StyleSheet.create({
@@ -24,7 +26,7 @@ const DetailsStyles = StyleSheet.create({
     flex: 1,
     margin: 10,
     backgroundColor: "white",
-    height: 600,
+    paddingBottom: 340,
     borderColor: "black",
     borderWidth: 0.5,
   },
@@ -41,18 +43,17 @@ const DetailsStyles = StyleSheet.create({
   },
 
 
-
-  funcs:{
-    position: "absolute",  
+  funcs: {
+    position: "absolute",
     // backgroundColor: "blue",
-    top: (Dimensions.get("window").width/1.5 - 24),
+    top: (Dimensions.get("window").width / 1.5 - 24),
     right: 20,
     height: 38,
     width: 38,
     zIndex: 99,
   },
-  backButton:{
-    position: "absolute",  
+  backButton: {
+    position: "absolute",
     top: 28,
     left: 10,
     height: 45,
@@ -67,7 +68,7 @@ const DetailsStyles = StyleSheet.create({
     borderBottomWidth: 2,
   },
   image: {
-    height: Dimensions.get("window").width/1.5,
+    height: Dimensions.get("window").width / 1.5,
   },
 });
 
