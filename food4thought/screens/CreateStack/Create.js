@@ -20,6 +20,7 @@ const Create = t.struct({
   recipeDescription: t.String,
   timeToMake: t.Integer,
   difficultyOfRecipe: t.Integer,
+  recipeUrl: t.String
 });
 
 
@@ -36,7 +37,7 @@ const createOptions = {
     },
     difficultyOfRecipe: {
         maxLength: 4,
-    },
+    }
   }
 };
 
@@ -53,7 +54,7 @@ const optionsIngredients = {
       maxLength: 30,
     },
     quantity: {
-      error: "Please enter a valid quantity",
+      error: "Please enter a valid quantity and measurement type",
       maxLength: 30,
     },
   },
@@ -67,7 +68,7 @@ const instructionsForm = t.struct({
 const optionsInstructions = {
   fields: {
     newStep: {
-      error: "Please enter valid instructions"
+      error: "Please enter valid instruction"
     },
   },
 }
@@ -83,8 +84,6 @@ export default class CreateScreen extends React.Component {
       ingredients: [],
       instructions: [],
       category: "Greasy",
-      avatarSource: null,
-
    };
 
    this.number = 1;
@@ -105,19 +104,19 @@ export default class CreateScreen extends React.Component {
       category: category,
       instructions: this.state.instructions,
       ingredients: this.state.ingredients, 
-      form: this.state.form
-     })
+      form: this.state.form,
+      recipeImg: this.state.recipeImg
+    })
   }
-
+  
   handleDetails = () => {
     const details = this._form.getValue(); 
-  
     if(details) {
       this.setState({ 
         form: details,
         category: this.state.category,
         instructions: this.state.instructions,
-        ingredients: this.state.ingredients, 
+        ingredients: this.state.ingredients,
        });
     }
   }

@@ -157,7 +157,6 @@ export default class Details extends React.Component {
             stars: that.state.stars,
             faveStatus: that.state.faveStatus,
           });
-          console.log("current state ===> ", that.state)
         }
       })
     });
