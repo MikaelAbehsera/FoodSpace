@@ -628,7 +628,7 @@ app.post("/plus", (req, res) => {
 
 });
 
-app.get("/recipeDeets", (req, res) => {
+app.get("/recipeDetails", (req, res) => {
   const recipes_id = req.params.recipeid;
   const sessionToken = req.params.sessionToken;
 
