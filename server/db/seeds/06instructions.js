@@ -324,19 +324,19 @@ exports.seed = function(knex, Promise) {
         knex("instructions").insert({
           recipes_id: 11,
           step_number: 3,
-          step_description: "Put the milk into flour mixture while stirring with a fork. Mix in milk until dough is soft and moist and pulls away from the side of the bowl."
+          step_description: "Apply layers as you see fit."
         }),
 
         knex("instructions").insert({
           recipes_id: 11,
           step_number: 4,
-          step_description: "Turn dough out onto a lightly floured surface and toss with flour until no longer sticky. Roll dough out into a 1/2 inch thick sheet and cut with a floured biscuit or cookie cutter. Press together unused dough and repeat rolling and cutting procedure."
+          step_description: "Apply all the cheese on top of each layer."
         }),
 
         knex("instructions").insert({
           recipes_id: 11,
           step_number: 5,
-          step_description:"Place biscuits on ungreased baking sheets and bake in preheated oven until golden brown, about 10 minutes."
+          step_description: "Place baking tray in oven untill cheese is rendered brown."
         })
 
         ]);

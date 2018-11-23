@@ -8,7 +8,7 @@ exports.seed = function (knex, Promise) {
         return Promise.all([
           knex("recipes").insert({
             name: "The Hot Bagel",
-            description: "A bagel with penut butter and hot sauce",
+            description: "A bagel with peanut butter and hot sauce",
             recipeIMG: "https://us.123rf.com/450wm/stockfood/stockfood1709/stockfood170900451/87359335-a-grilled-bagel-with-peanut-butter-and-jam-close-up-.jpg",
             overall_rating: 5,
             time: 5,
@@ -18,7 +18,7 @@ exports.seed = function (knex, Promise) {
           
           knex("recipes").insert({
             name: "Meatloaf",
-            description: "meat in a loaf with some veggies",
+            description: "Meat in a loaf with some veggies",
             recipeIMG: "https://food.fnr.sndimg.com/content/dam/images/food/fullset/2013/7/9/0/FN_CHARITY-BOYD-MOMS-MEATLOAF_s4x3.jpg.rend.hgtvcom.616.462.suffix/1382544970100.jpeg",
             overall_rating: 5,
             time: 45,
@@ -28,7 +28,7 @@ exports.seed = function (knex, Promise) {
 
           knex("recipes").insert({
             name: "PB&J supreme",
-            description: "the greatest PJ & J sandwhich ever",
+            description: "The greatest PJ & J sandwich ever",
             recipeIMG: "https://www.chowstatic.com/assets/recipe_photos/30000_grilled_peanut_butter_jelly.jpg",
             overall_rating: 5,
             time: 10,
@@ -38,7 +38,7 @@ exports.seed = function (knex, Promise) {
           
           knex("recipes").insert({
             name: "Egg fried rice",
-            description: "meat in a loaf with some veggies",
+            description: "Meat in a loaf with some veggies",
             recipeIMG: "https://c1.staticflickr.com/4/3371/3177377867_99f2e0147f_b.jpg",
             overall_rating: 3,
             time: 20,
@@ -65,7 +65,7 @@ exports.seed = function (knex, Promise) {
             creator_id: 2, 
           }),
           knex("recipes").insert({
-            name: "scrambled eggs",
+            name: "Scrambled eggs",
             description: "Scrambled chicken eggs",
             recipeIMG:"http://aucdn.ar-cdn.com/recipes/port500/17a47fa0-b5c9-426e-b239-575c2e687fce.jpg",
             overall_rating: 4, 
@@ -75,7 +75,7 @@ exports.seed = function (knex, Promise) {
           }),
           knex("recipes").insert({
             name: "Rice and olives",
-            description: "A meal reserved for those who are down and out and solid meal",
+            description: "A meal reserved for those who are down and out and need a solid meal",
             recipeIMG:"http://starfinefoods.com/wp-content/uploads/RICE-WITH-BLACK-BEANS-AND-OLIVES.jpg",
             overall_rating: 5, 
             time: 20,
@@ -105,7 +105,7 @@ exports.seed = function (knex, Promise) {
           
           knex("recipes").insert({
             name: "Lasagna",
-            description: "Lasagna!  Comfort food with layers of love",
+            description: "Comfort food with carbohydrates layers of love",
             recipeIMG:"https://upload.wikimedia.org/wikipedia/commons/a/ae/Lasagna.jpg",
             overall_rating: 4, 
             time: 40,

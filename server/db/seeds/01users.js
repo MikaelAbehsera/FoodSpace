@@ -14,7 +14,7 @@ exports.seed = function (knex, Promise) {
             password: "I love matt damon",
             profileIMG: "blank",
             location: "Montreal",
-            sessionToken: "123456"
+            sessionToken: uniqid()
           }),
           
           knex("users").insert({
@@ -29,7 +29,7 @@ exports.seed = function (knex, Promise) {
           knex("users").insert({
             username: "Matt Damon",
             email: "Uu@e.com",
-            password: "P",
+            password: "Please",
             profileIMG: "blank",
             location: "Montreal",
             sessionToken: uniqid()

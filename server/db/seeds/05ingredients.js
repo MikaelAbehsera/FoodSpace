@@ -10,7 +10,7 @@ exports.seed = function(knex, Promise) {
           knex("ingredients").insert({
             recipes_id: 1,
             food_type: "hot sauce", 
-            quantity: "3"
+            quantity: "3 tsp"
           }),
 
           knex("ingredients").insert({
@@ -22,13 +22,13 @@ exports.seed = function(knex, Promise) {
           knex("ingredients").insert({
             recipes_id: 1,
             food_type: "peanut butter", 
-            quantity: "7"
+            quantity: "4 tbsp"
           }),
 
           knex("ingredients").insert({
             recipes_id: 2,
             food_type: "mince meat", 
-            quantity: "1"
+            quantity: "1 lbs"
           }),
           
           knex("ingredients").insert({
@@ -40,19 +40,19 @@ exports.seed = function(knex, Promise) {
           knex("ingredients").insert({
             recipes_id: 2,
             food_type: "carrots", 
-            quantity: "3"
+            quantity: "16 grams"
           }),
           
           knex("ingredients").insert({
             recipes_id: 2,
             food_type: "milk", 
-            quantity: "2"
+            quantity: "20 ml"
           }),
           
           knex("ingredients").insert({
             recipes_id: 2,
             food_type: "egg", 
-            quantity: "1"
+            quantity: "3"
           }), 
           /////
           knex("ingredients").insert({
@@ -108,7 +108,7 @@ exports.seed = function(knex, Promise) {
            knex("ingredients").insert({
             recipes_id: 5,
             food_type: "steak", 
-            quantity: "2"
+            quantity: "2 140z tbone"
           }),
 
           knex("ingredients").insert({
@@ -120,42 +120,42 @@ exports.seed = function(knex, Promise) {
           knex("ingredients").insert({
             recipes_id: 5,
             food_type: "potatoes", 
-            quantity: "7"
+            quantity: "4"
           }),
 
           knex("ingredients").insert({
             recipes_id: 6,
             food_type: "pasta", 
-            quantity: "1"
+            quantity: "2 servings"
           }),
           
           knex("ingredients").insert({
             recipes_id: 6,
             food_type: "tomato sauce", 
-            quantity: "1"
+            quantity: "4 ounces"
           }),
           
           knex("ingredients").insert({
             recipes_id: 6,
             food_type: "Mince meat", 
-            quantity: "3"
+            quantity: "1 lb"
           }),
           
           knex("ingredients").insert({
             recipes_id: 7,
             food_type: "butter", 
-            quantity: "2"
+            quantity: "1 cup"
           }),
           
           knex("ingredients").insert({
             recipes_id: 7,
             food_type: "egg", 
-            quantity: "1"
+            quantity: "3"
           }), 
           knex("ingredients").insert({
             recipes_id: 7,
             food_type: "bread", 
-            quantity: "1"
+            quantity: "180 grams"
           }),
           
           knex("ingredients").insert({
