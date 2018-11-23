@@ -179,7 +179,7 @@ export default class Details extends React.Component {
           <Image style={{ position: "absolute", top: -5.5, left: -5.5, height: 60, width: 60, zIndex: 99, borderRadius: 35, }} source={require("../materials/arrow.png")} />
         </TouchableHighlight> 
 
-        <View style={{width: "45%", height: 40, backgroundColor: "rgba(255,255,255, 0.5)", position: "absolute", top: (Dimensions.get("window").width/1.5 - 25), right: 10, borderRadius: 40,}}>
+        <View style={{width: "45=%", height: 40, backgroundColor: "rgba(255,255,255, 0.5)", position: "absolute", top: (Dimensions.get("window").width/1.5 - 25), right: 10, borderRadius: 40,}}>
           <StarSlider />
         </View>
 
