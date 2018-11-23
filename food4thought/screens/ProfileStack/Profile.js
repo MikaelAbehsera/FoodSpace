@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button, Text, View, ScrollView, Image, AsyncStorage } from "react-native";
+import { Button, Text, View, ScrollView, Dimensions, Image, AsyncStorage } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ProfileStyles from "../styles/ProfileStack/ProfileStyles.js";
 import axios from "axios";
@@ -117,7 +117,7 @@ export default class ProfileScreen extends React.Component {
             <View style={ProfileStyles.favesContainer}>
               <View><Text style={ProfileStyles.titleText} >Favorite Recipes</Text></View>
               <View style={ProfileStyles.favesView}> 
-                {this.state.userProfile.faves.map((fave, i) => <Bubble key={i} name={fave.name} created={fave.creator_id} ></Bubble>)}
+                {this.state.userProfile.faves.map((fave, i) => <Bubble key={i} name={fave.name} created={fave.username} ></Bubble>)}
               </View>
               <View style={{borderBottomWidth: 0.4, borderBottomColor: "grey",}} />
             </View>
@@ -135,9 +135,9 @@ export default class ProfileScreen extends React.Component {
       );
     } else {
       return (
-        <View style={{ flex: 1, backgroundColor: "#CED3DC", flexDirection: "column", justifyContent: "center"}}>
+        <View style={{ flex: 1, backgroundColor: "#CED3DC", flexDirection: "column", justifyContent: "center", backgroundColor: "#24CCF9",}}>
+          <Image source={require("../materials/loading.gif")} height={Dimensions.get('window').height + 50} style={{ position: 'absolute', width: "100%", zIndex: -10,}} />          
           <View style={{ flexDirection: "row", justifyContent: "center"}}>
-            <Text style={{color: "#4392F1", fontWeight: "900", fontSize: 85, }} >Loading . . .</Text>
           </View>
         </View>);
     }

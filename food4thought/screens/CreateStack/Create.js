@@ -147,10 +147,11 @@ export default class CreateScreen extends React.Component {
     const fullForm = this.state;
     console.log(fullForm)
     console.log("===========================================================")
-    
+    let sessionToken;
     AsyncStorage.getItem("sessionToken").then(
       (value) => {
         if(value) {
+          sessionToken = value;
           fullForm["sessionToken"] = value;
         }
         console.log("session token (create page) ===> ", sessionToken);
