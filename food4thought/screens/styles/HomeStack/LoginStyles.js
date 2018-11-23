@@ -8,6 +8,7 @@ import {
   responsiveWidth,
   responsiveFontSize
 } from 'react-native-responsive-dimensions';
+import { read } from "fs";
 
 const LoginStyles = StyleSheet.create({
   container: {
@@ -68,6 +69,12 @@ const LoginStyles = StyleSheet.create({
     marginRight: "5%",
     marginLeft: "5%",
   },
+  
+  registerError: {
+    fontStyle: "italic",
+    color: "red",
+  },
+
   registerText: {
     fontSize: responsiveFontSize(2),
     fontWeight: "bold",
