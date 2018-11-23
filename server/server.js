@@ -54,7 +54,7 @@ app.post("/register", (req, res) => {
       errorMessage: errorMessage
     });
     res.status(404);
-    
+
     console.log("ERROR");
   } else {
     let randomToken = uniqid();
@@ -73,7 +73,7 @@ app.post("/register", (req, res) => {
     knex("users")
       .select("*")
       .where({
-        email: req.body.email.trim().toLowerCase() 
+        email: req.body.email.trim().toLowerCase()
       })
       .then((existingUser) => {
         if (existingUser.length === 0) {
@@ -98,7 +98,7 @@ app.post("/register", (req, res) => {
               throw err;
             })
 
-        } else if (existingUser.length !== 0){
+        } else if (existingUser.length !== 0) {
           errorMessage = "user already exists"
           res.json({
             id: -1,
@@ -686,21 +686,21 @@ app.get("/recipeDetails", (req, res) => {
       });
       return;
     }
-  knex("recipes")
-  .innerJoin("recipes", "recipes.id", "faves.recipes_id")
-  .where({
-    user_id: result
+    knex("recipes")
+      .innerJoin("recipes", "recipes.id", "faves.recipes_id")
+      .where({
+        user_id: result
+      })
+      .where({
+        recipes_id: recipes_id
+      })
+      .then((result) => {
+        res.json({
+          result: result,
+          success: true
+        })
+      })
   })
-  .where({
-  recipes_id: recipes_id
-  })
-  .then((result) => {
-    res.json({
-      result: result,
-      success: true
-    })
-  })
-})
 })
 
 app.post("/minus", (req, res) => {
@@ -811,7 +811,33 @@ app.post("/ratings", (req, res) => {
 });
 
 
+app.get("/recipeDetails", (req, res) => {
+  const recipes_id = req.params.recipeid;
+  const sessionToken = req.params.sessionToken;
 
+  authenticateToken(sessionToken, function (result) {
+    if (!res) {
+      res.json({
+        success: false
+      });
+      return;
+    }
+    knex("recipes")
+      .innerJoin("recipes", "recipes.id", "faves.recipes_id")
+      .where({
+        user_id: result
+      })
+      .where({
+        recipes_id: recipes_id
+      })
+      .then((result) => {
+        res.json({
+          result: result,
+          success: true
+        })
+      })
+  })
+})
 
 // ==========================================
 
