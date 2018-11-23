@@ -14,7 +14,7 @@ import CollapseView from "react-native-collapse-view";
 import ScaledImage from 'react-native-scaled-image';
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://02fa9f65.ngrok.io";
+const currentHostedLink = "http://45eced04.ngrok.io";
 ///////////////////////////////////////////////////////////////
 
 class CollapseDetails extends Component {
