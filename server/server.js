@@ -42,8 +42,19 @@ function authenticateToken(token, cb) {
 
 
 app.post("/register", (req, res) => {
+
+  let errorMessage = null;
+
   if (req.body.password.trim() !== req.body.passwordConfirmation.trim()) {
     // confirm password && passwordConfirmation
+    errorMessage = "password && passwordConfirmation do not match";
+    res.json({
+      id: -1,
+      success: false,
+      errorMessage: errorMessage
+    });
+    res.status(404);
+    
     console.log("ERROR");
   } else {
     let randomToken = uniqid();
@@ -60,26 +71,44 @@ app.post("/register", (req, res) => {
     console.log(newUser);
 
     knex("users")
-      .insert(newUser)
-      .returning("id")
-      .then((id) => {
-        res.json({
-          id: id[0],
-          success: true,
-          sessionToken: randomToken
-        });
-        res.status(200);
+      .select("*")
+      .where({
+        email: req.body.email.trim().toLowerCase() 
       })
-      .catch((err) => {
-        res.json({
-          id: -1,
-          success: false
-        });
-        res.status(404);
-        console.log(err);
-        throw err;
+      .then((existingUser) => {
+        if (existingUser.length === 0) {
+          knex("users")
+            .insert(newUser)
+            .returning("id")
+            .then((id) => {
+              res.json({
+                id: id[0],
+                success: true,
+                sessionToken: randomToken
+              });
+              res.status(200);
+            })
+            .catch((err) => {
+              res.json({
+                id: -1,
+                success: false
+              });
+              res.status(404);
+              console.log(err);
+              throw err;
+            })
+
+        } else if (existingUser.length !== 0){
+          errorMessage = "user already exists"
+          res.json({
+            id: -1,
+            success: false,
+            errorMessage: errorMessage
+          });
+          res.status(404);
+        }
       })
-      .finally(() => {});
+
   }
 });
 

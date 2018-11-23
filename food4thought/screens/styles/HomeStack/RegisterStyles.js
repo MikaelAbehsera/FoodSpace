@@ -55,6 +55,10 @@ const RegisterStyles = StyleSheet.create({
     marginBottom: 30,
     width: "100%",
   },
+  registerError: {
+    fontStyle: "italic",
+    color: "red",
+  },
   registerTextView: {
     // set R L margins since justify content does not work
     marginRight: "5%",

@@ -44,6 +44,10 @@ export default class RegisterScreen extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      errorMessage: null
+    }
+
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -74,6 +78,8 @@ export default class RegisterScreen extends React.Component {
         console.log("RESPONSE ===> ", response.data.sessionToken);
         if(response.data.id < 0) {
           console.log("-1 from server something is wrong");
+          that.setState({errorMessage: response.data.errorMessage})
+          //////////////// SET STATE OF ERROR HERE
         } else {
           AsyncStorage.setItem("sessionToken", response.data.sessionToken).then(
           () => {
@@ -118,6 +124,12 @@ export default class RegisterScreen extends React.Component {
           </View>
 
         </View>
+        
+        <Text
+          style={RegisterStyles.registerError}>
+          {this.state.errorMessage}
+        </Text>
+        
         <View style={{width: "100%", height: 300}} />
     </ScrollView>
 
