@@ -193,6 +193,7 @@ app.post("/create", (req, res) => {
   const recipeForm = req.body.form;
   const ingredientsArray = req.body.ingredients;
   const instructionsArray = req.body.instructions;
+  const recipeImg = req.body.recipeImg;
 
   // STILL NEED TO TAG CATEGORIES AND PROPER USER_ID
   // currently being simulated
@@ -212,7 +213,7 @@ app.post("/create", (req, res) => {
         time: recipeForm.timeToMake,
         difficulty: recipeForm.diffcultyOfRecipe,
         creator_id: result,
-        recipeIMG: recipeForm.recipeIMG
+        recipeIMG: recipeImg
       })
       .returning("id")
       .then((id) => {
@@ -483,22 +484,40 @@ app.post("/fave", (req, res) => {
     if (check === true) {
       knex("faves")
         .insert(favRecipesAdd)
-        .then(() => {
+        .catch((err) => {
+          res.json({
+            success: false
+          });
+          res.status(404);
+          console.log(err);
+          throw err;
+        })
+        .finally(() => {
           res.json({
             success: true
-          });
+          })
         });
-    } else {
+    } else if (check === false) {
       knex("faves")
         .where({
-          user_id: result,
+          user_id: result
+        })
+        .where({
           recipes_id: recipeid
         })
         .del()
-        .then(() => {
+        .catch((err) => {
+          res.json({
+            success: false
+          });
+          res.status(404);
+          console.log(err);
+          throw err;
+        })
+        .finally(() => {
           res.json({
             success: true
-          });
+          })
         });
     }
   });
