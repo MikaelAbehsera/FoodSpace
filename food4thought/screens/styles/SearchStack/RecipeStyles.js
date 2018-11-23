@@ -51,13 +51,12 @@ const RecipeStyles = StyleSheet.create({
     fontSize: 17,
   },
   overall_rating: {
-    flex:1,
-    paddingLeft: 15,
+    flexDirection: "row",
   },
   time: {
-    flex:1,
-    flexDirection: "row",
     paddingLeft: 15,
+    flexDirection: "row",
+    justifyContent: "center",
   },
   footer: {
     flex:1,

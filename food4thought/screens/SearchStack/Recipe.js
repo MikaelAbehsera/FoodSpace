@@ -21,20 +21,29 @@ export default class Recipe extends Component {
 
 
   clockCalculator = () => {
-    const count = 0;
-    // for every 15 min add a clock, but max is 3 clocks
-    
-    // for(let i = 0; i < count; i++) {
-    //   this.setState({ 
-    //     clocks: this.state.clocks,
-    //     stars: [],
-    //   });
-    // }
+    const count = this.props.recipe.time;
+    const arr = [];
+    // PLEASE REFRATOR THIS IS JUST FOR GETTING MVP
+    if(count < 30) {
+      arr.push(<Image key={1} source={require("../materials/clock.png")} style={RecipeStyles.star}/>);
+    } else if(count < 60) {
+      arr.push(<Image key={1} source={require("../materials/clock.png")} style={RecipeStyles.star}/>);
+      arr.push(<Image key={2} source={require("../materials/clock.png")} style={RecipeStyles.star}/>);
+    } else if(count > 61) {
+      arr.push(<Image key={1} source={require("../materials/clock.png")} style={RecipeStyles.star}/>);
+      arr.push(<Image key={2} source={require("../materials/clock.png")} style={RecipeStyles.star}/>);
+      arr.push(<Image key={3} source={require("../materials/clock.png")} style={RecipeStyles.star}/>);
+    }
+    return arr;
   }
   renderStars() {
     const starArr = [];
-    for(let i = 0; i < this.props.recipe.overall_rating; i++) {
-      starArr.push(<Image key={i} source={require("../materials/star.png")} style={RecipeStyles.star}/>);
+    for(let i = 0; i < 5; i++) {
+      if(this.props.recipe.overall_rating > i) {
+        starArr.push(<Image key={i} source={require("../materials/star.png")} style={RecipeStyles.star}/>);
+      } else {
+        starArr.push(<Image key={i} source={require("../materials/greyStar.png")} style={RecipeStyles.star}/>);        
+      }
     }
     return starArr;
   }
@@ -81,7 +90,7 @@ export default class Recipe extends Component {
               </View>
 
               <View style={RecipeStyles.overall_rating} >
-                {this.state.clocks}
+                {this.clockCalculator()}
               </View>
 
               <View style={RecipeStyles.time} >

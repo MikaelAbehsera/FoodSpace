@@ -10,9 +10,8 @@ import Recipe from "./Recipe.js";
 import axios from "axios";
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://424fb32d.ngrok.io";
+const currentHostedLink = "http://02fa9f65.ngrok.io";
 ///////////////////////////////////////////////////////////////
-
 
 export default class SearchScreen extends React.Component {
   constructor(props) {
@@ -26,6 +25,7 @@ export default class SearchScreen extends React.Component {
   }
   
   categoryButtonAll = () => {
+
     let sessionToken;
 
     AsyncStorage.getItem("sessionToken").then(

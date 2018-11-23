@@ -11,7 +11,7 @@ import t from "tcomb-form-native";
 const Form = t.form.Form;
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://424fb32d.ngrok.io";
+const currentHostedLink = "http://02fa9f65.ngrok.io";
 ///////////////////////////////////////////////////////////////
 
 // full page form
@@ -24,12 +24,20 @@ const Create = t.struct({
 
 
 const createOptions = {
-  title: 'Select Avatar',
-  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-  storageOptions: {
-    skipBackup: true,
-    path: 'images',
-  },
+  fields: {
+    recipeName: {
+        maxLength: 60,
+    },
+    recipeDescription: {
+        maxLength: 60,
+    },
+    timeToMake: {
+        maxLength: 4,
+    },
+    difficultyOfRecipe: {
+        maxLength: 4,
+    },
+  }
 };
 
 // just the ingredientsForm structure
@@ -41,10 +49,12 @@ const ingredientsForm = t.struct({
 const optionsIngredients = {
   fields: {
     foodType: {
-      error: "Please enter a valid food type"
+      error: "Please enter a valid food type",
+      maxLength: 30,
     },
     quantity: {
       error: "Please enter a valid quantity",
+      maxLength: 30,
     },
   },
 }
@@ -199,7 +209,7 @@ export default class CreateScreen extends React.Component {
           <Form 
             ref={c => this._form = c}
             type={Create}
-            // options={CreateOptions} 
+            options={createOptions} 
           />
           <View>
             <View>

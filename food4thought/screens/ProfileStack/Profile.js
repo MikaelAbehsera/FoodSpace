@@ -5,7 +5,7 @@ import ProfileStyles from "../styles/ProfileStack/ProfileStyles.js";
 import axios from "axios";
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://424fb32d.ngrok.io";
+const currentHostedLink = "http://02fa9f65.ngrok.io";
 ///////////////////////////////////////////////////////////////
 
 class Bubble extends React.Component {
@@ -113,6 +113,9 @@ export default class ProfileScreen extends React.Component {
               <View style={{borderBottomWidth: 0.4, borderBottomColor: "grey",}} />
             </View>
 
+            {/* 
+            if profile clicks on recipe, get that recipe, and renavigate to details page with recipe details  
+          */}
 
             <View style={ProfileStyles.favesContainer}>
               <View><Text style={ProfileStyles.titleText} >Favorite Recipes</Text></View>
