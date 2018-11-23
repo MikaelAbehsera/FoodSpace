@@ -509,9 +509,11 @@ app.post("/fave", (req, res) => {
 // =======================================================
 
 
-app.get("/suggestions", (req, res) => {
+app.get("/suggestions/:recipeID/:sessionToken", (req, res) => {
+
   console.log("params from frontend (suggestions get)===> ", req.params);
   const sessionToken = req.params.sessionToken;
+  const recipeID = req.params.recipeID
   authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
@@ -521,6 +523,12 @@ app.get("/suggestions", (req, res) => {
     }
     knex("suggestions")
       .select("*")
+      .where({
+        recipes_id: recipeID
+      })
+      .where({
+        user_id: result
+      })
       .innerJoin("recipes", "recipes.id", "suggestions.recipes_id")
       .innerJoin("users", "users.id", "suggestions.user_id")
       .then((allSuggestions) => {
@@ -573,7 +581,7 @@ app.post("/suggestion", (req, res) => {
 
 
 app.post("/plus", (req, res) => {
-  const recipeid = req.body.recpies_id;
+  const recipeID = req.body.recpies_id;
   const check = req.body.check;
 
   const sessionToken = req.params.sessionToken;
@@ -587,7 +595,7 @@ app.post("/plus", (req, res) => {
     if (check === true) {
       knex("suggestions")
         .where({
-          recipie_id: recipieid
+          recipes_id: recipeID
         })
         .where({
           user_id: result
@@ -595,7 +603,7 @@ app.post("/plus", (req, res) => {
         .then((data) => {
           knex("suggestions")
             .where({
-              recipe_id: recipeid
+              recipe_id: recipeID
             })
             .update({
               plus: data[0].plus++
@@ -622,7 +630,7 @@ app.post("/plus", (req, res) => {
 
 
 app.post("/minus", (req, res) => {
-  const recipeid = req.body.recpies_id;
+  const recipeID = req.body.recpies_id;
   const check = req.body.check;
 
 
@@ -641,7 +649,7 @@ app.post("/minus", (req, res) => {
       // should set up a check === false to remove the  added minus
       knex("suggestions")
         .where({
-          recipe_id: recipeid
+          recipe_id: recipeID
         })
         .where({
           user_id: result
@@ -649,7 +657,7 @@ app.post("/minus", (req, res) => {
         .then((data) => {
           knex("suggestions")
             .where({
-              recipe_id: recipeid
+              recipe_id: recipeID
             })
             .update({
               minus: data[0].minus--
