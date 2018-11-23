@@ -70,6 +70,20 @@ class CollapseDetails extends Component {
   }
 }
 
+class StarSlider extends Component {
+  constructor(props) {
+    super(props);
+    this.star = require("../materials/star.png");
+    this.greyStar = require("../materials/greyStar.png");
+  }
+
+  render() {
+
+    return (
+      <Text>hai</Text>
+    );
+  }
+}
 
 export default class Details extends React.Component {
   constructor(props) {
