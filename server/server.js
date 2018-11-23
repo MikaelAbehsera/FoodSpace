@@ -731,20 +731,45 @@ app.post("/ratings", (req, res) => {
 
 // ==========================================
 
-var multer = require('multer');
-var AWS = require('aws-sdk');
-var upload = multer({ dest: 'uploads/' })
-const fs = require('file-system')
+// var multer = require('multer');
+// var AWS = require('aws-sdk');
+// var upload = multer({ dest: 'uploads/' })
+// const fs = require('file-system')
 
-AWS.config.update({
-    accessKeyId: process.env.DO_KEY,
-    secretAccessKey: process.env.DO_SECRETKEY
-});
+// AWS.config.update({
+//     accessKeyId: process.env.DO_KEY,
+//     secretAccessKey: process.env.DO_SECRETKEY
+// });
 
-var s3 = new AWS.S3({
-  endpoint: new AWS.Endpoint('nyc3.digitaloceanspaces.com')
-});
+// var s3 = new AWS.S3({
+//   endpoint: new AWS.Endpoint('nyc3.digitaloceanspaces.com')
+// });
 
+app.get('/heart/:sessionToken/:recipeid', (req, res) => {
+ const recId = req.params.recipieid
+ const token = req.params.sessionToken
+
+  authenticateToken(sessionToken, function (result) {
+    if (!res) {
+      res.json({
+        success: false
+      });
+      return
+    }
+  knex('faves')
+  .where({
+    user_id: result
+  })
+  .where({
+    recipes_id: recId 
+  })
+  .then((result) => {
+    if(result.length === 0) {
+    res.send({favStatus: true})
+    }
+  })
+})
+})
 
 
   app.post('/upload', upload.single('image'), function (req, res, next) {
