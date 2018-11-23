@@ -48,7 +48,7 @@ export default class ProfileScreen extends React.Component {
       axios.get(`${currentHostedLink}/profile/${sessionToken}`)
       .then(function (response) {
         console.log("SESSION AFTER ===>  ", sessionToken);
-        console.log("PROFILE INSIDE GET")
+        console.log("PROFILE INSIDE GET ===> ", response)
         // reset page load
         that.setState({ compLoaded: false, userProfile: that.state.userProfile });
         // set state to new object
