@@ -193,6 +193,7 @@ app.post("/create", (req, res) => {
   const recipeForm = req.body.form;
   const ingredientsArray = req.body.ingredients;
   const instructionsArray = req.body.instructions;
+  const recipeImg = req.body.recipeImg;
 
   // STILL NEED TO TAG CATEGORIES AND PROPER USER_ID
   // currently being simulated
@@ -212,7 +213,7 @@ app.post("/create", (req, res) => {
         time: recipeForm.timeToMake,
         difficulty: recipeForm.diffcultyOfRecipe,
         creator_id: result,
-        recipeIMG: recipeForm.recipeIMG
+        recipeIMG: recipeImg
       })
       .returning("id")
       .then((id) => {
