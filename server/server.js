@@ -153,6 +153,9 @@ app.get("/profile/:sessionToken", (req, res) => {
               })
               .innerJoin("recipes", "faves.recipes_id", "recipes.id")
               .innerJoin("users", "recipes.creator_id", "users.id")
+              .innerJoin("instructions", "recipes.id", "instructions.recipe_id")
+              .innerJoin("ingredients", "recipes.id", "ingredients.recipe_id")
+              
               .then((faves) => {
                 userProfile["faves"] = faves;
 
@@ -646,33 +649,33 @@ app.post("/plus", (req, res) => {
 
 });
 
-app.get("/recipeDetails", (req, res) => {
-  const recipes_id = req.params.recipeid;
-  const sessionToken = req.params.sessionToken;
+// app.get("/recipeDetails", (req, res) => {
+//   const recipes_id = req.params.recipeid;
+//   const sessionToken = req.params.sessionToken;
 
-  authenticateToken(sessionToken, function (result) {
-    if (!res) {
-      res.json({
-        success: false
-      });
-      return;
-    }
-  knex("recipes")
-  .innerJoin("recipes", "recipes.id", "faves.recipes_id")
-  .where({
-    user_id: result
-  })
-  .where({
-  recipes_id: recipes_id
-  })
-  .then((result) => {
-    res.json({
-      result: result,
-      success: true
-    })
-  })
-})
-})
+//   authenticateToken(sessionToken, function (result) {
+//     if (!res) {
+//       res.json({
+//         success: false
+//       });
+//       return;
+//     }
+//   knex("recipes")
+//   .innerJoin("recipes", "recipes.id", "faves.recipes_id")
+//   .where({
+//     user_id: result
+//   })
+//   .where({
+//   recipes_id: recipes_id
+//   })
+//   .then((result) => {
+//     res.json({
+//       result: result,
+//       success: true
+//     })
+//   })
+// })
+// })
 
 app.post("/minus", (req, res) => {
   const recipeID = req.body.recpies_id;
