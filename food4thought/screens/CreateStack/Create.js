@@ -20,7 +20,7 @@ const Create = t.struct({
   recipeDescription: t.String,
   timeToMake: t.Integer,
   difficultyOfRecipe: t.Integer,
-  recipeUrlLink: t.String
+  recipeUrl: t.String
 });
 
 
@@ -84,7 +84,6 @@ export default class CreateScreen extends React.Component {
       ingredients: [],
       instructions: [],
       category: "Greasy",
-      recipeImg: null,
    };
 
    this.number = 1;
@@ -112,14 +111,12 @@ export default class CreateScreen extends React.Component {
   
   handleDetails = () => {
     const details = this._form.getValue(); 
-    
     if(details) {
       this.setState({ 
         form: details,
         category: this.state.category,
         instructions: this.state.instructions,
-        ingredients: this.state.ingredients, 
-        recipeImg: this.state.recipeImg
+        ingredients: this.state.ingredients,
        });
     }
   }
