@@ -28,7 +28,8 @@ const options = {
       error: 'Without an email address how are you going to reset your password when you forget it?'
     },
     password: {
-      error: 'Choose something you use on a dozen other sites or something you won\'t remember',
+      error: 'Choose something secure and memorable - since our reset feature is still a work in progress',
+      ////////////////////////////////
       password: true,
       secureTextEntry: true,
     },
@@ -41,7 +42,7 @@ export default class LoginScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      status: { text: "I WILL CHANGE FOR YOU" }
+      status: null
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -52,10 +53,6 @@ export default class LoginScreen extends React.Component {
   }
 
   componentDidMount() {
-    // console.log("token getting removed")
-    // AsyncStorage.setItem("sessionToken", "").then(() => {
-    //   console.log("token removed")
-    // })
   }
 
   //notes
@@ -72,11 +69,11 @@ export default class LoginScreen extends React.Component {
       axios.post((`${currentHostedLink}/login`), value)
       .then(function (response) {
         if(response.data) { 
-          console.log("USER RESONPSE  ===> ", response.data);
+          console.log("USER RESPONSE  ===> ", response.data);
           // notifiy user that the password is wrong with a relevant message
           if(response.data.id < 0) {
             console.log("wrong pass");
-            that.setState({status: { text: "DA PASSVORD IS WRONG!" }});
+            that.setState({status: "Incorrect password or email - please try again" });
           } else {
             AsyncStorage.setItem("sessionToken", response.data.sessionToken).then(
             () => {
@@ -118,6 +115,10 @@ export default class LoginScreen extends React.Component {
             options={options}
             /> 
           </View>
+          <Text
+            style={LoginStyles.registerError}>
+            {this.state.status}
+          </Text>
           <View style={LoginStyles.loginButtonView}>
             <Button
               style={LoginStyles.loginButton}
