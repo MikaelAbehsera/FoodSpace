@@ -153,8 +153,8 @@ app.get("/profile/:sessionToken", (req, res) => {
               })
               .innerJoin("recipes", "faves.recipes_id", "recipes.id")
               .innerJoin("users", "recipes.creator_id", "users.id")
-              .innerJoin("instructions", "recipes.id", "instructions.recipe_id")
-              .innerJoin("ingredients", "recipes.id", "ingredients.recipe_id")
+              .innerJoin("instructions", "recipes.id", "instructions.recipes_id")
+              .innerJoin("ingredients", "recipes.id", "ingredients.recipes_id")
               
               .then((faves) => {
                 userProfile["faves"] = faves;
