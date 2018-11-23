@@ -7,7 +7,7 @@ const app = express();
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const bcrypt = require("bcrypt");
-const uniqid = require('uniqid');
+const uniqid = require("uniqid");
 
 
 console.log("Made it to login!");
@@ -46,7 +46,7 @@ app.post("/register", (req, res) => {
     // confirm password && passwordConfirmation
     console.log("ERROR");
   } else {
-    let randomToken = uniqid()
+    let randomToken = uniqid();
     let hash = bcrypt.hashSync(req.body.password.trim(), 10);
     const newUser = [{
       username: req.body.username.trim(),
@@ -274,7 +274,7 @@ app.post("/create", (req, res) => {
 
         });
       });
-  })
+  });
 
 });
 
@@ -298,7 +298,7 @@ app.get("/recipe_list/:sessionToken", (req, res) => {
       .from("recipes")
       .innerJoin("tags", "recipes.id", "tags.recipes_id")
       .innerJoin("categories", "tags.category_id", "categories.id")
-  
+
       .then((allRecipes) => {
         allRecipes.forEach((single) => {
           single["instructions"] = [];
@@ -347,7 +347,7 @@ app.get("/recipe_list/:sessionToken", (req, res) => {
               });
           });
       });
-  })
+  });
 
 });
 
@@ -360,7 +360,9 @@ app.get("/list/:categoryName", (req, res) => {
     .from("recipes")
     .innerJoin("tags", "recipes.id", "tags.recipes_id")
     .innerJoin("categories", "tags.category_id", "categories.id")
-    .where({category_name: categoryName})
+    .where({
+      category_name: categoryName
+    })
     .then((allRecipes) => {
       allRecipes.forEach((single) => {
         single["instructions"] = [];
@@ -417,13 +419,13 @@ app.get("/recipe_details", (req, res) => {
 
   console.log("params from frontend (details get)===> ", req.params);
   const sessionToken = req.params.sessionToken;
-  const recipeID = req.body.recipeID
+  const recipeID = req.body.recipeID;
   authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
         success: false
       });
-      return
+      return;
     }
     knex
       .select("*")
@@ -452,7 +454,7 @@ app.get("/recipe_details", (req, res) => {
           success: true
         });
       });
-  })
+  });
 });
 
 
@@ -499,7 +501,7 @@ app.post("/fave", (req, res) => {
           });
         });
     }
-  })
+  });
 });
 
 
@@ -515,7 +517,7 @@ app.get("/suggestions", (req, res) => {
       res.json({
         success: false
       });
-      return
+      return;
     }
     knex("suggestions")
       .select("*")
@@ -543,7 +545,7 @@ app.post("/suggestion", (req, res) => {
       res.json({
         success: false
       });
-      return
+      return;
     }
     knex("suggestions")
       .insert({
@@ -566,7 +568,7 @@ app.post("/suggestion", (req, res) => {
           success: true
         });
       });
-  })
+  });
 });
 
 
@@ -580,7 +582,7 @@ app.post("/plus", (req, res) => {
       res.json({
         success: false
       });
-      return
+      return;
     }
     if (check === true) {
       knex("suggestions")
@@ -614,7 +616,7 @@ app.post("/plus", (req, res) => {
         });
 
     }
-  })
+  });
 
 });
 
@@ -632,10 +634,10 @@ app.post("/minus", (req, res) => {
       res.json({
         success: false
       });
-      return
+      return;
     }
 
-    if (check === true) { 
+    if (check === true) {
       // should set up a check === false to remove the  added minus
       knex("suggestions")
         .where({
@@ -669,7 +671,7 @@ app.post("/minus", (req, res) => {
 
         });
     }
-  })
+  });
 });
 
 
@@ -679,7 +681,7 @@ app.post("/ratings", (req, res) => {
   const recipeID = req.body.recipes_id;
   const newRating = req.body.rating;
   const check = req.body.check;
-////// THERE SHOULD BE A CHECK FOR IF THE USER ALREADY GAVE A RATING
+  ////// THERE SHOULD BE A CHECK FOR IF THE USER ALREADY GAVE A RATING
   console.log("params from frontend (suggestions get)===> ", req.params);
   const sessionToken = req.params.sessionToken;
 
@@ -688,7 +690,7 @@ app.post("/ratings", (req, res) => {
       res.json({
         success: false
       });
-      return
+      return;
     }
     knex("ratings")
       .insert({
@@ -723,7 +725,7 @@ app.post("/ratings", (req, res) => {
 
           });
       });
-  })
+  });
 });
 
 
@@ -745,63 +747,68 @@ app.post("/ratings", (req, res) => {
 //   endpoint: new AWS.Endpoint('nyc3.digitaloceanspaces.com')
 // });
 
-app.get('/heart/:sessionToken/:recipeid', (req, res) => {
- const recId = req.params.recipieid
- const token = req.params.sessionToken
+app.get("/heart/:sessionToken/:recipeid", (req, res) => {
+  const recipes_id = req.params.recipeid;
+  const sessionToken = req.params.sessionToken;
 
   authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
         success: false
       });
-      return
+      return;
     }
-  knex('faves')
-  .where({
-    user_id: result
-  })
-  .where({
-    recipes_id: recId 
-  })
-  .then((result) => {
-    if(result.length === 0) {
-    res.send({favStatus: true})
-    }
-  })
-})
-})
+    knex("faves")
+      .where({
+        user_id: result
+      })
+      .where({
+        recipes_id: recipes_id
+      })
+      .then((result) => {
+        if (result.length > 0) {
+          res.send({
+            faveStatus: true
+          });
+        } else {
+          res.send({
+            faveStatus: false
+          });
+        }
+      });
+  });
+});
 
 
-  app.post('/upload', upload.single('image'), function (req, res, next) {
-    // req.file is the `avatar` file
-    // req.body will contain the text fields, if there were any
-    console.log(req.file)
+//   app.post('/upload', upload.single('image'), function (req, res, next) {
+//     // req.file is the `avatar` file
+//     // req.body will contain the text fields, if there were any
+//     console.log(req.file)
 
-    var bodystream = fs.createReadStream(req.file.path);
+//     var bodystream = fs.createReadStream(req.file.path);
 
-    var params = {
-      Body: bodystream,
-      Bucket: process.env.DO_BUCKET,
-      Key: 'uploads/'+req.file.filename,
-      ACL: 'public-read',
-      Metadata: {
-        'Content-Type': 'image/jpeg'
-      }
-    }
+//     var params = {
+//       Body: bodystream,
+//       Bucket: process.env.DO_BUCKET,
+//       Key: 'uploads/'+req.file.filename,
+//       ACL: 'public-read',
+//       Metadata: {
+//         'Content-Type': 'image/jpeg'
+//       }
+//     }
 
-    s3.putObject(params, function(err, data) {
-      if (err) console.log(err, err.stack);
-      else {
-        console.log(data)
-        const storedImage = `https://${process.env.DO_BUCKET}.nyc3.digitaloceanspaces.com/${params.Key}`;
-        console.log(storedImage)
-      } 
-    })
+//     s3.putObject(params, function(err, data) {
+//       if (err) console.log(err, err.stack);
+//       else {
+//         console.log(data)
+//         const storedImage = `https://${process.env.DO_BUCKET}.nyc3.digitaloceanspaces.com/${params.Key}`;
+//         console.log(storedImage)
+//       } 
+//     })
 
-    res.json({
-      recipeIMG: storedImage,
-      success: true
-    })
-    // return storedImage to be stored in knex, if failed - returns nulls = returned should check if null/valid
-})
-
+//     res.json({
+//       recipeIMG: storedImage,
+//       success: true
+//     })
+//     // return storedImage to be stored in knex, if failed - returns nulls = returned should check if null/valid
+// })

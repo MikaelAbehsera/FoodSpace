@@ -100,12 +100,75 @@ export default class Details extends React.Component {
     this.state = {
       star: this.starEmpty,
       stars: [],
+      faveStatus: false,
+      compLoaded: false, 
     };
-  
+    this.getFaveStatus = this.getFaveStatus.bind(this);
+    }
+
+  getFaveStatus() {
+    let sessionToken;
+
+    AsyncStorage.getItem("sessionToken").then(
+      (value) => {
+        if(value) {
+          sessionToken = value;
+        }
+        // console.log("session token ===> ", value);
+      }
+    ).then(() => {
+    const that = this;
+    axios.get(`${currentHostedLink}/heart/${sessionToken}/${this.props.navigation.state.params.recipe.recipes_id}`)
+      .then(function (response) {
+        console.log("GETTING state before ===> ", that.state)
+        // console.log(response.data.faveStatus);
+        // reset page load
+        that.setState({
+          compLoaded: false, 
+          star: that.state.star,
+          stars: that.state.stars,
+          faveStatus: that.state.faveStatus,
+        });
+        // set state to new object
+        that.setState({
+          compLoaded: false, 
+          star: that.state.star,
+          stars: that.state.stars,
+          faveStatus: response.data.faveStatus,
+        });
+        // state load finsished set new state
+        that.setState({
+          compLoaded: true, 
+          star: that.state.star,
+          stars: that.state.stars,
+          faveStatus: that.state.faveStatus,
+        });
+        console.log("GETTING state after ===> ", that.state)
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .finally(()=> {
+        console.log("finally")
+        if(that.state.faveStatus) {
+          that.setState({
+            compLoaded: that.state.compLoaded, 
+            star: that.starFilled,
+            stars: that.state.stars,
+            faveStatus: that.state.faveStatus,
+          });
+          console.log("current state ===> ", that.state)
+        }
+      })
+    });
+  }
+
+  componentDidMount() {
+    this.getFaveStatus();
   }
 
   starChange = () => {
-    let check = false;
+    let check = this.state.faveStatus;
     if(this.state.star === this.starFilled) {
       check = false;
       this.setState({star: this.starEmpty, stars: this.state.stars});
@@ -113,8 +176,6 @@ export default class Details extends React.Component {
       check = true;
       this.setState({star: this.starFilled, stars: this.state.stars});
     }
-    console.log("check ==> ", check);
-
     this.checkStatus(check);
   }
 
@@ -161,7 +222,8 @@ export default class Details extends React.Component {
 
     const { goBack } = this.props.navigation;
     const recipeData = this.props.navigation.state.params.recipe;
-    console.log("RECIPE DETAILS ===> ", recipeData);
+
+    if(this.state.compLoaded) {
     return (
       <View style={DetailsStyles.container}>
         <View style={{width: "100%", height: 25, backgroundColor: "black"}} />
@@ -179,7 +241,7 @@ export default class Details extends React.Component {
           <Image style={{ position: "absolute", top: -5.5, left: -5.5, height: 60, width: 60, zIndex: 99, borderRadius: 35, }} source={require("../materials/arrow.png")} />
         </TouchableHighlight> 
 
-        <View style={{width: "45=%", height: 40, backgroundColor: "rgba(255,255,255, 0.5)", position: "absolute", top: (Dimensions.get("window").width/1.5 - 25), right: 10, borderRadius: 40,}}>
+        <View style={{width: "45%", height: 40, backgroundColor: "rgba(255,255,255, 0.5)", position: "absolute", top: (Dimensions.get("window").width/1.5 - 25), right: 10, borderRadius: 40,}}>
           <StarSlider />
         </View>
 
@@ -201,6 +263,14 @@ export default class Details extends React.Component {
         <Image source={require("../materials/food.gif")} height={Dimensions.get('window').height + 50} style={{ position:'absolute', flex: 1, zIndex: -10,}} />
       </View>      
     );
+  }  else {
+    return (
+      <View style={{ flex: 1, backgroundColor: "#CED3DC", flexDirection: "column", justifyContent: "center", backgroundColor: "#24CCF9",}}>
+        <Image source={require("../materials/loading.gif")} height={Dimensions.get('window').height + 50} style={{ position: 'absolute', width: "100%", zIndex: -10,}} />          
+        <View style={{ flexDirection: "row", justifyContent: "center"}}>
+        </View>
+      </View>);
+  }
   }
 
 }
