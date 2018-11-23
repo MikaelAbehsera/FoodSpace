@@ -156,13 +156,13 @@ export default class SearchScreen extends React.Component {
         {this.props.screenProps.Nav}
       </View>
     );
-  } else {
+  }  else {
     return (
-    <View style={{ flex: 1, backgroundColor: "#CED3DC", flexDirection: "column", justifyContent: "center"}}>
-      <View style={{ flexDirection: "row", justifyContent: "center"}}>
-        <Text style={{color: "#4392F1", fontWeight: "900", fontSize: 85, }} >Loading . . .</Text>
-      </View>
-    </View>);
+      <View style={{ flex: 1, backgroundColor: "#CED3DC", flexDirection: "column", justifyContent: "center", backgroundColor: "#24CCF9",}}>
+        <Image source={require("../materials/loading.gif")} height={Dimensions.get('window').height + 50} style={{ position: 'absolute', width: "100%", zIndex: -10,}} />          
+        <View style={{ flexDirection: "row", justifyContent: "center"}}>
+        </View>
+      </View>);
   }
-  }
+}
 }

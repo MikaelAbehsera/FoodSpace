@@ -18,8 +18,8 @@ const RecipeStyles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "flex-end",
-    marginTop: 1,
-    marginBottom: 1,
+    marginTop: 2,
+    marginBottom: 2,
     height: 175,
   },
   backgroundView: {
@@ -42,8 +42,6 @@ const RecipeStyles = StyleSheet.create({
     flex:1,
     flexDirection: "row",
     justifyContent: "space-around",
-    borderWidth: 1,
-    borderColor: "black",
   },
   name: {
     flex:2,
@@ -54,15 +52,19 @@ const RecipeStyles = StyleSheet.create({
   },
   overall_rating: {
     flex:1,
+    paddingLeft: 15,
   },
   time: {
     flex:1,
     flexDirection: "row",
+    paddingLeft: 15,
   },
   footer: {
-    flex:2,
-    borderWidth: 1,
-    borderColor: "black",
+    flex:1,
+  },
+  descriptionView: {
+    flexDirection: "column",
+    justifyContent: "flex-end",
   },
 });
 

@@ -49,7 +49,7 @@ export default class Recipe extends Component {
     // SET STYLE SHEET
     let right = {
       flex:1,
-      height: 60,
+      minHeight: 50,
     };
     
     // ADD DIFF COLOR
