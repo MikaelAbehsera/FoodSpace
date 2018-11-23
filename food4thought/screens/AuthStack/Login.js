@@ -122,7 +122,7 @@ export default class LoginScreen extends React.Component {
             height: 25,
             backgroundColor: "black",
           }}
-        />{" "}
+        />
         <ScrollView style={LoginScreen.avoidView}>
           <View
             style={{
@@ -131,7 +131,7 @@ export default class LoginScreen extends React.Component {
             }}
           />
           <View style={LoginStyles.headerContainer}>
-            <Text style={LoginStyles.headerText}> Login </Text>{" "}
+            <Text style={LoginStyles.headerText}> Login </Text>
           </View>
           <View style={LoginStyles.middleContainer}>
             <View style={LoginStyles.formView}>
@@ -139,16 +139,16 @@ export default class LoginScreen extends React.Component {
                 ref={c => (this._form = c)}
                 type={Login}
                 options={options}
-              />{" "}
-            </View>{" "}
-            <Text style={LoginStyles.registerError}> {this.state.status} </Text>{" "}
+              />
+            </View>
+            <Text style={LoginStyles.registerError}> {this.state.status} </Text>
             <View style={LoginStyles.loginButtonView}>
               <Button
                 style={LoginStyles.loginButton}
                 title="Login"
                 onPress={this.handleSubmit}
-              />{" "}
-            </View>{" "}
+              />
+            </View>
           </View>
           <View style={LoginStyles.footerContainer}>
             <View style={LoginStyles.registerTextView}>
@@ -158,24 +158,24 @@ export default class LoginScreen extends React.Component {
                 style={LoginStyles.registerText}
               >
                 Want the gastronomic universe in your pocket ?
-              </Text>{" "}
-            </View>{" "}
+              </Text>
+            </View>
             <View style={LoginStyles.buttonView}>
               <View style={LoginStyles.registerButton}>
                 <Button
                   title="Register"
                   onPress={() => this.props.navigation.navigate("Register")}
-                />{" "}
-              </View>{" "}
-            </View>{" "}
+                />
+              </View>
+            </View>
           </View>
           <View
             style={{
               width: "100%",
               height: 500,
             }}
-          />{" "}
-        </ScrollView>{" "}
+          />
+        </ScrollView>
       </View>
     );
   }
