@@ -73,6 +73,7 @@ class CollapseDetails extends Component {
 class StarSlider extends Component {
   constructor(props) {
     super(props);
+    this.state  = {};
     this.star = require("../materials/star.png");
     this.greyStar = require("../materials/greyStar.png");
   }
@@ -80,7 +81,13 @@ class StarSlider extends Component {
   render() {
 
     return (
-      <Text>hai</Text>
+      <View style={{width: "45%", height: "100%", flexDirection: "row", justifyContent: "space-between", top: 10, left: 10,}} >  
+        <Image source={this.star} style={{height: 20, width: 20,}}/>
+        <Image source={this.star} style={{height: 20, width: 20,}}/>
+        <Image source={this.star} style={{height: 20, width: 20,}}/>
+        <Image source={this.greyStar} style={{height: 20, width: 20,}}/>
+        <Image source={this.greyStar} style={{height: 20, width: 20,}}/>
+      </View>
     );
   }
 }
@@ -172,7 +179,9 @@ export default class Details extends React.Component {
           <Image style={{ position: "absolute", top: -5.5, left: -5.5, height: 60, width: 60, zIndex: 99, borderRadius: 35, }} source={require("../materials/arrow.png")} />
         </TouchableHighlight> 
 
-        <View style={{width: "60%", height: 40, backgroundColor: "rgba(255,255,255, 0.5)", position: "absolute", top: (Dimensions.get("window").width/1.5 - 25), right: 10, borderRadius: 40,}} />
+        <View style={{width: "45%", height: 40, backgroundColor: "rgba(255,255,255, 0.5)", position: "absolute", top: (Dimensions.get("window").width/1.5 - 25), right: 10, borderRadius: 40,}}>
+          <StarSlider />
+        </View>
 
         <ScrollView style={DetailsStyles.scrollView}>
           <View style={DetailsStyles.infoView} >
