@@ -31,38 +31,39 @@ export default class StarSlider extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   const that = this;
-  //   let userRating;
-  //   AsyncStorage.getItem("sessionToken")
-  //     .then(value => {
-  //       if (value) {
-  //         sessionToken = value;
-  //       }
-  //       console.log("session token ===> ", value);
-  //     })
-  //     .then(() => {
-  //       axios
-  //         .get(
-  //           `${currentHostedLink}/userRatings/${sessionToken}/${that.props.recipeId}`,
-  //         )
-  //         .then(function(response) {
-  //           console.log(`${currentHostedLink}/userRatings/${sessionToken}/${that.props.recipeId}`);
-  //           console.log(response.data);
-  //           if(!response.data.success) {
-  //             userRating = 0;
-  //           } else if(response.data.success && response.data.userRating) {
-  //             userRating = response.data.userRating;
-  //           }
-  //         })
-  //         .catch(function(error) {
-  //           console.log(error);
-  //         })
-  //         .finally(() => {
-  //           that.changeStar(userRating);
-  //         });
-  //     });
-  // }
+  componentDidMount() {
+    const that = this;
+    let userRating;
+    let sessionToken;
+    AsyncStorage.getItem("sessionToken")
+      .then(value => {
+        if (value) {
+          sessionToken = value;
+        }
+        console.log("session token ===> ", value);
+      })
+      .then(() => {
+        axios
+          .get(
+            `${currentHostedLink}/userRatings/${sessionToken}/${that.props.recipeId}`,
+          )
+          .then(function(response) {
+            console.log(`${currentHostedLink}/userRatings/${sessionToken}/${that.props.recipeId}`);
+            console.log(response.data);
+            if(!response.data.success) {
+              userRating = 0;
+            } else if(response.data.success && response.data.userRating) {
+              userRating = response.data.userRating;
+              that.changeStar(userRating);
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          })
+          .finally(() => {
+          });
+      });
+  }
 
   changeStar = (rating) => {
     console.log("CHANGING STARS")
