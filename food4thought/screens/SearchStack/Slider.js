@@ -52,9 +52,9 @@ export default class StarSlider extends Component {
             console.log(response.data);
             if(!response.data.success) {
               userRating = 0;
-            } else if(response.data.success && response.data.userRating) {
-              userRating = response.data.userRating;
-              that.changeStar(userRating);
+            } else if(response.data.success && response.data.userRating[0]) {
+              userRating = response.data.userRating[0];
+              that.changeStar(userRating.rating);
             }
           })
           .catch(function(error) {

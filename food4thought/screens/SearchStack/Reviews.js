@@ -73,7 +73,6 @@ export default class ReviewScreen extends React.Component {
 
   render() {
     const { goBack } = this.props.navigation;
-    console.log( "THIS IS THE REVIEWS PARAMS ==============> ", this.props.navigation.state.params, );
     if (this.state.compLoaded) {
       return (
         <View style={ReviewsStyles.container}>
