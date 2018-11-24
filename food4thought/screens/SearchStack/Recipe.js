@@ -113,7 +113,7 @@ export default class Recipe extends Component {
       <TouchableHighlight
         underlayColor="#ffffff00"
         onPress={() =>
-          this.props.navigate("Details", { recipe: this.props.recipe })
+          this.props.navigate("Details", { recipe: this.props.recipe, navigate: this.props.navigate })
         }
       >
         <View style={RecipeStyles.container}>

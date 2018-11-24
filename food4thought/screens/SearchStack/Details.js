@@ -164,7 +164,8 @@ export default class Details extends React.Component {
 
     const { goBack } = this.props.navigation;
     const recipeData = this.props.navigation.state.params.recipe;
-    console.log("RECIPE DATA RECIPE DATA RECIPE DATA ===> ", recipeData);
+    // console.log("RECIPE DATA RECIPE DATA RECIPE DATA ===> ", recipeData);
+    console.log("RECIPE DATA RECIPE DATA RECIPE DATA ===> ", this.props.navigate);
     if (this.state.compLoaded) {
       return (
         <View style={DetailsStyles.container}>
@@ -206,8 +207,8 @@ export default class Details extends React.Component {
             <Image
               style={{
                 position: "absolute",
-                top: -5.5,
-                left: -5.5,
+                top: -6.5,
+                left: -6.5,
                 height: 60,
                 width: 60,
                 zIndex: 99,
@@ -217,11 +218,41 @@ export default class Details extends React.Component {
             />
           </TouchableHighlight>
 
+           <TouchableHighlight
+            underlayColor="#ffffff00"
+            style={{
+              position: "absolute",
+              top: 28,
+              right: 10,
+              height: 60,
+              width: 60,
+              zIndex: 99,
+              borderRadius: 25,
+            }}
+            onPress={() => {
+              this.props.navigation.state.params.navigate("Reviews", {hi: "hi"})
+              console.log("hi");
+          }}
+          >
+            <Image
+              style={{
+                position: "absolute",
+                top: 0,
+                right: 0,
+                height: 50,
+                width: 50,
+                zIndex: 99,
+              }}
+              source={require("../materials/reviews.png")}
+            />
+          </TouchableHighlight>
+
+
           <View
             style={{
               width: "60%",
               height: 40,
-              backgroundColor: "rgba(255,255,255, 0.5)",
+              backgroundColor: "rgba(255,255,255, 0.7)",
               position: "absolute",
               top: Dimensions.get("window").width / 1.5 - 25,
               right: 10,
@@ -233,10 +264,6 @@ export default class Details extends React.Component {
 
           <ScrollView style={DetailsStyles.scrollView}>
             <View style={DetailsStyles.infoView}>
-              {/* 
-          - slidable 5 star review, if 4th is clicked all 4 get yellow
-          - button that when clicked take user to the review page
-        */}
               <View style={DetailsStyles.nameView}>
                 <Text style={DetailsStyles.nameText}>{recipeData.name}</Text>
               </View>
@@ -261,7 +288,7 @@ export default class Details extends React.Component {
                     {recipeData.description}
                   </Text>
                   <Text style={CollapseStyles.ingredientsText}>
-                    Difficulty: {recipeData.difficulty}
+                    Difficulty: {recipeData.difficulty}/3
                   </Text>
                   <Text style={CollapseStyles.ingredientsText}>
                     Overall Rating: {recipeData.overall_rating}

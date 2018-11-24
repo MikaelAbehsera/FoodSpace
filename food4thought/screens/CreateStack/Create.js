@@ -267,11 +267,12 @@ export default class CreateScreen extends React.Component {
                 {this.state.ingredients.map((ingredient, index) => (
                   <Text
                     style={{
+                      marginLeft: 15,
                       overflow: "hidden",
                     }}
                     key={index}
                   >
-                    {ingredient.foodType} === {ingredient.quantity}
+                    {ingredient.foodType} x {ingredient.quantity}
                   </Text>
                 ))}
               </ScrollView>
