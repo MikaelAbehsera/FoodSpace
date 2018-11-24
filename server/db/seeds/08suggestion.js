@@ -13,7 +13,26 @@ exports.seed = function (knex, Promise) {
             plus: 2,
             minus: 6,
             user_id: 1
-          })
+          }),
+          
+        knex("suggestions").insert({
+            recipes_id: 1,
+            suggest_text: "Use franks redhot sauce",
+            plus: 2,
+            minus: 5,
+            user_id: 1
+          }),
+        
+        knex("suggestions").insert({
+            recipes_id: 1,
+            suggest_text: "Buy Bagels fresh from fairmount bagel",
+            plus: 2,
+            minus: 6,
+            user_id: 1
+          }),
+            
+          
+
 
         ]);
       })
