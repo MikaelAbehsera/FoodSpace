@@ -108,7 +108,6 @@ export default class SearchScreen extends React.Component {
       } else if (diff === 1) {
         style = "green";
       }
-
       return style;
     }
 

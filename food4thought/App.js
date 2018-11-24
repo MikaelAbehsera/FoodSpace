@@ -10,6 +10,7 @@ import Login from "./screens/AuthStack/Login.js";
 import Register from "./screens/AuthStack/Register.js";
 import Search from "./screens/SearchStack/Search.js";
 import Details from "./screens/SearchStack/Details.js";
+import Reviews from "./screens/SearchStack/Reviews.js";
 import Create from "./screens/CreateStack/Create.js";
 import Profile from "./screens/ProfileStack/Profile.js";
 import NavStyles from "./screens/styles/NavbarStyles.js";
@@ -63,6 +64,9 @@ const SearchStack = createStackNavigator(
     Details: {
       screen: Details,
     },
+    Reviews: {
+      screen: Reviews,
+    },
   },
   {
     headerMode: "none",
@@ -105,9 +109,9 @@ class NavBar extends React.Component {
     super(props);
 
     this.state = {
-      searchButton: "green",
-      CreateButton: "green",
-      ProfileButton: "green",
+      SearchButton: "rgb(248, 82, 96)",
+      CreateButton: "rgb(248, 82, 96)",
+      ProfileButton: "rgb(248, 82, 96)",
     };
     this.updateSearch = this.updateSearch.bind(this);
     this.updateCreate = this.updateCreate.bind(this);
@@ -130,13 +134,13 @@ class NavBar extends React.Component {
     return (
       <View style={NavStyles.container}>
         <View style={NavStyles.buttonView}>
-          <Button title="Search" onPress={this.updateSearch} color="green" />
+          <Button title="Search" onPress={this.updateSearch} color={this.state.SearchButton} />
         </View>
         <View style={NavStyles.buttonView}>
-          <Button title="Create" onPress={this.updateCreate} color="green" />
+          <Button title="Create" onPress={this.updateCreate} color={this.state.CreateButton} />
         </View>
         <View style={NavStyles.buttonView}>
-          <Button title="Profile" onPress={this.updateProfile} color="green" />
+          <Button title="Profile" onPress={this.updateProfile} color={this.state.ProfileButton} />
         </View>
       </View>
     );

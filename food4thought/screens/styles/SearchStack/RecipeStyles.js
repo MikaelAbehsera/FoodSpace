@@ -49,6 +49,9 @@ const RecipeStyles = StyleSheet.create({
   nameText: {
     fontWeight: "bold",
     fontSize: 17,
+    borderBottomWidth: 0.5,
+    borderBottomColor: "lightgrey",
+    paddingRight: -10,
   },
   overall_rating: {
     flexDirection: "row",

@@ -21,13 +21,13 @@ export default class CollapseDetails extends Component {
         <ScaledImage
           source={require("../materials/redtab.png")}
           height={43}
-          style={{ position: "absolute", bottom: -2 }}
+          style={{ position: "absolute", bottom: -2, left: 175 }}
         />
         <Text
           style={{
             position: "absolute",
             top: 14,
-            left: 24,
+            left: 195,
             fontSize: 20,
             fontWeight: "700",
           }}
@@ -83,13 +83,13 @@ export default class CollapseDetails extends Component {
         <ScaledImage
           source={require("../materials/redtab.png")}
           height={43}
-          style={{ position: "absolute", bottom: -2 }}
+          style={{ position: "absolute", bottom: -2, left: 90 }}
         />
         <Text
           style={{
             position: "absolute",
             top: 14,
-            left: 32,
+            left: 122,
             fontSize: 20,
             fontWeight: "700",
           }}
