@@ -81,10 +81,8 @@ export default class SearchScreen extends React.Component {
     axios
       .get(`${currentHostedLink}/list/${categoryName}`)
       .then(function(response) {
-        console.log(`GETTING DIS RECIPE CAT ===> ${categoryName}`);
         // console.log(response.data.allRecipes);
         // reset page load
-
         that.setState({ compLoaded: false, recipes: that.state.recipes });
         // set state to new object
 

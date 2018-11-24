@@ -55,7 +55,7 @@ export default class Details extends React.Component {
             }`,
           )
           .then(function(response) {
-            console.log("GETTING state before ===> ", that.state);
+            // console.log("GETTING state before ===> ", that.state);
             // console.log(response.data.faveStatus);
             // reset page load
             that.setState({
@@ -78,13 +78,12 @@ export default class Details extends React.Component {
               stars: that.state.stars,
               faveStatus: that.state.faveStatus,
             });
-            console.log("GETTING state after ===> ", that.state);
+            // console.log("GETTING state after ===> ", that.state);
           })
           .catch(function(error) {
             console.log(error);
           })
           .finally(() => {
-            console.log("finally");
             if (that.state.faveStatus) {
               that.setState({
                 compLoaded: that.state.compLoaded,
@@ -135,10 +134,6 @@ export default class Details extends React.Component {
         axios
           .post(`${currentHostedLink}/fave`, send)
           .then(function(response) {
-            console.log(
-              "full form submit success ===> ",
-              response.data.success,
-            );
             if (response.data.success) {
               validate = true;
             }
@@ -147,7 +142,7 @@ export default class Details extends React.Component {
             console.log(error);
           })
           .finally(function() {
-            console.log("VAIDATE (details)==> ", validate);
+            console.log("VAIDATE (details.js) ==> ", validate);
           });
       });
   }
@@ -229,7 +224,7 @@ export default class Details extends React.Component {
               borderRadius: 25,
             }}
             onPress={() => {
-              this.props.navigation.state.params.navigate("Reviews", {hi: "wordsssssssssssssssssssssss", recipeId: recipeData.recipes_id})
+              this.props.navigation.state.params.navigate("Reviews", { recipeId: recipeData.recipes_id})
               console.log("hi");
           }}
           >
@@ -293,7 +288,7 @@ export default class Details extends React.Component {
                     Overall Rating: {recipeData.overall_rating}
                   </Text>
                   <Text style={CollapseStyles.ingredientsText}>
-                    Time to make: {recipeData.time}
+                    Time to make: {recipeData.time} Minutes
                   </Text>
                 </View>
               </View>

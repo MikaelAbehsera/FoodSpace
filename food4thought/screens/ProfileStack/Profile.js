@@ -22,7 +22,6 @@ class Bubble extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <View style={ProfileStyles.bubbleView}>
         <Image
@@ -62,16 +61,12 @@ export default class ProfileScreen extends React.Component {
         if (value) {
           sessionToken = value;
         }
-        console.log("session token ===> ", value);
+        console.log("session token (profile.js) ===> ", value);
       })
       .then(() => {
-        console.log("SESSION BEFORE ===>  ", sessionToken);
-
         axios
           .get(`${currentHostedLink}/profile/${sessionToken}`)
           .then(function(response) {
-            console.log("SESSION AFTER ===>  ", sessionToken);
-            console.log("PROFILE INSIDE GET ===> ", response);
             // reset page load
             that.setState({
               compLoaded: false,
@@ -97,7 +92,6 @@ export default class ProfileScreen extends React.Component {
   signout = () => {
     const that = this;
     AsyncStorage.setItem("sessionToken", "").then(() => {
-      console.log("hello");
       that.props.screenProps.OnSessionChange();
     });
     that.props.screenProps.changePage("Auth");

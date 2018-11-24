@@ -177,7 +177,7 @@ export default class App extends React.Component {
     console.log("(app.js) App has loaded redirecting to relevant page");
     AsyncStorage.getItem("sessionToken").then(value => {
       if (value) {
-        that.setState({ currentStack: "Home" });
+        that.setState({ currentStack: "Profile" });
       }
       console.log("(app.js) session token = ===> ", value);
     });

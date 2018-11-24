@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Dimensions } from "react-native";
 import { StyleSheet, PixelRatio } from "react-native";
-import SearchStyles from "../styles/SearchStack/SearchStyles.js";
+import ReviewsStyles from "../styles/SearchStack/ReviewsStyles.js";
 import Recipe from "./Recipe.js";
 import axios from "axios";
 
@@ -18,7 +18,7 @@ import axios from "axios";
 const currentHostedLink = "http://e9bf0500.ngrok.io";
 ///////////////////////////////////////////////////////////////
 
-export default class SearchScreen extends React.Component {
+export default class ReviewScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = { compLoaded: false, reviews: [] };
@@ -36,76 +36,58 @@ export default class SearchScreen extends React.Component {
         // console.log("session token ===> ", value);
       })
       .then(() => {
-        console.log(`${currentHostedLink}/suggestions/${this.props.navigation.state.params.recipeId}/${sessionToken}`);
-        // axios
-        //   .get(
-        //     `${currentHostedLink}/suggestions/${this.props.navigation.state.params.recipeId}/${sessionToken}`,
-        //   )
-        //   .then(function(response) {})
-        //   .catch(function(error) {
-        //     console.log(error);
-        //   })
-        //   .finally(() => {});
+        const that = this;
+        let sessionToken;
+        AsyncStorage.getItem("sessionToken")
+          .then(value => {
+            if (value) {
+              sessionToken = value;
+            }
+            console.log("session token ===> ", value);
+          })
+          .then(() => {
+            axios
+              .get(
+                `${currentHostedLink}/suggestions/${
+                  that.props.navigation.state.params.recipeId
+                }/${sessionToken}`,
+              )
+              .then(function(response) {
+                console.log(
+                  `${currentHostedLink}/suggestions/${
+                    that.props.navigation.state.params.recipeId
+                  }/${sessionToken}`,
+                );
+                console.log(
+                  "THIS IS THE RESPONSE!!!!!!1 ====> ",
+                  response.data,
+                );
+              })
+              .catch(function(error) {
+                console.log(error);
+              })
+              .finally(() => {});
+          });
       });
   }
 
   render() {
     const { goBack } = this.props.navigation;
-
+    console.log( "THIS IS THE REVIEWS PARAMS ==============> ", this.props.navigation.state.params, );
     if (this.state.compLoaded) {
       return (
-        <View>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-          <Text>HIHIHIHIHIHIHIHIHIHI</Text>
-
+        <View style={ReviewsStyles.container}>
           <TouchableHighlight
             underlayColor="#ffffff00"
-            style={{
-              position: "absolute",
-              top: 28,
-              left: 10,
-              height: 45,
-              width: 45,
-              zIndex: 99,
-              backgroundColor: "white",
-              borderRadius: 35,
-            }}
-            onPress={() => goBack()}
-          >
-            <Image
-              style={{
-                position: "absolute",
-                top: -6.5,
-                left: -6.5,
-                height: 60,
-                width: 60,
-                zIndex: 99,
-                borderRadius: 35,
-              }}
-              source={require("../materials/arrow.png")}
-            />
+            style={{ position: "absolute", top: 28, left: 10, height: 45, width: 45, zIndex: 99, backgroundColor: "white", borderRadius: 35, }} onPress={() => goBack()} >
+            <Image style={{ position: "absolute", top: -6.5, left: -6.5, height: 60, width: 60, zIndex: 99, borderRadius: 35, }} source={require("../materials/arrow.png")} />
           </TouchableHighlight>
+
+          <ScrollView>
+            
+          </ScrollView>
+
+          <View style={{width: "100%",height: "100%",backgroundColor: "rgb(248, 82, 96)",zIndex: -1,}} />
         </View>
       );
     } else {
