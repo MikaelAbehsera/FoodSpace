@@ -760,54 +760,54 @@ app.post("/minus", (req, res) => {
 
 app.post("/ratings", (req, res) => {
   // add rating to a recipe
-  const recipeID = req.body.recipes_id;
+  const recipeId = req.body.recipesId;
   const newRating = req.body.rating;
-  const check = req.body.check;
+  const sessionToken = req.body.sessionToken;
+  // const check = req.body.check;
   ////// THERE SHOULD BE A CHECK FOR IF THE USER ALREADY GAVE A RATING
-  console.log("params from frontend (suggestions get)===> ", req.params);
-  const sessionToken = req.params.sessionToken;
+  console.log("(ratings post) object from frontend ===> ", req.body);
 
-  authenticateToken(sessionToken, function (result) {
-    if (!res) {
-      res.json({
-        success: false
-      });
-      return;
-    }
-    knex("ratings")
-      .insert({
-        recipes_id: recipeID,
-        rating: newRating,
-        user_id: result
-      })
-      .then(() => {
-        knex("ratings")
-          .avg("rating")
-          .then((avgRating) => {
-            knex("recipes")
-              .where({
-                id: recipeID
-              })
-              .update({
-                overall_rating: avgRating
-              })
-              .catch((err) => {
-                res.json({
-                  success: false
-                });
-                res.status(404);
-                console.log(err);
-                throw err;
-              })
-              .finally(() => {
-                res.json({
-                  success: true
-                });
-              });
+  // authenticateToken(sessionToken, function (result) {
+  //   if (!res) {
+  //     res.json({
+  //       success: false
+  //     });
+  //     return;
+  //   }
+  //   knex("ratings")
+  //     .insert({
+  //       recipes_id: recipeID,
+  //       rating: newRating,
+  //       user_id: result
+  //     })
+  //     .then(() => {
+  //       knex("ratings")
+  //         .avg("rating")
+  //         .then((avgRating) => {
+  //           knex("recipes")
+  //             .where({
+  //               id: recipeID
+  //             })
+  //             .update({
+  //               overall_rating: avgRating
+  //             })
+  //             .catch((err) => {
+  //               res.json({
+  //                 success: false
+  //               });
+  //               res.status(404);
+  //               console.log(err);
+  //               throw err;
+  //             })
+  //             .finally(() => {
+  //               res.json({
+  //                 success: true
+  //               });
+  //             });
 
-          });
-      });
-  });
+  //         });
+  //     });
+  // });
 });
 
 

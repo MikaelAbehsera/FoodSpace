@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Text, View, Image, TouchableHighlight, Slider } from "react-native";
+import { Text, View, Image, TouchableHighlight, Slider, AsyncStorage} from "react-native";
 import ScaledImage from "react-native-scaled-image";
+import axios from "axios";
+
+
+///////////////// Ngrok Link ///////////////////////////////////
+const currentHostedLink = "http://e9bf0500.ngrok.io";
+////////////////////////////////////////////////////////////////
 
 export default class StarSlider extends Component {
   constructor(props) {
@@ -18,11 +24,44 @@ export default class StarSlider extends Component {
     };
   }
 
-  starClick = (n) => {
+  starClick = (rating) => {
     // if star n is clicked, 
     // make all stars behind it also yellow/filled
     // send post to backend each time the star rating changes
-    console.log(n);
+    const sentObject = {
+      recipeId: this.props.recipeId,
+      rating: rating
+    };
+    let sessionToken;
+    //get full form from state, manipulate to one object, and post to backend
+    AsyncStorage.getItem("sessionToken")
+      .then(value => {
+        if (value) {
+          sessionToken = value;
+          sentObject["sessionToken"] = value;
+        }
+        console.log("session token (slider component) ===> ", sessionToken);
+      })
+      .then(() => {
+        let validate = false;
+        axios
+          .post(`${currentHostedLink}/ratings`, sentObject)
+          .then(function(response) {
+            console.log(
+              "(slider comp) success ===> ",
+              response.data.success,
+            );
+            if (response.data.success) {
+              validate = true;
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          })
+          .finally(function() {
+            console.log("(slider comp) VAIDATE ==> ", validate);
+          }); 
+      });
   };
 
 

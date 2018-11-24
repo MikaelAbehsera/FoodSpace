@@ -228,7 +228,7 @@ export default class Details extends React.Component {
               borderRadius: 40,
             }}
           >
-            <StarSlider />
+            <StarSlider recipeId={recipeData.id}/>
           </View>
 
           <ScrollView style={DetailsStyles.scrollView}>
