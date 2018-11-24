@@ -681,9 +681,6 @@ app.get("/suggestions/:recipeID/:sessionToken", (req, res) => {
       .where({
         recipes_id: recipeID
       })
-      .where({
-        user_id: result
-      })
       .then((allSuggestions) => {
         res.json({
           suggestions: allSuggestions,
