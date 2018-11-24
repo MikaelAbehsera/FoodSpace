@@ -24,7 +24,24 @@ export default class StarSlider extends Component {
     };
   }
 
+  changeStar = (rating) => {
+    console.log("CHANGING STARS")
+    // for loop does not work here dont refractor working if statement
+    if(rating === 1) {
+      this.setState({star1: this.star, star2: this. greyStar, star3: this.greyStar, star4: this.greyStar, star5: this.greyStar})
+    } else if(rating === 2) {
+      this.setState({star1: this.star, star2: this.star, star3: this.greyStar, star4: this.greyStar, star5: this.greyStar})
+    } else if(rating === 3) {
+      this.setState({star1: this.star, star2: this.star, star3: this.star, star4: this.greyStar, star5: this.greyStar })
+    } else if(rating === 4) {
+      this.setState({star1: this.star, star2: this.star, star3: this.star, star4: this.star, star5: this.greyStar })
+    } else if(rating === 5) {
+      this.setState({star1: this.star, star2: this.star, star3: this.star, star4: this.star, star5: this.star})
+    }
+  }
+
   starClick = (rating) => {
+    const that = this;
     // if star n is clicked, 
     // make all stars behind it also yellow/filled
     // send post to backend each time the star rating changes
@@ -51,8 +68,10 @@ export default class StarSlider extends Component {
               "(slider comp) success ===> ",
               response.data.success,
             );
-            if (response.data.success) {
+            // if (response.data.success) {
+            if (true) {
               validate = true;
+              that.changeStar(rating);
             }
           })
           .catch(function(error) {

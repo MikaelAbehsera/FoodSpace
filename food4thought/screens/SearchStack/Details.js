@@ -228,7 +228,7 @@ export default class Details extends React.Component {
               borderRadius: 40,
             }}
           >
-            <StarSlider recipeId={recipeData.id}/>
+            <StarSlider recipeId={recipeData.id} />
           </View>
 
           <ScrollView style={DetailsStyles.scrollView}>
@@ -245,14 +245,31 @@ export default class Details extends React.Component {
                 ingredients={recipeData.ingredients}
                 instructions={recipeData.instructions}
               />
-              <View style={{ backgroundColor: "#f85260", width: "100%", paddingBottom: 20, alignItems: "center"}}>
-                <View style={{ width: "90%"}}>
-                  <Text style={CollapseStyles.ingredientsText} >Category: {recipeData.category_name}</Text>
-                  <Text style={CollapseStyles.ingredientsText} >{recipeData.description}</Text>
-                  <Text style={CollapseStyles.ingredientsText} >Difficulty: {recipeData.difficulty}</Text>
-                  <Text style={CollapseStyles.ingredientsText} >Overall Rating: {recipeData.overall_rating}</Text>
-                  <Text style={CollapseStyles.ingredientsText} >Time to make: {recipeData.time}</Text>
-                </View> 
+              <View
+                style={{
+                  backgroundColor: "#f85260",
+                  width: "100%",
+                  paddingBottom: 20,
+                  alignItems: "center",
+                }}
+              >
+                <View style={{ width: "90%" }}>
+                  <Text style={CollapseStyles.ingredientsText}>
+                    Category: {recipeData.category_name}
+                  </Text>
+                  <Text style={CollapseStyles.ingredientsText}>
+                    {recipeData.description}
+                  </Text>
+                  <Text style={CollapseStyles.ingredientsText}>
+                    Difficulty: {recipeData.difficulty}
+                  </Text>
+                  <Text style={CollapseStyles.ingredientsText}>
+                    Overall Rating: {recipeData.overall_rating}
+                  </Text>
+                  <Text style={CollapseStyles.ingredientsText}>
+                    Time to make: {recipeData.time}
+                  </Text>
+                </View>
               </View>
             </View>
           </ScrollView>

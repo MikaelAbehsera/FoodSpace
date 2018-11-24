@@ -767,47 +767,46 @@ app.post("/ratings", (req, res) => {
   ////// THERE SHOULD BE A CHECK FOR IF THE USER ALREADY GAVE A RATING
   console.log("(ratings post) object from frontend ===> ", req.body);
 
-  // authenticateToken(sessionToken, function (result) {
-  //   if (!res) {
-  //     res.json({
-  //       success: false
-  //     });
-  //     return;
-  //   }
-  //   knex("ratings")
-  //     .insert({
-  //       recipes_id: recipeID,
-  //       rating: newRating,
-  //       user_id: result
-  //     })
-  //     .then(() => {
-  //       knex("ratings")
-  //         .avg("rating")
-  //         .then((avgRating) => {
-  //           knex("recipes")
-  //             .where({
-  //               id: recipeID
-  //             })
-  //             .update({
-  //               overall_rating: avgRating
-  //             })
-  //             .catch((err) => {
-  //               res.json({
-  //                 success: false
-  //               });
-  //               res.status(404);
-  //               console.log(err);
-  //               throw err;
-  //             })
-  //             .finally(() => {
-  //               res.json({
-  //                 success: true
-  //               });
-  //             });
-
-  //         });
-  //     });
-  // });
+  authenticateToken(sessionToken, function (result) {
+    if (!res) {
+      res.json({
+        success: false
+      });
+      return;
+    }
+    knex("ratings")
+      .insert({
+        recipes_id: recipeId,
+        rating: newRating,
+        user_id: result
+      })
+      .then(() => {
+        knex("ratings")
+          .avg("rating")
+          .then((avgRating) => {
+            knex("recipes")
+              .where({
+                id: recipeId
+              })
+              .update({
+                overall_rating: avgRating
+              })
+              .catch((err) => {
+                res.json({
+                  success: false
+                });
+                res.status(500);
+                console.log(err);
+                throw err;
+              })
+              .finally(() => {
+                res.json({
+                  success: true
+                });
+              });
+          });
+      });
+  });
 });
 
 
