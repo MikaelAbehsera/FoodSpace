@@ -34,7 +34,7 @@ class Bubble extends React.Component {
           }
         />
         <Text style={ProfileStyles.bubbleViewText}>
-          "{this.props.name}"{" "}
+          "{this.props.name}"
           {this.props.created ? (
             <Text style={ProfileStyles.bubbleViewText}>
               by {this.props.created}.

@@ -134,7 +134,6 @@ export default class Recipe extends Component {
             <View style={RecipeStyles.header}>
               <View style={RecipeStyles.name}>
                 <Text style={RecipeStyles.nameText}>
-                  {" "}
                   {this.props.recipe.name}
                 </Text>
               </View>
@@ -149,8 +148,7 @@ export default class Recipe extends Component {
             <View style={RecipeStyles.footer}>
               <View style={RecipeStyles.descriptionView}>
                 <Text style={RecipeStyles.description}>
-                  {" "}
-                  {this.props.recipe.description}{" "}
+                  {this.props.recipe.description}
                 </Text>
               </View>
             </View>

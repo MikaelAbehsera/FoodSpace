@@ -67,9 +67,9 @@ export default class RegisterScreen extends React.Component {
   }
 
   componentDidMount() {
-    console.log("token getting removed");
+    console.log("(register.js) token getting removed");
     AsyncStorage.setItem("sessionToken", "").then(() => {
-      console.log("token removed");
+      console.log("(register.js) async token removed");
     });
   }
 
@@ -87,7 +87,9 @@ export default class RegisterScreen extends React.Component {
           console.log("RESPONSE ===> ", response.data.sessionToken);
           if (response.data.id < 0) {
             console.log("-1 from server something is wrong");
-            that.setState({ errorMessage: response.data.errorMessage });
+            that.setState({
+              errorMessage: response.data.errorMessage,
+            });
             //////////////// SET STATE OF ERROR HERE
           } else {
             AsyncStorage.setItem(
@@ -117,13 +119,23 @@ export default class RegisterScreen extends React.Component {
 
     return (
       <View style={RegisterStyles.container}>
-        <View style={{ width: "100%", height: 25, backgroundColor: "black" }} />
+        <View
+          style={{
+            width: "100%",
+            height: 25,
+            backgroundColor: "black",
+          }}
+        />
         <ScrollView style={RegisterStyles.scrollContainer}>
-          <View style={{ width: "100%", height: 100 }} />
+          <View
+            style={{
+              width: "100%",
+              height: 100,
+            }}
+          />
           <View style={RegisterStyles.headerContainer}>
-            <Text style={RegisterStyles.headerText}>Register</Text>
+            <Text style={RegisterStyles.headerText}> Register </Text>
           </View>
-
           <View style={RegisterStyles.middleContainer}>
             <View style={RegisterStyles.formView}>
               <Form
@@ -133,14 +145,16 @@ export default class RegisterScreen extends React.Component {
               />
             </View>
           </View>
-
           <Text style={RegisterStyles.registerError}>
             {this.state.errorMessage}
           </Text>
-
-          <View style={{ width: "100%", height: 300 }} />
+          <View
+            style={{
+              width: "100%",
+              height: 300,
+            }}
+          />
         </ScrollView>
-
         <View style={RegisterStyles.footerContainer}>
           <View style={RegisterStyles.registerTextView}>
             <Text
@@ -158,11 +172,14 @@ export default class RegisterScreen extends React.Component {
             </View>
           </View>
         </View>
-
         <Image
           source={require("../materials/food.gif")}
           height={Dimensions.get("window").height + 50}
-          style={{ position: "absolute", flex: 1, zIndex: -10 }}
+          style={{
+            position: "absolute",
+            flex: 1,
+            zIndex: -10,
+          }}
         />
       </View>
     );

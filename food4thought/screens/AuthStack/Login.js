@@ -72,7 +72,7 @@ export default class LoginScreen extends React.Component {
   handleSubmit = () => {
     const that = this;
     const value = this._form.getValue(); // use that ref to get the form value
-    console.log("LOGIN FORM ===> ", value);
+    console.log("(login.js) LOGIN FORM ===> ", value);
     that.redirect("Login");
     if (value) {
       // if validation fails, value will be null
@@ -82,10 +82,12 @@ export default class LoginScreen extends React.Component {
         .post(`${currentHostedLink}/login`, value)
         .then(function(response) {
           if (response.data) {
-            console.log("USER RESPONSE  ===> ", response.data);
+            console.log("(login.js) USER RESPONSE  ===> ", response.data);
             // notifiy user that the password is wrong with a relevant message
             if (response.data.id < 0) {
-              console.log("wrong pass");
+              console.log(
+                "(login.js) wrong password was inputed, server returned success false",
+              );
               that.setState({
                 status: "Incorrect password or email - please try again",
               });
@@ -94,7 +96,6 @@ export default class LoginScreen extends React.Component {
                 "sessionToken",
                 response.data.sessionToken,
               ).then(() => {
-                console.log("SESSION HELLO");
                 that.props.screenProps.OnSessionChange();
               });
               validate = true;
@@ -102,10 +103,14 @@ export default class LoginScreen extends React.Component {
           }
         })
         .catch(function(error) {
-          console.log(error);
+          console.log("(login.js) ", error);
         })
         .finally(function() {
-          console.log("VAIDATE ==> ", validate);
+          console.log(
+            "VAIDATE is ==> ",
+            validate,
+            " redirecting page to profile.js",
+          );
           if (validate) {
             that.props.screenProps.changePage("Profile");
           }
