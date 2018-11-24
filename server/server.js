@@ -192,26 +192,75 @@ app.get("/profile/:sessionToken", (req, res) => {
                   .innerJoin("recipes", "mademeals.recipes_id", "recipes.id")
                   .then((Usermademeals) => {
                     userProfile["Usermademeals"] = Usermademeals;
-                  })
-                  .catch((err) => {
-                    res.json({
-                      success: false
+                    
+                    knex
+                    .select("*")
+                    .from("recipes")
+                    .innerJoin("tags", "recipes.id", "tags.recipes_id")
+                    .innerJoin("categories", "tags.category_id", "categories.id")
+              
+                    .then((allRecipes) => {
+                      allRecipes.forEach((single) => {
+                        single["instructions"] = [];
+                        single["ingredients"] = [];
+                      });
+              
+                      knex("ingredients")
+                        .select("food_type", "quantity", "recipes_id")
+                        .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
+                        .then((resultIngredients) => {
+                          knex("instructions")
+                            .select("step_description", "step_number", "recipes_id")
+                            .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
+                            .then((resultInstructions) => {
+              
+                              resultIngredients.forEach((single) => {
+                                allRecipes.forEach((singleRecipe) => {
+                                  if (single.recipes_id === singleRecipe.id) {
+                                    singleRecipe["ingredients"].push(single);
+                                  }
+                                });
+                              });
+              
+                              resultInstructions.forEach((single) => {
+                                allRecipes.forEach((singleRecipe) => {
+                                  if (single.recipes_id === singleRecipe.id) {
+                                    singleRecipe["instructions"].push(single);
+                                  }
+                                });
+                              });
+              
+                            })
+                            ///
+                            .catch((err) => {
+                              res.json({
+                                success: false
+                              });
+                              res.status(404);
+                              console.log(err);
+                              throw err;
+                            })
+                            .finally(() => {
+                              res.json({
+                                userProfile: userProfile,
+                                allRecipes: allRecipes,
+                                success: true
+                              });
+                            });
+
+                        })
                     });
-                    res.status(404);
-                    console.log(err);
-                    throw err;
+
                   })
-                  .finally(() => {
-                    res.json({
-                      userProfile: userProfile,
-                      success: true
-                    });
-                  });
+                
               });
           });
       });
   });
 });
+
+
+// =======================================================
 
 
 app.post("/create", (req, res) => {
@@ -306,9 +355,6 @@ app.post("/create", (req, res) => {
   });
 
 });
-
-
-// =======================================================
 
 
 app.get("/recipe_list/:sessionToken", (req, res) => {
@@ -488,9 +534,36 @@ app.get("/recipe_details", (req, res) => {
 
 
 
+app.get("/TerryrecipeDetails", (req, res) => {
+  const recipes_id = req.params.recipeid;
+  const sessionToken = req.params.sessionToken;
+
+  authenticateToken(sessionToken, function (result) {
+    if (!res) {
+      res.json({
+        success: false
+      });
+      return;
+    }
+    knex("recipes")
+      .innerJoin("recipes", "recipes.id", "faves.recipes_id")
+      .where({
+        user_id: result
+      })
+      .where({
+        recipes_id: recipes_id
+      })
+      .then((result) => {
+        res.json({
+          result: result,
+          success: true
+        })
+      })
+  })
+})
+
+
 // =======================================================
-
-
 
 app.post("/fave", (req, res) => {
   const recipeid = req.body.recipe_id;
@@ -548,6 +621,40 @@ app.post("/fave", (req, res) => {
           })
         });
     }
+  });
+});
+
+
+
+app.get("/heart/:sessionToken/:recipeid", (req, res) => {
+  const recipes_id = req.params.recipeid;
+  const sessionToken = req.params.sessionToken;
+
+  authenticateToken(sessionToken, function (result) {
+    if (!res) {
+      res.json({
+        success: false
+      });
+      return;
+    }
+    knex("faves")
+      .where({
+        user_id: result
+      })
+      .where({
+        recipes_id: recipes_id
+      })
+      .then((result) => {
+        if (result.length > 0) {
+          res.send({
+            faveStatus: true
+          });
+        } else {
+          res.send({
+            faveStatus: false
+          });
+        }
+      });
   });
 });
 
@@ -675,33 +782,7 @@ app.post("/plus", (req, res) => {
 
 });
 
-app.get("/recipeDetails", (req, res) => {
-  const recipes_id = req.params.recipeid;
-  const sessionToken = req.params.sessionToken;
 
-  authenticateToken(sessionToken, function (result) {
-    if (!res) {
-      res.json({
-        success: false
-      });
-      return;
-    }
-    knex("recipes")
-      .innerJoin("recipes", "recipes.id", "faves.recipes_id")
-      .where({
-        user_id: result
-      })
-      .where({
-        recipes_id: recipes_id
-      })
-      .then((result) => {
-        res.json({
-          result: result,
-          success: true
-        })
-      })
-  })
-})
 
 app.post("/minus", (req, res) => {
   const recipeID = req.body.recpies_id;
@@ -757,14 +838,15 @@ app.post("/minus", (req, res) => {
 });
 
 
+// =======================================================
+
 
 app.post("/ratings", (req, res) => {
   // add rating to a recipe
   const recipeId = req.body.recipesId;
   const newRating = req.body.rating;
   const sessionToken = req.body.sessionToken;
-  // const check = req.body.check;
-  ////// THERE SHOULD BE A CHECK FOR IF THE USER ALREADY GAVE A RATING
+
   console.log("(ratings post) object from frontend ===> ", req.body);
 
   authenticateToken(sessionToken, function (result) {
@@ -774,14 +856,41 @@ app.post("/ratings", (req, res) => {
       });
       return;
     }
+
     knex("ratings")
-      .insert({
-        recipes_id: recipeId,
-        rating: newRating,
-        user_id: result
-      })
-      .then(() => {
+    .where({
+      user_id: result
+    })
+    .where({
+      recipes_id: recipeId
+    })
+    .then((userRating) => {
+      if(userRating.length !== 0) {
+        // user already offered rating -> update needed
         knex("ratings")
+        .where({
+          user_id: result
+        })
+        .where({
+          recipes_id: recipeId
+        })
+        .update({
+          rating: newRating,
+        })
+
+      } else if(userRating.length === 0) {
+        // first time rating this recipe
+        knex("ratings")
+          .insert({
+            recipes_id: recipeId,
+            rating: newRating,
+            user_id: result
+          })
+      }
+        knex("ratings")
+          .where({
+            recipes_id: recipeId
+          })
           .avg("rating")
           .then((avgRating) => {
             knex("recipes")
@@ -805,14 +914,17 @@ app.post("/ratings", (req, res) => {
                 });
               });
           });
-      });
+    })
   });
 });
 
 
-app.get("/recipeDetails", (req, res) => {
-  const recipes_id = req.params.recipeid;
-  const sessionToken = req.params.sessionToken;
+
+app.get("/userRatings/:sessionToken/:recipeid", (req, res) => {
+  // see what user gave as rating
+  const recipeId = req.params.recipesId;
+  const sessionToken = req.body.sessionToken;
+
 
   authenticateToken(sessionToken, function (result) {
     if (!res) {
@@ -821,24 +933,44 @@ app.get("/recipeDetails", (req, res) => {
       });
       return;
     }
-    knex("recipes")
-      .innerJoin("recipes", "recipes.id", "faves.recipes_id")
+    knex("ratings")
       .where({
         user_id: result
       })
       .where({
-        recipes_id: recipes_id
+        recipes_id: recipeId
       })
-      .then((result) => {
-        res.json({
-          result: result,
-          success: true
-        })
+      .then((userRating) => {
+        if (userRating.length === 0 ) {
+          // user did not offer rating
+          res.json({
+            success: false
+          })
+        } else {
+          res.json({
+            success: true,
+            userRating: userRating
+          })
+        }
       })
-  })
-})
 
-// ==========================================
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////
 
 // var multer = require('multer');
 // var AWS = require('aws-sdk');
@@ -853,39 +985,6 @@ app.get("/recipeDetails", (req, res) => {
 // var s3 = new AWS.S3({
 //   endpoint: new AWS.Endpoint('nyc3.digitaloceanspaces.com')
 // });
-
-app.get("/heart/:sessionToken/:recipeid", (req, res) => {
-  const recipes_id = req.params.recipeid;
-  const sessionToken = req.params.sessionToken;
-
-  authenticateToken(sessionToken, function (result) {
-    if (!res) {
-      res.json({
-        success: false
-      });
-      return;
-    }
-    knex("faves")
-      .where({
-        user_id: result
-      })
-      .where({
-        recipes_id: recipes_id
-      })
-      .then((result) => {
-        if (result.length > 0) {
-          res.send({
-            faveStatus: true
-          });
-        } else {
-          res.send({
-            faveStatus: false
-          });
-        }
-      });
-  });
-});
-
 
 //   app.post('/upload', upload.single('image'), function (req, res, next) {
 //     // req.file is the `avatar` file
