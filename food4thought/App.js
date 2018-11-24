@@ -1,19 +1,10 @@
 import React from "react";
-import {
-  Button,
-  Text,
-  View,
-  Image,
-  AsyncStorage
-} from "react-native";
-import {
-  Ionicons
-} from "@expo/vector-icons";
+import { Button, Text, View, Image, AsyncStorage } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import {
   createStackNavigator,
-  createBottomTabNavigator
+  createBottomTabNavigator,
 } from "react-navigation";
-
 import Home from "./screens/HomeStack/Home.js";
 import Login from "./screens/AuthStack/Login.js";
 import Register from "./screens/AuthStack/Register.js";
@@ -21,8 +12,9 @@ import Search from "./screens/SearchStack/Search.js";
 import Details from "./screens/SearchStack/Details.js";
 import Create from "./screens/CreateStack/Create.js";
 import Profile from "./screens/ProfileStack/Profile.js";
+import NavStyles from "./screens/styles/NavbarStyles.js";
 
-// things to do 
+// things to do
 
 // create back pages for all relevant screens
 // add a all button to the recipe list page, with a relevant get
@@ -32,92 +24,81 @@ import Profile from "./screens/ProfileStack/Profile.js";
 // make a back button using react navigate back method
 // break create page up to multiple modules
 
-const AuthStack = createStackNavigator({
-  Login: {
-    screen: Login
+const AuthStack = createStackNavigator(
+  {
+    Login: {
+      screen: Login,
+    },
+    Register: {
+      screen: Register,
+    },
   },
-  Register: {
-    screen: Register
-  }
-}, {
-  headerMode: "none",
-  navigationOptions: {
-    headerVisible: false,
-  }
-});
-
-const HomeStack = createStackNavigator({
-  Home: {
-    screen: Home
-  }
-}, {
-  headerMode: "none",
-  navigationOptions: {
-    headerVisible: false,
-  }
-});
-
-const SearchStack = createStackNavigator({
-  List: {
-    screen: Search
+  {
+    headerMode: "none",
+    navigationOptions: {
+      headerVisible: false,
+    },
   },
-  Details: {
-    screen: Details
-  },
-}, {
-  headerMode: "none",
-  navigationOptions: {
-    headerVisible: false,
-  }
-});
-
-const CreateStack = createStackNavigator({
-  Create: {
-    screen: Create
-  },
-}, {
-  headerMode: "none",
-  navigationOptions: {
-    headerVisible: false,
-  }
-});
-
-const ProfileStack = createStackNavigator({
-  Profile: {
-    screen: Profile
-  },
-}, {
-  headerMode: "none",
-  navigationOptions: {
-    headerVisible: false,
-  }
-});
-
-const tab = createBottomTabNavigator({
-  //home should be at top!
-  Home: HomeStack,
-  Search: SearchStack,
-  Create: CreateStack,
-  Profile: ProfileStack,
-}, {
-  navigationOptions: ({
-    navigation
-  }) => ({
-    // tabBarVisible: navigation.state.key === 'Search' && loggedIn ? true : false,
-    // tabBarVisible: navigation.state.key === 'Login' || navigation.state.key === 'Search',
-    whatever: console.log(navigation)
-  }),
-  tabBarLabel: {},
-  tabBarOptions: {
-    activeTintColor: "tomato",
-    inactiveTintColor: "gray",
-    // showLabel: false,
-  },
-}
-
 );
 
-import NavStyles from "./screens/styles/NavbarStyles.js";
+const HomeStack = createStackNavigator(
+  {
+    Home: {
+      screen: Home,
+    },
+  },
+  {
+    headerMode: "none",
+    navigationOptions: {
+      headerVisible: false,
+    },
+  },
+);
+
+const SearchStack = createStackNavigator(
+  {
+    List: {
+      screen: Search,
+    },
+    Details: {
+      screen: Details,
+    },
+  },
+  {
+    headerMode: "none",
+    navigationOptions: {
+      headerVisible: false,
+    },
+  },
+);
+
+const CreateStack = createStackNavigator(
+  {
+    Create: {
+      screen: Create,
+    },
+  },
+  {
+    headerMode: "none",
+    navigationOptions: {
+      headerVisible: false,
+    },
+  },
+);
+
+const ProfileStack = createStackNavigator(
+  {
+    Profile: {
+      screen: Profile,
+    },
+  },
+  {
+    headerMode: "none",
+    navigationOptions: {
+      headerVisible: false,
+    },
+  },
+);
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -126,13 +107,12 @@ class NavBar extends React.Component {
     this.state = {
       searchButton: "green",
       CreateButton: "green",
-      ProfileButton: "green"
+      ProfileButton: "green",
     };
     this.updateSearch = this.updateSearch.bind(this);
     this.updateCreate = this.updateCreate.bind(this);
     this.updateProfile = this.updateProfile.bind(this);
   }
-
 
   updateSearch() {
     this.props.screenProps.changePage("Search");
@@ -147,29 +127,16 @@ class NavBar extends React.Component {
   }
 
   render() {
-
     return (
-      <View style={NavStyles.container}>  
-        <View style={NavStyles.buttonView} >
-          <Button 
-            title="Search"
-            onPress={this.updateSearch}
-            color="green"
-          />
+      <View style={NavStyles.container}>
+        <View style={NavStyles.buttonView}>
+          <Button title="Search" onPress={this.updateSearch} color="green" />
         </View>
-        <View style={NavStyles.buttonView} >
-          <Button 
-            title="Create"
-            onPress={this.updateCreate}
-            color="green"
-          />
+        <View style={NavStyles.buttonView}>
+          <Button title="Create" onPress={this.updateCreate} color="green" />
         </View>
-        <View style={NavStyles.buttonView} >
-          <Button 
-            title="Profile"
-            onPress={this.updateProfile}
-            color="green"
-          />
+        <View style={NavStyles.buttonView}>
+          <Button title="Profile" onPress={this.updateProfile} color="green" />
         </View>
       </View>
     );
@@ -188,19 +155,17 @@ export default class App extends React.Component {
   }
 
   changePage(page) {
-    this.setState({currentStack: page});
+    this.setState({ currentStack: page });
   }
 
   OnSessionChange() {
-    console.log("We are in!");
-    AsyncStorage.getItem("sessionToken").then(
-      (value) => {
-        if(value) {
-          this.setState({currentStack: "Home"});
-        }
-        console.log("session token = ===> ", value);
+    console.log("(app.js) App has loaded redirecting to relevant page");
+    AsyncStorage.getItem("sessionToken").then(value => {
+      if (value) {
+        this.setState({ currentStack: "Home" });
       }
-    );
+      console.log("(app.js) session token = ===> ", value);
+    });
   }
 
   componentDidMount() {
@@ -208,23 +173,31 @@ export default class App extends React.Component {
   }
 
   render() {
-    const Nav = (<NavBar screenProps={{changePage: this.changePage}}/>);
+    const Nav = <NavBar screenProps={{ changePage: this.changePage }} />;
 
-    const props = {Nav: Nav, changePage: this.changePage, OnSessionChange: this.OnSessionChange};
+    const props = {
+      Nav: Nav,
+      changePage: this.changePage,
+      OnSessionChange: this.OnSessionChange,
+    };
 
     if (this.state.currentStack === "Home") {
-      return ( <HomeStack  screenProps={props} />);
+      return <HomeStack screenProps={props} />;
     } else if (this.state.currentStack === "Search") {
-      return ( <SearchStack  screenProps={props} />);
+      return <SearchStack screenProps={props} />;
     } else if (this.state.currentStack === "Create") {
-      return ( <CreateStack  screenProps={props} />);
+      return <CreateStack screenProps={props} />;
     } else if (this.state.currentStack === "Profile") {
-      return ( <ProfileStack screenProps={props} />);
+      return <ProfileStack screenProps={props} />;
     } else if (this.state.currentStack === "Auth") {
-      return ( <AuthStack  screenProps={props} />);
+      return <AuthStack screenProps={props} />;
     } else {
-      return (<View><Text>WORST CASE SENARIO HAS HAPPENED, APP IS BROKEN PLS FIX </Text></View>);
+      return (
+        <View>
+          <Image source={{uri: "https://media0.giphy.com/media/26u4cqVR8dsmedTJ6/giphy.gif"}} />
+          <Text>WORST CASE SENARIO HAS HAPPENED, APP IS BROKEN PLS FIX </Text>
+        </View>
+      );
     }
   }
-
 }

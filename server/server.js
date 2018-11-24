@@ -54,7 +54,7 @@ app.post("/register", (req, res) => {
       errorMessage: errorMessage
     });
     res.status(404);
-    
+
     console.log("ERROR");
   } else {
     let randomToken = uniqid();
@@ -73,7 +73,7 @@ app.post("/register", (req, res) => {
     knex("users")
       .select("*")
       .where({
-        email: req.body.email.trim().toLowerCase() 
+        email: req.body.email.trim().toLowerCase()
       })
       .then((existingUser) => {
         if (existingUser.length === 0) {
@@ -98,7 +98,7 @@ app.post("/register", (req, res) => {
               throw err;
             })
 
-        } else if (existingUser.length !== 0){
+        } else if (existingUser.length !== 0) {
           errorMessage = "user already exists"
           res.json({
             id: -1,
@@ -732,21 +732,21 @@ app.get("/recipeDetails", (req, res) => {
       });
       return;
     }
-  knex("recipes")
-  .innerJoin("recipes", "recipes.id", "faves.recipes_id")
-  .where({
-    user_id: result
+    knex("recipes")
+      .innerJoin("recipes", "recipes.id", "faves.recipes_id")
+      .where({
+        user_id: result
+      })
+      .where({
+        recipes_id: recipes_id
+      })
+      .then((result) => {
+        res.json({
+          result: result,
+          success: true
+        })
+      })
   })
-  .where({
-  recipes_id: recipes_id
-  })
-  .then((result) => {
-    res.json({
-      result: result,
-      success: true
-    })
-  })
-})
 })
 
 app.post("/minus", (req, res) => {
@@ -806,12 +806,12 @@ app.post("/minus", (req, res) => {
 
 app.post("/ratings", (req, res) => {
   // add rating to a recipe
-  const recipeID = req.body.recipes_id;
+  const recipeId = req.body.recipesId;
   const newRating = req.body.rating;
-  const check = req.body.check;
+  const sessionToken = req.body.sessionToken;
+  // const check = req.body.check;
   ////// THERE SHOULD BE A CHECK FOR IF THE USER ALREADY GAVE A RATING
-  console.log("params from frontend (suggestions get)===> ", req.params);
-  const sessionToken = req.params.sessionToken;
+  console.log("(ratings post) object from frontend ===> ", req.body);
 
   authenticateToken(sessionToken, function (result) {
     if (!res) {
@@ -822,7 +822,7 @@ app.post("/ratings", (req, res) => {
     }
     knex("ratings")
       .insert({
-        recipes_id: recipeID,
+        recipes_id: recipeId,
         rating: newRating,
         user_id: result
       })
@@ -832,7 +832,7 @@ app.post("/ratings", (req, res) => {
           .then((avgRating) => {
             knex("recipes")
               .where({
-                id: recipeID
+                id: recipeId
               })
               .update({
                 overall_rating: avgRating
@@ -841,7 +841,7 @@ app.post("/ratings", (req, res) => {
                 res.json({
                   success: false
                 });
-                res.status(404);
+                res.status(500);
                 console.log(err);
                 throw err;
               })
@@ -850,14 +850,39 @@ app.post("/ratings", (req, res) => {
                   success: true
                 });
               });
-
           });
       });
   });
 });
 
 
+app.get("/recipeDetails", (req, res) => {
+  const recipes_id = req.params.recipeid;
+  const sessionToken = req.params.sessionToken;
 
+  authenticateToken(sessionToken, function (result) {
+    if (!res) {
+      res.json({
+        success: false
+      });
+      return;
+    }
+    knex("recipes")
+      .innerJoin("recipes", "recipes.id", "faves.recipes_id")
+      .where({
+        user_id: result
+      })
+      .where({
+        recipes_id: recipes_id
+      })
+      .then((result) => {
+        res.json({
+          result: result,
+          success: true
+        })
+      })
+  })
+})
 
 // ==========================================
 

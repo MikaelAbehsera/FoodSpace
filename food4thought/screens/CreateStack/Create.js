@@ -1,17 +1,21 @@
-import React, {Component} from 'react';
-import { Button, Text, View, ScrollView, Picker, AsyncStorage } from "react-native";
+import React, { Component } from "react";
+import {
+  Button,
+  Text,
+  View,
+  ScrollView,
+  Picker,
+  AsyncStorage,
+} from "react-native";
 import axios from "axios";
 import CreateStyles from "../styles/CreateStack/CreateStyles.js";
-
-
-
 
 // Import tcomb form schema
 import t from "tcomb-form-native";
 const Form = t.form.Form;
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://45eced04.ngrok.io";
+const currentHostedLink = "http://e9bf0500.ngrok.io";
 ///////////////////////////////////////////////////////////////
 
 // full page form
@@ -20,25 +24,24 @@ const Create = t.struct({
   recipeDescription: t.String,
   timeToMake: t.Integer,
   difficultyOfRecipe: t.Integer,
-  recipeUrl: t.String
+  recipeUrl: t.String,
 });
-
 
 const createOptions = {
   fields: {
     recipeName: {
-        maxLength: 60,
+      maxLength: 60,
     },
     recipeDescription: {
-        maxLength: 60,
+      maxLength: 60,
     },
     timeToMake: {
-        maxLength: 4,
+      maxLength: 4,
     },
     difficultyOfRecipe: {
-        maxLength: 4,
-    }
-  }
+      maxLength: 4,
+    },
+  },
 };
 
 // just the ingredientsForm structure
@@ -58,7 +61,7 @@ const optionsIngredients = {
       maxLength: 30,
     },
   },
-}
+};
 
 // just the instructionsForm structure
 const instructionsForm = t.struct({
@@ -68,205 +71,245 @@ const instructionsForm = t.struct({
 const optionsInstructions = {
   fields: {
     newStep: {
-      error: "Please enter valid instruction"
+      error: "Please enter valid instruction",
     },
   },
-}
-
+};
 
 export default class CreateScreen extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      form: { content: null},
+      form: {
+        content: null,
+      },
       ingredients: [],
       instructions: [],
       category: "Greasy",
-   };
+    };
 
-   this.number = 1;
-   this.handleSubmitIngredients = this.handleSubmitIngredients.bind(this);
-   this.handleSubmitInstructions = this.handleSubmitInstructions.bind(this);
-   this.handleDetails = this.handleDetails.bind(this);
+    this.number = 1;
+    this.handleSubmitIngredients = this.handleSubmitIngredients.bind(this);
+    this.handleSubmitInstructions = this.handleSubmitInstructions.bind(this);
+    this.handleDetails = this.handleDetails.bind(this);
   }
 
   static navigationOptions = {
-    title: 'Create Recipe',
+    title: "Create Recipe",
   };
   redirect(page) {
-    this.props.navigation.navigate(page)
+    this.props.navigation.navigate(page);
   }
 
-  updateUser = (category) => {
-    this.setState({ 
+  updateUser = category => {
+    this.setState({
       category: category,
       instructions: this.state.instructions,
-      ingredients: this.state.ingredients, 
+      ingredients: this.state.ingredients,
       form: this.state.form,
-      recipeImg: this.state.recipeImg
-    })
-  }
-  
+      recipeImg: this.state.recipeImg,
+    });
+  };
+
   handleDetails = () => {
-    const details = this._form.getValue(); 
-    if(details) {
-      this.setState({ 
+    const details = this._form.getValue();
+    if (details) {
+      this.setState({
         form: details,
         category: this.state.category,
         instructions: this.state.instructions,
         ingredients: this.state.ingredients,
-       });
+      });
     }
-  }
+  };
 
   handleSubmitIngredients = () => {
     const value = this._form2.getValue();
 
-    if(value) {
-    const foodType = value.foodType;
-    const quantity = value.quantity;
-    this.setState({
-      form: this.state.form, 
-      instructions: this.state.instructions,
-      category: this.state.category,
-      ingredients: this.state.ingredients.concat([{ "foodType": foodType, "quantity": quantity}]) })
+    if (value) {
+      const foodType = value.foodType;
+      const quantity = value.quantity;
+      this.setState({
+        form: this.state.form,
+        instructions: this.state.instructions,
+        category: this.state.category,
+        ingredients: this.state.ingredients.concat([
+          {
+            foodType: foodType,
+            quantity: quantity,
+          },
+        ]),
+      });
     }
-  }
+  };
 
   handleSubmitInstructions = () => {
     const value = this._form1.getValue();
-    
-    if(value) {
-      const step = value.newStep;      
+
+    if (value) {
+      const step = value.newStep;
       const num = this.number;
-      this.setState({ 
-        form: this.state.form, 
-        ingredients: this.state.ingredients, 
+      this.setState({
+        form: this.state.form,
+        ingredients: this.state.ingredients,
         category: this.state.category,
-        instructions: this.state.instructions.concat([{ "step": step, "stepNumber": num}]) })
+        instructions: this.state.instructions.concat([
+          {
+            step: step,
+            stepNumber: num,
+          },
+        ]),
+      });
       this.number++;
-      }
-  }
+    }
+  };
 
   handleFinalForm = () => {
     const that = this;
     //get full form from state, manipulate to one object, and post to backend
     const fullForm = this.state;
-    console.log(fullForm)
-    console.log("===========================================================")
+    console.log(fullForm);
+    console.log("===========================================================");
     let sessionToken;
-    AsyncStorage.getItem("sessionToken").then(
-      (value) => {
-        if(value) {
+    AsyncStorage.getItem("sessionToken")
+      .then(value => {
+        if (value) {
           sessionToken = value;
           fullForm["sessionToken"] = value;
         }
         console.log("session token (create page) ===> ", sessionToken);
-      }
-    ).then(() => {
-    let validate = false;
-    // post user information to backend /login route
-    axios.post((`${currentHostedLink}/create`), fullForm)
-    .then(function (response) {
-      console.log("full form submit success ===> ", response.data.success);
-      if(response.data.success) { 
-        validate = true;
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    }).finally(function() { 
-      console.log("VAIDATE ==> ", validate)
-      if(validate) {
-        that.props.screenProps.changePage("Search");
-      }
-    });
-  });
-  }
+      })
+      .then(() => {
+        let validate = false;
+        // post user information to backend /login route
+        axios
+          .post(`${currentHostedLink}/create`, fullForm)
+          .then(function(response) {
+            console.log(
+              "full form submit success ===> ",
+              response.data.success,
+            );
+            if (response.data.success) {
+              validate = true;
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          })
+          .finally(function() {
+            console.log("VAIDATE ==> ", validate);
+            if (validate) {
+              that.props.screenProps.changePage("Search");
+            }
+          });
+      });
+  };
 
   render() {
-    
     return (
       <View style={CreateStyles.container}>
-        <View style={{width: "100%", height: 25, backgroundColor: "black"}} />
-        <ScrollView style={CreateStyles.scrollContainer} >
-        <View style={{width: "100%", height: 50}} />
-
-        <View style={CreateStyles.scrollContainer}> 
+        <View
+          style={{
+            width: "100%",
+            height: 25,
+            backgroundColor: "black",
+          }}
+        />
+        <ScrollView style={CreateStyles.scrollContainer}>
+          <View
+            style={{
+              width: "100%",
+              height: 50,
+            }}
+          />
+          <View style={CreateStyles.scrollContainer}>
             <View style={CreateStyles.catSelectorTextView}>
-              <Text style={CreateStyles.catSelectorText} >Category Type</Text>
+              <Text style={CreateStyles.catSelectorText}> Category Type </Text>
             </View>
             <View style={CreateStyles.catSelectorView}>
-              <Picker selectedValue={this.state.category} onValueChange={this.updateUser} style={CreateStyles.catSelector}>
+              <Picker
+                selectedValue={this.state.category}
+                onValueChange={this.updateUser}
+                style={CreateStyles.catSelector}
+              >
                 <Picker.Item label="Greasy" value="Greasy" />
                 <Picker.Item label="Health Nut" value="Health nut" />
                 <Picker.Item label="Munchies" value="Munchies" />
               </Picker>
             </View>
-          <Form 
-            ref={c => this._form = c}
-            type={Create}
-            options={createOptions} 
-          />
-          <View>
+            <Form
+              ref={c => (this._form = c)}
+              type={Create}
+              options={createOptions}
+            />
             <View>
+              <View />
+              <View style={CreateStyles.detailSubmitButton}>
+                <Button title="Update Details" onPress={this.handleDetails} />
+              </View>
             </View>
-            <View style={CreateStyles.detailSubmitButton} >
+          </View>
+          <View style={CreateStyles.ingredientsView}>
+            <View style={CreateStyles.ingredientsForm}>
+              <Form
+                ref={c => (this._form2 = c)}
+                type={ingredientsForm}
+                options={optionsIngredients}
+              />
               <Button
-                title="Update Details" 
-                onPress={this.handleDetails}
-              />  
+                title="Add Ingredient"
+                onPress={this.handleSubmitIngredients}
+              />
+            </View>
+            <View style={CreateStyles.ingredientsList}>
+              <ScrollView>
+                {this.state.ingredients.map((ingredient, index) => (
+                  <Text
+                    style={{
+                      overflow: "hidden",
+                    }}
+                    key={index}
+                  >
+                    {ingredient.foodType} === {ingredient.quantity}
+                  </Text>
+                ))}
+              </ScrollView>
             </View>
           </View>
-        </View>
-
-        <View style={CreateStyles.ingredientsView}>
-          <View style={CreateStyles.ingredientsForm}>
-            <Form 
-              ref={c => this._form2 = c}
-              type={ingredientsForm}
-              options={optionsIngredients}
-            /> 
-            <Button 
-              title="Add Ingredient" 
-              onPress={this.handleSubmitIngredients}
+          <View style={CreateStyles.instructionsView}>
+            <View style={CreateStyles.instructionsForm}>
+              <Form
+                ref={c => (this._form1 = c)}
+                type={instructionsForm}
+                options={optionsInstructions}
+              />
+              <Button
+                title="Add Step"
+                onPress={this.handleSubmitInstructions}
+              />
+            </View>
+            <View style={CreateStyles.instructionsList}>
+              {this.state.instructions.map((step, index) => (
+                <Text key={index}>
+                  {step.stepNumber}. {step.step}
+                </Text>
+              ))}
+            </View>
+          </View>
+          <View>
+            <Button
+              title="Submit Recipe"
+              onPress={this.handleFinalForm}
+              color="#8EA604"
             />
           </View>
-          <View style={CreateStyles.ingredientsList}>
-            <ScrollView >
-              {this.state.ingredients.map((ingredient, index) => <Text style={{ overflow: "hidden", }} key={index} >{ingredient.foodType} === {ingredient.quantity}</Text>)}
-            </ScrollView>
-          </View>
-        </View>
-
-        <View style={CreateStyles.instructionsView}>
-          <View style={CreateStyles.instructionsForm}>
-            <Form 
-              ref={c => this._form1 = c}
-              type={instructionsForm}
-              options={optionsInstructions} 
-            />
-            <Button 
-              title="Add Step" 
-              onPress={this.handleSubmitInstructions}
-            />
-          </View>
-          <View style={CreateStyles.instructionsList}>
-            {this.state.instructions.map((step, index) => <Text key={index}> {step.stepNumber}. {step.step}</Text>)}
-          </View>
-        </View>
-        
-        <View>
-          <Button
-            title="Submit Recipe" 
-            onPress={this.handleFinalForm}
-            color="#8EA604"
+          <View
+            style={{
+              width: "100%",
+              height: 300,
+            }}
           />
-        </View>
-
-          <View style={{width: "100%", height: 300}} />
         </ScrollView>
         {this.props.screenProps.Nav}
       </View>

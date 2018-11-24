@@ -25,16 +25,15 @@ const CreateStyles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 17,
     marginBottom: 6,
-  },  
+  },
   catSelectorView: {
     borderWidth: 1,
     borderRadius: 7,
     borderColor: "lightgrey",
     marginBottom: 8,
     height: 45,
-  },  
-  catSelector: {
   },
+  catSelector: {},
   detailSubmitButton: {
     marginTop: 20,
     marginBottom: 30,

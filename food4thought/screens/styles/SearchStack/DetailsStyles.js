@@ -26,7 +26,7 @@ const DetailsStyles = StyleSheet.create({
     flex: 1,
     margin: 10,
     backgroundColor: "white",
-    paddingBottom: 340,
+    paddingBottom: responsiveHeight(30),
     borderColor: "black",
     borderWidth: 0.5,
   },
