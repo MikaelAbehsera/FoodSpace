@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Text, View, Image, AsyncStorage } from "react-native";
+import { Button, Text, View, Image, AsyncStorage, Dimensions } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
   createStackNavigator,
@@ -153,6 +153,7 @@ export default class App extends React.Component {
 
     this.state = {
       currentStack: "Auth",
+      appLoaded: false,
     };
 
     this.changePage = this.changePage.bind(this);
@@ -162,18 +163,24 @@ export default class App extends React.Component {
     this.setState({ currentStack: page });
   }
 
-  OnSessionChange() {
+  componentDidMount() {
+    this.setState({
+      currentStack: "Auth",
+      appLoaded: true,
+    })
+
+    this.OnSessionChange();
+  }
+  
+  OnSessionChange = () => {
+    const that = this;
     console.log("(app.js) App has loaded redirecting to relevant page");
     AsyncStorage.getItem("sessionToken").then(value => {
       if (value) {
-        this.setState({ currentStack: "Home" });
+        that.setState({ currentStack: "Home" });
       }
       console.log("(app.js) session token = ===> ", value);
     });
-  }
-
-  componentDidMount() {
-    this.OnSessionChange();
   }
 
   render() {
@@ -184,22 +191,43 @@ export default class App extends React.Component {
       changePage: this.changePage,
       OnSessionChange: this.OnSessionChange,
     };
-
-    if (this.state.currentStack === "Home") {
-      return <HomeStack screenProps={props} />;
-    } else if (this.state.currentStack === "Search") {
-      return <SearchStack screenProps={props} />;
-    } else if (this.state.currentStack === "Create") {
-      return <CreateStack screenProps={props} />;
-    } else if (this.state.currentStack === "Profile") {
-      return <ProfileStack screenProps={props} />;
-    } else if (this.state.currentStack === "Auth") {
-      return <AuthStack screenProps={props} />;
+  
+    if(this.state.appLoaded) {
+      if (this.state.currentStack === "Home") {
+        return <HomeStack screenProps={props} />;
+      } else if (this.state.currentStack === "Search") {
+        return <SearchStack screenProps={props} />;
+      } else if (this.state.currentStack === "Create") {
+        return <CreateStack screenProps={props} />;
+      } else if (this.state.currentStack === "Profile") {
+        return <ProfileStack screenProps={props} />;
+      } else if (this.state.currentStack === "Auth") {
+        return <AuthStack screenProps={props} />;
+      } else {
+        return (
+          <View>
+            <Image source={{uri: "https://media0.giphy.com/media/26u4cqVR8dsmedTJ6/giphy.gif"}} />
+            <Text>WORST CASE SENARIO HAS HAPPENED, APP IS BROKEN PLS FIX </Text>
+          </View>
+        );
+      }
     } else {
       return (
-        <View>
-          <Image source={{uri: "https://media0.giphy.com/media/26u4cqVR8dsmedTJ6/giphy.gif"}} />
-          <Text>WORST CASE SENARIO HAS HAPPENED, APP IS BROKEN PLS FIX </Text>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: "#CED3DC",
+            flexDirection: "column",
+            justifyContent: "center",
+            backgroundColor: "#24CCF9",
+          }}
+        >
+          <Image
+            source={require("./screens/materials/loading.gif")}
+            height={Dimensions.get("window").height + 50}
+            style={{ position: "absolute", width: "100%", zIndex: -10 }}
+          />
+          <View style={{ flexDirection: "row", justifyContent: "center" }} />
         </View>
       );
     }

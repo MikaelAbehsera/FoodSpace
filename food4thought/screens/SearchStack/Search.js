@@ -6,8 +6,8 @@ import {
   ScrollView,
   Image,
   AsyncStorage,
+  Dimensions
 } from "react-native";
-import { Dimensions } from "react-native";
 import { StyleSheet, PixelRatio } from "react-native";
 import SearchStyles from "../styles/SearchStack/SearchStyles.js";
 import Recipe from "./Recipe.js";
