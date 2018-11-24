@@ -25,10 +25,10 @@ const currentHostedLink = "http://e9bf0500.ngrok.io";
 export default class Details extends React.Component {
   constructor(props) {
     super(props);
-    this.starFilled = require("../materials/star.png");
-    this.starEmpty = require("../materials/660463.png");
+    this.heartFilled = require("../materials/heartFilled.png");
+    this.heartEmpty = require("../materials/heartEmpty.png");
     this.state = {
-      star: this.starEmpty,
+      star: this.heartEmpty,
       stars: [],
       faveStatus: false,
       compLoaded: false,
@@ -88,7 +88,7 @@ export default class Details extends React.Component {
             if (that.state.faveStatus) {
               that.setState({
                 compLoaded: that.state.compLoaded,
-                star: that.starFilled,
+                star: that.heartFilled,
                 stars: that.state.stars,
                 faveStatus: that.state.faveStatus,
               });
@@ -103,12 +103,12 @@ export default class Details extends React.Component {
 
   starChange = () => {
     let check = this.state.faveStatus;
-    if (this.state.star === this.starFilled) {
+    if (this.state.star === this.heartFilled) {
       check = false;
-      this.setState({ star: this.starEmpty, stars: this.state.stars });
-    } else if (this.state.star === this.starEmpty) {
+      this.setState({ star: this.heartEmpty, stars: this.state.stars });
+    } else if (this.state.star === this.heartEmpty) {
       check = true;
-      this.setState({ star: this.starFilled, stars: this.state.stars });
+      this.setState({ star: this.heartFilled, stars: this.state.stars });
     }
     this.checkStatus(check);
   };
@@ -219,7 +219,7 @@ export default class Details extends React.Component {
 
           <View
             style={{
-              width: "45%",
+              width: "60%",
               height: 40,
               backgroundColor: "rgba(255,255,255, 0.5)",
               position: "absolute",
@@ -245,12 +245,14 @@ export default class Details extends React.Component {
                 ingredients={recipeData.ingredients}
                 instructions={recipeData.instructions}
               />
-              <View style={{ backgroundColor: "#f85260", width: "100%" }}>
-                <Text style={CollapseStyles.ingredientsText} >Category: {recipeData.category_name}</Text>
-                <Text style={CollapseStyles.ingredientsText} >{recipeData.description}</Text>
-                <Text style={CollapseStyles.ingredientsText} >Difficulty: {recipeData.difficulty}</Text>
-                <Text style={CollapseStyles.ingredientsText} >Overall Rating: {recipeData.overall_rating}</Text>
-                <Text style={CollapseStyles.ingredientsText} >Time to make: {recipeData.time}</Text>
+              <View style={{ backgroundColor: "#f85260", width: "100%", paddingBottom: 20, alignItems: "center"}}>
+                <View style={{ width: "90%"}}>
+                  <Text style={CollapseStyles.ingredientsText} >Category: {recipeData.category_name}</Text>
+                  <Text style={CollapseStyles.ingredientsText} >{recipeData.description}</Text>
+                  <Text style={CollapseStyles.ingredientsText} >Difficulty: {recipeData.difficulty}</Text>
+                  <Text style={CollapseStyles.ingredientsText} >Overall Rating: {recipeData.overall_rating}</Text>
+                  <Text style={CollapseStyles.ingredientsText} >Time to make: {recipeData.time}</Text>
+                </View> 
               </View>
             </View>
           </ScrollView>
