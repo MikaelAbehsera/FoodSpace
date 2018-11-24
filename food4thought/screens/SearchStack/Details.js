@@ -164,8 +164,7 @@ export default class Details extends React.Component {
 
     const { goBack } = this.props.navigation;
     const recipeData = this.props.navigation.state.params.recipe;
-    // console.log("RECIPE DATA RECIPE DATA RECIPE DATA ===> ", recipeData);
-    console.log("RECIPE DATA RECIPE DATA RECIPE DATA ===> ", this.props.navigate);
+    console.log("RECIPE DATA RECIPE DATA RECIPE DATA ===> ", recipeData);
     if (this.state.compLoaded) {
       return (
         <View style={DetailsStyles.container}>
@@ -230,7 +229,7 @@ export default class Details extends React.Component {
               borderRadius: 25,
             }}
             onPress={() => {
-              this.props.navigation.state.params.navigate("Reviews", {hi: "hi"})
+              this.props.navigation.state.params.navigate("Reviews", {hi: "wordsssssssssssssssssssssss", recipeId: recipeData.recipes_id})
               console.log("hi");
           }}
           >

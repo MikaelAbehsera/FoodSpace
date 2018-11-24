@@ -6,7 +6,7 @@ import {
   ScrollView,
   Image,
   AsyncStorage,
-  TouchableHighlight
+  TouchableHighlight,
 } from "react-native";
 import { Dimensions } from "react-native";
 import { StyleSheet, PixelRatio } from "react-native";
@@ -26,6 +26,27 @@ export default class SearchScreen extends React.Component {
 
   componentDidMount() {
     this.setState({ compLoaded: true, reviews: this.state.reviews });
+    let sessionToken;
+
+    AsyncStorage.getItem("sessionToken")
+      .then(value => {
+        if (value) {
+          sessionToken = value;
+        }
+        // console.log("session token ===> ", value);
+      })
+      .then(() => {
+        console.log(`${currentHostedLink}/suggestions/${this.props.navigation.state.params.recipeId}/${sessionToken}`);
+        // axios
+        //   .get(
+        //     `${currentHostedLink}/suggestions/${this.props.navigation.state.params.recipeId}/${sessionToken}`,
+        //   )
+        //   .then(function(response) {})
+        //   .catch(function(error) {
+        //     console.log(error);
+        //   })
+        //   .finally(() => {});
+      });
   }
 
   render() {
