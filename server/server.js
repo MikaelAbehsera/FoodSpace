@@ -892,16 +892,20 @@ app.post("/ratings", (req, res) => {
             recipes_id: recipeId
           })
           .then((avgRates) => {
-            let avgRating = 0;
-            let count = 0;
-            avgRates.forEach((single) => {
-              if (single.rating !== null){
-                avgRating += single.rating
-                count++
-              }
-            })
-            avgRating = avgRating / count
-
+            if (avgRates.length === 0 ) {
+              avgRating = newRating;
+            } else {
+              let avgRating = 0;
+              let count = 0;
+              avgRates.forEach((single) => {
+                if (single.rating !== null){
+                  avgRating += single.rating
+                  count++
+                }
+              })
+              avgRating = avgRating / count
+            }
+            
             knex("recipes")
               .where({
                 id: recipeId
