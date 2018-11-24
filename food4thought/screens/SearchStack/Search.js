@@ -20,7 +20,6 @@ const currentHostedLink = "http://e9bf0500.ngrok.io";
 export default class SearchScreen extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = { compLoaded: false, recipes: [] };
   }
 
@@ -158,11 +157,6 @@ export default class SearchScreen extends React.Component {
             {list}
             <View style={{ width: "100%", height: 200 }} />
           </ScrollView>
-          <Image
-            source={require("../materials/foodBlurred.gif")}
-            height={Dimensions.get("window").height + 1000}
-            style={{ position: "absolute", zIndex: -10 }}
-          />
           {this.props.screenProps.Nav}
         </View>
       );

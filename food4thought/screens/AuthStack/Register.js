@@ -172,15 +172,6 @@ export default class RegisterScreen extends React.Component {
             </View>
           </View>
         </View>
-        <Image
-          source={require("../materials/food.gif")}
-          height={Dimensions.get("window").height + 50}
-          style={{
-            position: "absolute",
-            flex: 1,
-            zIndex: -10,
-          }}
-        />
       </View>
     );
   }

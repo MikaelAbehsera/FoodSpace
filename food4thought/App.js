@@ -5,7 +5,6 @@ import {
   createStackNavigator,
   createBottomTabNavigator,
 } from "react-navigation";
-
 import Home from "./screens/HomeStack/Home.js";
 import Login from "./screens/AuthStack/Login.js";
 import Register from "./screens/AuthStack/Register.js";
@@ -195,6 +194,7 @@ export default class App extends React.Component {
     } else {
       return (
         <View>
+          <Image source={{uri: "https://media0.giphy.com/media/26u4cqVR8dsmedTJ6/giphy.gif"}} />
           <Text>WORST CASE SENARIO HAS HAPPENED, APP IS BROKEN PLS FIX </Text>
         </View>
       );

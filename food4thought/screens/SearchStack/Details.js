@@ -13,131 +13,14 @@ import { StyleSheet, PixelRatio } from "react-native";
 import { Dimensions } from "react-native";
 import axios from "axios";
 import DetailsStyles from "../styles/SearchStack/DetailsStyles.js";
-import CollapseStyles from "../styles/SearchStack/CollapseStyles.js";
-import Recipe from "./Recipe.js";
-import CollapseView from "react-native-collapse-view";
 import ScaledImage from "react-native-scaled-image";
+import CollapseDetails from "./Collapse.js";
+import CollapseStyles from "../styles/SearchStack/CollapseStyles.js";
+import StarSlider from "./Slider.js";
 
 ///////////////// Ngrok Link ///////////////////////////////////
 const currentHostedLink = "http://e9bf0500.ngrok.io";
-///////////////////////////////////////////////////////////////
-
-class CollapseDetails extends Component {
-  _renderTensionViewIngredients = collapse => {
-    return (
-      <View style={CollapseStyles.view}>
-        <ScaledImage
-          source={require("../materials/redtab.png")}
-          height={43}
-          style={{ position: "absolute", bottom: -2 }}
-        />
-        <Text
-          style={{
-            position: "absolute",
-            top: 14,
-            left: 32,
-            fontSize: 20,
-            fontWeight: "700",
-          }}
-        >
-          Ingredients
-        </Text>
-      </View>
-    );
-  };
-  _renderCollapseViewIngredients = collapse => {
-    return (
-      <View style={CollapseStyles.collapseView}>
-        {this.props.ingredients.map((ing, i) => (
-          <Text key={i} style={CollapseStyles.ingredientsText}>
-            {ing.quantity} of {ing.food_type}.
-          </Text>
-        ))}
-      </View>
-    );
-  };
-
-  _renderTensionViewInstructions = collapse => {
-    return (
-      <View style={CollapseStyles.view}>
-        <ScaledImage
-          source={require("../materials/redtab.png")}
-          height={43}
-          style={{ position: "absolute", bottom: -2 }}
-        />
-        <Text
-          style={{
-            position: "absolute",
-            top: 14,
-            left: 32,
-            fontSize: 20,
-            fontWeight: "700",
-          }}
-        >
-          Instructions
-        </Text>
-      </View>
-    );
-  };
-  _renderCollapseViewInstructions = collapse => {
-    return (
-      <View style={CollapseStyles.collapseView}>
-        {this.props.instructions.map((ins, i) => (
-          <Text key={i} style={CollapseStyles.instructionsText}>
-            {ins.step_number}. {ins.step_description}.
-          </Text>
-        ))}
-      </View>
-    );
-  };
-
-  render() {
-    return (
-      <View style={CollapseStyles.container}>
-        <CollapseView
-          tension={100}
-          renderView={this._renderTensionViewIngredients}
-          renderCollapseView={this._renderCollapseViewIngredients}
-        />
-        <CollapseView
-          tension={100}
-          renderView={this._renderTensionViewInstructions}
-          renderCollapseView={this._renderCollapseViewInstructions}
-        />
-      </View>
-    );
-  }
-}
-
-class StarSlider extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.star = require("../materials/star.png");
-    this.greyStar = require("../materials/greyStar.png");
-  }
-
-  render() {
-    return (
-      <View
-        style={{
-          width: "45%",
-          height: "100%",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          top: 10,
-          left: 10,
-        }}
-      >
-        <Image source={this.star} style={{ height: 20, width: 20 }} />
-        <Image source={this.star} style={{ height: 20, width: 20 }} />
-        <Image source={this.star} style={{ height: 20, width: 20 }} />
-        <Image source={this.greyStar} style={{ height: 20, width: 20 }} />
-        <Image source={this.greyStar} style={{ height: 20, width: 20 }} />
-      </View>
-    );
-  }
-}
+////////////////////////////////////////////////////////////////
 
 export default class Details extends React.Component {
   constructor(props) {
@@ -281,7 +164,7 @@ export default class Details extends React.Component {
 
     const { goBack } = this.props.navigation;
     const recipeData = this.props.navigation.state.params.recipe;
-
+    console.log("RECIPE DATA RECIPE DATA RECIPE DATA ===> ", recipeData);
     if (this.state.compLoaded) {
       return (
         <View style={DetailsStyles.container}>
@@ -351,7 +234,6 @@ export default class Details extends React.Component {
           <ScrollView style={DetailsStyles.scrollView}>
             <View style={DetailsStyles.infoView}>
               {/* 
-          - collapsable views for details, ingredients, and instructions
           - slidable 5 star review, if 4th is clicked all 4 get yellow
           - button that when clicked take user to the review page
         */}
@@ -363,13 +245,15 @@ export default class Details extends React.Component {
                 ingredients={recipeData.ingredients}
                 instructions={recipeData.instructions}
               />
+              <View style={{ backgroundColor: "#f85260", width: "100%" }}>
+                <Text style={CollapseStyles.ingredientsText} >Category: {recipeData.category_name}</Text>
+                <Text style={CollapseStyles.ingredientsText} >{recipeData.description}</Text>
+                <Text style={CollapseStyles.ingredientsText} >Difficulty: {recipeData.difficulty}</Text>
+                <Text style={CollapseStyles.ingredientsText} >Overall Rating: {recipeData.overall_rating}</Text>
+                <Text style={CollapseStyles.ingredientsText} >Time to make: {recipeData.time}</Text>
+              </View>
             </View>
           </ScrollView>
-          <Image
-            source={require("../materials/food.gif")}
-            height={Dimensions.get("window").height + 50}
-            style={{ position: "absolute", flex: 1, zIndex: -10 }}
-          />
         </View>
       );
     } else {

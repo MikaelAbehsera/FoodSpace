@@ -62,7 +62,7 @@ export default class Recipe extends Component {
           key={3}
           source={require("../materials/clock.png")}
           style={RecipeStyles.star}
-        />,
+        />
       );
     }
     return arr;
