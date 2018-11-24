@@ -677,14 +677,13 @@ app.get("/suggestions/:recipeID/:sessionToken", (req, res) => {
     }
     knex("suggestions")
       .select("*")
+      .innerJoin("users", "users.id", "suggestions.user_id")
       .where({
         recipes_id: recipeID
       })
       .where({
         user_id: result
       })
-      .innerJoin("recipes", "recipes.id", "suggestions.recipes_id")
-      .innerJoin("users", "users.id", "suggestions.user_id")
       .then((allSuggestions) => {
         res.json({
           suggestions: allSuggestions,
@@ -874,59 +873,59 @@ app.post("/ratings", (req, res) => {
             .where({
               recipes_id: recipeId
             })
-            .update({
-              rating: newRating,
-            });
+            .del()
+            .then(()=> {})
 
-        } else if(userRating.length === 0) {
+        } 
         // first time rating this recipe
-          knex("ratings")
-            .insert({
-              recipes_id: recipeId,
-              rating: newRating,
-              user_id: result
-            });
-        }
         knex("ratings")
-          .where({
-            recipes_id: recipeId
+          .insert({
+            recipes_id: recipeId,
+            rating: newRating,
+            user_id: result
           })
-          .then((avgRates) => {
-            if (avgRates.length === 0 ) {
-              avgRating = newRating;
-            } else {
-              let avgRating = 0;
-              let count = 0;
-              avgRates.forEach((single) => {
-                if (single.rating !== null){
-                  avgRating += single.rating
-                  count++
-                }
-              })
-              avgRating = avgRating / count
-            }
-            
-            knex("recipes")
+          .then(() => {
+            knex("ratings")
               .where({
-                id: recipeId
+                recipes_id: recipeId
               })
-              .update({
-                overall_rating: avgRating
-              })
-              .catch((err) => {
-                res.json({
-                  success: false
-                });
-                res.status(500);
-                console.log(err);
-                throw err;
-              })
-              .finally(() => {
-                res.json({
-                  success: true
-                });
+              .then((avgRates) => {
+                let avgRating = 0;
+                if (avgRates.length === 0 ) {
+                  avgRating = newRating;
+                } else {
+                  let count = 0;
+                  avgRates.forEach((single) => {
+                    if (single.rating !== null){
+                      avgRating += single.rating
+                      count++
+                    }
+                  })
+                  avgRating = avgRating / count
+                }
+                
+                knex("recipes")
+                  .where({
+                    id: recipeId
+                  })
+                  .update({
+                    overall_rating: avgRating
+                  })
+                  .catch((err) => {
+                    res.json({
+                      success: false
+                    });
+                    res.status(500);
+                    console.log(err);
+                    throw err;
+                  })
+                  .finally(() => {
+                    res.json({
+                      success: true
+                    });
+                  });
               });
-          });
+          })        
       });
   });
 });
