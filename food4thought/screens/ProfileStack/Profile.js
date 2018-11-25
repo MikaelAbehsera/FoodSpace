@@ -23,7 +23,31 @@ class Bubble extends React.Component {
   }
 
   reRoute = () => {
+    // send a object with a recipe key+value
+    // const that = this;
+    // let sessionToken;
 
+    AsyncStorage.getItem("sessionToken")
+      .then(value => {
+        if (value) {
+          sessionToken = value;
+        }
+        // console.log("session token ===> ", value);
+      })
+      .then(() => {
+        axios
+          .get( `${currentHostedLink}/specificRecipeDetails/${this.props.recipeId}/${sessionToken}` )
+          .then(function(response) {
+            if(response.data.recipe) {
+              // this.props.navigation.navigate("Details", {recipe: response.data.recipe});
+              console.log("WILL ROUTE TO DETAILS WITH THIS OBJECT",  {recipe: response.data.recipe});
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          })
+          .finally(() => {});
+      });
   }
 
   render() {
@@ -156,7 +180,7 @@ export default class ProfileScreen extends React.Component {
               </View>
               <View style={ProfileStyles.createdView}>
                 {this.state.userProfile.recipesCreated.map((recipe, i) => (
-                  <Bubble key={i} name={recipe.name} />
+                  <Bubble key={i} recipeId={recipe.recipes_id} name={recipe.name} />
                 ))}
               </View>
               <View
@@ -174,7 +198,7 @@ export default class ProfileScreen extends React.Component {
               </View>
               <View style={ProfileStyles.favesView}>
                 {this.state.userProfile.faves.map((fave, i) => (
-                  <Bubble key={i} name={fave.name} created={fave.username} />
+                  <Bubble key={i} recipeId={fave.recipes_id} name={fave.name} created={fave.username} />
                 ))}
               </View>
               <View
