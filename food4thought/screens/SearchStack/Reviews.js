@@ -26,7 +26,7 @@ const comment = t.struct({
 const Options = {
   fields: {
     Comment: {
-      maxLength: 100,
+      maxLength: 150,
     },
   }
 }

@@ -23,8 +23,18 @@ export default class Suggestion extends React.Component {
     this.state = { 
       text: this.props.comment.suggest_text,
       name: this.props.comment.username,
-      img: { uri: (this.props.comment.profileIMG !== "blank") ? this.props.comment.profileIMG : "https://yt3.ggpht.com/a-/ACSszfEdgh-wnNd6QHJppYBHMo1wiWAL5h_R6DFDHA=s900-mo-c-c0xffffffff-rj-k-no" }
+      img: { uri: (this.props.comment.profileIMG !== "blank") ? this.props.comment.profileIMG : "https://yt3.ggpht.com/a-/ACSszfEdgh-wnNd6QHJppYBHMo1wiWAL5h_R6DFDHA=s900-mo-c-c0xffffffff-rj-k-no" },
+      minus: this.props.comment.minus,
+      plus: this.props.comment.plus,
     };
+  }
+
+  plus = () => {
+  console.log("plus");
+  }
+
+  minus = () => {
+  console.log("minus");
   }
 
   render() {
@@ -32,12 +42,26 @@ export default class Suggestion extends React.Component {
     return (
       <View style={SuggestionStyles.container}>
         <View style={SuggestionStyles.messageContainer}>
-          {/* <View style={{borderBottomWidth: 0.5, borderBottomColor: "grey", paddingRight: 20, flexDirection: "row"}}> */}
           <Image style={{height: 18, width: 18, marginRight: 5, borderRadius: 10}} source={this.state.img} />
           <Text> {this.state.name}</Text>          
-          {/* </View> */}
+
+          <View style={{flexDirection: "row", justifyContent: "flex-end", flex:1,}} >
+            
+            <View style={{marginLeft: 5, marginRight: 5,}}>
+              <Text>{this.state.plus}</Text>
+            </View>
+            
+            <TouchableHighlight onPress={()=> this.plus()} style={{width: 20, height: 20,}} ><Image style={{width: 20, height: 20,}} source={require("../materials/upColor.png")} /></TouchableHighlight>
+            
+            <View style={{marginLeft: 5, marginRight: 5,}}>
+              <Text>{this.state.minus}</Text>
+            </View>
+
+            <TouchableHighlight onPress={()=> this.minus()} style={{width: 20, height: 20,}} ><Image style={{width: 20, height: 20,}} source={require("../materials/downColor.png")} /></TouchableHighlight>
+          </View>
+
         </View>
-        <View style={{ flex: 1, flexDirection: "row", justifyContent: "flex-start", width: "100%", marginRight: 10, marginLeft: 42,}} >
+        <View style={{ flex: 1, flexDirection: "row", justifyContent: "flex-start", width: "90%", marginRight: 10, marginLeft: 42,}} >
           <View style={{ marginRight: 10, }} >
             <Text style={{ fontSize: 20, fontWeight: "300", flexWrap: 'wrap'}} >{this.state.text}</Text>
           </View>
