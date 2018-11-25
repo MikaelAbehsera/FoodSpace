@@ -866,25 +866,6 @@ app.post("/minus", (req, res) => {
         })
       }
 
-      .then((current) => {
-        if (check === true) {
-          knex("suggestions")
-            .where({
-              id: suggestionId
-            })
-            .update({
-              plus: current[0].plus++
-            })
-        } else if (check === false) {
-          knex("suggestions")
-            .where({
-              id: suggestionId
-            })
-            .update({
-              plus: current[0].plus--
-            })
-        }
-
       })
       .catch((err) => {
         res.json({
