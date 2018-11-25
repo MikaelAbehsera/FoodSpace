@@ -718,7 +718,7 @@ app.get("/suggestions/:recipeID/:sessionToken", (req, res) => {
       return;
     }
     knex("users")
-      .select("id", "username")
+      .select("users.id", "users.username")
       .innerJoin("suggestions", "users.id", "suggestions.user_id")
       .where({
         recipes_id: recipeID
@@ -830,7 +830,7 @@ app.post("/plus", (req, res) => {
 
 
 
-app.post("/plus", (req, res) => {
+app.post("/minus", (req, res) => {
   const check = req.body.check;
   const sessionToken = req.body.sessionToken;
   const suggestionId = req.body.suggestionId;
@@ -843,9 +843,28 @@ app.post("/plus", (req, res) => {
       return;
     }
     knex("suggestions")
-      .where({
-        id: suggestionId
-      })
+    .where({
+      id: suggestionId
+    })
+    
+    .then((current) => {
+      if (check === true) {
+        knex("suggestions")
+          .where({
+            id: suggestionId
+          })
+          .update({
+            minus: current[0].minus++
+          })
+      } else if (check === false) {
+        knex("suggestions")
+        .where({
+          id: suggestionId
+        })
+        .update({
+          minus: current[0].minus--
+        })
+      }
 
       .then((current) => {
         if (check === true) {
