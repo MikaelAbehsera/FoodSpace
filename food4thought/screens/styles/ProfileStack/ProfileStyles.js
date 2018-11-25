@@ -107,6 +107,7 @@ const ProfileStyles = StyleSheet.create({
     fontWeight: "400",
   },
   titleText: {
+    marginLeft: 5,
     marginTop: 20,
     fontSize: 19,
     fontWeight: "500",

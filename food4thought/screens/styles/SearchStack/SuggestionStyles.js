@@ -13,11 +13,14 @@ import {
 
 const SuggestionStyles = StyleSheet.create({
   container: {
-    marginTop: 15,
+    marginTop: 5,
     marginBottom: 15,
+    paddingBottom: 5,
     minHeight: 20,
     zIndex: 10,
     flexDirection: "column",
+    borderBottomColor: "black",
+    borderBottomWidth: 0.3,
   },
   messageContainer: {
     paddingLeft: 15,

@@ -7,6 +7,7 @@ import {
   Dimensions,
   Image,
   AsyncStorage,
+  TouchableHighlight
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ProfileStyles from "../styles/ProfileStack/ProfileStyles.js";
@@ -21,26 +22,34 @@ class Bubble extends React.Component {
     super(props);
   }
 
+  reRoute = () => {
+    
+  }
+
   render() {
     return (
-      <View style={ProfileStyles.bubbleView}>
-        <Image
-          style={{ height: 23, width: 23, marginLeft: 10, marginRight: 10 }}
-          source={
-            this.props.created
+      <TouchableHighlight onPress={() => {this.reRoute()}}>
+        <View style={ProfileStyles.bubbleView}>
+
+          <Image
+            style={{ height: 23, width: 23, marginLeft: 10, marginRight: 10 }}
+            source={
+              this.props.created
               ? require("../materials/pot.png")
               : require("../materials/recipe.png")
-          }
-        />
-        <Text style={ProfileStyles.bubbleViewText}>
-          "{this.props.name}"
-          {this.props.created ? (
-            <Text style={ProfileStyles.bubbleViewText}>
-              by {this.props.created}.
-            </Text>
-          ) : null}
-        </Text>
-      </View>
+            }
+            />
+          <Text style={ProfileStyles.bubbleViewText}>
+            "{this.props.name}"
+            {this.props.created ? (
+              <Text style={ProfileStyles.bubbleViewText}>
+                by {this.props.created}.
+              </Text>
+            ) : null}
+          </Text>
+
+        </View>
+    </TouchableHighlight>
     );
   }
 }
