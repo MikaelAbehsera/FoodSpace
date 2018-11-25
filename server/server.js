@@ -490,82 +490,50 @@ app.get("/list/:categoryName", (req, res) => {
 
 
 
-app.get("/recipe_details", (req, res) => {
+// app.get("/recipe_details", (req, res) => {
 
-  console.log("params from frontend (details get)===> ", req.params);
-  const sessionToken = req.params.sessionToken;
-  const recipeID = req.body.recipeID;
-  authenticateToken(sessionToken, function (result) {
-    if (!res) {
-      res.json({
-        success: false
-      });
-      return;
-    }
-    knex
-      .select("*")
-      .from("Recipes")
-      .where({
-        id: recipeID
-      })
-      .innerJoin("instructions", "instructions.recipe_id", "recipes.id")
-      .innerJoin("ingredients", "ingredients.recipes_id", "recipes.id")
-      .innerJoin("measurements", "measurement.id", "ingredients.measurement_id")
-      .then((recipeDetails) => {
-
-
-      })
-      .catch((err) => {
-        res.json({
-          success: false
-        });
-        res.status(404);
-        console.log(err);
-        throw err;
-      })
-      .finally(() => {
-        res.json({
-          recipeDetails: recipeDetails,
-          success: true
-        });
-      });
-  });
-});
+//   console.log("params from frontend (details get)===> ", req.params);
+//   const sessionToken = req.params.sessionToken;
+//   const recipeID = req.body.recipeID;
+//   authenticateToken(sessionToken, function (result) {
+//     if (!res) {
+//       res.json({
+//         success: false
+//       });
+//       return;
+//     }
+//     knex
+//       .select("*")
+//       .from("Recipes")
+//       .where({
+//         id: recipeID
+//       })
+//       .innerJoin("instructions", "instructions.recipe_id", "recipes.id")
+//       .innerJoin("ingredients", "ingredients.recipes_id", "recipes.id")
+//       .innerJoin("measurements", "measurement.id", "ingredients.measurement_id")
+//       .then((recipeDetails) => {
 
 
-// TERRY'S BEAUTIFUL ROUTE
+//       })
+//       .catch((err) => {
+//         res.json({
+//           success: false
+//         });
+//         res.status(404);
+//         console.log(err);
+//         throw err;
+//       })
+//       .finally(() => {
+//         res.json({
+//           recipeDetails: recipeDetails,
+//           success: true
+//         });
+//       });
+//   });
+// });
+
+
 app.get("/specificRecipeDetails/:recipeId/:sessionToken", (req, res) => {
-  const recipes_id = req.params.recipeId;
-  const sessionToken = req.params.sessionToken;
-
-  authenticateToken(sessionToken, function (result) {
-    if (!res) {
-      res.json({
-        success: false
-      });
-      return;
-    }
-    knex("recipes")
-      .innerJoin("recipes", "recipes.id", "faves.recipes_id")
-      .where({
-        user_id: result
-      })
-      .where({
-        recipes_id: recipes_id
-      })
-      .then((result) => {
-        res.json({
-          result: result,
-          success: true
-        });
-      });
-  });
-});
-
-
-
-
-app.get("charlotteRecipeDetails", (req, res) => {
   const recipes_id = req.params.recipeid;
   const sessionToken = req.params.sessionToken;
 
