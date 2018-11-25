@@ -718,7 +718,7 @@ app.get("/suggestions/:recipeID/:sessionToken", (req, res) => {
       return;
     }
     knex("users")
-      .select("id", "username")
+      .select("users.id", "users.username")
       .innerJoin("suggestions", "users.id", "suggestions.user_id")
       .where({
         recipes_id: recipeID
