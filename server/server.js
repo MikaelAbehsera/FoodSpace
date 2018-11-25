@@ -830,7 +830,7 @@ app.post("/plus", (req, res) => {
 
 
 
-app.post("/plus", (req, res) => {
+app.post("/minus", (req, res) => {
   const check = req.body.check;
   const sessionToken = req.body.sessionToken;
   const suggestionId = req.body.suggestionId;
@@ -854,7 +854,7 @@ app.post("/plus", (req, res) => {
             id: suggestionId
           })
           .update({
-            plus: current[0].plus++
+            minus: current[0].minus++
           })
       } else if (check === false) {
         knex("suggestions")
@@ -862,7 +862,7 @@ app.post("/plus", (req, res) => {
           id: suggestionId
         })
         .update({
-          plus: current[0].plus--
+          minus: current[0].minus--
         })
       }
 
