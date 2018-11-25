@@ -600,7 +600,7 @@ app.get("/specificRecipeDetails/:recipeId/:sessionToken", (req, res) => {
                 });
               });
           });
-      })
+      });
   });
 });
 
@@ -798,7 +798,7 @@ app.post("/plus", (req, res) => {
             })
             .update({
               plus: current[0].plus++
-            })
+            });
         } else if (check === false) {
           knex("suggestions")
             .where({
@@ -806,7 +806,7 @@ app.post("/plus", (req, res) => {
             })
             .update({
               plus: current[0].plus--
-            })
+            });
         }
 
       })
@@ -843,28 +843,28 @@ app.post("/minus", (req, res) => {
       return;
     }
     knex("suggestions")
-    .where({
-      id: suggestionId
-    })
+      .where({
+        id: suggestionId
+      })
     
-    .then((current) => {
-      if (check === true) {
-        knex("suggestions")
-          .where({
-            id: suggestionId
-          })
-          .update({
-            minus: current[0].minus++
-          })
-      } else if (check === false) {
-        knex("suggestions")
-        .where({
-          id: suggestionId
-        })
-        .update({
-          minus: current[0].minus--
-        })
-      }
+      .then((current) => {
+        if (check === true) {
+          knex("suggestions")
+            .where({
+              id: suggestionId
+            })
+            .update({
+              minus: current[0].minus++
+            });
+        } else if (check === false) {
+          knex("suggestions")
+            .where({
+              id: suggestionId
+            })
+            .update({
+              minus: current[0].minus--
+            });
+        }
 
       })
       .catch((err) => {
@@ -922,7 +922,7 @@ app.post("/ratings", (req, res) => {
               recipes_id: recipeId
             })
             .del()
-            .then(() => {})
+            .then(() => {});
 
         }
         // first time rating this recipe
@@ -945,11 +945,11 @@ app.post("/ratings", (req, res) => {
                   let count = 0;
                   avgRates.forEach((single) => {
                     if (single.rating !== null) {
-                      avgRating += single.rating
-                      count++
+                      avgRating += single.rating;
+                      count++;
                     }
-                  })
-                  avgRating = avgRating / count
+                  });
+                  avgRating = avgRating / count;
                 }
 
                 knex("recipes")
@@ -973,7 +973,7 @@ app.post("/ratings", (req, res) => {
                     });
                   });
               });
-          })
+          });
       });
   });
 });
