@@ -16,7 +16,8 @@ import {
 const DetailsStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    // backgroundColor: "white",
+    backgroundColor: "#E0392F",
   },
   scrollView: {
     flex: 1,

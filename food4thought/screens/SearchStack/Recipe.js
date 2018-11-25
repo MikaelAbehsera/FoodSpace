@@ -97,7 +97,7 @@ export default class Recipe extends Component {
     // SET STYLE SHEET
     let right = {
       flex: 1,
-      minHeight: 50,
+      minHeight: 60,
       borderTopWidth: 5,
       borderBottomColor: "black",
       borderBottomWidth: 3,

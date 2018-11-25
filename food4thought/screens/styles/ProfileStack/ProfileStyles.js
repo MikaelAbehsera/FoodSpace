@@ -115,8 +115,8 @@ const ProfileStyles = StyleSheet.create({
   signoutButton: {
     width: 110,
     position: "absolute",
-    right: 10,
-    bottom: 40,
+    right: 2,
+    bottom: 5,
   },
 
 });

@@ -7,7 +7,8 @@ import {
   Dimensions,
   Image,
   AsyncStorage,
-  TouchableHighlight
+  TouchableHighlight,
+  Modal
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ProfileStyles from "../styles/ProfileStack/ProfileStyles.js";
@@ -86,7 +87,7 @@ export default class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { compLoaded: false, userProfile: {} };
+    this.state = { compLoaded: false, userProfile: {}, modalVisible: false,};
   }
 
   componentDidMount() {
@@ -108,16 +109,19 @@ export default class ProfileScreen extends React.Component {
             that.setState({
               compLoaded: false,
               userProfile: that.state.userProfile,
+              modalVisible: that.state.modalVisible,
             });
             // set state to new object
             that.setState({
               compLoaded: false,
               userProfile: response.data.userProfile,
+              modalVisible: that.state.modalVisible,
             });
             // state load finsished set new state
             that.setState({
               compLoaded: true,
               userProfile: that.state.userProfile,
+              modalVisible: that.state.modalVisible,
             });
           })
           .catch(function(error) {
@@ -134,29 +138,34 @@ export default class ProfileScreen extends React.Component {
     that.props.screenProps.changePage("Auth");
   };
 
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
+
   render() {
     const {navigate} = this.props.navigation;
 
     if (this.state.compLoaded) {
       return (
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }} >
+          <View style={{ position: "absolute", width: "90%", height: "100%",backgroundColor: "rgba(248, 82, 96, 1)",zIndex: -10, borderLeftWidth: 0.7, borderRightWidth: 0.7,}} />
+          <View style={{position: "absolute", top: 0, width: "100%", height: 25, backgroundColor: "black" }} />
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", width: "89%" }} >
           <ScrollView style={ProfileStyles.scrollView}>
-            <View
-              style={{ width: "100%", height: 25, backgroundColor: "black" }}
-            />
+          <View style={{width: "100%", height: 25}} />
             <View style={ProfileStyles.header}>
               <View style={ProfileStyles.headerTop}>
                 <View style={ProfileStyles.profilePictureView}>
+                {/* <TouchableHighlight onPress={() => { this.setModalVisible(true) }}> */}
                   <Image
                     style={ProfileStyles.profilePicture}
                     source={{
                       uri: this.state.userProfile.userInfo.profileIMG
-                        ? this.state.userProfile.userInfo.profileIMG
-                        : "https://yt3.ggpht.com/a-/ACSszfEdgh-wnNd6QHJppYBHMo1wiWAL5h_R6DFDHA=s900-mo-c-c0xffffffff-rj-k-no",
+                      ? this.state.userProfile.userInfo.profileIMG
+                      : "https://yt3.ggpht.com/a-/ACSszfEdgh-wnNd6QHJppYBHMo1wiWAL5h_R6DFDHA=s900-mo-c-c0xffffffff-rj-k-no",
                     }}
-                  />
+                    />
+                  {/* </TouchableHighlight> */}
                 </View>
               </View>
               <View style={ProfileStyles.headerRight}>
@@ -193,11 +202,6 @@ export default class ProfileScreen extends React.Component {
                 style={{ borderBottomWidth: 0.4, borderBottomColor: "grey" }}
               />
             </View>
-
-            {/* 
-            if profile clicks on recipe, get that recipe, and renavigate to details page with recipe details  
-          */}
-
             <View style={ProfileStyles.favesContainer}>
               <View>
                 <Text style={ProfileStyles.titleText}>Favorite Recipes</Text>
@@ -215,7 +219,7 @@ export default class ProfileScreen extends React.Component {
           <View style={ProfileStyles.signoutButton}>
             <Button title="Signout" onPress={this.signout} color="red" />
           </View>
-
+          </View>
           {this.props.screenProps.Nav}
         </View>
       );
