@@ -563,6 +563,80 @@ app.get("/TerryrecipeDetails", (req, res) => {
 });
 
 
+
+
+app.get("charlotteRecipeDetails", (req, res) => {
+  const recipes_id = req.params.recipeid;
+  const sessionToken = req.params.sessionToken;
+
+  authenticateToken(sessionToken, function (result) {
+    if (!res) {
+      res.json({
+        success: false
+      });
+      return;
+    }
+
+  knex
+    .select("*")
+    .from("recipes")
+    .where({
+      recipes_id: recipes_id
+    })
+    .innerJoin("tags", "recipes.id", "tags.recipes_id")
+    .innerJoin("categories", "tags.category_id", "categories.id")
+    .then((allRecipes) => {
+      allRecipes.forEach((single) => {
+        single["instructions"] = [];
+        single["ingredients"] = [];
+      });
+
+      knex("ingredients")
+        .select("food_type", "quantity", "recipes_id")
+        .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
+        .then((resultIngredients) => {
+          knex("instructions")
+            .select("step_description", "step_number", "recipes_id")
+            .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
+            .then((resultInstructions) => {
+
+              resultIngredients.forEach((single) => {
+                allRecipes.forEach((singleRecipe) => {
+                  if (single.recipes_id === singleRecipe.id) {
+                    singleRecipe["ingredients"].push(single);
+                  }
+                });
+              });
+
+              resultInstructions.forEach((single) => {
+                allRecipes.forEach((singleRecipe) => {
+                  if (single.recipes_id === singleRecipe.id) {
+                    singleRecipe["instructions"].push(single);
+                  }
+                });
+              });
+
+            })
+            .catch((err) => {
+              res.json({
+                success: false
+              });
+              res.status(404);
+              console.log(err);
+              throw err;
+            })
+            .finally(() => {
+              res.json({
+                allRecipes: allRecipes,
+                success: true
+              });
+            });
+        });
+    })
+  });
+});
+
+
 // =======================================================
 
 app.post("/fave", (req, res) => {
@@ -675,9 +749,9 @@ app.get("/suggestions/:recipeID/:sessionToken", (req, res) => {
       });
       return;
     }
-    knex("suggestions")
-      .select("*")
-      .innerJoin("users", "users.id", "suggestions.user_id")
+    knex("users")
+      .select("id", "username")
+      .innerJoin("suggestions", "users.id", "suggestions.user_id")
       .where({
         recipes_id: recipeID
       })
@@ -732,9 +806,9 @@ app.post("/suggestion", (req, res) => {
 
 
 app.post("/plus", (req, res) => {
-  const recipeID = req.body.recpies_id;
   const check = req.body.check;
   const sessionToken = req.body.sessionToken;
+  const suggestionId = req.body.suggestionId;
 
   authenticateToken(sessionToken, function (result) {
     if (!res) {
@@ -746,18 +820,16 @@ app.post("/plus", (req, res) => {
     if (check === true) {
       knex("suggestions")
         .where({
-          recipes_id: recipeID
+          id: suggestionId
         })
-        .where({
-          user_id: result
-        })
-        .then((data) => {
+
+        .then((currentPlus) => {
           knex("suggestions")
             .where({
-              recipe_id: recipeID
+              id: suggestionId
             })
             .update({
-              plus: data[0].plus++
+              plus: currentPlus[0].plus++
             })
             .catch((err) => {
               res.json({
@@ -773,7 +845,8 @@ app.post("/plus", (req, res) => {
               });
             });
         });
-
+    } if (check === false) {
+      
     }
   });
 
