@@ -785,47 +785,55 @@ app.post("/plus", (req, res) => {
       });
       return;
     }
-    if (check === true) {
-      knex("suggestions")
+    knex("suggestions")
+    .where({
+      id: suggestionId
+    })
+    
+    .then((current) => {
+      if (check === true) {
+        knex("suggestions")
+          .where({
+            id: suggestionId
+          })
+          .update({
+            plus: current[0].plus++
+          })
+      } else if (check === false) {
+        knex("suggestions")
         .where({
           id: suggestionId
         })
+        .update({
+          plus: current[0].plus--
+        })
+      }
 
-        .then((currentPlus) => {
-          knex("suggestions")
-            .where({
-              id: suggestionId
-            })
-            .update({
-              plus: currentPlus[0].plus++
-            })
-            .catch((err) => {
-              res.json({
-                success: false
-              });
-              res.status(404);
-              console.log(err);
-              throw err;
-            })
-            .finally(() => {
-              res.json({
-                success: true
-              });
-            });
-        });
-    } if (check === false) {
-      
-    }
+    })
+    .catch((err) => {
+      res.json({
+        success: false
+      });
+      res.status(404);
+      console.log(err);
+      throw err;
+    })
+    .finally(() => {
+      res.json({
+        success: true
+      });
+    });
+
   });
 
 });
 
 
 
-app.post("/minus", (req, res) => {
-  const recipeID = req.body.recpies_id;
+app.post("/plus", (req, res) => {
   const check = req.body.check;
   const sessionToken = req.body.sessionToken;
+  const suggestionId = req.body.suggestionId;
 
   authenticateToken(sessionToken, function (result) {
     if (!res) {
@@ -834,44 +842,48 @@ app.post("/minus", (req, res) => {
       });
       return;
     }
-
-    if (check === true) {
-      // should set up a check === false to remove the  added minus
-      knex("suggestions")
+    knex("suggestions")
+    .where({
+      id: suggestionId
+    })
+    
+    .then((current) => {
+      if (check === true) {
+        knex("suggestions")
+          .where({
+            id: suggestionId
+          })
+          .update({
+            plus: current[0].plus++
+          })
+      } else if (check === false) {
+        knex("suggestions")
         .where({
-          recipe_id: recipeID
+          id: suggestionId
         })
-        .where({
-          user_id: result
+        .update({
+          plus: current[0].plus--
         })
-        .then((data) => {
-          knex("suggestions")
-            .where({
-              recipe_id: recipeID
-            })
-            .update({
-              minus: data[0].minus--
-            })
-            .catch((err) => {
-              res.json({
-                success: false
-              });
-              res.status(404);
-              console.log(err);
-              throw err;
-            })
-            .finally(() => {
-              res.json({
-                success: true
-              });
-            });
+      }
 
+    })
+    .catch((err) => {
+      res.json({
+        success: false
+      });
+      res.status(404);
+      console.log(err);
+      throw err;
+    })
+    .finally(() => {
+      res.json({
+        success: true
+      });
+    });
 
-        });
-    }
   });
-});
 
+});
 
 // =======================================================
 
