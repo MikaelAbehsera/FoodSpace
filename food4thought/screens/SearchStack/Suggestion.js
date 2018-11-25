@@ -28,18 +28,18 @@ export default class Suggestion extends React.Component {
   }
 
   render() {
-    console.log("STATE STATE STATE ===> ", this.state);
+    // console.log("STATE STATE STATE ===> ", this.state);
     return (
       <View style={SuggestionStyles.container}>
         <View style={SuggestionStyles.messageContainer}>
           {/* <View style={{borderBottomWidth: 0.5, borderBottomColor: "grey", paddingRight: 20, flexDirection: "row"}}> */}
-          <Image style={{height: 15, width: 15, marginRight: 5, borderRadius: 10}} source={this.state.img} />
+          <Image style={{height: 18, width: 18, marginRight: 5, borderRadius: 10}} source={this.state.img} />
           <Text> {this.state.name}</Text>          
           {/* </View> */}
         </View>
         <View style={{ flex: 1, flexDirection: "row", justifyContent: "flex-start", width: "100%", marginRight: 10, marginLeft: 42,}} >
           <View style={{ marginRight: 10, }} >
-            <Text style={{ fontSize: 20, fontWeight: "300", }} >{this.state.text}</Text>
+            <Text style={{ fontSize: 20, fontWeight: "300", flexWrap: 'wrap'}} >{this.state.text}</Text>
           </View>
         </View>
       </View>

@@ -694,10 +694,11 @@ app.get("/suggestions/:recipeID/:sessionToken", (req, res) => {
 app.post("/suggestion", (req, res) => {
   // add suggestions to a recipe
   const recipeId = req.body.recipeId;
-  const newSuggestText = req.body.text;
+  const newSuggestText = req.body.newSuggestText;
+  const sessionToken = req.body.sessionToken;
 
-  console.log("params from frontend (suggestions get)===> ", req.params);
-  const sessionToken = req.params.sessionToken;
+  console.log("params from frontend (suggestions post!!!!!!!!!!)===> ", req.body);
+  
   authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({

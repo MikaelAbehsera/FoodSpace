@@ -37,6 +37,10 @@ export default class ReviewScreen extends React.Component {
   }
 
   componentDidMount() {
+    this.getComments();
+  }
+
+  getComments = () => {
     this.setState({ compLoaded: true, comments: this.state.comments });
     const that = this;
     let sessionToken;
@@ -69,12 +73,14 @@ export default class ReviewScreen extends React.Component {
   }
 
   sendComment = () => {
+    console.log("send func running")
     const form = this._form.getValue();
     const that = this;
     let sessionToken;
+    console.log("comment comment comment ===> ", form.Comment)
     let sentObject = {
-      newSuggestText: form.comment,
-      recipeId: recipeId
+      newSuggestText: form.Comment,
+      recipeId: this.props.navigation.state.params.recipeId
     }
      AsyncStorage.getItem("sessionToken")
       .then(value => {
@@ -88,12 +94,14 @@ export default class ReviewScreen extends React.Component {
         axios
           .post( `${currentHostedLink}/suggestion`, sentObject)
           .then(function(response) {
-            
+            console.log(response.data)
           })
           .catch(function(error) {
             console.log(error);
           })
-          .finally(() => {});
+          .finally(() => {
+            this.getComments();
+          });
       });
   }
 
@@ -119,12 +127,10 @@ export default class ReviewScreen extends React.Component {
               />  
             </View>
             <View style={{width: "18%", flexDirection: "column", justifyContent: "flex-end", paddingBottom: 17,}} >
-              <Button title="Enter" onPress={()=> this.sendComment} />  
+              <Button title="Enter" onPress={()=> {this.sendComment(); console.log("enter comment") }} />  
             </View>
           </View>
           <ScrollView>
-            {comments}
-            {comments}
             {comments}
           </ScrollView>
 
