@@ -26,7 +26,6 @@ class Bubble extends React.Component {
     // send a object with a recipe key+value
     const that = this;
     let sessionToken;
-    const { navigate } = this.props.navigation;
 
     AsyncStorage.getItem("sessionToken")
       .then(value => {
@@ -41,11 +40,9 @@ class Bubble extends React.Component {
           .then(function(response) {
             if(response.data) {
               console.log("ROUTING TO DETAILS PAGE")
-              const { navigate } = that.props.navigation;
-              that.props.screenProps.changePage("Search");
-              navigate("Details", { recipe: response.data.allRecipes });
-
-              // console.log("WILL ROUTE TO DETAILS WITH THIS OBJECT",  { recipe: response.data.allRecipes });
+              // console.log(Object.keys(that.props))
+              that.props.navigate("Details", { recipe: response.data.allRecipes[0] });
+              console.log("WILL ROUTE TO DETAILS WITH THIS OBJECT",  { recipe: response.data.allRecipes[0] });
             }
           })
           .catch(function(error) {
@@ -55,7 +52,9 @@ class Bubble extends React.Component {
       });
   }
 
+
   render() {
+
     return (
       <TouchableHighlight underlayColor="#F85260" onPress={() => {this.reRoute()}}>
         <View style={ProfileStyles.bubbleView}>
@@ -136,6 +135,8 @@ export default class ProfileScreen extends React.Component {
   };
 
   render() {
+    const {navigate} = this.props.navigation;
+
     if (this.state.compLoaded) {
       return (
         <View
@@ -185,7 +186,7 @@ export default class ProfileScreen extends React.Component {
               </View>
               <View style={ProfileStyles.createdView}>
                 {this.state.userProfile.recipesCreated.map((recipe, i) => (
-                  <Bubble key={i} recipeId={recipe.recipes_id} name={recipe.name} />
+                  <Bubble key={i} navigate={navigate} recipeId={recipe.recipes_id} name={recipe.name} />
                 ))}
               </View>
               <View
@@ -203,7 +204,7 @@ export default class ProfileScreen extends React.Component {
               </View>
               <View style={ProfileStyles.favesView}>
                 {this.state.userProfile.faves.map((fave, i) => (
-                  <Bubble key={i} recipeId={fave.recipes_id} name={fave.name} created={fave.username} />
+                  <Bubble key={i} navigate={navigate} recipeId={fave.recipes_id} name={fave.name} created={fave.username} />
                 ))}
               </View>
               <View

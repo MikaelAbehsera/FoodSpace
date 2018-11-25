@@ -95,6 +95,12 @@ const ProfileStack = createStackNavigator(
     Profile: {
       screen: Profile,
     },
+    Details: {
+      screen: Details,
+    },
+    Reviews: {
+      screen: Reviews,
+    },
   },
   {
     headerMode: "none",
