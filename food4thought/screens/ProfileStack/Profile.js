@@ -23,12 +23,12 @@ class Bubble extends React.Component {
   }
 
   reRoute = () => {
-    
+
   }
 
   render() {
     return (
-      <TouchableHighlight onPress={() => {this.reRoute()}}>
+      <TouchableHighlight underlayColor="#F85260" onPress={() => {this.reRoute()}}>
         <View style={ProfileStyles.bubbleView}>
 
           <Image
