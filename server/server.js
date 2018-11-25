@@ -533,9 +533,9 @@ app.get("/recipe_details", (req, res) => {
 });
 
 
-
-app.get("/TerryrecipeDetails", (req, res) => {
-  const recipes_id = req.params.recipeid;
+// TERRY'S BEAUTIFUL ROUTE
+app.get("/specificRecipeDetails/:recipeId/:sessionToken", (req, res) => {
+  const recipes_id = req.params.recipeId;
   const sessionToken = req.params.sessionToken;
 
   authenticateToken(sessionToken, function (result) {
