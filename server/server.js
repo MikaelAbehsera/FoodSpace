@@ -192,19 +192,19 @@ app.get("/profile/:sessionToken", (req, res) => {
                   .innerJoin("recipes", "mademeals.recipes_id", "recipes.id")
                   .then((Usermademeals) => {
                     userProfile["Usermademeals"] = Usermademeals;
-                    
+
                     knex
                       .select("*")
                       .from("recipes")
                       .innerJoin("tags", "recipes.id", "tags.recipes_id")
                       .innerJoin("categories", "tags.category_id", "categories.id")
-              
+
                       .then((allRecipes) => {
                         allRecipes.forEach((single) => {
                           single["instructions"] = [];
                           single["ingredients"] = [];
                         });
-              
+
                         knex("ingredients")
                           .select("food_type", "quantity", "recipes_id")
                           .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
@@ -213,7 +213,7 @@ app.get("/profile/:sessionToken", (req, res) => {
                               .select("step_description", "step_number", "recipes_id")
                               .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
                               .then((resultInstructions) => {
-              
+
                                 resultIngredients.forEach((single) => {
                                   allRecipes.forEach((singleRecipe) => {
                                     if (single.recipes_id === singleRecipe.id) {
@@ -221,7 +221,7 @@ app.get("/profile/:sessionToken", (req, res) => {
                                     }
                                   });
                                 });
-              
+
                                 resultInstructions.forEach((single) => {
                                   allRecipes.forEach((singleRecipe) => {
                                     if (single.recipes_id === singleRecipe.id) {
@@ -229,9 +229,9 @@ app.get("/profile/:sessionToken", (req, res) => {
                                     }
                                   });
                                 });
-              
+
                               })
-                            ///
+                              ///
                               .catch((err) => {
                                 res.json({
                                   success: false
@@ -252,7 +252,7 @@ app.get("/profile/:sessionToken", (req, res) => {
                       });
 
                   });
-                
+
               });
           });
       });
@@ -545,62 +545,62 @@ app.get("/specificRecipeDetails/:recipeId/:sessionToken", (req, res) => {
       return;
     }
 
-  knex
-    .select("*")
-    .from("recipes")
-    .where({
-      recipes_id: recipes_id
-    })
-    .innerJoin("tags", "recipes.id", "tags.recipes_id")
-    .innerJoin("categories", "tags.category_id", "categories.id")
-    .then((allRecipes) => {
-      allRecipes.forEach((single) => {
-        single["instructions"] = [];
-        single["ingredients"] = [];
-      });
-
-      knex("ingredients")
-        .select("food_type", "quantity", "recipes_id")
-        .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
-        .then((resultIngredients) => {
-          knex("instructions")
-            .select("step_description", "step_number", "recipes_id")
-            .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
-            .then((resultInstructions) => {
-
-              resultIngredients.forEach((single) => {
-                allRecipes.forEach((singleRecipe) => {
-                  if (single.recipes_id === singleRecipe.id) {
-                    singleRecipe["ingredients"].push(single);
-                  }
-                });
-              });
-
-              resultInstructions.forEach((single) => {
-                allRecipes.forEach((singleRecipe) => {
-                  if (single.recipes_id === singleRecipe.id) {
-                    singleRecipe["instructions"].push(single);
-                  }
-                });
-              });
-
-            })
-            .catch((err) => {
-              res.json({
-                success: false
-              });
-              res.status(404);
-              console.log(err);
-              throw err;
-            })
-            .finally(() => {
-              res.json({
-                allRecipes: allRecipes,
-                success: true
-              });
-            });
+    knex
+      .select("*")
+      .from("recipes")
+      .where({
+        recipes_id: recipes_id
+      })
+      .innerJoin("tags", "recipes.id", "tags.recipes_id")
+      .innerJoin("categories", "tags.category_id", "categories.id")
+      .then((allRecipes) => {
+        allRecipes.forEach((single) => {
+          single["instructions"] = [];
+          single["ingredients"] = [];
         });
-    })
+
+        knex("ingredients")
+          .select("food_type", "quantity", "recipes_id")
+          .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
+          .then((resultIngredients) => {
+            knex("instructions")
+              .select("step_description", "step_number", "recipes_id")
+              .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
+              .then((resultInstructions) => {
+
+                resultIngredients.forEach((single) => {
+                  allRecipes.forEach((singleRecipe) => {
+                    if (single.recipes_id === singleRecipe.id) {
+                      singleRecipe["ingredients"].push(single);
+                    }
+                  });
+                });
+
+                resultInstructions.forEach((single) => {
+                  allRecipes.forEach((singleRecipe) => {
+                    if (single.recipes_id === singleRecipe.id) {
+                      singleRecipe["instructions"].push(single);
+                    }
+                  });
+                });
+
+              })
+              .catch((err) => {
+                res.json({
+                  success: false
+                });
+                res.status(404);
+                console.log(err);
+                throw err;
+              })
+              .finally(() => {
+                res.json({
+                  allRecipes: allRecipes,
+                  success: true
+                });
+              });
+          });
+      })
   });
 });
 
@@ -740,7 +740,7 @@ app.post("/suggestion", (req, res) => {
   const sessionToken = req.body.sessionToken;
 
   console.log("params from frontend (suggestions post!!!!!!!!!!)===> ", req.body);
-  
+
   authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
@@ -786,43 +786,43 @@ app.post("/plus", (req, res) => {
       return;
     }
     knex("suggestions")
-    .where({
-      id: suggestionId
-    })
-    
-    .then((current) => {
-      if (check === true) {
-        knex("suggestions")
-          .where({
-            id: suggestionId
-          })
-          .update({
-            plus: current[0].plus++
-          })
-      } else if (check === false) {
-        knex("suggestions")
-        .where({
-          id: suggestionId
-        })
-        .update({
-          plus: current[0].plus--
-        })
-      }
+      .where({
+        id: suggestionId
+      })
 
-    })
-    .catch((err) => {
-      res.json({
-        success: false
+      .then((current) => {
+        if (check === true) {
+          knex("suggestions")
+            .where({
+              id: suggestionId
+            })
+            .update({
+              plus: current[0].plus++
+            })
+        } else if (check === false) {
+          knex("suggestions")
+            .where({
+              id: suggestionId
+            })
+            .update({
+              plus: current[0].plus--
+            })
+        }
+
+      })
+      .catch((err) => {
+        res.json({
+          success: false
+        });
+        res.status(404);
+        console.log(err);
+        throw err;
+      })
+      .finally(() => {
+        res.json({
+          success: true
+        });
       });
-      res.status(404);
-      console.log(err);
-      throw err;
-    })
-    .finally(() => {
-      res.json({
-        success: true
-      });
-    });
 
   });
 
@@ -866,20 +866,39 @@ app.post("/minus", (req, res) => {
         })
       }
 
-    })
-    .catch((err) => {
-      res.json({
-        success: false
+      .then((current) => {
+        if (check === true) {
+          knex("suggestions")
+            .where({
+              id: suggestionId
+            })
+            .update({
+              plus: current[0].plus++
+            })
+        } else if (check === false) {
+          knex("suggestions")
+            .where({
+              id: suggestionId
+            })
+            .update({
+              plus: current[0].plus--
+            })
+        }
+
+      })
+      .catch((err) => {
+        res.json({
+          success: false
+        });
+        res.status(404);
+        console.log(err);
+        throw err;
+      })
+      .finally(() => {
+        res.json({
+          success: true
+        });
       });
-      res.status(404);
-      console.log(err);
-      throw err;
-    })
-    .finally(() => {
-      res.json({
-        success: true
-      });
-    });
 
   });
 
@@ -912,8 +931,8 @@ app.post("/ratings", (req, res) => {
         recipes_id: recipeId
       })
       .then((userRating) => {
-        if(userRating.length !== 0) {
-        // user already offered rating -> update needed
+        if (userRating.length !== 0) {
+          // user already offered rating -> update needed
           knex("ratings")
             .where({
               user_id: result
@@ -922,9 +941,9 @@ app.post("/ratings", (req, res) => {
               recipes_id: recipeId
             })
             .del()
-            .then(()=> {})
+            .then(() => {})
 
-        } 
+        }
         // first time rating this recipe
         knex("ratings")
           .insert({
@@ -939,19 +958,19 @@ app.post("/ratings", (req, res) => {
               })
               .then((avgRates) => {
                 let avgRating = 0;
-                if (avgRates.length === 0 ) {
+                if (avgRates.length === 0) {
                   avgRating = newRating;
                 } else {
                   let count = 0;
                   avgRates.forEach((single) => {
-                    if (single.rating !== null){
+                    if (single.rating !== null) {
                       avgRating += single.rating
                       count++
                     }
                   })
                   avgRating = avgRating / count
                 }
-                
+
                 knex("recipes")
                   .where({
                     id: recipeId
@@ -973,7 +992,7 @@ app.post("/ratings", (req, res) => {
                     });
                   });
               });
-          })        
+          })
       });
   });
 });
@@ -1001,7 +1020,7 @@ app.get("/userRatings/:sessionToken/:recipeId", (req, res) => {
         recipes_id: recipeId
       })
       .then((userRating) => {
-        if (userRating.length === 0 ) {
+        if (userRating.length === 0) {
           // user did not offer rating
           res.json({
             success: false
