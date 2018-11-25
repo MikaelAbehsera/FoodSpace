@@ -24,8 +24,9 @@ class Bubble extends React.Component {
 
   reRoute = () => {
     // send a object with a recipe key+value
-    // const that = this;
-    // let sessionToken;
+    const that = this;
+    let sessionToken;
+    const { navigate } = this.props.navigation;
 
     AsyncStorage.getItem("sessionToken")
       .then(value => {
@@ -36,11 +37,15 @@ class Bubble extends React.Component {
       })
       .then(() => {
         axios
-          .get( `${currentHostedLink}/specificRecipeDetails/${this.props.recipeId}/${sessionToken}` )
+          .get( `${currentHostedLink}/specificRecipeDetails/${that.props.recipeId}/${sessionToken}` )
           .then(function(response) {
-            if(response.data.recipe) {
-              // this.props.navigation.navigate("Details", {recipe: response.data.recipe});
-              console.log("WILL ROUTE TO DETAILS WITH THIS OBJECT",  {recipe: response.data.recipe});
+            if(response.data) {
+              console.log("ROUTING TO DETAILS PAGE")
+              const { navigate } = that.props.navigation;
+              that.props.screenProps.changePage("Search");
+              navigate("Details", { recipe: response.data.allRecipes });
+
+              // console.log("WILL ROUTE TO DETAILS WITH THIS OBJECT",  { recipe: response.data.allRecipes });
             }
           })
           .catch(function(error) {

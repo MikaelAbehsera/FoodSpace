@@ -534,7 +534,7 @@ app.get("/list/:categoryName", (req, res) => {
 
 
 app.get("/specificRecipeDetails/:recipeId/:sessionToken", (req, res) => {
-  const recipes_id = req.params.recipeid;
+  const recipes_id = req.params.recipeId;
   const sessionToken = req.params.sessionToken;
 
   authenticateToken(sessionToken, function (result) {
