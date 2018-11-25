@@ -181,6 +181,7 @@ export default class LoginScreen extends React.Component {
             }}
           />
         </ScrollView>
+        <View style={{ position: "absolute", width: "90%",height: "100%",backgroundColor: "rgba(248, 82, 96, 1)",zIndex: -10, borderLeftWidth: 0.7, borderRightWidth: 0.7,}} />
       </View>
     );
   }

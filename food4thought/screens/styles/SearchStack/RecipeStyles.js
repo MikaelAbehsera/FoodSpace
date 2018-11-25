@@ -18,8 +18,8 @@ const RecipeStyles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "flex-end",
-    marginTop: 2,
-    marginBottom: 2,
+    // marginTop: 2,
+    // marginBottom: 2,
     height: 175,
   },
   backgroundView: {

@@ -98,10 +98,13 @@ export default class Recipe extends Component {
     let right = {
       flex: 1,
       minHeight: 50,
+      borderTopWidth: 5,
+      borderBottomColor: "black",
+      borderBottomWidth: 3,
     };
 
     // ADD DIFF COLOR
-    // right["backgroundColor"] = this.props.color;
+    right["borderTopColor"] = this.props.color;
     right["backgroundColor"] = "white";
 
     // MAKE INTO JSON STYLESHEET THEN CALL IN VIEW

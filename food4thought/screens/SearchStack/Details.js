@@ -185,19 +185,19 @@ export default class Details extends React.Component {
           </TouchableHighlight>
 
           <TouchableHighlight
-            underlayColor="#ffffff00"
+            underlayColor="#F85260"
             style={{ position: "absolute", top: 28, left: 10, height: 45, width: 45, zIndex: 99, backgroundColor: "white", borderRadius: 35, }} onPress={() => goBack()} >
             <Image style={{ position: "absolute", top: -6.5, left: -6.5, height: 60, width: 60, zIndex: 99, borderRadius: 35, }} source={require("../materials/arrow.png")} />
           </TouchableHighlight>
 
            <TouchableHighlight 
-           underlayColor="#ffffff00" 
-            style={{ position: "absolute", top: 28, right: 10, height: 60, width: 60, zIndex: 99, borderRadius: 25,}}
+           underlayColor="#F85260"
+            style={{ position: "absolute", top: 28, right: 10, height: 55, width: 55, zIndex: 99, borderRadius: 30,}}
            onPress={() => { 
               this.props.navigation.state.params.navigate("Reviews", { recipeId: recipeData.recipes_id}) 
               console.log("hi"); 
            }} >
-            <Image style={{ position: "absolute", top: 0, right: 0, height: 50, width: 50, zIndex: 99, }} source={require("../materials/reviews.png")} />
+            <Image style={{ position: "absolute", top: 2, right: 3, height: 50, width: 50, zIndex: 99, }} source={require("../materials/reviews.png")} />
           </TouchableHighlight>
 
 
