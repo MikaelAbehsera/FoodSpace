@@ -693,8 +693,8 @@ app.get("/suggestions/:recipeID/:sessionToken", (req, res) => {
 
 app.post("/suggestion", (req, res) => {
   // add suggestions to a recipe
-  const recipeID = 1;
-  const newsuggestText = req.body.text;
+  const recipeId = req.body.recipeId;
+  const newSuggestText = req.body.text;
 
   console.log("params from frontend (suggestions get)===> ", req.params);
   const sessionToken = req.params.sessionToken;
@@ -707,8 +707,8 @@ app.post("/suggestion", (req, res) => {
     }
     knex("suggestions")
       .insert({
-        recipes_id: recipeID,
-        suggest_text: newsuggestText,
+        recipes_id: recipeId,
+        suggest_text: newSuggestText,
         plus: 0,
         minus: 0,
         user_id: result
