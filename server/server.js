@@ -734,8 +734,8 @@ app.post("/suggestion", (req, res) => {
 app.post("/plus", (req, res) => {
   const recipeID = req.body.recpies_id;
   const check = req.body.check;
+  const sessionToken = req.body.sessionToken;
 
-  const sessionToken = req.params.sessionToken;
   authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
@@ -784,10 +784,7 @@ app.post("/plus", (req, res) => {
 app.post("/minus", (req, res) => {
   const recipeID = req.body.recpies_id;
   const check = req.body.check;
-
-
-  console.log("params from frontend (suggestions get)===> ", req.params);
-  const sessionToken = req.params.sessionToken;
+  const sessionToken = req.body.sessionToken;
 
   authenticateToken(sessionToken, function (result) {
     if (!res) {
