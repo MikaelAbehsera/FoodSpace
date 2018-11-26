@@ -909,7 +909,7 @@ app.post("/ratings", (req, res) => {
                     id: recipeId
                   })
                   .update({
-                    overall_rating: avgRating
+                    overall_rating: Math.round(avgRating)
                   })
                   .catch((err) => {
                     res.json({
