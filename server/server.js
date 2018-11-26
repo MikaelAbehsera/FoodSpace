@@ -807,16 +807,16 @@ app.post("/minus", (req, res) => {
             id: suggestionId
           })
           .update({
-            minus: current[0].minus++
+            minus: updated
           });
         } else if (check === false) {
-          updated = current[0].minus + 1;
+          updated = current[0].minus - 1;
           knex("suggestions")
             .where({
               id: suggestionId
             })
             .update({
-              minus: current[0].minus--
+              minus: updated
             });
         }
 
