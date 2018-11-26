@@ -6,6 +6,8 @@ import {
   ScrollView,
   Picker,
   AsyncStorage,
+  Modal,
+  Image
 } from "react-native";
 import axios from "axios";
 import CreateStyles from "../styles/CreateStack/CreateStyles.js";
@@ -24,7 +26,7 @@ const Create = t.struct({
   recipeDescription: t.String,
   timeToMake: t.Integer,
   difficultyOfRecipe: t.Integer,
-  recipeUrl: t.String,
+  recipeUrl: t.maybe(t.String),
 });
 
 const createOptions = {
@@ -87,6 +89,10 @@ export default class CreateScreen extends React.Component {
       ingredients: [],
       instructions: [],
       category: "Greasy",
+      modalDetailsVisible: false,
+      modalIngredientsVisible: false,
+      modalInstructionsVisible: false,
+      modalFinalVisible: false,
     };
 
     this.number = 1;
@@ -109,6 +115,9 @@ export default class CreateScreen extends React.Component {
       ingredients: this.state.ingredients,
       form: this.state.form,
       recipeImg: this.state.recipeImg,
+      modalDetailsVisible: this.state.modalDetailsVisible,
+      modalIngredientsVisible: this.state.modalIngredientsVisible,
+      modalInstructionsVisible: this.state.modalInstructionsVisible,
     });
   };
 
@@ -120,8 +129,12 @@ export default class CreateScreen extends React.Component {
         category: this.state.category,
         instructions: this.state.instructions,
         ingredients: this.state.ingredients,
+        modalDetailsVisible: this.state.modalDetailsVisible,
+        modalIngredientsVisible: this.state.modalIngredientsVisible,
+        modalInstructionsVisible: this.state.modalInstructionsVisible,
       });
     }
+    this.showStep2(true)
   };
 
   handleSubmitIngredients = () => {
@@ -140,6 +153,9 @@ export default class CreateScreen extends React.Component {
             quantity: quantity,
           },
         ]),
+        modalDetailsVisible: this.state.modalDetailsVisible,
+        modalIngredientsVisible: this.state.modalIngredientsVisible,
+        modalInstructionsVisible: this.state.modalInstructionsVisible,
       });
     }
   };
@@ -160,6 +176,9 @@ export default class CreateScreen extends React.Component {
             stepNumber: num,
           },
         ]),
+        modalDetailsVisible: this.state.modalDetailsVisible,
+        modalIngredientsVisible: this.state.modalIngredientsVisible,
+        modalInstructionsVisible: this.state.modalInstructionsVisible,
       });
       this.number++;
     }
@@ -206,9 +225,62 @@ export default class CreateScreen extends React.Component {
       });
   };
 
+  showStep1 = (visible) => {
+    this.setState({
+      form: this.state.form,
+      ingredients: this.state.ingredients,
+      category: this.state.category,
+      instructions: this.state.instructions,
+      modalDetailsVisible: visible,
+      modalIngredientsVisible: false,
+      modalInstructionsVisible: false,
+      modalFinalVisible: false,
+    });
+  }
+
+  showStep2 = (visible) => {
+    this.setState({
+      form: this.state.form,
+      ingredients: this.state.ingredients,
+      category: this.state.category,
+      instructions: this.state.instructions,
+      modalDetailsVisible: false,
+      modalIngredientsVisible: visible,
+      modalInstructionsVisible: false,
+      modalFinalVisible: false,
+    });
+  }
+
+  showStep3 = (visible) => {
+    this.setState({
+      form: this.state.form,
+      ingredients: this.state.ingredients,
+      category: this.state.category,
+      instructions: this.state.instructions,
+      modalDetailsVisible: false,
+      modalIngredientsVisible: false,
+      modalInstructionsVisible: visible,
+      modalFinalVisible: false,
+    });
+  }
+
+  showStep4 = (visible) => {
+    this.setState({
+      form: this.state.form,
+      ingredients: this.state.ingredients,
+      category: this.state.category,
+      instructions: this.state.instructions,
+      modalDetailsVisible: false,
+      modalIngredientsVisible: false,
+      modalInstructionsVisible: false,
+      modalFinalVisible: visible,
+    });
+  }
+
   render() {
     return (
       <View style={CreateStyles.container}>
+        <View style={{ position: "absolute", width: "90%",height: "100%",backgroundColor: "rgba(248, 82, 96, 1)",zIndex: -10, borderLeftWidth: 0.7, borderRightWidth: 0.7,}} />
         <View
           style={{
             width: "100%",
@@ -223,7 +295,19 @@ export default class CreateScreen extends React.Component {
               height: 50,
             }}
           />
-          <View style={CreateStyles.scrollContainer}>
+          <View style={{width: "90%", alignSelf: "center",}} >
+            <Text style={{fontSize: 50, fontWeight: "600", alignSelf: "center"}} >Create A Recipe</Text>
+            <Image source={require("../materials/rat.png")} style={{}} />
+            <Button title="Start" onPress={()=>this.showStep1(true)} />
+          </View>
+
+          {/* <View style={CreateStyles.scrollContainer}> */}
+          <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalDetailsVisible}
+          onRequestClose={() => {console.log("CLOSED MODAL DETAILS")}}>
+          <View style={{alignSelf: "center", width: "90%",height: "100%",backgroundColor: "rgba(248, 82, 96, 1)",zIndex: -10, borderLeftWidth: 0.7, borderRightWidth: 0.7,}} >
             <View style={CreateStyles.catSelectorTextView}>
               <Text style={CreateStyles.catSelectorText}> Category Type </Text>
             </View>
@@ -249,7 +333,18 @@ export default class CreateScreen extends React.Component {
                 <Button title="Update Details" onPress={this.handleDetails} />
               </View>
             </View>
-          </View>
+            </View>
+            </Modal>
+          {/* </View> */}
+
+
+          <Modal
+
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalIngredientsVisible}
+          onRequestClose={() => {console.log("CLOSED MODAL INGREDIENTS")}}>
+          <View style={{alignSelf: "center", width: "90%",height: "100%",backgroundColor: "rgba(248, 82, 96, 1)",zIndex: -10, borderLeftWidth: 0.7, borderRightWidth: 0.7,}} >
           <View style={CreateStyles.ingredientsView}>
             <View style={CreateStyles.ingredientsForm}>
               <Form
@@ -278,6 +373,21 @@ export default class CreateScreen extends React.Component {
               </ScrollView>
             </View>
           </View>
+          <Button
+              title="Instructions Form"
+              onPress={()=>this.showStep2(true)}
+              color="#8EA604"
+            />
+          </View>
+          </Modal>
+
+
+          <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalInstructionsVisible}
+          onRequestClose={() => {console.log("CLOSED MODAL INSTRUCTIONS")}}>
+          <View style={{alignSelf: "center", width: "90%",height: "100%",backgroundColor: "rgba(248, 82, 96, 1)",zIndex: -10, borderLeftWidth: 0.7, borderRightWidth: 0.7,}} >
           <View style={CreateStyles.instructionsView}>
             <View style={CreateStyles.instructionsForm}>
               <Form
@@ -300,8 +410,8 @@ export default class CreateScreen extends React.Component {
           </View>
           <View>
             <Button
-              title="Submit Recipe"
-              onPress={this.handleFinalForm}
+              title="Submit Page"
+              onPress={()=>this.showStep4(true)}
               color="#8EA604"
             />
           </View>
@@ -311,6 +421,24 @@ export default class CreateScreen extends React.Component {
               height: 300,
             }}
           />
+            </View>
+          </Modal>
+
+          <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalFinalVisible}
+          onRequestClose={() => {console.log("CLOSED MODAL Final")}}>
+          <View style={{alignSelf: "center", width: "90%",height: "100%",backgroundColor: "rgba(248, 82, 96, 1)",zIndex: -10, borderLeftWidth: 0.7, borderRightWidth: 0.7,}} >
+            <Button
+                title="Submit Recipe"
+                onPress={this.handleFinalForm}
+                color="#8EA604"
+              />
+          </View>
+          </Modal>
+
+
         </ScrollView>
         {this.props.screenProps.Nav}
       </View>
