@@ -382,11 +382,9 @@ app.get("/recipe_list/:sessionToken", (req, res) => {
 
         knex("ingredients")
           .select("*")
-          // .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
           .then((resultIngredients) => {
             knex("instructions")
               .select("*")
-              // .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
               .then((resultInstructions) => {
 
                 allRecipes.forEach((singleRecipe) => {
@@ -445,46 +443,44 @@ app.get("/list/:categoryName", (req, res) => {
       });
 
       knex("ingredients")
-        .select("*")
-        .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
-        .then((resultIngredients) => {
-          knex("instructions")
-            .select("*")
-            .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
-            .then((resultInstructions) => {
+      .select("*")
+      .then((resultIngredients) => {
+        knex("instructions")
+          .select("*")
+          .then((resultInstructions) => {
 
+            allRecipes.forEach((singleRecipe) => {
               resultIngredients.forEach((single) => {
-                allRecipes.forEach((singleRecipe) => {
-                  if (single.recipes_id === singleRecipe.id) {
-                    singleRecipe["ingredients"].push(single);
-                  }
-                });
-              });
-
-              resultInstructions.forEach((single) => {
-                allRecipes.forEach((singleRecipe) => {
-                  if (single.recipes_id === singleRecipe.id) {
-                    singleRecipe["instructions"].push(single);
-                  }
-                });
-              });
-
-            })
-            .catch((err) => {
-              res.json({
-                success: false
-              });
-              res.status(404);
-              console.log(err);
-              throw err;
-            })
-            .finally(() => {
-              res.json({
-                allRecipes: allRecipes,
-                success: true
+                if (singleRecipe.recipes_id === single.recipes_id) {
+                  singleRecipe["ingredients"].push(single);
+                }
               });
             });
-        });
+            
+            allRecipes.forEach((singleRecipe) => {
+              resultInstructions.forEach((single) => {
+                if (singleRecipe.recipes_id === single.recipes_id) {
+                  singleRecipe["instructions"].push(single);
+                }
+              });
+            });
+
+          })
+          .catch((err) => {
+            res.json({
+              success: false
+            });
+            res.status(404);
+            console.log(err);
+            throw err;
+          })
+          .finally(() => {
+            res.json({
+              allRecipes: allRecipes,
+              success: true
+            });
+          });
+      });
     });
 });
 
@@ -517,31 +513,29 @@ app.get("/specificRecipeDetails/:recipeId/:sessionToken", (req, res) => {
         });
 
         knex("ingredients")
-          .select("*")
-          .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
-          .then((resultIngredients) => {
-            knex("instructions")
-              .select("*")
-              .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
-              .then((resultInstructions) => {
-
+        .select("*")
+        .then((resultIngredients) => {
+          knex("instructions")
+            .select("*")
+            .then((resultInstructions) => {
+  
+              allRecipes.forEach((singleRecipe) => {
                 resultIngredients.forEach((single) => {
-                  allRecipes.forEach((singleRecipe) => {
-                    if (single.recipes_id === singleRecipe.id) {
-                      singleRecipe["ingredients"].push(single);
-                    }
-                  });
+                  if (singleRecipe.recipes_id === single.recipes_id) {
+                    singleRecipe["ingredients"].push(single);
+                  }
                 });
-
+              });
+              
+              allRecipes.forEach((singleRecipe) => {
                 resultInstructions.forEach((single) => {
-                  allRecipes.forEach((singleRecipe) => {
-                    if (single.recipes_id === singleRecipe.id) {
-                      singleRecipe["instructions"].push(single);
-                    }
-                  });
+                  if (singleRecipe.recipes_id === single.recipes_id) {
+                    singleRecipe["instructions"].push(single);
+                  }
                 });
-
-              })
+              });
+  
+            })
               .catch((err) => {
                 res.json({
                   success: false
