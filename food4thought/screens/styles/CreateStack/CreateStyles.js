@@ -27,6 +27,8 @@ const CreateStyles = StyleSheet.create({
     marginBottom: 6,
   },
   catSelectorView: {
+    width: "95%",
+    alignSelf: "center",
     borderWidth: 1,
     borderRadius: 7,
     borderColor: "lightgrey",
@@ -41,41 +43,28 @@ const CreateStyles = StyleSheet.create({
     width: "80%",
   },
   ingredientsView: {
-    minHeight: 230,
-    flexDirection: "row",
-    // backgroundColor: "green",
+    flex: 1,
+    flexDirection: "column",
   },
   instructionsView: {
-    minHeight: 230,
-    flexDirection: "row",
-    marginTop: 30,
-    marginBottom: 30,
-    // backgroundColor: "red",
+    flex: 1,
+    flexDirection: "column",
   },
   ingredientsForm: {
-    borderTopWidth: 1,
-    borderTopColor: "black",
-    borderBottomWidth: 1,
-    borderBottomColor: "black",
-    flex: 1,
   },
   ingredientsList: {
-    overflow: "hidden",
-    borderTopWidth: 1,
-    borderTopColor: "black",
-    borderBottomWidth: 1,
-    borderBottomColor: "black",
+    marginTop: 20,
     flex: 1,
+    flexDirection: "column", 
+    justifyContent: "flex-start"
   },
   instructionsForm: {
-    borderBottomWidth: 1,
-    borderBottomColor: "black",
-    flex: 1,
   },
   instructionsList: {
-    borderBottomWidth: 1,
-    borderBottomColor: "black",
+    marginTop: 20,
     flex: 1,
+    flexDirection: "column", 
+    justifyContent: "flex-start"
   },
 
 });

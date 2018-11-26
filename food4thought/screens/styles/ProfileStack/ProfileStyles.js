@@ -27,10 +27,8 @@ const ProfileStyles = StyleSheet.create({
   headerTop: {
     paddingTop: 25,
     width: "100%",
-    backgroundColor: "#24CCF9",
   },
   headerRight: {
-    backgroundColor: "#24CCF9",
     flex:3 ,    
   },
   headerDetails: {
