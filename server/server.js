@@ -389,16 +389,16 @@ app.get("/recipe_list/:sessionToken", (req, res) => {
               // .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
               .then((resultInstructions) => {
 
-                resultIngredients.forEach((single) => {
-                  allRecipes.forEach((singleRecipe) => {
+                allRecipes.forEach((singleRecipe) => {
+                  resultIngredients.forEach((single) => {
                     if (single.recipes_id === singleRecipe.id) {
                       singleRecipe["ingredients"].push(single);
                     }
                   });
                 });
 
-                resultInstructions.forEach((single) => {
-                  allRecipes.forEach((singleRecipe) => {
+                allRecipes.forEach((singleRecipe) => {
+                  resultInstructions.forEach((single) => {
                     if (single.recipes_id === singleRecipe.id) {
                       singleRecipe["instructions"].push(single);
                     }
