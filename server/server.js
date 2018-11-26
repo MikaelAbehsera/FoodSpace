@@ -752,7 +752,6 @@ app.post("/plus", (req, res) => {
         }
         updated = current[0].plus + diff;
         const newSuggest = {
-          id: suggestionId,
           recipes_id: current[0].recipes_id,
           suggest_text: current[0].suggest_text,
           plus: current[0].plus,
@@ -765,25 +764,28 @@ app.post("/plus", (req, res) => {
           })
           .del()
           .then(() => {
-            knex("suggestions")
-              .insert(newSuggest)
-              .then(() => {})
-              .catch((err) => {
-                res.json({
-                  success: false
-                });
-                res.status(404);
-                console.log(err);
-                throw err;
-              })
-              .finally(() => {
-                res.json({
-                  success: true,
-                  updatedPlus: updated
-                });
-              });
+            console.log("THIS IS THE NEWSUGGESTS ====> ", newSuggest)
+            // knex("suggestions")
+            //   .insert(newSuggest)
+            //   .then(() => {})
           })
+          .catch((err) => {
+            res.json({
+              success: false
+            });
+            res.status(404);
+            console.log(err);
+            throw err;
+          })
+          .finally(() => {
+            res.json({
+              success: true,
+              updatedPlus: updated
+            });
+          });
+
       })
+
   });
 
 });
