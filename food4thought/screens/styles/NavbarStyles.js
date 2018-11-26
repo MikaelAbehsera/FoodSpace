@@ -14,7 +14,7 @@ import {
 const NavStyles = StyleSheet.create({
   container: {
     width: "100%",
-    backgroundColor: "grey",
+    backgroundColor: "rgb(248, 82, 96)",
     left: 0,
     bottom: 0,
     flexDirection: "row",
