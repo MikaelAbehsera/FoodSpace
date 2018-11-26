@@ -151,7 +151,7 @@ export default class ProfileScreen extends React.Component {
           {/* <View style={{ position: "absolute", width: "90%", height: "100%",backgroundColor: "rgba(248, 82, 96, 1)",zIndex: -10, borderLeftWidth: 0.7, borderRightWidth: 0.7,}} /> */}
           <View style={{ top: 0, width: "100%", height: 25, backgroundColor: "black" }} />
           <View style={{ width: "100%", height: 15, backgroundColor: "rgba(248, 82, 96, 1)", }} />
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", width: "89%" }} >
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center", width: "95%" }} >
           <ScrollView style={ProfileStyles.scrollView}>
           {/* <View style={{width: "100%", height: 25,}} /> */}
             <View style={ProfileStyles.header}>
