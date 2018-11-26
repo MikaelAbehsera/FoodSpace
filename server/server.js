@@ -24,6 +24,7 @@ app.listen(PORT, () => {
 
 // =======================================================
 
+
 //user authentication function.
 function authenticateToken(token, cb) {
   console.log("token token token ===> ", token);
@@ -37,6 +38,7 @@ function authenticateToken(token, cb) {
       cb(result[0].id);
     });
 }
+
 
 // =======================================================
 
@@ -485,9 +487,8 @@ app.get("/list/:categoryName", (req, res) => {
 });
 
 
-
 app.get("/specificRecipeDetails/:recipeId/:sessionToken", (req, res) => {
-  const recipes_id = req.params.recipeId;
+  const recipeId = req.params.recipeId;
   const sessionToken = req.params.sessionToken;
 
   authenticateToken(sessionToken, function (result) {
@@ -502,7 +503,7 @@ app.get("/specificRecipeDetails/:recipeId/:sessionToken", (req, res) => {
       .select("*")
       .from("recipes")
       .where({
-        recipes_id: recipes_id
+        recipes_id: recipeId
       })
       .innerJoin("tags", "recipes.id", "tags.recipes_id")
       .innerJoin("categories", "tags.category_id", "categories.id")
@@ -557,6 +558,7 @@ app.get("/specificRecipeDetails/:recipeId/:sessionToken", (req, res) => {
 
 
 // =======================================================
+
 
 app.post("/fave", (req, res) => {
   const recipeid = req.body.recipe_id;
@@ -618,7 +620,6 @@ app.post("/fave", (req, res) => {
 });
 
 
-
 app.get("/heart/:sessionToken/:recipeid", (req, res) => {
   const recipes_id = req.params.recipeid;
   const sessionToken = req.params.sessionToken;
@@ -650,7 +651,6 @@ app.get("/heart/:sessionToken/:recipeid", (req, res) => {
       });
   });
 });
-
 
 
 // =======================================================
@@ -781,7 +781,6 @@ app.post("/plus", (req, res) => {
 });
 
 
-
 app.post("/minus", (req, res) => {
   const check = req.body.check;
   const sessionToken = req.body.sessionToken;
@@ -837,6 +836,7 @@ app.post("/minus", (req, res) => {
 
 });
 
+
 // =======================================================
 
 
@@ -875,9 +875,8 @@ app.post("/ratings", (req, res) => {
             })
             .del()
             .then(() => {});
-
         }
-        // first time rating this recipe
+
         knex("ratings")
           .insert({
             recipes_id: recipeId,
@@ -891,7 +890,7 @@ app.post("/ratings", (req, res) => {
               })
               .then((avgRates) => {
                 let avgRating = 0;
-                if (avgRates.length === 0) {
+                if (avgRates.length === 1) {
                   avgRating = newRating;
                 } else {
                   let count = 0;
@@ -901,7 +900,7 @@ app.post("/ratings", (req, res) => {
                       count++;
                     }
                   });
-                  avgRating = avgRating / count;
+                  avgRating = Math.round(avgRating / count);
                 }
 
                 knex("recipes")
@@ -929,7 +928,6 @@ app.post("/ratings", (req, res) => {
       });
   });
 });
-
 
 
 app.get("/userRatings/:sessionToken/:recipeId", (req, res) => {
@@ -970,20 +968,10 @@ app.get("/userRatings/:sessionToken/:recipeId", (req, res) => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 /////////////////////////////////////////////////////////
-
+// 
+// Code for inputing user given images into DigitalOcean, 3rd party storage, and returns URL for image to be inputed into database
+//
 // var multer = require('multer');
 // var AWS = require('aws-sdk');
 // var upload = multer({ dest: 'uploads/' })
