@@ -751,31 +751,38 @@ app.post("/plus", (req, res) => {
           diff = -1
         }
         updated = current[0].plus + diff;
-        //changed
+        const newSuggest = {
+          recipes_id: current[0].recipes_id,
+          suggest_text: current[0].suggest_text,
+          plus: current[0].plus,
+          minus: current[0].minus,
+          user_id: current[0].user_id
+        }
         knex("suggestions")
           .where({
             id: suggestionId
           })
-          .update([{
-            plus: updated
-          }])
-
+          .del()
+          .then(() => {
+            knex("suggestions")
+              .insert(newSuggest)
+              .then(() => {})
+              .catch((err) => {
+                res.json({
+                  success: false
+                });
+                res.status(404);
+                console.log(err);
+                throw err;
+              })
+              .finally(() => {
+                res.json({
+                  success: true,
+                  updatedPlus: updated
+                });
+              });
+          })
       })
-      .catch((err) => {
-        res.json({
-          success: false
-        });
-        res.status(404);
-        console.log(err);
-        throw err;
-      })
-      .finally(() => {
-        res.json({
-          success: true,
-          updatedPlus: updated
-        });
-      });
-
   });
 
 });
@@ -815,9 +822,9 @@ app.post("/minus", (req, res) => {
             .where({
               id: suggestionId
             })
-            .update([{
+            .update({
               minus: updated
-            }]);
+            });
         }
 
       })
