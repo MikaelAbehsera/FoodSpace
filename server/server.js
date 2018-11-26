@@ -765,24 +765,24 @@ app.post("/plus", (req, res) => {
           .del()
           .then(() => {
             console.log("THIS IS THE NEWSUGGESTS ====> ", newSuggest)
-            // knex("suggestions")
-            //   .insert(newSuggest)
-            //   .then(() => {})
+            knex("suggestions")
+              .insert(newSuggest)
+              .then(() => {})
+              .catch((err) => {
+                res.json({
+                  success: false
+                });
+                res.status(404);
+                console.log(err);
+                throw err;
+              })
+              .finally(() => {
+                res.json({
+                  success: true,
+                  updatedPlus: updated
+                });
+              });
           })
-          .catch((err) => {
-            res.json({
-              success: false
-            });
-            res.status(404);
-            console.log(err);
-            throw err;
-          })
-          .finally(() => {
-            res.json({
-              success: true,
-              updatedPlus: updated
-            });
-          });
 
       })
 
