@@ -756,9 +756,9 @@ app.post("/plus", (req, res) => {
           .where({
             id: suggestionId
           })
-          .update({
+          .update([{
             plus: updated
-          })
+          }])
 
       })
       .catch((err) => {
@@ -815,9 +815,9 @@ app.post("/minus", (req, res) => {
             .where({
               id: suggestionId
             })
-            .update({
+            .update([{
               minus: updated
-            });
+            }]);
         }
 
       })
