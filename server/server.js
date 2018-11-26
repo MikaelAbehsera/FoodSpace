@@ -743,23 +743,19 @@ app.post("/plus", (req, res) => {
       })
 
       .then((current) => {
+        let diff = 0;
         if (check === true) {
-          knex("suggestions")
-            .where({
-              id: suggestionId
-            })
-            .update({
-              plus: current[0].plus++
-            });
+          diff = 1
         } else if (check === false) {
-          knex("suggestions")
-            .where({
-              id: suggestionId
-            })
-            .update({
-              plus: current[0].plus--
-            });
+          diff = -1
         }
+        knex("suggestions")
+          .where({
+            id: suggestionId
+          })
+          .update({
+            plus: current[0].plus + diff
+          })
 
       })
       .catch((err) => {
@@ -772,7 +768,8 @@ app.post("/plus", (req, res) => {
       })
       .finally(() => {
         res.json({
-          success: true
+          success: true,
+          plus: current[0] + diff
         });
       });
 
@@ -799,23 +796,19 @@ app.post("/minus", (req, res) => {
       })
     
       .then((current) => {
+        let diff = 0;
         if (check === true) {
-          knex("suggestions")
-            .where({
-              id: suggestionId
-            })
-            .update({
-              minus: current[0].minus++
-            });
+          diff = 1;
         } else if (check === false) {
-          knex("suggestions")
-            .where({
-              id: suggestionId
-            })
-            .update({
-              minus: current[0].minus--
-            });
+          diff = -1;
         }
+        knex("suggestions")
+          .where({
+            id: suggestionId
+          })
+          .update({
+            minus: current[0].minus + diff
+          })
 
       })
       .catch((err) => {
@@ -828,10 +821,10 @@ app.post("/minus", (req, res) => {
       })
       .finally(() => {
         res.json({
-          success: true
+          success: true,
+          minus: current[0] + diff
         });
       });
-
   });
 
 });
