@@ -391,15 +391,15 @@ app.get("/recipe_list/:sessionToken", (req, res) => {
 
                 allRecipes.forEach((singleRecipe) => {
                   resultIngredients.forEach((single) => {
-                    if (singleRecipe.recipes_id === single.id) {
+                    if (single.recipes_id === singleRecipe.id) {
                       singleRecipe["ingredients"].push(single);
                     }
                   });
                 });
-                
+
                 allRecipes.forEach((singleRecipe) => {
                   resultInstructions.forEach((single) => {
-                    if (singleRecipe.recipes_id === single.id) {
+                    if (single.recipes_id === singleRecipe.id) {
                       singleRecipe["instructions"].push(single);
                     }
                   });
