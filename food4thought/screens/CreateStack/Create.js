@@ -394,7 +394,7 @@ export default class CreateScreen extends React.Component {
               />
             </View>
             <View style={CreateStyles.ingredientsList}>
-              <ScrollView>
+              <ScrollView styles={{ flexDirection: "column", justifyContent: "flex-start"}}>
                 {this.state.ingredients.map((ingredient, index) => (
                   <Text
                     style={{
