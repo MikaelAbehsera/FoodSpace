@@ -381,12 +381,12 @@ app.get("/recipe_list/:sessionToken", (req, res) => {
         });
 
         knex("ingredients")
-          .select("food_type", "quantity", "recipes_id")
-          .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
+          .select("*")
+          // .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
           .then((resultIngredients) => {
             knex("instructions")
-              .select("step_description", "step_number", "recipes_id")
-              .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
+              .select("*")
+              // .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
               .then((resultInstructions) => {
 
                 resultIngredients.forEach((single) => {
@@ -445,11 +445,11 @@ app.get("/list/:categoryName", (req, res) => {
       });
 
       knex("ingredients")
-        .select("food_type", "quantity", "recipes_id")
+        .select("*")
         .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
         .then((resultIngredients) => {
           knex("instructions")
-            .select("step_description", "step_number", "recipes_id")
+            .select("*")
             .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
             .then((resultInstructions) => {
 
@@ -490,49 +490,6 @@ app.get("/list/:categoryName", (req, res) => {
 
 
 
-// app.get("/recipe_details", (req, res) => {
-
-//   console.log("params from frontend (details get)===> ", req.params);
-//   const sessionToken = req.params.sessionToken;
-//   const recipeID = req.body.recipeID;
-//   authenticateToken(sessionToken, function (result) {
-//     if (!res) {
-//       res.json({
-//         success: false
-//       });
-//       return;
-//     }
-//     knex
-//       .select("*")
-//       .from("Recipes")
-//       .where({
-//         id: recipeID
-//       })
-//       .innerJoin("instructions", "instructions.recipe_id", "recipes.id")
-//       .innerJoin("ingredients", "ingredients.recipes_id", "recipes.id")
-//       .innerJoin("measurements", "measurement.id", "ingredients.measurement_id")
-//       .then((recipeDetails) => {
-
-
-//       })
-//       .catch((err) => {
-//         res.json({
-//           success: false
-//         });
-//         res.status(404);
-//         console.log(err);
-//         throw err;
-//       })
-//       .finally(() => {
-//         res.json({
-//           recipeDetails: recipeDetails,
-//           success: true
-//         });
-//       });
-//   });
-// });
-
-
 app.get("/specificRecipeDetails/:recipeId/:sessionToken", (req, res) => {
   const recipes_id = req.params.recipeId;
   const sessionToken = req.params.sessionToken;
@@ -560,11 +517,11 @@ app.get("/specificRecipeDetails/:recipeId/:sessionToken", (req, res) => {
         });
 
         knex("ingredients")
-          .select("food_type", "quantity", "recipes_id")
+          .select("*")
           .innerJoin("recipes", "ingredients.recipes_id", "recipes.id")
           .then((resultIngredients) => {
             knex("instructions")
-              .select("step_description", "step_number", "recipes_id")
+              .select("*")
               .innerJoin("recipes", "instructions.recipes_id", "recipes.id")
               .then((resultInstructions) => {
 
