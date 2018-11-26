@@ -749,12 +749,13 @@ app.post("/plus", (req, res) => {
         } else if (check === false) {
           diff = -1
         }
+        const updated = current[0] + diff;
         knex("suggestions")
           .where({
             id: suggestionId
           })
           .update({
-            plus: current[0].plus + diff
+            plus: updated
           })
 
       })
@@ -769,7 +770,7 @@ app.post("/plus", (req, res) => {
       .finally(() => {
         res.json({
           success: true,
-          updatedPlus: current[0] + diff
+          updatedPlus: updated
         });
       });
 
