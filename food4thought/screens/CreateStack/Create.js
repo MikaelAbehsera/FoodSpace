@@ -123,7 +123,9 @@ export default class CreateScreen extends React.Component {
 
   handleDetails = () => {
     const details = this._form.getValue();
+    console.log("DETAILS, DETAILS, DETAILS ===>", details)
     if (details) {
+      const state = false;
       this.setState({
         form: details,
         category: this.state.category,
@@ -132,9 +134,11 @@ export default class CreateScreen extends React.Component {
         modalDetailsVisible: this.state.modalDetailsVisible,
         modalIngredientsVisible: this.state.modalIngredientsVisible,
         modalInstructionsVisible: this.state.modalInstructionsVisible,
+      }, ()=> { 
+        console.log("CHANGIN PAGE CHANGIN PAGE ");
+        this.showStep2(true)
       });
     }
-    this.showStep2(true)
   };
 
   handleSubmitIngredients = () => {
@@ -188,18 +192,18 @@ export default class CreateScreen extends React.Component {
     const that = this;
     //get full form from state, manipulate to one object, and post to backend
     const fullForm = this.state;
-    console.log(fullForm);
     console.log("===========================================================");
     let sessionToken;
     AsyncStorage.getItem("sessionToken")
-      .then(value => {
-        if (value) {
-          sessionToken = value;
-          fullForm["sessionToken"] = value;
-        }
-        console.log("session token (create page) ===> ", sessionToken);
-      })
-      .then(() => {
+    .then(value => {
+      if (value) {
+        sessionToken = value;
+        fullForm["sessionToken"] = value;
+      }
+      console.log("session token (create page) ===> ", sessionToken);
+    })
+    .then(() => {
+      console.log("FULL FORM FULL FORM FULL FORM", fullForm);
         let validate = false;
         // post user information to backend /login route
         axios
