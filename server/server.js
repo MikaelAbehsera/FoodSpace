@@ -752,6 +752,7 @@ app.post("/plus", (req, res) => {
         }
         updated = current[0].plus + diff;
         const newSuggest = {
+          id: suggestionId,
           recipes_id: current[0].recipes_id,
           suggest_text: current[0].suggest_text,
           plus: updated,
