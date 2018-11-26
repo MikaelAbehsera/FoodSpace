@@ -750,7 +750,7 @@ app.post("/plus", (req, res) => {
         } else if (check === false) {
           diff = -1
         }
-        updated = current[0].rating + diff;
+        updated = current[0].plus + diff;
         //changed
         knex("suggestions")
           .where({
