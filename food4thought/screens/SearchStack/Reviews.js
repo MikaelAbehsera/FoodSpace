@@ -117,16 +117,16 @@ export default class ReviewScreen extends React.Component {
             style={{ position: "absolute", top: 28, left: 10, height: 45, width: 45, zIndex: 99, backgroundColor: "white", borderRadius: 35, }} onPress={() => goBack()} >
             <Image style={{ position: "absolute", top: -6.5, left: -6.5, height: 60, width: 60, zIndex: 99, borderRadius: 35, }} source={require("../materials/arrow.png")} />
           </TouchableHighlight>
-          <View style={{ width: "100%", height: 80}} />
-          <View style={{ width: "95%", flexDirection: "row", justifyContent: "space-around", marginLeft: 5, minHeight: 0,}}>
-            <View style={{width: "77%"}}>
+          <View style={{ width: "100%", height: 80,}} />
+          <View style={{ width: "95%", flexDirection: "column", marginLeft: 5, minHeight: 0,}}>
+            <View style={{width: "100%"}}>
               <Form
                 ref={c => (this._form = c)}
                 type={comment}
                 options={Options}
               />  
             </View>
-            <View style={{width: "18%", flexDirection: "column", justifyContent: "flex-end", paddingBottom: 17,}} >
+            <View style={{width: "50%", alignSelf: "center", flexDirection: "column", justifyContent: "flex-end", paddingBottom: 17,}} >
               <Button title="Enter" onPress={()=> {this.sendComment(); console.log("enter comment") }} />  
             </View>
           </View>

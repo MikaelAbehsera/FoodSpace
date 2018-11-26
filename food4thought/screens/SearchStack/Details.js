@@ -244,7 +244,7 @@ export default class Details extends React.Component {
                     Difficulty: {recipeData.difficulty}/3
                   </Text>
                   <Text style={CollapseStyles.ingredientsText}>
-                    Overall Rating: {recipeData.overall_rating}
+                    Overall Rating: {recipeData.overall_rating ? recipeData.overall_rating : "Not Available"}
                   </Text>
                   <Text style={CollapseStyles.ingredientsText}>
                     Time to make: {recipeData.time} Minutes

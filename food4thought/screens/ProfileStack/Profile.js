@@ -33,11 +33,11 @@ class Bubble extends React.Component {
         if (value) {
           sessionToken = value;
         }
-        // console.log("session token ===> ", value);
+        console.log("ID ID ID ID ID ID ID ID ID ===> ", that.props);
       })
       .then(() => {
         axios
-          .get( `${currentHostedLink}/specificRecipeDetails/${that.props.recipeId}/${sessionToken}` )
+          .get( `${currentHostedLink}/specificRecipeDetails/${that.props.recipeId ? that.props.recipeId : that.props.recipe.id}/${sessionToken}` )
           .then(function(response) {
             if(response.data) {
               console.log("ROUTING TO DETAILS PAGE")
@@ -148,11 +148,12 @@ export default class ProfileScreen extends React.Component {
     if (this.state.compLoaded) {
       return (
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }} >
-          <View style={{ position: "absolute", width: "90%", height: "100%",backgroundColor: "rgba(248, 82, 96, 1)",zIndex: -10, borderLeftWidth: 0.7, borderRightWidth: 0.7,}} />
+          {/* <View style={{ position: "absolute", width: "90%", height: "100%",backgroundColor: "rgba(248, 82, 96, 1)",zIndex: -10, borderLeftWidth: 0.7, borderRightWidth: 0.7,}} /> */}
+          <View style={{position: "absolute",  width: "90%", height: "100%",backgroundColor: "rgb(231, 229, 237)",zIndex: -10, borderLeftWidth: 0.7, borderRightWidth: 0.7,}} />
           <View style={{position: "absolute", top: 0, width: "100%", height: 25, backgroundColor: "black" }} />
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center", width: "89%" }} >
           <ScrollView style={ProfileStyles.scrollView}>
-          <View style={{width: "100%", height: 25}} />
+          {/* <View style={{width: "100%", height: 25,}} /> */}
             <View style={ProfileStyles.header}>
               <View style={ProfileStyles.headerTop}>
                 <View style={ProfileStyles.profilePictureView}>
@@ -195,7 +196,7 @@ export default class ProfileScreen extends React.Component {
               </View>
               <View style={ProfileStyles.createdView}>
                 {this.state.userProfile.recipesCreated.map((recipe, i) => (
-                  <Bubble key={i} navigate={navigate} recipeId={recipe.recipes_id} name={recipe.name} />
+                  <Bubble key={i} navigate={navigate} recipeId={recipe.recipes_id} recipe={recipe} name={recipe.name} />
                 ))}
               </View>
               <View
@@ -228,7 +229,7 @@ export default class ProfileScreen extends React.Component {
         <View
           style={{
             flex: 1,
-            backgroundColor: "#CED3DC",
+            // backgroundColor: "#CED3DC",
             flexDirection: "column",
             justifyContent: "center",
             backgroundColor: "#24CCF9",
