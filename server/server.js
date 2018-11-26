@@ -809,47 +809,54 @@ app.post("/minus", (req, res) => {
       .where({
         id: suggestionId
       })
-    
+
       .then((current) => {
+        let diff = 0;
         if (check === true) {
-          updated = current[0].minus + 1;
-          knex("suggestions")
+          diff = 1
+        } else if (check === false) {
+          diff = -1
+        }
+        updated = current[0].minus + diff;
+        const newSuggest = {
+          id: suggestionId,
+          recipes_id: current[0].recipes_id,
+          suggest_text: current[0].suggest_text,
+          plus: current[0].plus,
+          minus: updated,
+          user_id: current[0].user_id
+        }
+        knex("suggestions")
           .where({
             id: suggestionId
           })
-          .update({
-            minus: updated
-          });
-        } else if (check === false) {
-          updated = current[0].minus - 1;
-          knex("suggestions")
-            .where({
-              id: suggestionId
-            })
-            .update({
-              minus: updated
-            });
-        }
+          .del()
+          .then(() => {
+            console.log("THIS IS THE NEWSUGGESTS ====> ", newSuggest)
+            knex("suggestions")
+              .insert(newSuggest)
+              .then(() => {})
+              .catch((err) => {
+                res.json({
+                  success: false
+                });
+                res.status(404);
+                console.log(err);
+                throw err;
+              })
+              .finally(() => {
+                res.json({
+                  success: true,
+                  updatedMinus: updated
+                });
+              });
+          })
 
       })
-      .catch((err) => {
-        res.json({
-          success: false
-        });
-        res.status(404);
-        console.log(err);
-        throw err;
-      })
-      .finally(() => {
-        res.json({
-          success: true, 
-          updatedMinus: updated
-        });
-      });
 
   });
 
-});
+});;
 
 
 // =======================================================
