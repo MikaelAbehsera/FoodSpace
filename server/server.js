@@ -729,6 +729,7 @@ app.post("/plus", (req, res) => {
   const check = req.body.check;
   const sessionToken = req.body.sessionToken;
   const suggestionId = req.body.suggestionId;
+  let updated = 0;
 
   authenticateToken(sessionToken, function (result) {
     if (!res) {
@@ -749,7 +750,7 @@ app.post("/plus", (req, res) => {
         } else if (check === false) {
           diff = -1
         }
-        const updated = current[0] + diff;
+        updated = current[0] + diff;
         knex("suggestions")
           .where({
             id: suggestionId
