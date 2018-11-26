@@ -754,7 +754,7 @@ app.post("/plus", (req, res) => {
         const newSuggest = {
           recipes_id: current[0].recipes_id,
           suggest_text: current[0].suggest_text,
-          plus: current[0].plus,
+          plus: updated,
           minus: current[0].minus,
           user_id: current[0].user_id
         }
