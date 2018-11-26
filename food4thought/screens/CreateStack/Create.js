@@ -7,7 +7,8 @@ import {
   Picker,
   AsyncStorage,
   Modal,
-  Image
+  Image,
+  Slider
 } from "react-native";
 import axios from "axios";
 import CreateStyles from "../styles/CreateStack/CreateStyles.js";
