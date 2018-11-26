@@ -17,7 +17,7 @@ import t from "tcomb-form-native";
 const Form = t.form.Form;
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://e9bf0500.ngrok.io";
+const currentHostedLink = "http://662c08a4.ngrok.io";
 ///////////////////////////////////////////////////////////////
 
 // full page form

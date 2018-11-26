@@ -19,7 +19,7 @@ import CollapseStyles from "../styles/SearchStack/CollapseStyles.js";
 import StarSlider from "./Slider.js";
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://e9bf0500.ngrok.io";
+const currentHostedLink = "http://662c08a4.ngrok.io";
 ////////////////////////////////////////////////////////////////
 
 export default class Details extends React.Component {

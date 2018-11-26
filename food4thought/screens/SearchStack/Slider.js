@@ -12,7 +12,7 @@ import ScaledImage from "react-native-scaled-image";
 import axios from "axios";
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://e9bf0500.ngrok.io";
+const currentHostedLink = "http://662c08a4.ngrok.io";
 ////////////////////////////////////////////////////////////////
 
 export default class StarSlider extends Component {
