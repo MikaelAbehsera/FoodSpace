@@ -785,6 +785,7 @@ app.post("/minus", (req, res) => {
   const check = req.body.check;
   const sessionToken = req.body.sessionToken;
   const suggestionId = req.body.suggestionId;
+  let updated = 0;
 
   authenticateToken(sessionToken, function (result) {
     if (!res) {
@@ -799,19 +800,25 @@ app.post("/minus", (req, res) => {
       })
     
       .then((current) => {
-        let diff = 0;
         if (check === true) {
-          diff = 1;
-        } else if (check === false) {
-          diff = -1;
-        }
-        knex("suggestions")
+          updated = current[0].minus + 1;
+          knex("suggestions")
           .where({
             id: suggestionId
           })
           .update({
-            minus: current[0].minus + diff
-          })
+            minus: current[0].minus++
+          });
+        } else if (check === false) {
+          updated = current[0].minus + 1;
+          knex("suggestions")
+            .where({
+              id: suggestionId
+            })
+            .update({
+              minus: current[0].minus--
+            });
+        }
 
       })
       .catch((err) => {
@@ -824,10 +831,11 @@ app.post("/minus", (req, res) => {
       })
       .finally(() => {
         res.json({
-          success: true,
-          updatedMinus: current[0] + diff
+          success: true, 
+          updatedMinus: updated
         });
       });
+
   });
 
 });
