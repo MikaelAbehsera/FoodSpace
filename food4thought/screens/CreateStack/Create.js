@@ -12,7 +12,11 @@ import {
 } from "react-native";
 import axios from "axios";
 import CreateStyles from "../styles/CreateStack/CreateStyles.js";
-
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
 // Import tcomb form schema
 import t from "tcomb-form-native";
 const Form = t.form.Form;
@@ -26,7 +30,6 @@ const Create = t.struct({
   recipeName: t.String,
   recipeDescription: t.String,
   timeToMake: t.Integer,
-  difficultyOfRecipe: t.Integer,
   recipeUrl: t.maybe(t.String),
 });
 
@@ -95,7 +98,7 @@ export default class CreateScreen extends React.Component {
       modalInstructionsVisible: false,
       modalFinalVisible: false,
     };
-
+    this.difficulty = 1;
     this.number = 1;
     this.handleSubmitIngredients = this.handleSubmitIngredients.bind(this);
     this.handleSubmitInstructions = this.handleSubmitInstructions.bind(this);
@@ -121,6 +124,11 @@ export default class CreateScreen extends React.Component {
       modalInstructionsVisible: this.state.modalInstructionsVisible,
     });
   };
+
+  updateDifficultyOfRecipe = difficulty => {
+    console.log(difficulty);
+    this.difficulty = difficulty;
+  }
 
   handleDetails = () => {
     const details = this._form.getValue();
@@ -193,6 +201,7 @@ export default class CreateScreen extends React.Component {
     const that = this;
     //get full form from state, manipulate to one object, and post to backend
     const fullForm = this.state;
+    fullForm["difficultyOfRecipe"] = this.difficulty;
     console.log("===========================================================");
     let sessionToken;
     AsyncStorage.getItem("sessionToken")
@@ -285,7 +294,6 @@ export default class CreateScreen extends React.Component {
   render() {
     return (
       <View style={CreateStyles.container}>
-        <View style={{ position: "absolute", width: "90%",height: "100%",backgroundColor: "rgba(248, 82, 96, 1)",zIndex: -10, borderLeftWidth: 0.7, borderRightWidth: 0.7,}} />
         <View
           style={{
             width: "100%",
@@ -293,6 +301,13 @@ export default class CreateScreen extends React.Component {
             backgroundColor: "black",
           }}
         />
+        <View
+        style={{
+          width: "100%",
+          height: 15,
+          backgroundColor: "rgba(248, 82, 96, 1)",
+        }}
+      />
         <ScrollView style={CreateStyles.scrollContainer}>
           <View
             style={{
@@ -300,13 +315,11 @@ export default class CreateScreen extends React.Component {
               height: 50,
             }}
           />
-          <View style={{width: "90%", alignSelf: "center",}} >
-            <Text style={{fontSize: 50, fontWeight: "600", alignSelf: "center"}} >Create A Recipe</Text>
-            <Image source={require("../materials/rat.png")} style={{}} />
-            <Button title="Start" onPress={()=>this.showStep1(true)} />
+          <View style={{width: "90%", flex: 1, alignSelf: "center", flexDirection: "column", justifyContent: "space-between"}} >
+            <View><Text style={{fontSize: 50, fontWeight: "600", alignSelf: "center"}} >Create A Recipe</Text></View>
+            <View><Image source={require("../materials/rat.png")} style={{height: responsiveHeight(70)}} /></View>
+            <View><Button title="Start" onPress={()=>this.showStep1(true)} /></View>
           </View>
-
-          {/* <View style={CreateStyles.scrollContainer}> */}
           <Modal
           animationType="slide"
           transparent={false}
@@ -327,11 +340,31 @@ export default class CreateScreen extends React.Component {
                 <Picker.Item label="Munchies" value="Munchies" />
               </Picker>
             </View>
-            <Form
-              ref={c => (this._form = c)}
-              type={Create}
-              options={createOptions}
-            />
+            <View style={{width: "95%", alignSelf: "center"}} >
+              <Form
+                ref={c => (this._form = c)}
+                type={Create}
+                options={createOptions}
+              />
+            </View>
+            <Text style={ {marginLeft: 10, fontSize: 18, fontWeight: "bold" } }  >Difficulty Of Recipe</Text>
+            <View style={{width: "100%", flexDirection: "row", justifyContent: "space-between"}} >
+              <View style={{marginLeft: 13,}} >
+                <Text>1</Text>
+              </View>
+              <View style={{}} >
+                <Text>2</Text>
+              </View>
+              <View style={{marginRight: 13,}} >
+                <Text>3</Text>
+              </View>
+            </View>
+            <Slider
+              style={{}}
+              minimumValue={1}
+              maximumValue={3}
+              step={1}
+              onValueChange={(diff) => this.updateDifficultyOfRecipe(diff)} />
             <View>
               <View />
               <View style={CreateStyles.detailSubmitButton}>
@@ -340,11 +373,9 @@ export default class CreateScreen extends React.Component {
             </View>
             </View>
             </Modal>
-          {/* </View> */}
 
 
           <Modal
-
           animationType="slide"
           transparent={false}
           visible={this.state.modalIngredientsVisible}

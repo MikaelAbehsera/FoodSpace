@@ -27,6 +27,8 @@ const CreateStyles = StyleSheet.create({
     marginBottom: 6,
   },
   catSelectorView: {
+    width: "95%",
+    alignSelf: "center",
     borderWidth: 1,
     borderRadius: 7,
     borderColor: "lightgrey",
