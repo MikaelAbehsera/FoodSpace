@@ -751,6 +751,7 @@ app.post("/plus", (req, res) => {
           diff = -1
         }
         updated = current[0] + diff;
+        //changed
         knex("suggestions")
           .where({
             id: suggestionId
