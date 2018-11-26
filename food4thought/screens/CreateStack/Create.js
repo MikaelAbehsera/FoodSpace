@@ -375,8 +375,8 @@ export default class CreateScreen extends React.Component {
           </View>
           <Button
               title="Instructions Form"
-              onPress={()=>this.showStep2(true)}
-              color="#8EA604"
+              onPress={()=>this.showStep3(true)}
+              color="black"
             />
           </View>
           </Modal>
@@ -412,7 +412,7 @@ export default class CreateScreen extends React.Component {
             <Button
               title="Submit Page"
               onPress={()=>this.showStep4(true)}
-              color="#8EA604"
+              color="black"
             />
           </View>
           <View
