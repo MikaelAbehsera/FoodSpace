@@ -769,7 +769,7 @@ app.post("/plus", (req, res) => {
       .finally(() => {
         res.json({
           success: true,
-          plus: current[0] + diff
+          updatedPlus: current[0] + diff
         });
       });
 
@@ -822,7 +822,7 @@ app.post("/minus", (req, res) => {
       .finally(() => {
         res.json({
           success: true,
-          minus: current[0] + diff
+          updatedMinus: current[0] + diff
         });
       });
   });
