@@ -104,7 +104,6 @@ export default class CreateScreen extends React.Component {
     this.handleSubmitInstructions = this.handleSubmitInstructions.bind(this);
     this.handleDetails = this.handleDetails.bind(this);
   }
-
   static navigationOptions = {
     title: "Create Recipe",
   };
@@ -347,10 +346,7 @@ export default class CreateScreen extends React.Component {
               </Text>
             </View>
             <View style={{ width: responsiveWidth(70), alignSelf: "center" }}>
-              <Button
-                title="Start"
-                onPress={() => this.showStep1(true)}
-              />
+              <Button title="Start" onPress={() => this.showStep1(true)} />
             </View>
           </View>
           {/* MODAL 1 */}
@@ -426,10 +422,7 @@ export default class CreateScreen extends React.Component {
               <View>
                 <View />
                 <View style={CreateStyles.detailSubmitButton}>
-                  <Button
-                    title="Update Details"
-                    onPress={this.handleDetails}
-                  />
+                  <Button title="Update Details" onPress={this.handleDetails} />
                 </View>
               </View>
             </View>
@@ -580,33 +573,14 @@ export default class CreateScreen extends React.Component {
                 borderRightWidth: 0.7,
               }}
             >
-            {/* THIS IS THE RECITE VIEW */}
-              {/* <View styles={{
-                    flexDirection: "column",
-                    justifyContent: "flex-start",
-                  }}>
-                  <View style={{height: 40, width: "100%"}} />
-                  <View styles={{flexDirection: "column", justifyContent: "flex-start", }} >
-                    {this.state.ingredients.map((ingredient, index) => (
-                      <Text style={{ marginLeft: 15,}} key={index} >
-                        {ingredient.foodType} x {ingredient.quantity}
-                      </Text>
-                    ))}
-                  </View>
-                  <View style={CreateStyles.instructionsList}>
-                    {this.state.instructions.map((step, index) => (
-                      <Text key={index}> {step.stepNumber}. {step.step} </Text>
-                    ))}
-                  </View> */}
-                <View>
-                  <Button
-                    title="Submit Recipe"
-                    onPress={this.handleFinalForm}
-                  />
+              <View style={{alignSelf: "center", }} >
+                <Text style={{fontSize: responsiveFontSize(5)}} >Submit Recipe</Text>
+              </View>
+              <View>
+                <Button title="Submit Recipe" onPress={this.handleFinalForm} />
               </View>
               {/* </View> */}
-            {/* THIS IS THE RECITE VIEW END END END */}
-
+              {/* THIS IS THE RECITE VIEW END END END */}
             </View>
           </Modal>
         </ScrollView>

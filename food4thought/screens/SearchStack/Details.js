@@ -193,7 +193,11 @@ export default class Details extends React.Component {
           <View style={DetailsStyles.imageView}>
             <Image
               style={DetailsStyles.image}
-              source={recipeData.recipeIMG ? {uri: recipeData.recipeIMG} : require("../materials/default.png")}
+              source={
+                recipeData.recipeIMG
+                  ? { uri: recipeData.recipeIMG }
+                  : require("../materials/default.png")
+              }
             />
           </View>
           <TouchableHighlight
