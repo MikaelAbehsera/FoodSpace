@@ -68,7 +68,7 @@ export default class Recipe extends Component {
     }
     return arr;
   };
-  
+
   renderStars() {
     const starArr = [];
     for (let i = 0; i < 5; i++) {
@@ -129,11 +129,32 @@ export default class Recipe extends Component {
             <View style={RecipeStyles.imgView}>
               <Image
                 // source={this.props.recipe.recipeIMG ? {uri: this.props.recipe.recipeIMG} : require("../materials/none.png")}
-                source={{uri: this.props.recipe.recipeIMG ? this.props.recipe.recipeIMG : "https://s3-eu-west-1.amazonaws.com/yadaweya/3143/kitchentools.jpg" }}
+                source={{
+                  uri: this.props.recipe.recipeIMG
+                    ? this.props.recipe.recipeIMG
+                    : "https://s3-eu-west-1.amazonaws.com/yadaweya/3143/kitchentools.jpg",
+                }}
                 style={RecipeStyles.img}
               />
-              <View style={{position: "absolute", flexDirection: "column", justifyContent: "center", bottom: 70}}  >
-                <Text style={{fontWeight: "bold", fontSize: responsiveFontSize(4), color: "white", textShadowColor: "black"}} > {this.props.recipe.recipeIMG ? null : "No Image Provided"}</Text>
+              <View
+                style={{
+                  position: "absolute",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  bottom: 70,
+                }}
+              >
+                <Text
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: responsiveFontSize(4),
+                    color: "white",
+                    textShadowColor: "black",
+                  }}
+                >
+                  {" "}
+                  {this.props.recipe.recipeIMG ? null : "No Image Provided"}
+                </Text>
               </View>
             </View>
           </View>
