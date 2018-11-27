@@ -714,7 +714,7 @@ app.get("/suggestions/:recipeID/:sessionToken", (req, res) => {
     if (!res) {
       res.json({
         success: false
-      });
+      }); 
       return;
     }
     knex("users")
