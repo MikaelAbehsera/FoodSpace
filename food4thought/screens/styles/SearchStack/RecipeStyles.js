@@ -39,12 +39,12 @@ const RecipeStyles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    flex:1,
+    flex: 1,
     flexDirection: "row",
     justifyContent: "space-around",
   },
   name: {
-    flex:2,
+    flex: 2,
   },
   nameText: {
     fontWeight: "bold",
@@ -62,7 +62,7 @@ const RecipeStyles = StyleSheet.create({
     justifyContent: "center",
   },
   footer: {
-    flex:1,
+    flex: 1,
   },
   descriptionView: {
     flexDirection: "column",
