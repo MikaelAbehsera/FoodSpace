@@ -16,7 +16,6 @@ exports.seed = function (knex, Promise) {
             location: "Montreal",
             sessionToken: uniqid()
           }),
-          
           knex("users").insert({
             username: "Jamie Perron",
             email: "imagination@gmail.com",
@@ -25,7 +24,6 @@ exports.seed = function (knex, Promise) {
             location: "Montreal",
             sessionToken: uniqid()
           }),
-          
           knex("users").insert({
             username: "Matt Damon",
             email: "Uu@e.com",
