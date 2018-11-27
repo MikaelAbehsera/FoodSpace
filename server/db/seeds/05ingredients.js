@@ -180,19 +180,16 @@ exports.seed = function(knex, Promise) {
             food_type: "Hot sauce", 
             quantity: "4 tsp"
           }), 
-            //
           knex("ingredients").insert({
             recipes_id: 9,
             food_type: "bread - stale or fresh", 
             quantity: "5 slices"
           }),
-          
           knex("ingredients").insert({
             recipes_id: 9,
             food_type: "butter", 
             quantity: "2 tbsp"
           }),
-          
           knex("ingredients").insert({
             recipes_id: 9,
             food_type: "eggs", 
@@ -213,87 +210,72 @@ exports.seed = function(knex, Promise) {
             food_type: "maple syrup", 
             quantity: "2 tsp"
           }),
-
           knex("ingredients").insert({
             recipes_id: 10,
             food_type: "flour", 
             quantity: "2 cups"
           }),
-          
           knex("ingredients").insert({
             recipes_id: 10,
             food_type: "shortening", 
             quantity: "1/2 cup"
           }),
-          
           knex("ingredients").insert({
             recipes_id: 10,
             food_type: "milk", 
             quantity: "3/4 cups"
           }), 
-
           knex("ingredients").insert({
             recipes_id: 10,
             food_type: "salt", 
             quantity: "1/2 tsp"
           }), 
-
           knex("ingredients").insert({
             recipes_id: 10,
             food_type: "baking powder", 
             quantity: "1 tbsp"
           }),
-
           ///// /////
-
           knex("ingredients").insert({
             recipes_id: 11,
             food_type: "ricotta", 
             quantity: "2 cups"
           }),
-          
           knex("ingredients").insert({
             recipes_id: 11,
             food_type: "lasagna pasta", 
             quantity: "1 box"
           }),
-          
           knex("ingredients").insert({
             recipes_id: 11,
             food_type: "egg", 
             quantity: "2"
           }), 
-
           knex("ingredients").insert({
             recipes_id: 11,
             food_type: "salt", 
             quantity: "1/2 tsp"
           }),
-          
           knex("ingredients").insert({
             recipes_id: 11,
             food_type: "mozzarella cheese", 
             quantity: "2 cups"
           }), 
-
           knex("ingredients").insert({
             recipes_id: 11,
             food_type: "Parmesan cheese", 
             quantity: "1/2 cup"
           }), 
-          
           knex("ingredients").insert({
             recipes_id: 11,
             food_type: "spinach", 
             quantity: "1/2 cup"
           }), 
-
           knex("ingredients").insert({
             recipes_id: 11,
             food_type: "meat tomato sauce", 
             quantity: "1 cup"
           })
-
           /////
         ]);
       })
