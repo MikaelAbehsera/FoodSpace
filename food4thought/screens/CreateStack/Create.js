@@ -576,18 +576,42 @@ export default class CreateScreen extends React.Component {
               style={{
                 alignSelf: "center",
                 width: "90%",
-                height: "100%",
+                // height: "100%",
+                flex: 1,
                 backgroundColor: "rgba(248, 82, 96, 1)",
                 zIndex: -10,
                 borderLeftWidth: 0.7,
                 borderRightWidth: 0.7,
               }}
             >
-              <Button
-                title="Submit Recipe"
-                onPress={this.handleFinalForm}
-                color="#8EA604"
-              />
+            {/* THIS IS THE RECITE VIEW */}
+              <View styles={{
+                    flexDirection: "column",
+                    justifyContent: "flex-start",
+                  }}>
+                  <View style={{height: 40, width: "100%"}} />
+                  <View styles={{flexDirection: "column", justifyContent: "flex-start", }} >
+                    {this.state.ingredients.map((ingredient, index) => (
+                      <Text style={{ marginLeft: 15,}} key={index} >
+                        {ingredient.foodType} x {ingredient.quantity}
+                      </Text>
+                    ))}
+                  </View>
+                  <View style={CreateStyles.instructionsList}>
+                    {this.state.instructions.map((step, index) => (
+                      <Text key={index}> {step.stepNumber}. {step.step} </Text>
+                    ))}
+                  </View>
+                <View>
+                  <Button
+                    title="Submit Recipe"
+                    onPress={this.handleFinalForm}
+                    color="#8EA604"
+                    />
+              </View>
+              </View>
+            {/* THIS IS THE RECITE VIEW END END END */}
+
             </View>
           </Modal>
         </ScrollView>
