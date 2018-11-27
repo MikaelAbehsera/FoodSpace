@@ -573,8 +573,10 @@ export default class CreateScreen extends React.Component {
                 borderRightWidth: 0.7,
               }}
             >
-              <View style={{alignSelf: "center", }} >
-                <Text style={{fontSize: responsiveFontSize(5)}} >Submit Recipe</Text>
+              <View style={{ alignSelf: "center" }}>
+                <Text style={{ fontSize: responsiveFontSize(5) }}>
+                  Submit Recipe
+                </Text>
               </View>
               <View>
                 <Button title="Submit Recipe" onPress={this.handleFinalForm} />
