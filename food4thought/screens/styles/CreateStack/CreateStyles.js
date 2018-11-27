@@ -10,7 +10,6 @@ import {
   responsiveFontSize
 } from 'react-native-responsive-dimensions';
 
-
 const CreateStyles = StyleSheet.create({
   container: {
     flex: 1,
@@ -56,20 +55,18 @@ const CreateStyles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
   },
-  ingredientsForm: {
-  },
+  ingredientsForm: {},
   ingredientsList: {
     marginTop: 20,
     flex: 1,
-    flexDirection: "column", 
+    flexDirection: "column",
     justifyContent: "flex-start"
   },
-  instructionsForm: {
-  },
+  instructionsForm: {},
   instructionsList: {
     marginTop: 20,
     flex: 1,
-    flexDirection: "column", 
+    flexDirection: "column",
     justifyContent: "flex-start"
   },
 
