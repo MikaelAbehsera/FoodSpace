@@ -1,5 +1,12 @@
 import React from "react";
-import { Button, Text, View, Image, AsyncStorage, Dimensions } from "react-native";
+import {
+  Button,
+  Text,
+  View,
+  Image,
+  AsyncStorage,
+  Dimensions,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import {
   createStackNavigator,
@@ -140,13 +147,25 @@ class NavBar extends React.Component {
     return (
       <View style={NavStyles.container}>
         <View style={NavStyles.buttonView}>
-          <Button title="Search" onPress={this.updateSearch} color={this.state.SearchButton} />
+          <Button
+            title="Search"
+            onPress={this.updateSearch}
+            color={this.state.SearchButton}
+          />
         </View>
         <View style={NavStyles.buttonView}>
-          <Button title="Create" onPress={this.updateCreate} color={this.state.CreateButton} />
+          <Button
+            title="Create"
+            onPress={this.updateCreate}
+            color={this.state.CreateButton}
+          />
         </View>
         <View style={NavStyles.buttonView}>
-          <Button title="Profile" onPress={this.updateProfile} color={this.state.ProfileButton} />
+          <Button
+            title="Profile"
+            onPress={this.updateProfile}
+            color={this.state.ProfileButton}
+          />
         </View>
       </View>
     );
@@ -173,11 +192,11 @@ export default class App extends React.Component {
     this.setState({
       currentStack: "Auth",
       appLoaded: true,
-    })
+    });
 
     this.OnSessionChange();
   }
-  
+
   OnSessionChange = () => {
     const that = this;
     console.log("(app.js) App has loaded redirecting to relevant page");
@@ -187,7 +206,7 @@ export default class App extends React.Component {
       }
       console.log("(app.js) session token = ===> ", value);
     });
-  }
+  };
 
   render() {
     const Nav = <NavBar screenProps={{ changePage: this.changePage }} />;
@@ -197,8 +216,8 @@ export default class App extends React.Component {
       changePage: this.changePage,
       OnSessionChange: this.OnSessionChange,
     };
-  
-    if(this.state.appLoaded) {
+
+    if (this.state.appLoaded) {
       if (this.state.currentStack === "Home") {
         return <HomeStack screenProps={props} />;
       } else if (this.state.currentStack === "Search") {
@@ -212,7 +231,12 @@ export default class App extends React.Component {
       } else {
         return (
           <View>
-            <Image source={{uri: "https://media0.giphy.com/media/26u4cqVR8dsmedTJ6/giphy.gif"}} />
+            <Image
+              source={{
+                uri:
+                  "https://media0.giphy.com/media/26u4cqVR8dsmedTJ6/giphy.gif",
+              }}
+            />
             <Text>WORST CASE SENARIO HAS HAPPENED, APP IS BROKEN PLS FIX </Text>
           </View>
         );

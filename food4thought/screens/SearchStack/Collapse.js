@@ -13,7 +13,6 @@ import CollapseStyles from "../styles/SearchStack/CollapseStyles.js";
 import CollapseView from "react-native-collapse-view";
 import ScaledImage from "react-native-scaled-image";
 
-
 export default class CollapseDetails extends Component {
   _renderTensionViewDetails = collapse => {
     return (
@@ -37,11 +36,8 @@ export default class CollapseDetails extends Component {
       </View>
     );
   };
-  _renderCollapseViewDetails= collapse => {
-    return (
-      <View style={{height: 0}}>
-      </View>
-    );
+  _renderCollapseViewDetails = collapse => {
+    return <View style={{ height: 0 }} />;
   };
   _renderTensionViewIngredients = collapse => {
     return (
@@ -111,7 +107,6 @@ export default class CollapseDetails extends Component {
       </View>
     );
   };
-
 
   render() {
     return (

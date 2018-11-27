@@ -7,7 +7,7 @@ import {
   Dimensions,
   KeyboardAvoidingView,
   AsyncStorage,
-  TouchableHighlight
+  TouchableHighlight,
 } from "react-native";
 import Image from "react-native-scalable-image";
 import axios from "axios";
@@ -180,33 +180,33 @@ export default class RegisterScreen extends React.Component {
           </View>
         </View>
 
-           <TouchableHighlight
-            underlayColor="#ffffff00"
+        <TouchableHighlight
+          underlayColor="#ffffff00"
+          style={{
+            position: "absolute",
+            top: 28,
+            left: 10,
+            height: 45,
+            width: 45,
+            zIndex: 99,
+            backgroundColor: "white",
+            borderRadius: 35,
+          }}
+          onPress={() => goBack()}
+        >
+          <Image
+            height={60}
+            width={60}
             style={{
               position: "absolute",
-              top: 28,
-              left: 10,
-              height: 45,
-              width: 45,
+              top: -6.5,
+              left: -6.5,
               zIndex: 99,
-              backgroundColor: "white",
               borderRadius: 35,
             }}
-            onPress={() => goBack()}
-          >
-            <Image
-              height={60}
-              width={60}
-              style={{
-                position: "absolute",
-                top: -6.5,
-                left: -6.5,
-                zIndex: 99,
-                borderRadius: 35,
-              }}
-              source={require("../materials/arrow.png")}
-            />
-          </TouchableHighlight>
+            source={require("../materials/arrow.png")}
+          />
+        </TouchableHighlight>
         {/* <View style={{ position: "absolute", width: "90%",height: "100%",backgroundColor: "rgba(248, 82, 96, 1)",zIndex: -10, borderLeftWidth: 0.7, borderRightWidth: 0.7,}} /> */}
       </View>
     );

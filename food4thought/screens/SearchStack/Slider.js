@@ -45,14 +45,20 @@ export default class StarSlider extends Component {
       .then(() => {
         axios
           .get(
-            `${currentHostedLink}/userRatings/${sessionToken}/${that.props.recipeId}`,
+            `${currentHostedLink}/userRatings/${sessionToken}/${
+              that.props.recipeId
+            }`,
           )
           .then(function(response) {
-            console.log(`${currentHostedLink}/userRatings/${sessionToken}/${that.props.recipeId}`);
+            console.log(
+              `${currentHostedLink}/userRatings/${sessionToken}/${
+                that.props.recipeId
+              }`,
+            );
             console.log(response.data);
-            if(!response.data.success) {
+            if (!response.data.success) {
               userRating = 0;
-            } else if(response.data.success && response.data.userRating[0]) {
+            } else if (response.data.success && response.data.userRating[0]) {
               userRating = response.data.userRating[0];
               that.changeStar(userRating.rating);
             }
@@ -60,26 +66,60 @@ export default class StarSlider extends Component {
           .catch(function(error) {
             console.log(error);
           })
-          .finally(() => {
-          });
+          .finally(() => {});
       });
   }
 
-  changeStar = (rating) => {
-    console.log("CHANGING STARS")
+  changeStar = rating => {
+    console.log("CHANGING STARS");
     // for loop does not work here dont refractor working the if statement
-    if(rating === 1) {
-      this.setState({star1: this.star, star2: this. greyStar, star3: this.greyStar, star4: this.greyStar, star5: this.greyStar, userRating: this.state.userRating})
-    } else if(rating === 2) {
-      this.setState({star1: this.star, star2: this.star, star3: this.greyStar, star4: this.greyStar, star5: this.greyStar, userRating: this.state.userRating})
-    } else if(rating === 3) {
-      this.setState({star1: this.star, star2: this.star, star3: this.star, star4: this.greyStar, star5: this.greyStar, userRating: this.state.userRating })
-    } else if(rating === 4) {
-      this.setState({star1: this.star, star2: this.star, star3: this.star, star4: this.star, star5: this.greyStar, userRating: this.state.userRating })
-    } else if(rating === 5) {
-      this.setState({star1: this.star, star2: this.star, star3: this.star, star4: this.star, star5: this.star, userRating: this.state.userRating})
+    if (rating === 1) {
+      this.setState({
+        star1: this.star,
+        star2: this.greyStar,
+        star3: this.greyStar,
+        star4: this.greyStar,
+        star5: this.greyStar,
+        userRating: this.state.userRating,
+      });
+    } else if (rating === 2) {
+      this.setState({
+        star1: this.star,
+        star2: this.star,
+        star3: this.greyStar,
+        star4: this.greyStar,
+        star5: this.greyStar,
+        userRating: this.state.userRating,
+      });
+    } else if (rating === 3) {
+      this.setState({
+        star1: this.star,
+        star2: this.star,
+        star3: this.star,
+        star4: this.greyStar,
+        star5: this.greyStar,
+        userRating: this.state.userRating,
+      });
+    } else if (rating === 4) {
+      this.setState({
+        star1: this.star,
+        star2: this.star,
+        star3: this.star,
+        star4: this.star,
+        star5: this.greyStar,
+        userRating: this.state.userRating,
+      });
+    } else if (rating === 5) {
+      this.setState({
+        star1: this.star,
+        star2: this.star,
+        star3: this.star,
+        star4: this.star,
+        star5: this.star,
+        userRating: this.state.userRating,
+      });
     }
-  }
+  };
 
   starClick = rating => {
     const that = this;

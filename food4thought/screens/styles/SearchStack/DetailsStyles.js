@@ -16,8 +16,6 @@ import {
 const DetailsStyles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: "white",
-    backgroundColor: "#E0392F",
   },
   scrollView: {
     flex: 1,
@@ -27,7 +25,7 @@ const DetailsStyles = StyleSheet.create({
     flex: 1,
     margin: 10,
     backgroundColor: "white",
-    paddingBottom: responsiveHeight(18),
+    paddingBottom: responsiveHeight(19),
     borderColor: "black",
     borderWidth: 0.5,
   },

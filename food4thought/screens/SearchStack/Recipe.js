@@ -62,7 +62,7 @@ export default class Recipe extends Component {
           key={3}
           source={require("../materials/clock.png")}
           style={RecipeStyles.star}
-        />
+        />,
       );
     }
     return arr;
@@ -116,7 +116,10 @@ export default class Recipe extends Component {
       <TouchableHighlight
         underlayColor="#ffffff00"
         onPress={() =>
-          this.props.navigate("Details", { recipe: this.props.recipe, navigate: this.props.navigate })
+          this.props.navigate("Details", {
+            recipe: this.props.recipe,
+            navigate: this.props.navigate,
+          })
         }
       >
         <View style={RecipeStyles.container}>
