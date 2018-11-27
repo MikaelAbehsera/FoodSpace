@@ -349,7 +349,6 @@ export default class CreateScreen extends React.Component {
             <View style={{ width: responsiveWidth(70), alignSelf: "center" }}>
               <Button
                 title="Start"
-                color="green"
                 onPress={() => this.showStep1(true)}
               />
             </View>
@@ -429,7 +428,6 @@ export default class CreateScreen extends React.Component {
                 <View style={CreateStyles.detailSubmitButton}>
                   <Button
                     title="Update Details"
-                    color="green"
                     onPress={this.handleDetails}
                   />
                 </View>
@@ -494,7 +492,6 @@ export default class CreateScreen extends React.Component {
                 <Button
                   title="Instructions Form"
                   onPress={() => this.showStep3(true)}
-                  color="green"
                 />
               </View>
               <View
@@ -551,7 +548,6 @@ export default class CreateScreen extends React.Component {
                   <Button
                     title="Submit Page"
                     onPress={() => this.showStep4(true)}
-                    color="green"
                   />
                 </View>
               </View>
@@ -585,7 +581,7 @@ export default class CreateScreen extends React.Component {
               }}
             >
             {/* THIS IS THE RECITE VIEW */}
-              <View styles={{
+              {/* <View styles={{
                     flexDirection: "column",
                     justifyContent: "flex-start",
                   }}>
@@ -601,15 +597,14 @@ export default class CreateScreen extends React.Component {
                     {this.state.instructions.map((step, index) => (
                       <Text key={index}> {step.stepNumber}. {step.step} </Text>
                     ))}
-                  </View>
+                  </View> */}
                 <View>
                   <Button
                     title="Submit Recipe"
                     onPress={this.handleFinalForm}
-                    color="#8EA604"
-                    />
+                  />
               </View>
-              </View>
+              {/* </View> */}
             {/* THIS IS THE RECITE VIEW END END END */}
 
             </View>
