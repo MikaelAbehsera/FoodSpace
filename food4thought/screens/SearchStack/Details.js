@@ -8,8 +8,8 @@ import {
   ScrollView,
   TouchableHighlight,
   AsyncStorage,
+  StyleSheet,
 } from "react-native";
-import { StyleSheet, PixelRatio } from "react-native";
 import { Dimensions } from "react-native";
 import axios from "axios";
 import DetailsStyles from "../styles/SearchStack/DetailsStyles.js";
@@ -286,7 +286,7 @@ export default class Details extends React.Component {
                     Difficulty: {recipeData.difficulty}/3
                   </Text>
                   <Text style={CollapseStyles.ingredientsText}>
-                    Overall Rating:{" "}
+                    Overall Rating:
                     {recipeData.overall_rating
                       ? recipeData.overall_rating
                       : "Not Available"}

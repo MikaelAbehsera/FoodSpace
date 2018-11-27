@@ -43,10 +43,16 @@ const CreateStyles = StyleSheet.create({
     width: "80%",
   },
   ingredientsView: {
+    marginTop: 25,
+    alignSelf: "center",
+    width: "95%",
     flex: 1,
     flexDirection: "column",
   },
   instructionsView: {
+    marginTop: 25,
+    alignSelf: "center",
+    width: "95%",
     flex: 1,
     flexDirection: "column",
   },

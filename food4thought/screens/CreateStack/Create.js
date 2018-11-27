@@ -327,23 +327,34 @@ export default class CreateScreen extends React.Component {
               justifyContent: "space-between",
             }}
           >
-            <View>
+            <View
+              style={{
+                flex: 1,
+                marginBottom: 30,
+                marginTop: 30,
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
               <Text
-                style={{ fontSize: 50, fontWeight: "600", alignSelf: "center" }}
+                style={{
+                  fontSize: responsiveFontSize(6),
+                  fontWeight: "600",
+                  alignSelf: "center",
+                }}
               >
                 Create A Recipe
               </Text>
             </View>
-            <View>
-              <Image
-                source={require("../materials/rat.png")}
-                style={{ height: responsiveHeight(70) }}
+            <View style={{ width: responsiveWidth(70), alignSelf: "center" }}>
+              <Button
+                title="Start"
+                color="green"
+                onPress={() => this.showStep1(true)}
               />
             </View>
-            <View>
-              <Button title="Start" onPress={() => this.showStep1(true)} />
-            </View>
           </View>
+          {/* MODAL 1 */}
           <Modal
             animationType="slide"
             transparent={false}
@@ -364,10 +375,7 @@ export default class CreateScreen extends React.Component {
               }}
             >
               <View style={CreateStyles.catSelectorTextView}>
-                <Text style={CreateStyles.catSelectorText}>
-                  {" "}
-                  Category Type{" "}
-                </Text>
+                <Text style={CreateStyles.catSelectorText}>Category Type</Text>
               </View>
               <View style={CreateStyles.catSelectorView}>
                 <Picker
@@ -419,12 +427,17 @@ export default class CreateScreen extends React.Component {
               <View>
                 <View />
                 <View style={CreateStyles.detailSubmitButton}>
-                  <Button title="Update Details" onPress={this.handleDetails} />
+                  <Button
+                    title="Update Details"
+                    color="green"
+                    onPress={this.handleDetails}
+                  />
                 </View>
               </View>
             </View>
           </Modal>
 
+          {/* MODAL 2 */}
           <Modal
             animationType="slide"
             transparent={false}
@@ -477,14 +490,23 @@ export default class CreateScreen extends React.Component {
                   </ScrollView>
                 </View>
               </View>
-              <Button
-                title="Instructions Form"
-                onPress={() => this.showStep3(true)}
-                color="black"
+              <View style={{ width: "90%", alignSelf: "center" }}>
+                <Button
+                  title="Instructions Form"
+                  onPress={() => this.showStep3(true)}
+                  color="green"
+                />
+              </View>
+              <View
+                style={{
+                  width: "100%",
+                  height: 50,
+                }}
               />
             </View>
           </Modal>
 
+          {/* MODAL 3 */}
           <Modal
             animationType="slide"
             transparent={false}
@@ -525,16 +547,18 @@ export default class CreateScreen extends React.Component {
                 </View>
               </View>
               <View>
-                <Button
-                  title="Submit Page"
-                  onPress={() => this.showStep4(true)}
-                  color="black"
-                />
+                <View style={{ width: "90%", alignSelf: "center" }}>
+                  <Button
+                    title="Submit Page"
+                    onPress={() => this.showStep4(true)}
+                    color="green"
+                  />
+                </View>
               </View>
               <View
                 style={{
                   width: "100%",
-                  height: 300,
+                  height: 50,
                 }}
               />
             </View>

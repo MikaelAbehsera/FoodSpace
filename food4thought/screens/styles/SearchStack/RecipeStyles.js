@@ -48,7 +48,7 @@ const RecipeStyles = StyleSheet.create({
   },
   nameText: {
     fontWeight: "bold",
-    fontSize: 17,
+    fontSize: responsiveFontSize(1.8),
     borderBottomWidth: 0.5,
     borderBottomColor: "lightgrey",
     paddingRight: -10,
@@ -67,6 +67,9 @@ const RecipeStyles = StyleSheet.create({
   descriptionView: {
     flexDirection: "column",
     justifyContent: "flex-end",
+  },
+  description: {
+    fontSize: responsiveFontSize(1.3),
   },
 });
 
