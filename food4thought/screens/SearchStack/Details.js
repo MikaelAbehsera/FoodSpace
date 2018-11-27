@@ -17,6 +17,7 @@ import ScaledImage from "react-native-scaled-image";
 import CollapseDetails from "./Collapse.js";
 import CollapseStyles from "../styles/SearchStack/CollapseStyles.js";
 import StarSlider from "./Slider.js";
+import RecipeStyles from "../styles/SearchStack/RecipeStyles.js";
 
 ///////////////// Ngrok Link ///////////////////////////////////
 const currentHostedLink = "http://662c08a4.ngrok.io";
@@ -145,6 +146,29 @@ export default class Details extends React.Component {
             console.log("VAIDATE (details.js) ==> ", validate);
           });
       });
+  }
+  renderStars() {
+    const starArr = [];
+    for (let i = 0; i < 5; i++) {
+      if (this.props.navigation.state.params.recipe.overall_rating > i) {
+        starArr.push(
+          <Image
+            key={i}
+            source={require("../materials/star.png")}
+            style={RecipeStyles.star}
+          />,
+        );
+      } else {
+        starArr.push(
+          <Image
+            key={i}
+            source={require("../materials/greyStar.png")}
+            style={RecipeStyles.star}
+          />,
+        );
+      }
+    }
+    return starArr;
   }
 
   render() {
@@ -284,7 +308,7 @@ export default class Details extends React.Component {
                   <Text style={CollapseStyles.ingredientsText}>
                     Overall Rating:
                     {recipeData.overall_rating
-                      ? recipeData.overall_rating
+                      ? this.renderStars()
                       : "Not Available"}
                   </Text>
                   <Text style={CollapseStyles.ingredientsText}>

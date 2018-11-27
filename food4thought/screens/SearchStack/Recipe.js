@@ -4,6 +4,7 @@ import { Button, Text, View, Image, TouchableHighlight } from "react-native";
 import { StyleSheet, PixelRatio } from "react-native";
 
 import RecipeStyles from "../styles/SearchStack/RecipeStyles.js";
+import { responsiveFontSize } from "react-native-responsive-dimensions";
 
 export default class Recipe extends Component {
   constructor(props) {
@@ -67,6 +68,7 @@ export default class Recipe extends Component {
     }
     return arr;
   };
+  
   renderStars() {
     const starArr = [];
     for (let i = 0; i < 5; i++) {
@@ -130,6 +132,9 @@ export default class Recipe extends Component {
                 source={{uri: this.props.recipe.recipeIMG ? this.props.recipe.recipeIMG : "https://s3-eu-west-1.amazonaws.com/yadaweya/3143/kitchentools.jpg" }}
                 style={RecipeStyles.img}
               />
+              <View style={{position: "absolute", flexDirection: "column", justifyContent: "center", bottom: 70}}  >
+                <Text style={{fontWeight: "bold", fontSize: responsiveFontSize(4), color: "white", textShadowColor: "black"}} > {this.props.recipe.recipeIMG ? null : "No Image Provided"}</Text>
+              </View>
             </View>
           </View>
 
