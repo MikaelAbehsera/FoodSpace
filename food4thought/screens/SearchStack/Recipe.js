@@ -126,11 +126,8 @@ export default class Recipe extends Component {
           <View style={RecipeStyles.backgroundView}>
             <View style={RecipeStyles.imgView}>
               <Image
-                source={{
-                  uri: this.props.recipe.recipeIMG
-                    ? this.props.recipe.recipeIMG
-                    : "https://media.giphy.com/media/3o6Zt1s75ToFZ0a9va/source.gif",
-                }}
+                // source={this.props.recipe.recipeIMG ? {uri: this.props.recipe.recipeIMG} : require("../materials/none.png")}
+                source={{uri: this.props.recipe.recipeIMG ? this.props.recipe.recipeIMG : "https://s3-eu-west-1.amazonaws.com/yadaweya/3143/kitchentools.jpg" }}
                 style={RecipeStyles.img}
               />
             </View>

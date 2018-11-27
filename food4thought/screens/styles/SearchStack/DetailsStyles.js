@@ -68,6 +68,7 @@ const DetailsStyles = StyleSheet.create({
   },
   image: {
     height: Dimensions.get("window").width / 1.5,
+    width: "100%",
   },
 });
 
