@@ -58,16 +58,14 @@ app.post("/register", (req, res) => {
   } else {
     let randomToken = uniqid();
     let hash = bcrypt.hashSync(req.body.password.trim(), 10);
-    const newUser = [
-      {
-        username: req.body.username.trim(),
-        email: req.body.email.trim().toLowerCase(),
-        password: hash,
-        profileIMG: req.body.profilePictureURL,
-        location: req.body.location.trim(),
-        sessionToken: randomToken,
-      },
-    ];
+    const newUser = [{
+      username: req.body.username.trim(),
+      email: req.body.email.trim().toLowerCase(),
+      password: hash,
+      profileIMG: req.body.profilePictureURL,
+      location: req.body.location.trim(),
+      sessionToken: randomToken,
+    }, ];
 
     console.log(newUser);
 
@@ -148,7 +146,7 @@ app.get("/profile/:sessionToken", (req, res) => {
   const sessionToken = req.params.sessionToken;
   const userProfile = {};
 
-  authenticateToken(sessionToken, function(result) {
+  authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
         success: false,
@@ -281,7 +279,7 @@ app.post("/create", (req, res) => {
   // STILL NEED TO TAG CATEGORIES AND PROPER USER_ID
   // currently being simulated
 
-  authenticateToken(sessionToken, function(result) {
+  authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
         success: false,
@@ -364,7 +362,7 @@ app.get("/recipe_list/:sessionToken", (req, res) => {
   console.log("params from frontend (recipe page post)===> ", req.params);
   const sessionToken = req.params.sessionToken;
 
-  authenticateToken(sessionToken, function(result) {
+  authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
         success: false,
@@ -485,7 +483,7 @@ app.get("/specificRecipeDetails/:recipeId/:sessionToken", (req, res) => {
   const recipeId = req.params.recipeId;
   const sessionToken = req.params.sessionToken;
 
-  authenticateToken(sessionToken, function(result) {
+  authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
         success: false,
@@ -556,7 +554,7 @@ app.post("/fave", (req, res) => {
 
   console.log("params from frontend (fave post)===> ", req.params);
   const sessionToken = req.body.sessionToken;
-  authenticateToken(sessionToken, function(result) {
+  authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
         success: false,
@@ -613,7 +611,7 @@ app.get("/heart/:sessionToken/:recipeid", (req, res) => {
   const recipes_id = req.params.recipeid;
   const sessionToken = req.params.sessionToken;
 
-  authenticateToken(sessionToken, function(result) {
+  authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
         success: false,
@@ -647,7 +645,7 @@ app.get("/suggestions/:recipeID/:sessionToken", (req, res) => {
   console.log("params from frontend (suggestions get)===> ", req.params);
   const sessionToken = req.params.sessionToken;
   const recipeID = req.params.recipeID;
-  authenticateToken(sessionToken, function(result) {
+  authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
         success: false,
@@ -681,7 +679,7 @@ app.post("/suggestion", (req, res) => {
     req.body,
   );
 
-  authenticateToken(sessionToken, function(result) {
+  authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
         success: false,
@@ -718,7 +716,7 @@ app.post("/plus", (req, res) => {
   const suggestionId = req.body.suggestionId;
   let updated = 0;
 
-  authenticateToken(sessionToken, function(result) {
+  authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
         success: false,
@@ -781,7 +779,7 @@ app.post("/minus", (req, res) => {
   const suggestionId = req.body.suggestionId;
   let updated = 0;
 
-  authenticateToken(sessionToken, function(result) {
+  authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
         success: false,
@@ -848,7 +846,7 @@ app.post("/ratings", (req, res) => {
 
   console.log("(ratings post) object from frontend ===> ", req.body);
 
-  authenticateToken(sessionToken, function(result) {
+  authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
         success: false,
@@ -935,7 +933,7 @@ app.get("/userRatings/:sessionToken/:recipeId", (req, res) => {
   const sessionToken = req.params.sessionToken;
   console.log("PARAMS PARAMS PARAMS ======> ", req.params);
 
-  authenticateToken(sessionToken, function(result) {
+  authenticateToken(sessionToken, function (result) {
     if (!res) {
       res.json({
         success: false,

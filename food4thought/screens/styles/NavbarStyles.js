@@ -10,7 +10,6 @@ import {
   responsiveFontSize
 } from "react-native-responsive-dimensions";
 
-
 const NavStyles = StyleSheet.create({
   container: {
     width: "100%",
@@ -24,6 +23,5 @@ const NavStyles = StyleSheet.create({
     flex: 1,
   }
 });
-
 
 export default NavStyles;

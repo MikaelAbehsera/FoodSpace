@@ -10,7 +10,6 @@ import {
   responsiveFontSize
 } from 'react-native-responsive-dimensions';
 
-
 const RecipeStyles = StyleSheet.create({
   container: {
     width: "90%",
