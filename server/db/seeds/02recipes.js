@@ -15,7 +15,6 @@ exports.seed = function (knex, Promise) {
             difficulty: 1,
             creator_id: 1
           }),
-
           knex("recipes").insert({
             name: "Meatloaf",
             description: "Meat in a loaf with some veggies",
@@ -25,7 +24,6 @@ exports.seed = function (knex, Promise) {
             difficulty: 3,
             creator_id: 2
           }),
-
           knex("recipes").insert({
             name: "PB&J supreme",
             description: "The greatest PJ & J sandwich ever",
@@ -35,7 +33,6 @@ exports.seed = function (knex, Promise) {
             difficulty: 1,
             creator_id: 1
           }),
-
           knex("recipes").insert({
             name: "Egg fried rice",
             description: "Meat in a loaf with some veggies",
@@ -53,7 +50,6 @@ exports.seed = function (knex, Promise) {
             time: 45,
             difficulty: 2,
             creator_id: 1,
-
           }),
           knex("recipes").insert({
             name: "Pumkin Pie",
@@ -82,7 +78,6 @@ exports.seed = function (knex, Promise) {
             difficulty: 1,
             creator_id: 3,
           }),
-
           knex("recipes").insert({
             name: "French Toast",
             description: "A sweet and tasty breakfast treat",
@@ -92,7 +87,6 @@ exports.seed = function (knex, Promise) {
             difficulty: 2,
             creator_id: 1,
           }),
-
           knex("recipes").insert({
             name: "Biscuits",
             description: "Light and fluffy snack/treat",
@@ -102,7 +96,6 @@ exports.seed = function (knex, Promise) {
             difficulty: 2,
             creator_id: 3,
           }),
-
           knex("recipes").insert({
             name: "Lasagna",
             description: "Comfort food with carbohydrates layers of love",
