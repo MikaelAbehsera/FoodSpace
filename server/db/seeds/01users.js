@@ -31,7 +31,7 @@ exports.seed = function (knex, Promise) {
             profileIMG: "blank",
             location: "Montreal",
             sessionToken: uniqid()
-          }),
+          })
 
         ]);
       })
