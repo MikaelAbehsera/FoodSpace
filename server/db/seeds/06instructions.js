@@ -160,31 +160,25 @@ exports.seed = function(knex, Promise) {
           knex("instructions").insert({
             recipes_id: 6,
             step_number: 1,
-            step_description: "Boil pasta."
+            step_description: "Mkae pie shaped dough."
           }),
 
           knex("instructions").insert({
             recipes_id: 6,
             step_number: 2,
-            step_description: "fry some beef."
+            step_description: "mash the  pumpkins."
           }),
 
           knex("instructions").insert({
             recipes_id: 6,
             step_number: 3,
-            step_description: "add tomato sauce."
+            step_description: "add pumpkin to pie shell."
           }),
           
           knex("instructions").insert({
             recipes_id: 6,
             step_number: 4,
-            step_description: "put sauce on pasta."
-          }),
-
-          knex("instructions").insert({
-            recipes_id: 6,
-            step_number: 5,
-            step_description: "Apply chesse to meal."
+            step_description: "bake for 20min."
           }),
           
            knex("instructions").insert({
@@ -332,12 +326,6 @@ exports.seed = function(knex, Promise) {
           step_number: 4,
           step_description: "Apply all the cheese on top of each layer."
         }),
-
-        knex("instructions").insert({
-          recipes_id: 11,
-          step_number: 5,
-          step_description: "Place baking tray in oven untill cheese is rendered brown."
-        })
 
         ]);
       })

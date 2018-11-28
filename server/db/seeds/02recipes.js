@@ -15,6 +15,7 @@ exports.seed = function (knex, Promise) {
             difficulty: 1,
             creator_id: 1
           }),
+          // 2
           knex("recipes").insert({
             name: "Meatloaf",
             description: "Meat in a loaf with some veggies",
@@ -24,6 +25,7 @@ exports.seed = function (knex, Promise) {
             difficulty: 3,
             creator_id: 2
           }),
+          // 3
           knex("recipes").insert({
             name: "PB&J supreme",
             description: "The greatest PJ & J sandwich ever",
@@ -33,6 +35,7 @@ exports.seed = function (knex, Promise) {
             difficulty: 1,
             creator_id: 1
           }),
+          // 4
           knex("recipes").insert({
             name: "Egg fried rice",
             description: "Meat in a loaf with some veggies",
@@ -42,6 +45,7 @@ exports.seed = function (knex, Promise) {
             difficulty: 1,
             creator_id: 2
           }),
+          // 5
           knex("recipes").insert({
             name: "Steak and potatoes",
             description: "A 14 0z Tbone steak with baked potatoes",
@@ -51,6 +55,7 @@ exports.seed = function (knex, Promise) {
             difficulty: 2,
             creator_id: 1,
           }),
+          // 6
           knex("recipes").insert({
             name: "Pumkin Pie",
             description: "A classic pie recipe for holiday feasts",
@@ -69,6 +74,7 @@ exports.seed = function (knex, Promise) {
             difficulty: 3,
             creator_id: 3,
           }),
+          // 8
           knex("recipes").insert({
             name: "Rice and olives",
             description: "A meal reserved for those who are down and out and need a solid meal",
@@ -78,6 +84,7 @@ exports.seed = function (knex, Promise) {
             difficulty: 1,
             creator_id: 3,
           }),
+          // 9
           knex("recipes").insert({
             name: "French Toast",
             description: "A sweet and tasty breakfast treat",

@@ -105,18 +105,18 @@ exports.seed = function(knex, Promise) {
           }),
           knex("ingredients").insert({
             recipes_id: 6,
-            food_type: "pasta", 
+            food_type: "pumpkin", 
             quantity: "2 servings"
           }),
           knex("ingredients").insert({
             recipes_id: 6,
-            food_type: "tomato sauce", 
-            quantity: "4 ounces"
+            food_type: "pie dough", 
+            quantity: "1 lb"
           }),
           knex("ingredients").insert({
             recipes_id: 6,
-            food_type: "Mince meat", 
-            quantity: "1 lb"
+            food_type: "sugar", 
+            quantity: "20 g"
           }),
           knex("ingredients").insert({
             recipes_id: 7,
