@@ -15,15 +15,18 @@ Food is a focal point in all our lives.  Cooking not only sustains life, but bri
 
 ## Setup
 
-1. Clone this repo
+1. Clone this repository
 2. Create a Postgres database with any appropriate name
-3. Go to the server folder: cd server
+3. open the server file in your code editor
 4. Following the .env.example, create a .env file cp .env.example .env, replace the field by the link of your database
-5. Install the dependencies: npm i
-6. Run migrations: knex migrate:latest
-7. Run the seed: knex seed:run
-8. Open up the server: node server.js
-?????????????????
+5. in one of two terminal windows go to the server file and run "npm i"
+6. in the other terminal window go to the client (food4thought) file and run "npm i"
+7. in the server window Run migrations: knex migrate:latest
+8. in the server window Run the seed: knex seed:run
+9. Start up the server: node server.js
+10. In another terminal window open the client side folder (food4thought) and run the react-native application by running expo init
+11. open the port specified in a browser window 
+12. scan the QR code using the expo app and wait for the app to bundle, after a few seconds, the login page will appear.
 
 ## Demos of the app
 
