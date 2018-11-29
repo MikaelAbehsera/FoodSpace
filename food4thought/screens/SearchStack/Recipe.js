@@ -152,7 +152,7 @@ export default class Recipe extends Component {
                     textShadowColor: "black",
                   }}
                 >
-                  {" "}
+                  
                   {this.props.recipe.recipeIMG ? null : "No Image Provided"}
                 </Text>
               </View>
