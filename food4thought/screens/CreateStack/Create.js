@@ -53,7 +53,7 @@ const createOptions = {
 // just the ingredientsForm structure
 const ingredientsForm = t.struct({
   foodType: t.String,
-  quantity: t.Integer,
+  quantity: t.String,
 });
 
 const optionsIngredients = {
@@ -360,13 +360,17 @@ export default class CreateScreen extends React.Component {
           >
             <View
               style={{
+                width: "100%",
+                height: 15,
+                backgroundColor: "rgba(248, 82, 96, 1)",
+              }}
+            />
+            <View
+              style={{
                 alignSelf: "center",
                 width: "90%",
                 height: "100%",
-                backgroundColor: "rgba(248, 82, 96, 1)",
                 zIndex: -10,
-                borderLeftWidth: 0.7,
-                borderRightWidth: 0.7,
               }}
             >
               <View style={CreateStyles.catSelectorTextView}>
@@ -439,13 +443,17 @@ export default class CreateScreen extends React.Component {
           >
             <View
               style={{
+                width: "100%",
+                height: 15,
+                backgroundColor: "rgba(248, 82, 96, 1)",
+              }}
+            />
+            <View
+              style={{
                 alignSelf: "center",
                 width: "90%",
                 height: "100%",
-                backgroundColor: "rgba(248, 82, 96, 1)",
                 zIndex: -10,
-                borderLeftWidth: 0.7,
-                borderRightWidth: 0.7,
               }}
             >
               <View style={CreateStyles.ingredientsView}>
@@ -507,13 +515,17 @@ export default class CreateScreen extends React.Component {
           >
             <View
               style={{
+                width: "100%",
+                height: 15,
+                backgroundColor: "rgba(248, 82, 96, 1)",
+              }}
+            />
+            <View
+              style={{
                 alignSelf: "center",
                 width: "90%",
                 height: "100%",
-                backgroundColor: "rgba(248, 82, 96, 1)",
                 zIndex: -10,
-                borderLeftWidth: 0.7,
-                borderRightWidth: 0.7,
               }}
             >
               <View style={CreateStyles.instructionsView}>
@@ -563,14 +575,18 @@ export default class CreateScreen extends React.Component {
           >
             <View
               style={{
+                width: "100%",
+                height: 15,
+                backgroundColor: "rgba(248, 82, 96, 1)",
+              }}
+            />
+            <View
+              style={{
                 alignSelf: "center",
                 width: "90%",
                 // height: "100%",
                 flex: 1,
-                backgroundColor: "rgba(248, 82, 96, 1)",
                 zIndex: -10,
-                borderLeftWidth: 0.7,
-                borderRightWidth: 0.7,
               }}
             >
               <View style={{ alignSelf: "center" }}>
