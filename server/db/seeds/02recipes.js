@@ -94,6 +94,7 @@ exports.seed = function (knex, Promise) {
             difficulty: 2,
             creator_id: 1,
           }),
+          // 10
           knex("recipes").insert({
             name: "Biscuits",
             description: "Light and fluffy snack/treat",
@@ -103,6 +104,7 @@ exports.seed = function (knex, Promise) {
             difficulty: 2,
             creator_id: 3,
           }),
+          // 11
           knex("recipes").insert({
             name: "Lasagna",
             description: "Comfort food with carbohydrates layers of love",

@@ -83,8 +83,6 @@ Food is a focal point in all our lives.  Cooking not only sustains life, but bri
     * features all recipes created by the specified user
   * Faves
     * features all recipes favourited by the specified user
-  * MealsMade
-    * features all recipes made by the specified user (an accomplishment)
 
 * Create recipe
   * Form for submitting a new recipe
@@ -104,7 +102,6 @@ Food is a focal point in all our lives.  Cooking not only sustains life, but bri
       
   
 
-
 ## User Stories
 
 * user  should be able to registration/login securely
@@ -115,5 +112,4 @@ Food is a focal point in all our lives.  Cooking not only sustains life, but bri
 * user should be able to mark the recipes that they attempted/made 
 * user should be able to implements suggestions
 * user should be able to add rating
-* user should be able to view themselves 
-* users can reset password (forgot password?)
+* user should be able to view their profile
