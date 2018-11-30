@@ -38,7 +38,7 @@ exports.seed = function (knex, Promise) {
           // 4
           knex("recipes").insert({
             name: "Egg fried rice",
-            description: "Meat in a loaf with some veggies",
+            description: "Rice fried with veggies and egg",
             recipeIMG: "https://c1.staticflickr.com/4/3371/3177377867_99f2e0147f_b.jpg",
             overall_rating: 3,
             time: 20,

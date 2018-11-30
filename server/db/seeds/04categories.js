@@ -12,12 +12,13 @@ exports.seed = function(knex, Promise) {
           }),
 
           knex("categories").insert({
-            category_name: "Munchies",
-            category_description: "This category is reserved for those who get home at ungodly hour looking find sustenance in a pinch"
-          }),
-          knex("categories").insert({
             category_name: "Health nut",
             category_description: "This chategory is low in calories and high in vegitables. It is reserved for those who desire that banging beach bod."
+          }),
+
+          knex("categories").insert({
+            category_name: "Munchies",
+            category_description: "This category is reserved for those who get home at ungodly hour looking find sustenance in a pinch"
           })
         ]);
       })
