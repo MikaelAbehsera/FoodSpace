@@ -119,11 +119,18 @@ Food is a focal point in all our lives.  Cooking not only sustains life, but bri
 
 # Demo's
 Login and register page
-<img src="" alt="profile page" height="300">
-<img src="" alt="profile page" height="300">
+<img src="https://github.com/MikaelAbehsera/food4thought/blob/master/readMeMedia/Screenshot_20181130-130229_Expo.jpg" alt="login page" height="300">
+<img src="https://github.com/MikaelAbehsera/food4thought/blob/master/readMeMedia/Screenshot_20181130-130527_Expo.jpg" alt="register page" height="300">
 
 This is the profile page where users can see their information and have quick access to there favorite recipes.
 <img src="https://github.com/MikaelAbehsera/food4thought/blob/master/readMeMedia/Screenshot_20181126-183315_Expo.jpg" alt="profile page" height="300">
 
+This is the details page 
+<img src="https://github.com/MikaelAbehsera/food4thought/blob/master/readMeMedia/Screenshot_20181128-220011_Expo.jpg" alt="details page" height="300">
 
-<img src="https://github.com/MikaelAbehsera/food4thought/blob/master/readMeMedia/Screenshot_20181126-183315_Expo.jpg" alt="profile page" height="300">
+These are the create pages
+<img src="https://github.com/MikaelAbehsera/food4thought/blob/master/readMeMedia/Screenshot_20181128-215905_Expo.jpg" alt="create1 page" height="300">
+<img src="https://github.com/MikaelAbehsera/food4thought/blob/master/readMeMedia/Screenshot_20181128-215910_Expo.jpg" alt="create1 page" height="300">
+<img src="https://github.com/MikaelAbehsera/food4thought/blob/master/readMeMedia/Screenshot_20181128-215919_Expo%201.jpg" alt="create1 page" height="300">
+<img src="https://github.com/MikaelAbehsera/food4thought/blob/master/readMeMedia/Screenshot_20181128-215925_Expo.jpg" alt="create1 page" height="300">
+<img src="https://github.com/MikaelAbehsera/food4thought/blob/master/readMeMedia/Screenshot_20181128-215932_Expo.jpg" alt="create1 page" height="300">
