@@ -32,7 +32,6 @@ Food is a focal point in all our lives.  Cooking not only sustains life, but bri
 
 ![alt text](url link to pic on github)
 
-
 ## Dependencies
 
 - Node 5.10.x or above
@@ -119,4 +118,12 @@ Food is a focal point in all our lives.  Cooking not only sustains life, but bri
 
 
 # Demo's
+Login and register page
+<img src="" alt="profile page" height="300">
+<img src="" alt="profile page" height="300">
 
+This is the profile page where users can see their information and have quick access to there favorite recipes.
+<img src="https://github.com/MikaelAbehsera/food4thought/blob/master/readMeMedia/Screenshot_20181126-183315_Expo.jpg" alt="profile page" height="300">
+
+
+<img src="https://github.com/MikaelAbehsera/food4thought/blob/master/readMeMedia/Screenshot_20181126-183315_Expo.jpg" alt="profile page" height="300">

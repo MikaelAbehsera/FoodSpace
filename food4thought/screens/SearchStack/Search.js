@@ -14,7 +14,7 @@ import Recipe from "./Recipe.js";
 import axios from "axios";
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://662c08a4.ngrok.io";
+const currentHostedLink = "http://cf687228.ngrok.io";
 ///////////////////////////////////////////////////////////////
 
 export default class SearchScreen extends React.Component {

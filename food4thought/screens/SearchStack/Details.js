@@ -20,7 +20,7 @@ import StarSlider from "./Slider.js";
 import RecipeStyles from "../styles/SearchStack/RecipeStyles.js";
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://662c08a4.ngrok.io";
+const currentHostedLink = "http://cf687228.ngrok.io";
 ////////////////////////////////////////////////////////////////
 
 export default class Details extends React.Component {
