@@ -1,9 +1,8 @@
-# Food4Thought App
+# FoodSpace
 
 A mobile application for finding and sharing recipes, searchable via categories.
 
-
-Food is a focal point in all our lives.  Cooking not only sustains life, but bridges cultures and fosters interpersonal relationships like no other creative median can. Food4thought  is an app that will allow users to have acess to recipies from regions  all over the world at thier disposal. With the touch of button a user will have a recipe for butter chicken to cook for thier partner on an aniverserary or the best way to cook a turkey on thanksgiving. We belive human live to eat not eat to live and Food4Thought will allow users to  have  the gastronomic universe in thier pockets .
+Food is a focal point in all our lives.  Cooking not only sustains life, but bridges cultures and fosters interpersonal relationships like no other creative median can. FoodSpace  is an app that will allow users to have acess to recipies from regions all over the world at thier disposal. With the touch of button a user will have a recipe for butter chicken to cook for thier partner on an aniverserary or the best way to cook a turkey on thanksgiving. We belive human live to eat not eat to live and FoodSpace will allow users to  have  the gastronomic universe in thier pockets .
 
 ## Collaborators
 
