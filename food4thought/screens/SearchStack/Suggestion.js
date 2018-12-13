@@ -14,7 +14,7 @@ import SuggestionStyles from "../styles/SearchStack/SuggestionStyles.js";
 import axios from "axios";
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://5a2cc072.ngrok.io";
+ const currentHostedLink = "http://83c7f83b.ngrok.io";
 ///////////////////////////////////////////////////////////////
 
 export default class Suggestion extends React.Component {

@@ -17,7 +17,7 @@ import t from "tcomb-form-native";
 const Form = t.form.Form;
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://5a2cc072.ngrok.io";
+ const currentHostedLink = "http://83c7f83b.ngrok.io";
 ///////////////////////////////////////////////////////////////
 const comment = t.struct({
   Comment: t.String,

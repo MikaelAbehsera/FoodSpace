@@ -15,7 +15,7 @@ import ProfileStyles from "../styles/ProfileStack/ProfileStyles.js";
 import axios from "axios";
 
 ///////////////// Ngrok Link ///////////////////////////////////
-const currentHostedLink = "http://5a2cc072.ngrok.io";
+ const currentHostedLink = "http://83c7f83b.ngrok.io";
 ///////////////////////////////////////////////////////////////
 
 class Bubble extends React.Component {
